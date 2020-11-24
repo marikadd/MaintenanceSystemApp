@@ -34,29 +34,12 @@ public class Maintainer extends User {
         this.phone = phone;
     }
 
-    public String getInsertQuery() {
-        StringBuilder temp = new StringBuilder();
-        temp.append("insert into users (nome,surname,username,pw,email,phonenumber,ruolo)");
-        temp.append("values(");
-        temp.append("'").append(name).append("',");
-        temp.append("'").append(surname).append("',");
-        temp.append("'").append(this.getUsername()).append("',");
-        temp.append("'").append(password).append("',");
-        temp.append("'").append(email).append("',");
-        temp.append("'").append(phone).append("',");
-        temp.append("'").append(role).append("',");
-
-        return temp.toString();
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) throws InsertException {
-        if (name.isBlank() || name.matches(".*\\d.*")) {
-            throw new InsertException("Value name is empty or contains numbers");
-        }
+    public void setName(String name) {
+        
         this.name = name;
     }
 
@@ -64,13 +47,12 @@ public class Maintainer extends User {
         return surname;
     }
 
-    public void setSurname(String surname) throws InsertException {
-        if (surname.isBlank() || surname.matches(".*\\d.*")) {
-            throw new InsertException("Value surname is empty or contains numbers");
-        }
+    public void setSurname(String surname) {
+        
         this.surname = surname;
     }
 
+    // Da rimuovere e aggiungere nel CompetenceDAO
     public void addCompetence(Competence c) throws InsertException {
         if (!competencies.contains(c)) {
             competencies.add(c);
@@ -79,6 +61,7 @@ public class Maintainer extends User {
         }
     }
 
+    // Da rimuovere e aggiungere nel CompetenceDAO
     public void removeCompetence(Competence c) throws RemoveException {
         if (competencies.contains(c)) {
             competencies.remove(c);

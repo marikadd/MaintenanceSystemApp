@@ -7,8 +7,6 @@
 package model.Procedures;
 import java.io.*;
 import java.util.*;
-import configuration.Exceptions.*;
-import configuration.Exceptions.ValueException;
 import model.Competences.Competence;
 
 /**
@@ -29,7 +27,7 @@ public class MaintenanceActivity {
     private ArrayList<Competence> skill;
     private Boolean assigned;
 
-    public MaintenanceActivity(int ID, Category category, Department department, ActivityType type, String description, int time, Boolean interruptible, int weekNumber) throws ValueException {
+    public MaintenanceActivity(int ID, Category category, Department department, ActivityType type, String description, int time, Boolean interruptible, int weekNumber) {
         this.ID = ID;
         this.category = category;
         this.department = department;
@@ -37,17 +35,12 @@ public class MaintenanceActivity {
         this.description = description;
         this.time = time;
         this.interruptible = interruptible;
-        if (weekNumber >=1 && weekNumber<=52){
-            this.weekNumber = weekNumber;
-        }
-        else{
-            throw new ValueException("Week must be in range [1,52]");
-        }
+        this.weekNumber = weekNumber;
         this.SMP = null;
         this.assigned = false;
     }
 
-    public MaintenanceActivity(int ID, Category category, Department department, ActivityType type, String description, int time, Boolean interruptible, int weekNumber, File SMP) throws ValueException {
+    public MaintenanceActivity(int ID, Category category, Department department, ActivityType type, String description, int time, Boolean interruptible, int weekNumber, File SMP) {
         this.ID = ID;
         this.category = category;
         this.department = department;
@@ -55,12 +48,7 @@ public class MaintenanceActivity {
         this.description = description;
         this.time = time;
         this.interruptible = interruptible;
-        if (weekNumber >=1 && weekNumber<=52){
-            this.weekNumber = weekNumber;
-        }
-        else{
-            throw new ValueException("Week must be in range [1,52]");
-        }
+        this.weekNumber = weekNumber;
         this.SMP = SMP;
     }
 

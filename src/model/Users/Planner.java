@@ -5,8 +5,6 @@
  */
 
 package model.Users;
-import configuration.Exceptions.*;
-import configuration.Exceptions.InsertException;
 
 /**
  *
@@ -18,7 +16,7 @@ public class Planner extends User{
     private String surname;
     private String email;
     private String phone;
-    private Role role;
+    private final Role role;
     
     public Planner(String username, String password, String name, String surname, String email, String phone) {
         super(username, password);
@@ -33,10 +31,8 @@ public class Planner extends User{
         return name;
     }
 
-    public void setName(String name) throws InsertException{
-        if (name.isBlank()|| name.matches(".*\\d.*")){
-            throw new InsertException("Value name is empty or contains numbers");
-        }
+    public void setName(String name) {
+        
         this.name = name;
     }
 
@@ -44,10 +40,8 @@ public class Planner extends User{
         return surname;
     }
 
-    public void setSurname(String surname) throws InsertException{
-        if (surname.isBlank() || surname.matches(".*\\d.*")){
-            throw new InsertException("Value surname is empty or contains numbers");
-        }
+    public void setSurname(String surname) {
+        
         this.surname = surname;
     }   
 
