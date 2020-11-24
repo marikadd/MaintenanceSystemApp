@@ -15,7 +15,6 @@ import model.Users.Role;
 /**
  *
  * @author Group9
- * holaaaa
  */
 
 public class PlannerDao {
