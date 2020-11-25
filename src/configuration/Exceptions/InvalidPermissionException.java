@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package configuration.Exceptions;
 
 /**
  *
- * @author giusi
+ * @author Group9
  */
+
 public class InvalidPermissionException extends Exception {
 
     public InvalidPermissionException(String message) {

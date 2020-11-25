@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.Procedures;
+
 import java.io.*;
 import java.util.*;
 import model.Competences.Competence;
+import model.Departments.Department;
 
 /**
  *

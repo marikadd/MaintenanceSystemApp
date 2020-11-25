@@ -3,25 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.Users;
+package configuration.Session;
+
+import model.Users.Role;
 
 /**
  *
- * @author Group9
+ * @author Group 9 
  */
 
-public abstract class User {
+public class Session {
     
     private String username;
-    protected String password;
+    private Role role;
 
-    public User() {
-    	
-    }
-    
-    public User(String username, String password) {
+    public Session(String username, Role role) {
         this.username = username;
-        this.password = password;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -32,12 +30,12 @@ public abstract class User {
         this.username = username;
     }
 
-    public String getPassword() {
-    	return password;
+    public Role getRole() {
+        return role;
     }
-    
-    public void setPassword(String password) {
-        this.password = password;
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
 }

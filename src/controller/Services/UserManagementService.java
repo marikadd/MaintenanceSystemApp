@@ -5,7 +5,6 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Dao.*;
-import java.util.LinkedList;
 import model.Users.*;
 
 public class UserManagementService {
@@ -26,6 +25,10 @@ public class UserManagementService {
         usersDao = UsersDao.init();
     }
 
+    public void deleteUser(String username) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
+        usersDao.deleteUserModel(username);
+    }
+    
     public ProdManager findProdManagerByUsername(String username) throws SQLException, UsernotFoundException {
 
         ProdManager manager = (ProdManager) usersDao.findUserByUsername(username, Role.PROD_MANAGER);
@@ -38,10 +41,6 @@ public class UserManagementService {
         UserModel prodManager = new ProdManager(username, password, name, surname, email, phone);
         usersDao.insertUserModel(prodManager, Role.PROD_MANAGER);
 
-    }
-
-    public void deleteUser(String username) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
-        usersDao.deleteUserModel(username);
     }
 
     public void updateProdManager(String oldUsername, String username, String password, String name, String surname, String email,
@@ -92,7 +91,6 @@ public class UserManagementService {
 
         UserModel userModel = new Planner(username, password, name, surname, email, phone);
         usersDao.updateUserModel(oldUsername, userModel);
-
     }
     
     public Maintainer findMaintainerByUsername(String username) throws SQLException, UsernotFoundException {
@@ -113,7 +111,6 @@ public class UserManagementService {
 
         UserModel userModel = new Maintainer(username, password, name, surname, email, phone);
         usersDao.updateUserModel(oldUsername, userModel);
-
     }
     
 }
