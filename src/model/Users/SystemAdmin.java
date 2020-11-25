@@ -10,7 +10,7 @@ package model.Users;
  * @author Group9
  */
 
-public class SystemAdmin extends User {
+public class SystemAdmin extends User implements UserModel {
     private String name;
     private String surname;
     private String email;

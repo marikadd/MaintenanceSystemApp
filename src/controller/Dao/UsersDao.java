@@ -24,8 +24,9 @@ import model.Users.UserModel;
 
 /**
  *
- * @author Group9
+ * @author Group 9
  */
+
 public class UsersDao{
     
     private static UsersDao usersDao;
@@ -39,7 +40,7 @@ public class UsersDao{
 
 		Connection con = DBFactory.connectToDB();
 
-		String query = "select * from Users u " + "where u.User_Role = ? AND " + "u.Username = ?";
+		String query = "select * from Users u " + "where u.Role_User = ? AND " + "u.Username = ?";
 
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setString(1, role.toString());
@@ -66,7 +67,7 @@ public class UsersDao{
         
         Connection con = DBFactory.connectToDB();
 
-	String query = "select * from Users u " + "where u.User_Role = ?";
+	String query = "select * from Users u " + "where u.Role_User = ?";
 
 	PreparedStatement ps = con.prepareStatement(query);
 	ps.setString(1, role.toString());
@@ -117,7 +118,7 @@ public class UsersDao{
 
         Connection con = DBFactory.connectToDB();
 
-        String query = "UPDATE Users SET User_Name = ?, Surname = ?, Username = ?, PW = ?, Email = ?, PhoneNumber = ? "
+        String query = "UPDATE Users SET Name_User = ?, Surname = ?, Username = ?, PW = ?, Email = ?, PhoneNumber = ? "
                 + "where Username = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
@@ -160,23 +161,23 @@ public class UsersDao{
         
         switch(role) {
                         case MAINTAINER: {
-                            userModel = (UserModel) new Maintainer(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
+                            userModel = new Maintainer(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
                                                     rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             break;
                         }
                         case PROD_MANAGER : {
-                            userModel = (UserModel) new ProdManager(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
+                            userModel = new ProdManager(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
 					rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             break;
                         }
                         case PLANNER: {
-                            userModel = (UserModel) new Planner(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
+                            userModel = new Planner(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
                                           rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             
                             break;
                         }
                         case SYSTEM_ADMIN: {
-                            userModel = (UserModel) new SystemAdmin(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
+                            userModel = new SystemAdmin(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
                                          rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             
                             break;

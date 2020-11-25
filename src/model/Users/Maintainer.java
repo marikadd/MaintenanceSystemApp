@@ -16,14 +16,14 @@ import model.Competences.Competence;
  * @author Group9
  */
 
-public class Maintainer extends User {
+public class Maintainer extends User implements UserModel {
 
     private String name;
     private String surname;
     private String email;
     private String phone;
     private Role role;
-    private ArrayList<Competence> competencies;
+    private ArrayList<Competence> competences;
 
     public Maintainer(String username, String password, String name, String surname, String email, String phone) {
         super(username, password);
@@ -52,24 +52,6 @@ public class Maintainer extends User {
         this.surname = surname;
     }
 
-    // Da rimuovere e aggiungere nel CompetenceDAO
-    public void addCompetence(Competence c) throws InsertException {
-        if (!competencies.contains(c)) {
-            competencies.add(c);
-        } else {
-            throw new InsertException("Value already present");
-        }
-    }
-
-    // Da rimuovere e aggiungere nel CompetenceDAO
-    public void removeCompetence(Competence c) throws RemoveException {
-        if (competencies.contains(c)) {
-            competencies.remove(c);
-        } else {
-            throw new RemoveException("Value not present");
-        }
-    }
-
     public String getEmail() {
         return email;
     }
@@ -86,8 +68,8 @@ public class Maintainer extends User {
         this.phone = phone;
     }
 
-    public ArrayList<Competence> getCompetencies() {
-        return competencies;
+    public ArrayList<Competence> getCompetences() {
+        return competences;
     }
 
     @Override

@@ -11,7 +11,7 @@ package model.Users;
  * @author Group9
  */
 
-public class ProdManager extends User{
+public class ProdManager extends User implements UserModel{
     private String name;
     private String surname;
     private String email;

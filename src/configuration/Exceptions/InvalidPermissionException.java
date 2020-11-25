@@ -7,12 +7,12 @@ package configuration.Exceptions;
 
 /**
  *
- * @author dondi
+ * @author Group 9
  */
-public class CompetencenotFoundException extends Exception {
+public class InvalidPermissionException extends Exception {
 
-    public CompetencenotFoundException(String message) {
+    public InvalidPermissionException(String message) {
         super(message);
     }
-
+    
 }

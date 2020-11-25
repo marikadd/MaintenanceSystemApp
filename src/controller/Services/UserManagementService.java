@@ -35,7 +35,7 @@ public class UserManagementService {
     public void insertProdManager(String username, String password, String name, String surname, String email,
             String phone) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
-        UserModel prodManager = (UserModel) new ProdManager(username, password, name, surname, email, phone);
+        UserModel prodManager = new ProdManager(username, password, name, surname, email, phone);
         usersDao.insertUserModel(prodManager, Role.PROD_MANAGER);
 
     }
@@ -47,7 +47,7 @@ public class UserManagementService {
     public void updateProdManager(String oldUsername, String username, String password, String name, String surname, String email,
             String phone) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
-        UserModel userModel = (UserModel) new ProdManager(username, password, name, surname, email, phone);
+        UserModel userModel = new ProdManager(username, password, name, surname, email, phone);
         usersDao.updateUserModel(oldUsername, userModel);
 
     }
@@ -61,7 +61,7 @@ public class UserManagementService {
     public void insertSystemAdmin(String username, String password, String name, String surname, String email,
             String phone) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
-        UserModel sysAdmin = (UserModel) new SystemAdmin(username, password, name, surname, email, phone);
+        UserModel sysAdmin = new SystemAdmin(username, password, name, surname, email, phone);
         usersDao.insertUserModel(sysAdmin, Role.SYSTEM_ADMIN);
 
     }
@@ -69,7 +69,7 @@ public class UserManagementService {
     public void updateSystemAdmin(String oldUsername, String username, String password, String name, String surname, String email,
             String phone) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
-        UserModel userModel = (UserModel) new SystemAdmin(username, password, name, surname, email, phone);
+        UserModel userModel = new SystemAdmin(username, password, name, surname, email, phone);
         usersDao.updateUserModel(oldUsername, userModel);
 
     }
@@ -83,14 +83,14 @@ public class UserManagementService {
     public void insertPlanner(String username, String password, String name, String surname, String email, String phone) 
                               throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
-        UserModel userModel = (UserModel) new Planner(username, password, name, surname, email, phone);
+        UserModel userModel = new Planner(username, password, name, surname, email, phone);
         usersDao.insertUserModel(userModel, Role.PLANNER);
     }
 
     public void updatePlanner(String oldUsername, String username, String password, String name, String surname, String email, String phone) 
                               throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
-        UserModel userModel = (UserModel) new Planner(username, password, name, surname, email, phone);
+        UserModel userModel = new Planner(username, password, name, surname, email, phone);
         usersDao.updateUserModel(oldUsername, userModel);
 
     }
@@ -104,14 +104,14 @@ public class UserManagementService {
     public void insertMaintainer(String username, String password, String name, String surname, String email, String phone) 
                               throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
-        UserModel userModel = (UserModel) new Maintainer(username, password, name, surname, email, phone);
+        UserModel userModel = new Maintainer(username, password, name, surname, email, phone);
         usersDao.insertUserModel(userModel, Role.MAINTAINER);
     }
 
     public void updateMaintainer(String oldUsername, String username, String password, String name, String surname, String email, String phone) 
                               throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
-        UserModel userModel = (UserModel) new Maintainer(username, password, name, surname, email, phone);
+        UserModel userModel = new Maintainer(username, password, name, surname, email, phone);
         usersDao.updateUserModel(oldUsername, userModel);
 
     }
