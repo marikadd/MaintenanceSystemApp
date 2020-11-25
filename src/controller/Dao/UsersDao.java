@@ -24,9 +24,8 @@ import model.Users.UserModel;
 
 /**
  *
- * @author Group 9
+ * @author Group9
  */
-
 public class UsersDao{
     
     private static UsersDao usersDao;
@@ -40,7 +39,7 @@ public class UsersDao{
 
 		Connection con = DBFactory.connectToDB();
 
-		String query = "select * from Users u " + "where u.Role_User = ? AND " + "u.Username = ?";
+		String query = "select * from Users u " + "where u.User_Role = ? AND " + "u.Username = ?";
 
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setString(1, role.toString());
@@ -67,7 +66,7 @@ public class UsersDao{
         
         Connection con = DBFactory.connectToDB();
 
-	String query = "select * from Users u " + "where u.Role_User = ?";
+	String query = "select * from Users u " + "where u.User_Role = ?";
 
 	PreparedStatement ps = con.prepareStatement(query);
 	ps.setString(1, role.toString());
@@ -118,7 +117,7 @@ public class UsersDao{
 
         Connection con = DBFactory.connectToDB();
 
-        String query = "UPDATE Users SET Name_User = ?, Surname = ?, Username = ?, PW = ?, Email = ?, PhoneNumber = ? "
+        String query = "UPDATE Users SET User_Name = ?, Surname = ?, Username = ?, PW = ?, Email = ?, PhoneNumber = ? "
                 + "where Username = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
@@ -161,23 +160,23 @@ public class UsersDao{
         
         switch(role) {
                         case MAINTAINER: {
-                            userModel = new Maintainer(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
+                            userModel = new Maintainer(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
                                                     rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             break;
                         }
                         case PROD_MANAGER : {
-                            userModel = new ProdManager(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
+                            userModel = new ProdManager(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
 					rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             break;
                         }
                         case PLANNER: {
-                            userModel = new Planner(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
+                            userModel = new Planner(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
                                           rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             
                             break;
                         }
                         case SYSTEM_ADMIN: {
-                            userModel = new SystemAdmin(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
+                            userModel = new SystemAdmin(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
                                          rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             
                             break;
@@ -240,7 +239,7 @@ public class UsersDao{
             throw new InvalidParameterObjectException("User's phone number must be not null");
         }
 
-        if (userModel.getPhone().length() != 10) {
+        if (userModel.getPhone().length()!= 10) {
             throw new InvalidParameterObjectException("User's phone number must be 10 characters");
         }
         

@@ -12,21 +12,13 @@ package model.Competences;
  */
 
 public class Competence {
-    private Integer id;
     private String description;
 
-    public Competence(Integer id, String description) {
-        this.id = id;
+    public Competence(String description) {
+     
         this.description = description;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
     
     public String getDescription() {
         return description;

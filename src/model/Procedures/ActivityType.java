@@ -12,16 +12,16 @@ package model.Procedures;
  */
 
 public class ActivityType {
-    private final int id;
+    private final int ID;
     private String typology;
 
-    public ActivityType(int id, String typology) {
-        this.id = id;
+    public ActivityType(int ID, String typology) {
+        this.ID = ID;
         this.typology = typology;
     }
 
-    public int getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
     public String getTypology() {

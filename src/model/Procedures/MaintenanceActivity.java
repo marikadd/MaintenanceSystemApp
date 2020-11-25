@@ -8,7 +8,6 @@ package model.Procedures;
 import java.io.*;
 import java.util.*;
 import model.Competences.Competence;
-import model.Departments.Department;
 
 /**
  *
