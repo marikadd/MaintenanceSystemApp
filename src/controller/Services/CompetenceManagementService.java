@@ -7,7 +7,7 @@ package controller.Services;
 import java.sql.SQLException;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
-import configuration.Exceptions.UsernotFoundException;
+import configuration.Exceptions.CompetencenotFoundException;
 import controller.Dao.*;
 import java.util.LinkedList;
 import model.Competences.Competence;
