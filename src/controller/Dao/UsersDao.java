@@ -160,23 +160,23 @@ public class UsersDao{
         
         switch(role) {
                         case MAINTAINER: {
-                            userModel = new Maintainer(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
+                            userModel = (UserModel) new Maintainer(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
                                                     rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             break;
                         }
                         case PROD_MANAGER : {
-                            userModel = new ProdManager(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
+                            userModel = (UserModel) new ProdManager(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
 					rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             break;
                         }
                         case PLANNER: {
-                            userModel = new Planner(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
+                            userModel = (UserModel) new Planner(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
                                           rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             
                             break;
                         }
                         case SYSTEM_ADMIN: {
-                            userModel = new SystemAdmin(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
+                            userModel = (UserModel) new SystemAdmin(rs.getString("Username"), rs.getString("PW"), rs.getString("User_Name"),
                                          rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                             
                             break;
