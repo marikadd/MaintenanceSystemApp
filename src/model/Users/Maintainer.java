@@ -6,9 +6,6 @@
 package model.Users;
 
 import java.util.*;
-import configuration.Exceptions.*;
-import configuration.Exceptions.InsertException;
-import configuration.Exceptions.RemoveException;
 import model.Competences.Competence;
 
 /**
@@ -22,7 +19,7 @@ public class Maintainer extends User implements UserModel {
     private String surname;
     private String email;
     private String phone;
-    private Role role;
+    private final Role role;
     private ArrayList<Competence> competences;
 
     public Maintainer(String username, String password, String name, String surname, String email, String phone) {

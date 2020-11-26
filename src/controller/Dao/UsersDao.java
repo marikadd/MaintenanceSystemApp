@@ -53,7 +53,7 @@ public class UsersDao{
 	if (rs.next()) {
             userModel = getSingleUserModel(rs, role);
         } else {
-            throw new UsernotFoundException("User with username " + username + " not found");
+            throw new UsernotFoundException("User " + username + " not found");
 	}
             return userModel;
     }
@@ -236,7 +236,7 @@ public class UsersDao{
             throw new InvalidParameterObjectException("User's phone number must be 10 characters");
         }
         
-        if(!userModel.getPhone().matches("^[0-9]$")) {
+        if(!userModel.getPhone().matches("[0-9]+")) {
             throw new InvalidParameterObjectException("User's phone number must be numeric");
         }
 
@@ -248,7 +248,7 @@ public class UsersDao{
             throw new InvalidParameterObjectException("User's email must be at most 40 characters");
         }
         
-        String format = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$";
+        String format = "^(.+)@(.+)$";
         if (!userModel.getEmail().matches(format)) {
             throw new InvalidParameterObjectException("Invalid e-mail address format");
         }
