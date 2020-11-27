@@ -5,15 +5,24 @@
  */
 package view;
 
+import configuration.Exceptions.UsernotFoundException;
+import controller.Services.UserManagementService;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import javax.swing.table.DefaultTableModel;
+import model.Users.UserModel;
 
 /**
  *
- * @author giusi
+ * @author Gropu9
  */
 public class UpdateUser extends javax.swing.JFrame {
-
+    private List<UserModel> userList = new LinkedList<UserModel>();
     /**
      * Creates new form UpdateUser
      */
@@ -55,10 +64,11 @@ public class UpdateUser extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabelExit = new javax.swing.JLabel();
+        jLabelBack = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -142,7 +152,12 @@ public class UpdateUser extends javax.swing.JFrame {
         jLabel9.setText("Update");
         jLabel9.setOpaque(true);
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit_button_1.png"))); // NOI18N
+        jLabelExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit_button_1.png"))); // NOI18N
+        jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelExitMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -193,14 +208,14 @@ public class UpdateUser extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(184, 184, 184))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
+                        .addComponent(jLabelExit)
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel11)
+                .addComponent(jLabelExit)
                 .addGap(13, 13, 13)
                 .addComponent(jLabel1)
                 .addGap(41, 41, 41)
@@ -241,7 +256,12 @@ public class UpdateUser extends javax.swing.JFrame {
                 .addGap(64, 64, 64))
         );
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
+        jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
+        jLabelBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelBackMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -249,7 +269,7 @@ public class UpdateUser extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10)
+                .addComponent(jLabelBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -258,7 +278,7 @@ public class UpdateUser extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10)
+                .addComponent(jLabelBack)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -277,22 +297,52 @@ public class UpdateUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
         UserManagementService user=new UserManagementService();
+    
         try {
             userList = user.getAllUsers();
-        } catch (SQLException | UsernotFoundException ex) {
-            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateUser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UsernotFoundException ex) {
+            Logger.getLogger(UpdateUser.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 
         showUsers(userList);
         userList = null;
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabelExitMouseClicked
+
+    private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
+         new SystemAdminArea().setVisible(true);
+            dispose();
+    }//GEN-LAST:event_jLabelBackMouseClicked
+
+    public void showUsers(List<UserModel> list){
+        
+        DefaultTableModel model = (DefaultTableModel) jTableUsers.getModel();
+        Object column[] =new Object[4];
+        if(model.getRowCount()!=0){
+            for(int i=0;i<list.size();i++){
+                model.removeRow(0);
+            }
+        }
+        for(int i=0;i<list.size();i++){
+            column[0] = list.get(i).getUsername();
+            column[1] = list.get(i).getName();
+            column[2] = list.get(i).getSurname();
+            column[3] = list.get(i).getRole();
+            model.addRow(column);
+        }      
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[] ) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -327,8 +377,6 @@ public class UpdateUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -337,6 +385,8 @@ public class UpdateUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelBack;
+    private javax.swing.JLabel jLabelExit;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;

@@ -20,7 +20,7 @@ import model.Competences.Competence;
 
 /**
  *
- * @author dondi
+ * @author Group9
  */
 public class DeleteCompetence extends javax.swing.JFrame {
 
@@ -58,12 +58,12 @@ public class DeleteCompetence extends javax.swing.JFrame {
         jLabelExit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
-        jLabelBack.setIcon(new javax.swing.ImageIcon("C:\\Users\\dondi\\Documents\\NetBeansProjects\\MaintenanceSystemApp\\src\\icons\\back_button.png")); // NOI18N
         jLabelBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelBackMouseClicked(evt);
@@ -130,7 +130,6 @@ public class DeleteCompetence extends javax.swing.JFrame {
         jLabelDelete.setBackground(new java.awt.Color(51, 51, 51));
         jLabelDelete.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabelDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelDelete.setIcon(new javax.swing.ImageIcon("C:\\Users\\dondi\\Documents\\NetBeansProjects\\MaintenanceSystemApp\\src\\icons\\x_button (1).png")); // NOI18N
         jLabelDelete.setText("Delete");
         jLabelDelete.setOpaque(true);
         jLabelDelete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,7 +138,6 @@ public class DeleteCompetence extends javax.swing.JFrame {
             }
         });
 
-        jLabelExit.setIcon(new javax.swing.ImageIcon("C:\\Users\\dondi\\Documents\\NetBeansProjects\\MaintenanceSystemApp\\src\\icons\\exit_button_1.png")); // NOI18N
         jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelExitMouseClicked(evt);
@@ -218,7 +216,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(DeleteCompetence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        showCompetences(compList);
+        this.showCompetences(compList);
         compList = null;
     }//GEN-LAST:event_jButton1ActionPerformed
 

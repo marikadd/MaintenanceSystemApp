@@ -98,7 +98,7 @@ public class CompetencesDao {
         
         Connection con = DBFactory.connectToDB();
         
-        String query = "select c.* from Competences c join Users_Compentences uc "
+        String query = "select c.* from Competence c join Users_Compentences uc "
                        + "ON (c.ID = uc.ID_Competences) "
                        + "where uc.Username = ? "
                        + "group by c.ID, c.Description";

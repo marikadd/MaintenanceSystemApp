@@ -7,7 +7,7 @@ package view;
 
 /**
  *
- * @author giusi
+ * @author Group9
  */
 public class user1 extends javax.swing.JFrame {
 
@@ -48,6 +48,7 @@ public class user1 extends javax.swing.JFrame {
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -79,7 +80,7 @@ public class user1 extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Select User");
+        jLabel3.setText("SELECT USER");
 
         jExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit_button_1.png"))); // NOI18N
         jExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -173,7 +174,7 @@ public class user1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExitMouseClicked
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jExitMouseClicked
 
     /**

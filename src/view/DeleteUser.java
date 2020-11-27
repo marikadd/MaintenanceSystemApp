@@ -19,7 +19,7 @@ import model.Users.UserModel;
 
 /**
  *
- * @author dondi
+ * @author Group9
  */
 public class DeleteUser extends javax.swing.JFrame {
 
@@ -56,6 +56,7 @@ public class DeleteUser extends javax.swing.JFrame {
         jLabelBack = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -232,7 +233,7 @@ public class DeleteUser extends javax.swing.JFrame {
             Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        showUsers(userList);
+        this.showUsers(userList);
         userList = null;
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -243,7 +244,7 @@ public class DeleteUser extends javax.swing.JFrame {
 
     private void jLabelDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDeleteMouseClicked
          String username= jTextUsername.getText();
-        UserManagementService user= new UserManagementService();
+        UserManagementService user= UserManagementService.getUserManagementService();
         try {
             user.deleteUser(username);
         } catch (InvalidParameterObjectException ex) {

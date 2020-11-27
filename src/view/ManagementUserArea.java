@@ -9,7 +9,8 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author giusi
+ * @author Group9
+ *
  */
 public class ManagementUserArea extends javax.swing.JFrame {
 
@@ -46,6 +47,7 @@ public class ManagementUserArea extends javax.swing.JFrame {
         jLabelBack = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
