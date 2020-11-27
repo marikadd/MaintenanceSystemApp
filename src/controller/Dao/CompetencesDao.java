@@ -28,7 +28,8 @@ public class CompetencesDao {
     
     //Singleton
     public static CompetencesDao init() {
-        if(compDao == null) compDao = new CompetencesDao();
+        if(compDao == null)
+            compDao = new CompetencesDao();
         return compDao;
     }
     
@@ -62,7 +63,7 @@ public class CompetencesDao {
         PreparedStatement ps = con.prepareStatement(query);
         
         ResultSet rs = ps.executeQuery();
-        List<Competence> competences = new ArrayList<Competence>();
+        List<Competence> competences = new ArrayList<>();
         
         while(rs.next()) {
             competences.add(getCompetence(rs));

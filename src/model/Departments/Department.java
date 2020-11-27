@@ -14,7 +14,7 @@ public class Department {
     
     private String area;
 
-    public Department(String site, String area) {
+    public Department(String area) {
         
         this.area = area;
     }

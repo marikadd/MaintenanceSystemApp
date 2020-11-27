@@ -376,6 +376,9 @@
                 <Property name="text" type="java.lang.String" value="Create"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel9MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelExit">
               <Properties>
@@ -383,6 +386,9 @@
                   <Image iconType="3" name="/icons/exit_button_1.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelExitMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

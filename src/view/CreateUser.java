@@ -11,7 +11,6 @@ import controller.Services.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
@@ -26,8 +25,6 @@ public class CreateUser extends javax.swing.JFrame {
      */
     public CreateUser() {
         initComponents();
-        var webIcon = new ImageIcon("src/view/icons/app_icon.png");
-        setIconImage(webIcon.getImage());
         setTitle("Maintenance System App");
         setSize(700,500);
         setLocationRelativeTo(null);
@@ -142,8 +139,18 @@ public class CreateUser extends javax.swing.JFrame {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add1.png"))); // NOI18N
         jLabel9.setText("Create");
         jLabel9.setOpaque(true);
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         jLabelExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit_button_1.png"))); // NOI18N
+        jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelExitMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -280,8 +287,31 @@ public class CreateUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextEmailActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
-        // TODO add your handling code here:
+        setVisible(false);
+        ManagementUserArea cUser = new ManagementUserArea();
+        cUser.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
+
+    private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabelExitMouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        
+        String username = jTextUsername.getText();
+        String password = jPasswordField.getPassword().toString(); //da fixare
+        String name = jTextName.getText();
+        String surname = jTextSurname.getText();
+        String email = jTextEmail.getText();
+        String phone = jTextPhone.getText();
+        String role = jComboRole.getSelectedItem().toString();
+ 
+        try {
+            this.createUser(username, password, name, surname, email, phone, role);
+        } catch (InvalidParameterObjectException | SQLException | UnsuccessfulUpdateException ex) {
+            Logger.getLogger(CreateUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel9MouseClicked
     
     private void createUser(String username, String password, String name, String surname, String email, String phone,String role) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException{
        UserManagementService user=new UserManagementService();

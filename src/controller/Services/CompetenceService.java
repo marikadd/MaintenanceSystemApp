@@ -13,7 +13,9 @@ import configuration.Session.SessionService;
 import controller.Dao.CompetencesDao;
 import controller.Dao.UsersDao;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
+import model.Competences.Competence;
 import model.Users.Maintainer;
 import model.Users.Role;
 
@@ -24,13 +26,14 @@ import model.Users.Role;
 
 public class CompetenceService {
     
-    private static CompetenceService compService;
+    private static CompetenceService compService = new CompetenceService();
     
     private SessionService sessionService;
     private UsersDao usersDao;
     private CompetencesDao compDao;
     
     public static CompetenceService getCompetenceService() {
+        
         if(compService == null) {
             compService = new CompetenceService();
             compService.sessionService = SessionService.init();
@@ -42,9 +45,7 @@ public class CompetenceService {
     
     public void assignCompetence(String usernameMain, List<Integer> listId) 
             throws InvalidPermissionException, SQLException, UsernotFoundException, UnsuccessfulUpdateException {
-        
-        validateSysAdmin();
-        
+            
         Maintainer maintainer = (Maintainer) usersDao.findUserByUsername(usernameMain, Role.MAINTAINER);
         
         compDao.assignCompetenceToUser(maintainer, listId);
@@ -53,16 +54,11 @@ public class CompetenceService {
     public void insertCompetence(String description) 
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException {
         
-        validateSysAdmin();
-        
         compDao.insertCompetence(description);
     }
-    
-    
+   
     public void updateCompetence(Integer id, String description) 
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException {
-        
-        validateSysAdmin();
         
         compDao.updateCompetence(id, description);
     }
@@ -70,18 +66,15 @@ public class CompetenceService {
         
     public void deleteCompetence(Integer id) throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException {
         
-        validateSysAdmin();
-        
         compDao.deleteCompetence(id);
     }
     
-    
-    private void validateSysAdmin() throws InvalidPermissionException {
-        Session session = sessionService.getSession();
+    public List<Competence> getAllCompetences() throws SQLException{
         
-        if(!Role.SYSTEM_ADMIN.equals(session.getRole())) {
-            throw new InvalidPermissionException("Operation denied");
-        }
+        List<Competence> compList = new LinkedList<>();
+        compList = compDao.findAllCompetences();
+        
+        return compList;
     }
     
 }

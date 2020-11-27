@@ -29,7 +29,7 @@ public class UserManagementService {
     
     public List<UserModel> getAllUsers() throws SQLException, UsernotFoundException{
         
-        List<UserModel> userList = new LinkedList<UserModel>();
+        List<UserModel> userList = new LinkedList<>();
         userList = usersDao.getAllUsers();
         
         return userList;
