@@ -58,6 +58,24 @@ public class UsersDao{
             return userModel;
     }
     
+    public List<UserModel> getAllUsers() throws SQLException, UsernotFoundException{
+        
+        Connection con = DBFactory.connectToDB();      
+        String query = "select * from Users";
+        
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        
+        List<UserModel> users = new LinkedList<>();
+        
+        while(rs.next()) {
+            UserModel userModel = getAllUserModel(rs, rs.getString("Role_User"));
+            users.add(userModel);
+        }
+        
+        return users;
+    }
+    
     public List<UserModel> findUsersByRole(Role role) throws SQLException, UsernotFoundException {
         
         Connection con = DBFactory.connectToDB();
@@ -184,6 +202,40 @@ public class UsersDao{
         return userModel;
     }
     
+    private UserModel getAllUserModel(ResultSet rs, String role) throws SQLException, UsernotFoundException{
+        
+        UserModel userModel = null;
+        
+        switch(role) {
+            case "MAINTAINER" : {
+                userModel = new Maintainer(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
+                                           rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+                break;
+            }
+            
+            case "PROD_MANAGER" : {
+                userModel = new ProdManager(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
+					    rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+                break;
+            }
+            
+            case "PLANNER": {
+                userModel = new Planner(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
+                                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+                            
+                break;
+            }
+                        
+            case "SYSTEM_ADMIN": {
+                userModel = new SystemAdmin(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
+                                            rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+                            
+                break;
+            } 
+        }
+        
+        return userModel;
+    }
     private void validateUserModel(UserModel userModel) throws InvalidParameterObjectException {
 
         if (userModel == null) {

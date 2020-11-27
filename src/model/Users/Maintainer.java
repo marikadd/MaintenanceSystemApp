@@ -68,6 +68,11 @@ public class Maintainer extends User implements UserModel {
     public ArrayList<Competence> getCompetences() {
         return competences;
     }
+    
+    @Override
+    public String getRole() {   
+        return role.toString();
+    }
 
     @Override
     public String toString() {

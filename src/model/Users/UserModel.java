@@ -35,4 +35,6 @@ public interface UserModel {
 
     public void setSurname(String surname);
     
+    public String getRole();
+    
 }

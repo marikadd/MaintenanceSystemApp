@@ -61,6 +61,11 @@ public class ProdManager extends User implements UserModel{
     }
 
     @Override
+    public String getRole() {   
+        return role.toString();
+    }
+    
+    @Override
     public String toString() {
         return "ProdManager{" + "name=" + name + ", surname=" + surname + ", email=" + email + ", phone=" + phone + ", role=" + role + '}';
     }

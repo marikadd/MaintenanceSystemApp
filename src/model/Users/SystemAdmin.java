@@ -59,6 +59,11 @@ public class SystemAdmin extends User implements UserModel {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    
+    @Override
+    public String getRole() {   
+        return role.toString();
+    }
 
     @Override
     public String toString() {

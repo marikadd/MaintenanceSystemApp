@@ -5,6 +5,8 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Dao.*;
+import java.util.LinkedList;
+import java.util.List;
 import model.Users.*;
 
 public class UserManagementService {
@@ -23,6 +25,14 @@ public class UserManagementService {
     
     public UserManagementService() {
         usersDao = UsersDao.init();
+    }
+    
+    public List<UserModel> getAllUsers() throws SQLException, UsernotFoundException{
+        
+        List<UserModel> userList = new LinkedList<UserModel>();
+        userList = usersDao.getAllUsers();
+        
+        return userList;
     }
 
     public void deleteUser(String username) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {

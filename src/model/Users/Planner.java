@@ -61,6 +61,11 @@ public class Planner extends User implements UserModel {
     }
 
     @Override
+    public String getRole() {   
+        return role.toString();
+    }
+    
+    @Override
     public String toString() {
         return "Planner{" + "name=" + name + ", surname=" + surname + ", email=" + email + ", phone=" + phone + ", role=" + role + '}';
     }
