@@ -31,6 +31,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
      */
     public UpdateCompetence() {
         initComponents();
+        setTitle("Maintenance System App");
         setSize(700,400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

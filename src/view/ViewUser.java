@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package view;
-import configuration.Exceptions.InvalidParameterObjectException;
-import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.*;
 import java.sql.SQLException;
@@ -13,24 +11,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Users.UserModel;
 
 /**
  *
- * @author Group9
+ * @author dondi
  */
-public class DeleteUser extends javax.swing.JFrame {
+public class ViewUser extends javax.swing.JFrame {
 
     private List<UserModel> userList = new LinkedList<UserModel>();
     /**
-     * Creates new form DeleteUser
+     * Creates new form ViewUser
      */
-    public DeleteUser() {
+    public ViewUser() {
         initComponents();
         setTitle("Maintenance System App");
-        setSize(700,400);
+        setSize(750,400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -46,15 +43,11 @@ public class DeleteUser extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextUsername = new javax.swing.JTextField();
-        jLabelUsername = new javax.swing.JLabel();
         jButtonList = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableUsers = new javax.swing.JTable();
         jLabelTitle = new javax.swing.JLabel();
-        jLabelDelete = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
-        jScrollBar = new javax.swing.JScrollBar();
         jLabelBack = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,16 +56,6 @@ public class DeleteUser extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 204, 0));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-
-        jTextUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextUsernameActionPerformed(evt);
-            }
-        });
-
-        jLabelUsername.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelUsername.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelUsername.setText("Username");
 
         jButtonList.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButtonList.setText("List");
@@ -87,14 +70,14 @@ public class DeleteUser extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Username", "Name", "Surname", "Role"
+                "Username", "Name", "Surname", "Role", "E-mail", "Phone"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,29 +90,10 @@ public class DeleteUser extends javax.swing.JFrame {
         });
         jTableUsers.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTableUsers);
-        if (jTableUsers.getColumnModel().getColumnCount() > 0) {
-            jTableUsers.getColumnModel().getColumn(0).setResizable(false);
-            jTableUsers.getColumnModel().getColumn(1).setResizable(false);
-            jTableUsers.getColumnModel().getColumn(2).setResizable(false);
-            jTableUsers.getColumnModel().getColumn(3).setResizable(false);
-        }
 
         jLabelTitle.setFont(new java.awt.Font("Impact", 0, 30)); // NOI18N
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTitle.setText("DELETE USER");
-
-        jLabelDelete.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelDelete.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabelDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/del_button.png"))); // NOI18N
-        jLabelDelete.setText("Delete");
-        jLabelDelete.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 0), new java.awt.Color(255, 204, 0), null, null));
-        jLabelDelete.setOpaque(true);
-        jLabelDelete.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelDeleteMouseClicked(evt);
-            }
-        });
+        jLabelTitle.setText("VIEW USER");
 
         jLabelExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
         jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,55 +107,35 @@ public class DeleteUser extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(jLabelTitle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelUsername)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jTextUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)))
-                        .addComponent(jScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabelTitle)
+                        .addGap(214, 214, 214))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addGap(13, 13, 13)
                 .addComponent(jLabelTitle)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonList)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addComponent(jLabelUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jScrollBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(142, 142, 142))
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonList)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
@@ -208,8 +152,8 @@ public class DeleteUser extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelBack, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,54 +176,24 @@ public class DeleteUser extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-/**/
+
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-        
+
         UserManagementService user=new UserManagementService();
         try {
             userList = user.getAllUsers();
         } catch (SQLException | UsernotFoundException ex) {
             Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         this.showUsers(userList);
         userList = null;
     }//GEN-LAST:event_jButtonListActionPerformed
 
-    private void jTextUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUsernameActionPerformed
-
-    }//GEN-LAST:event_jTextUsernameActionPerformed
-
-    private void jLabelDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDeleteMouseClicked
-        String username= jTextUsername.getText();
-        UserManagementService user= UserManagementService.getUserManagementService();
-        
-        try {
-            user.deleteUser(username);
-            JOptionPane.showMessageDialog(null, "User deleted successfully!");
-        } catch (InvalidParameterObjectException ex) {
-            JOptionPane.showMessageDialog(null, "The username is not correct or not exist");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot delete this user");
-        }
-    }//GEN-LAST:event_jLabelDeleteMouseClicked
-
-    private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
-        setVisible(false);
-        ManagementUserArea dUser = new ManagementUserArea();
-        dUser.setVisible(true);
-    }//GEN-LAST:event_jLabelBackMouseClicked
-
-    private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jLabelExitMouseClicked
-
     public void showUsers(List<UserModel> list){
         
         DefaultTableModel model = (DefaultTableModel) jTableUsers.getModel();
-        Object column[] =new Object[4];
+        Object column[] =new Object[6];
         
         if(model.getRowCount()!=0){
             for(int i=0;i<list.size();i++){
@@ -291,9 +205,22 @@ public class DeleteUser extends javax.swing.JFrame {
             column[1] = list.get(i).getName();
             column[2] = list.get(i).getSurname();
             column[3] = list.get(i).getRole();
+            column[4] = list.get(i).getEmail();
+            column[5] = list.get(i).getPhone();
             model.addRow(column);
         }      
     }
+    
+    private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabelExitMouseClicked
+
+    private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
+        setVisible(false);
+        ManagementUserArea dUser = new ManagementUserArea();
+        dUser.setVisible(true);
+    }//GEN-LAST:event_jLabelBackMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -311,20 +238,20 @@ public class DeleteUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeleteUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeleteUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DeleteUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeleteUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeleteUser().setVisible(true);
+                new ViewUser().setVisible(true);
             }
         });
     }
@@ -332,15 +259,11 @@ public class DeleteUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonList;
     private javax.swing.JLabel jLabelBack;
-    private javax.swing.JLabel jLabelDelete;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelTitle;
-    private javax.swing.JLabel jLabelUsername;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollBar jScrollBar;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableUsers;
-    private javax.swing.JTextField jTextUsername;
     // End of variables declaration//GEN-END:variables
 }

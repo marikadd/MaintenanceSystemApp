@@ -93,7 +93,7 @@ public class CompetenceService {
         
         return targets;
     }
-    
+     
     private List<CompetenceTarget> getListTargetMaintainer(List<Competence> competences, boolean linked) {
         
         List<CompetenceTarget> targets = new ArrayList<CompetenceTarget>();

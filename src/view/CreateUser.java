@@ -26,7 +26,7 @@ public class CreateUser extends javax.swing.JFrame {
     public CreateUser() {
         initComponents();
         setTitle("Maintenance System App");
-        setSize(700,400);
+        setSize(700,700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

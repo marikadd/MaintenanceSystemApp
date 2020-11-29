@@ -31,6 +31,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
      */
     public DeleteCompetence() {
         initComponents();
+        setTitle("Maintenance System App");
         setSize(700,400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

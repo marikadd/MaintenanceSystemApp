@@ -47,7 +47,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabelBack" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="86" max="32767" attributes="0"/>
+                  <EmptySpace pref="103" max="32767" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -85,33 +85,29 @@
                                   <Component id="jLabelName" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                                   <Component id="jTextnewUsername" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
                                   <Component id="jLabelnewUsername" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="jTextoldUsername" alignment="0" pref="154" max="32767" attributes="0"/>
-                                                  <Component id="jLabelPassword" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                                                  <Component id="jLabeloldUsername" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                                                  <Component id="jPasswordField" max="32767" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="137" pref="137" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabelPhone" min="-2" pref="41" max="-2" attributes="0"/>
-                                                  <Component id="jTextPhone" min="-2" pref="154" max="-2" attributes="0"/>
-                                                  <Component id="jTextEmail" min="-2" pref="154" max="-2" attributes="0"/>
-                                                  <Component id="jTextSurname" min="-2" pref="154" max="-2" attributes="0"/>
-                                                  <Component id="jLabelEmail" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
-                                                  <Component id="jLabelSurname" min="-2" pref="63" max="-2" attributes="0"/>
-                                              </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="jTextoldUsername" alignment="0" pref="154" max="32767" attributes="0"/>
+                                              <Component id="jLabelPassword" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                                              <Component id="jLabeloldUsername" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
+                                              <Component id="jPasswordField" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="jScrollPane2" alignment="1" min="-2" pref="430" max="-2" attributes="0"/>
-                                          <Component id="jButtonList" min="-2" pref="73" max="-2" attributes="0"/>
+                                          <EmptySpace min="137" pref="137" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabelPhone" min="-2" pref="41" max="-2" attributes="0"/>
+                                              <Component id="jTextPhone" min="-2" pref="154" max="-2" attributes="0"/>
+                                              <Component id="jTextEmail" min="-2" pref="154" max="-2" attributes="0"/>
+                                              <Component id="jTextSurname" min="-2" pref="154" max="-2" attributes="0"/>
+                                              <Component id="jLabelEmail" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                                              <Component id="jLabelSurname" min="-2" pref="63" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace pref="39" max="32767" attributes="0"/>
-                                      <Component id="jScrollBar" min="-2" pref="6" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane2" alignment="1" min="-2" pref="430" max="-2" attributes="0"/>
+                                      <Component id="jButtonList" min="-2" pref="73" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace pref="55" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jTextName" min="-2" pref="154" max="-2" attributes="0"/>
@@ -143,23 +139,18 @@
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jScrollPane2" min="-2" pref="141" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabelSurname" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabeloldUsername" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextoldUsername" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextSurname" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="jScrollBar" min="-2" pref="208" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="141" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelSurname" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabeloldUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextoldUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextSurname" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -178,7 +169,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextPhone" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="jTextPhone" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -188,7 +179,7 @@
                           <Component id="jTextName" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelUpdate" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="65" max="32767" attributes="0"/>
+                      <EmptySpace pref="71" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -375,16 +366,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordFieldActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JScrollBar" name="jScrollBar">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="cc" red="cc" type="rgb"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

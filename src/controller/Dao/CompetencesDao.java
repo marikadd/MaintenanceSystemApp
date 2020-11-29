@@ -155,6 +155,33 @@ public class CompetencesDao {
         boolean result = ps.execute();
     }
     
+    
+    
+    public List<Competence> getCompetencesByActivityId(Integer activityId) throws SQLException {
+        
+         Connection con = DBFactory.connectToDB();
+        
+        String query = "select c.* from Competence c join Activity_Competences ac "
+                + "ON (c.id = ac.Competence_ID) "
+                + "where ac.Activity_ID = ?";
+        
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, activityId);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        List<Competence> competences = new ArrayList<>();
+        
+        while(rs.next()) {
+            
+            competences.add(getCompetence(rs));
+            
+        }
+        
+        return competences;
+        
+    }
+    
     private Competence getCompetence(ResultSet rs) throws SQLException {
         Competence c = new Competence(rs.getInt("ID"), rs.getString("Description"));
         return c;
