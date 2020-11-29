@@ -16,6 +16,10 @@ public class Planner extends User implements UserModel {
     private String email;
     private String phone;
     private final Role role;
+
+    public Planner() {
+        this.role = Role.PLANNER;
+    }
     
     public Planner(String username, String password, String name, String surname, String email, String phone) {
         super(username, password);

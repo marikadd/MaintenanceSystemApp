@@ -17,6 +17,10 @@ public class ProdManager extends User implements UserModel{
     private String phone;
     private final Role role;
 
+    public ProdManager() {
+        this.role = Role.PROD_MANAGER;
+    }
+    
     public ProdManager(String username, String password, String name, String surname, String email, String phone) {
         super(username, password);
         this.name = name;

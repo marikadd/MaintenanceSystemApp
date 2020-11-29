@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller.Services;
 
 import java.sql.SQLException;
@@ -5,14 +10,19 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Dao.*;
+import controller.Utility.UtilityUser;
 import java.util.LinkedList;
 import java.util.List;
 import model.Users.*;
 
+/**
+ *
+ * @author Group9
+ */
+
 public class UserManagementService {
 
     private static UserManagementService ums;
-    
     private UsersDao usersDao;
 
     // Singleton
@@ -25,6 +35,11 @@ public class UserManagementService {
     
     public UserManagementService() {
         usersDao = UsersDao.init();
+    }
+    
+    public String getRoleByUsername(String username) throws SQLException, UsernotFoundException{
+        String role= usersDao.findRoleByUsername(username);
+        return role;
     }
     
     public List<UserModel> getAllUsers() throws SQLException, UsernotFoundException{
@@ -41,8 +56,11 @@ public class UserManagementService {
     
     public ProdManager findProdManagerByUsername(String username) throws SQLException, UsernotFoundException {
 
-        ProdManager manager = (ProdManager) usersDao.findUserByUsername(username, Role.PROD_MANAGER);
-        return manager;
+        UtilityUser<ProdManager> utility = new UtilityUser<ProdManager>();
+        UserModel um = usersDao.findUserByUsername(username, Role.PROD_MANAGER);
+        ProdManager pm = new ProdManager();
+        utility.setUserModel(um, pm);
+        return pm;
     }
 
     public void insertProdManager(String username, String password, String name, String surname, String email,
@@ -62,9 +80,13 @@ public class UserManagementService {
     }
     
     public SystemAdmin findSystemAdminByUsername(String username) throws SQLException, UsernotFoundException {
-
-        SystemAdmin sysAdmin = (SystemAdmin) usersDao.findUserByUsername(username, Role.SYSTEM_ADMIN);
-        return sysAdmin;
+        
+        UtilityUser<SystemAdmin> utility = new UtilityUser<SystemAdmin>();
+        UserModel um = usersDao.findUserByUsername(username, Role.SYSTEM_ADMIN);
+        SystemAdmin sa = new SystemAdmin();
+        utility.setUserModel(um, sa);
+        return sa;
+        
     }
 
     public void insertSystemAdmin(String username, String password, String name, String surname, String email,
@@ -85,7 +107,10 @@ public class UserManagementService {
     
     public Planner findPlannerByUsername(String username) throws SQLException, UsernotFoundException {
 
-        Planner planner = (Planner) usersDao.findUserByUsername(username, Role.PLANNER);
+        UtilityUser<Planner> utility = new UtilityUser<Planner>();
+        UserModel um = usersDao.findUserByUsername(username, Role.PLANNER);
+        Planner planner = new Planner();
+        utility.setUserModel(um, planner);
         return planner;
     }
 
@@ -105,8 +130,11 @@ public class UserManagementService {
     
     public Maintainer findMaintainerByUsername(String username) throws SQLException, UsernotFoundException {
 
-        Maintainer maintener = (Maintainer) usersDao.findUserByUsername(username, Role.MAINTAINER);
-        return maintener;
+        UtilityUser<Maintainer> utility = new UtilityUser<Maintainer>();
+        UserModel um =  usersDao.findUserByUsername(username, Role.MAINTAINER);
+        Maintainer maintainer = new Maintainer();
+        utility.setUserModel(um, maintainer);
+        return maintainer;
     }
 
     public void insertMaintainer(String username, String password, String name, String surname, String email, String phone) 

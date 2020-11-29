@@ -5,38 +5,39 @@
  */
 package controller.Services;
 
+import controller.Utility.UtilityUser;
 import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
-import configuration.Session.Session;
-import configuration.Session.SessionService;
 import controller.Dao.CompetencesDao;
 import controller.Dao.UsersDao;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import model.Competences.Competence;
+import model.Competences.CompetenceAdapter;
+import model.Competences.CompetenceTarget;
 import model.Users.Maintainer;
 import model.Users.Role;
+import model.Users.UserModel;
 
 /**
  *
- * @author Group 9
+ * @author Group9
  */
 
 public class CompetenceService {
     
-    private static CompetenceService compService = new CompetenceService();
-    
-    private SessionService sessionService;
+    private static CompetenceService compService;
     private UsersDao usersDao;
     private CompetencesDao compDao;
     
+    //Singleton
     public static CompetenceService getCompetenceService() {
         
         if(compService == null) {
             compService = new CompetenceService();
-            compService.sessionService = SessionService.init();
             compService.usersDao = UsersDao.init();
             compService.compDao = CompetencesDao.init();
         }
@@ -45,8 +46,11 @@ public class CompetenceService {
     
     public void assignCompetence(String usernameMain, List<Integer> listId) 
             throws InvalidPermissionException, SQLException, UsernotFoundException, UnsuccessfulUpdateException {
-            
-        Maintainer maintainer = (Maintainer) usersDao.findUserByUsername(usernameMain, Role.MAINTAINER);
+        
+        UtilityUser<Maintainer> utilityUser = new UtilityUser<Maintainer>();
+        Maintainer maintainer = new Maintainer(); 
+        UserModel um = usersDao.findUserByUsername(usernameMain, Role.MAINTAINER);
+        utilityUser.setUserModel(um, maintainer);
         
         compDao.assignCompetenceToUser(maintainer, listId);
     }
@@ -75,6 +79,36 @@ public class CompetenceService {
         compList = compDao.findAllCompetences();
         
         return compList;
+    }
+    
+    public List<CompetenceTarget> getAllCompetenceTarget(String username) throws SQLException, UsernotFoundException {
+        
+        validateMaintainer(username);
+        List<Competence> competencesInMaintener = compDao.findCompetencesInMaintener(username);
+        List<Competence> competencesNotInMaintener = compDao.findCompetencesNotInMaintener(username);
+        
+        List<CompetenceTarget> targets = new ArrayList<CompetenceTarget>();
+        targets.addAll(getListTargetMaintainer(competencesInMaintener, true));
+        targets.addAll(getListTargetMaintainer(competencesNotInMaintener, false));
+        
+        return targets;
+    }
+    
+    private List<CompetenceTarget> getListTargetMaintainer(List<Competence> competences, boolean linked) {
+        
+        List<CompetenceTarget> targets = new ArrayList<CompetenceTarget>();
+        
+        for(Competence c: competences) {
+            CompetenceTarget ct = new CompetenceAdapter(linked, c.getId(), c.getDescription());
+            targets.add(ct);
+        }
+        
+        return targets;
+    }
+    
+    private void validateMaintainer(String username) throws SQLException, UsernotFoundException {
+        
+        UserModel um = usersDao.findUserByUsername(username, Role.MAINTAINER);
     }
     
 }

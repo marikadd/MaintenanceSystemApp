@@ -17,6 +17,10 @@ public class SystemAdmin extends User implements UserModel {
     private String phone;
     private final Role role;
 
+    public SystemAdmin() {
+        this.role = Role.SYSTEM_ADMIN;
+    }
+
     public SystemAdmin(String username, String password, String name, String surname, String email, String phone) {
         super(username, password);
         this.name = name;

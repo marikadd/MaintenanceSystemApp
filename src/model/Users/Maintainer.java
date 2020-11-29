@@ -22,6 +22,11 @@ public class Maintainer extends User implements UserModel {
     private final Role role;
     private ArrayList<Competence> competences;
 
+    public Maintainer() {
+        super();
+        this.role = Role.MAINTAINER;
+    }
+    
     public Maintainer(String username, String password, String name, String surname, String email, String phone) {
         super(username, password);
         this.name = name;

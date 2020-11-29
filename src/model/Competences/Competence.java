@@ -10,6 +10,7 @@ package model.Competences;
  * @author Group9
  */
 
+//Adaptee
 public class Competence {
     private Integer id;
     private String description;

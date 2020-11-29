@@ -19,7 +19,7 @@ import model.Users.Maintainer;
 
 /**
  *
- * @author Group 9
+ * @author Group9
  */
 
 public class CompetencesDao {
@@ -38,7 +38,7 @@ public class CompetencesDao {
         
         Connection con = DBFactory.connectToDB();
         
-        String query = "INSERT INTO Users_Compentences VALUES(?,?)";
+        String query = "INSERT INTO Users_Competences VALUES(?,?)";
         
         PreparedStatement ps = con.prepareStatement(query);
         
@@ -48,9 +48,9 @@ public class CompetencesDao {
             ps.setInt(2, id);
             boolean result = ps.execute();
             
-            if(!result) {
+            /*if(!result) {
                 throw new UnsuccessfulUpdateException("Cannot assign competence #" + id + " to user " + maintainer.getUsername());
-            }
+            }*/
         }
     }
     
@@ -76,9 +76,10 @@ public class CompetencesDao {
         
         Connection con = DBFactory.connectToDB();
         
-        String query = "select c.* from Competence c join Users_Compentences uc "
-                       + "ON (c.ID = uc.ID_Competences) "
-                       + "where uc.Username <> ? "
+        String query = "select c.* from Competence c "
+                       + "where c.ID NOT IN "
+                       + "(select uc.ID_Competences "
+                       + "from Users_Competences uc where uc.Username = ?) "
                        + "group by c.ID, c.Description";
         
         PreparedStatement ps = con.prepareStatement(query);
@@ -98,9 +99,10 @@ public class CompetencesDao {
         
         Connection con = DBFactory.connectToDB();
         
-        String query = "select c.* from Competence c join Users_Compentences uc "
-                       + "ON (c.ID = uc.ID_Competences) "
-                       + "where uc.Username = ? "
+        String query = "select c.* from Competence c "
+                       + "where c.ID IN "
+                       + "(select uc.ID_Competences "
+                       + "from Users_Competences uc where uc.Username = ?) "
                        + "group by c.ID, c.Description";
         
         PreparedStatement ps = con.prepareStatement(query);
@@ -114,12 +116,10 @@ public class CompetencesDao {
         }
         
         return competences;
-        
     }
     
-    
-    public void insertCompetence(String description) throws SQLException, UnsuccessfulUpdateException {
-        
+    public void insertCompetence(String description) throws  SQLException, UnsuccessfulUpdateException  {
+
         Connection con = DBFactory.connectToDB();
         
         String query = "INSERT INTO Competence(Description) VALUES(?)";
@@ -128,10 +128,6 @@ public class CompetencesDao {
         ps.setString(1, description);
         
         boolean result = ps.execute();
-        
-        if(!result) {
-            throw new UnsuccessfulUpdateException("Cannot insert this competence");
-        }
     }
     
     public void updateCompetence(Integer id, String description) throws SQLException, UnsuccessfulUpdateException {
@@ -145,10 +141,6 @@ public class CompetencesDao {
         ps.setInt(2, id);
         
         boolean result = ps.execute();
-        
-        if(!result) {
-            throw new UnsuccessfulUpdateException("Cannot update this competence");
-        }
     }
     
     public void deleteCompetence(Integer id) throws SQLException, UnsuccessfulUpdateException {
@@ -161,10 +153,6 @@ public class CompetencesDao {
         ps.setInt(1, id);
         
         boolean result = ps.execute();
-        
-        if(!result) {
-            throw new UnsuccessfulUpdateException("Cannot delete this competence");
-        }
     }
     
     private Competence getCompetence(ResultSet rs) throws SQLException {
