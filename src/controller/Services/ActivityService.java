@@ -12,6 +12,7 @@ import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Dao.ActivityDao;
 import controller.Dao.UsersDao;
+import controller.Utility.UtilityUser;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,6 +21,7 @@ import model.Users.Maintainer;
 import model.Users.Role;
 import model.Activity.MaintenanceActivity;
 import model.Competences.Competence;
+import model.Users.UserModel;
 
 /**
  *
@@ -73,10 +75,14 @@ public class ActivityService {
         
     }
 
-    public void assignActivity(String username, List<Integer> listId) throws SQLException, UsernotFoundException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+    public void assignActivity(String usernameMain, List<Integer> listId) throws SQLException, UsernotFoundException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
-        Maintainer maintainer = (Maintainer) usersDao.findUserByUsername(username, Role.MAINTAINER);  //cambiare cast
-
+       
+        UtilityUser<Maintainer> utilityUser = new UtilityUser<Maintainer>();
+        Maintainer maintainer = new Maintainer(); 
+        UserModel um = usersDao.findUserByUsername(usernameMain, Role.MAINTAINER);
+        utilityUser.setUserModel(um, maintainer);
+        
         activityDao.assignActivityToMaintainer(maintainer, listId);
         for(Integer id: listId) {
             activityDao.updateActivity(id);

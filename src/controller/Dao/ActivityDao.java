@@ -109,7 +109,6 @@ public class ActivityDao {
     
     public void updateActivity(Integer id) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
-        // Validate?   
         Connection con = DBFactory.connectToDB();
 
         String query = "UPDATE MaintenanceActivity SET Assigned = true"

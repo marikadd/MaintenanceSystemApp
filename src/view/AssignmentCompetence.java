@@ -36,6 +36,8 @@ public class AssignmentCompetence extends javax.swing.JFrame {
      */
     public AssignmentCompetence() {
         initComponents();
+        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(700,600);
         setLocationRelativeTo(null);

@@ -31,6 +31,8 @@ public class UpdateUser extends javax.swing.JFrame {
      */
     public UpdateUser() {
         initComponents();
+        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(650,650);
         setLocationRelativeTo(null);

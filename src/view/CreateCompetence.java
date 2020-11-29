@@ -26,6 +26,8 @@ public class CreateCompetence extends javax.swing.JFrame {
      */
     public CreateCompetence() {
         initComponents();
+        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(500,400);
         setLocationRelativeTo(null);
