@@ -20,7 +20,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(700,600);
+        setSize(650,670);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -85,7 +85,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
 
         jLabelTitle.setFont(new java.awt.Font("Impact", 1, 30)); // NOI18N
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTitle.setText("ASSIGNMENT ACTIVITY");
+        jLabelTitle.setText("ASSIGN ACTIVITY");
 
         jTableInMaintainer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -178,7 +178,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

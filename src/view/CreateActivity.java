@@ -20,7 +20,7 @@ public class CreateActivity extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(500,400);
+        setSize(500,420);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -148,7 +148,7 @@ public class CreateActivity extends javax.swing.JFrame {
                                         .add(jTextFieldType, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                                         .add(jTextFieldDescription)
                                         .add(jTextFieldTime)))))
-                        .add(0, 67, Short.MAX_VALUE)))
+                        .add(0, 66, Short.MAX_VALUE)))
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .add(0, 0, Short.MAX_VALUE)

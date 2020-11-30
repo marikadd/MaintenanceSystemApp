@@ -182,7 +182,9 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSystemAdminActionPerformed
 
     private void jButtonPlannerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlannerActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        ManagementCompetenceArea cArea = new ManagementCompetenceArea();
+        cArea.setVisible(true);
     }//GEN-LAST:event_jButtonPlannerActionPerformed
 
     private void jButtonMaintainerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMaintainerActionPerformed
