@@ -6,12 +6,14 @@
 
 package view;
 
+import controller.Services.ActivityService;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author Group9
  */
+
 public class CreateActivity extends javax.swing.JFrame {
 
     /** Creates new form CreateActivity */
@@ -123,6 +125,11 @@ public class CreateActivity extends javax.swing.JFrame {
         jLabelCreate.setText("Create");
         jLabelCreate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 0), new java.awt.Color(255, 204, 0), null, null));
         jLabelCreate.setOpaque(true);
+        jLabelCreate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelCreateMouseClicked(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -216,6 +223,29 @@ public class CreateActivity extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
 
+    
+    private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
+        /* 
+        ActivityService act = ActivityService.getActivityService();
+        
+        String type = jTextFieldType.getText();
+        String description = jTextFieldDescription.getText();
+        String time = jTextFieldTime.getText();
+        
+        try {
+            act.insertActivity(type, description, time);
+            JOptionPane.showMessageDialog(null, "Competence created successfully!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Database internal error");
+        } catch (UnsuccessfulUpdateException ex) {
+            JOptionPane.showMessageDialog(null, "Cannot create this user");
+        } catch (InvalidPermissionException ex) {
+           JOptionPane.showMessageDialog(null, "Invalid Permission"); 
+        }  
+        */
+    }//GEN-LAST:event_jLabelCreateMouseClicked
+
+    
     /**
      * @param args the command line arguments
      */

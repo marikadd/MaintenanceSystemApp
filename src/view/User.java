@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 
 /**
@@ -53,7 +54,7 @@ public class User extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
-        jButtonSystemAdmin.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonSystemAdmin.setBackground(new java.awt.Color(255, 255, 255));
         jButtonSystemAdmin.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonSystemAdmin.setText("System Admin");
         jButtonSystemAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -67,16 +68,21 @@ public class User extends javax.swing.JFrame {
             }
         });
 
-        jButtonPlanner.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonPlanner.setBackground(new java.awt.Color(255, 255, 255));
         jButtonPlanner.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonPlanner.setText("Planner");
+        jButtonPlanner.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonPlannerMouseClicked(evt);
+            }
+        });
         jButtonPlanner.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPlannerActionPerformed(evt);
             }
         });
 
-        jButtonMaintainer.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonMaintainer.setBackground(new java.awt.Color(255, 255, 255));
         jButtonMaintainer.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonMaintainer.setText("Maintainer");
         jButtonMaintainer.addActionListener(new java.awt.event.ActionListener() {
@@ -182,13 +188,11 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSystemAdminActionPerformed
 
     private void jButtonPlannerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlannerActionPerformed
-        setVisible(false);
-        ManagementCompetenceArea cArea = new ManagementCompetenceArea();
-        cArea.setVisible(true);
+
     }//GEN-LAST:event_jButtonPlannerActionPerformed
 
     private void jButtonMaintainerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMaintainerActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonMaintainerActionPerformed
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
@@ -202,6 +206,11 @@ public class User extends javax.swing.JFrame {
         admin.setVisible(true);
     }//GEN-LAST:event_jButtonSystemAdminMouseClicked
 
+    private void jButtonPlannerMouseClicked(java.awt.event.MouseEvent evt) {                                                
+        setVisible(false);
+        ManagementActivityArea aArea = new ManagementActivityArea();
+        aArea.setVisible(true);
+    }           
     /**
      * @param args the command line arguments
      */

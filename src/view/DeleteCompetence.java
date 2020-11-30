@@ -243,7 +243,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "It is not possible to delete this user");
+            JOptionPane.showMessageDialog(null, "Cannot delete this user");
         } catch (InvalidPermissionException ex) {
             JOptionPane.showMessageDialog(null, "Invalid Permission");
         }  

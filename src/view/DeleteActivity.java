@@ -6,13 +6,27 @@
 
 package view;
 
+import configuration.Exceptions.ActivityNotFoundException;
+import configuration.Exceptions.UnsuccessfulUpdateException;
+import controller.Services.ActivityService;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Activity.MaintenanceActivity;
 
 /**
  *
  * @author Group9
  */
 public class DeleteActivity extends javax.swing.JFrame {
+    
+    private List<MaintenanceActivity> activityList = new LinkedList<MaintenanceActivity>();
+    private ActivityService activity = ActivityService.getActivityService();
 
     /** Creates new form ActivityDelete */
     public DeleteActivity() {
@@ -43,7 +57,7 @@ public class DeleteActivity extends javax.swing.JFrame {
         jTableActivities = new javax.swing.JTable();
         jButtonList = new javax.swing.JButton();
         jLabelId = new javax.swing.JLabel();
-        jTextField = new javax.swing.JTextField();
+        jTextFieldId = new javax.swing.JTextField();
         jLabelDelete = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -96,7 +110,7 @@ public class DeleteActivity extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Description", "Type", "Time"
+                "ID", "Type", "Description", "Time"
             }
         ) {
             Class[] types = new Class [] {
@@ -118,14 +132,19 @@ public class DeleteActivity extends javax.swing.JFrame {
 
         jButtonList.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButtonList.setText("List");
+        jButtonList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonListMouseClicked(evt);
+            }
+        });
 
         jLabelId.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelId.setForeground(new java.awt.Color(255, 255, 255));
         jLabelId.setText("ID");
 
-        jTextField.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldActionPerformed(evt);
+                jTextFieldIdActionPerformed(evt);
             }
         });
 
@@ -136,6 +155,11 @@ public class DeleteActivity extends javax.swing.JFrame {
         jLabelDelete.setText("Delete");
         jLabelDelete.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 0), new java.awt.Color(255, 204, 0), null, null));
         jLabelDelete.setOpaque(true);
+        jLabelDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelDeleteMouseClicked(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -154,7 +178,7 @@ public class DeleteActivity extends javax.swing.JFrame {
                                 .add(jButtonList)
                                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 381, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(jPanel2Layout.createSequentialGroup()
-                                .add(jTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jTextFieldId, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(57, 57, 57)
                                 .add(jLabelDelete, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .add(34, 34, 34))
@@ -177,7 +201,7 @@ public class DeleteActivity extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabelDelete, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTextFieldId, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
@@ -199,9 +223,9 @@ public class DeleteActivity extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldActionPerformed
+    private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldActionPerformed
+    }//GEN-LAST:event_jTextFieldIdActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
@@ -213,6 +237,52 @@ public class DeleteActivity extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
 
+    private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
+      
+        try {
+            activityList = activity.getAllActivities();
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ActivityNotFoundException ex) {
+            Logger.getLogger(DeleteActivity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.showActivities(activityList);
+        activityList = null;
+    }//GEN-LAST:event_jButtonListMouseClicked
+
+    private void jLabelDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDeleteMouseClicked
+        int ID= Integer.parseInt(jTextFieldId.getText());
+     
+        try {
+            activity.deleteActivity(ID);
+            JOptionPane.showMessageDialog(null, "Activity deleted successfully!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Database internal error");
+        } catch (UnsuccessfulUpdateException ex) {
+            JOptionPane.showMessageDialog(null, "Cannot delete this user");
+        }
+    }//GEN-LAST:event_jLabelDeleteMouseClicked
+
+    public void showActivities(List<MaintenanceActivity> list){
+        
+        DefaultTableModel model = (DefaultTableModel) jTableActivities.getModel();
+        Object column[] =new Object[4];
+        
+        if(model.getRowCount()!=0){
+            for(int i=0;i<list.size();i++){
+                model.removeRow(0);
+            }
+        }
+        
+        for(int i=0;i<list.size();i++){
+            column[0] = list.get(i).getID();
+            column[1] = list.get(i).getType();
+            column[2] = list.get(i).getDescription();
+            column[4] = list.get(i).getTime();
+            model.addRow(column);
+        }      
+    }
     /**
      * @param args the command line arguments
      */
@@ -260,7 +330,7 @@ public class DeleteActivity extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableActivities;
-    private javax.swing.JTextField jTextField;
+    private javax.swing.JTextField jTextFieldId;
     // End of variables declaration//GEN-END:variables
 
 }

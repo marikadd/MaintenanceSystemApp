@@ -6,13 +6,33 @@
 
 package view;
 
+import configuration.Exceptions.InvalidParameterObjectException;
+import configuration.Exceptions.InvalidPermissionException;
+import configuration.Exceptions.UnsuccessfulUpdateException;
+import configuration.Exceptions.UsernotFoundException;
+import controller.Services.ActivityService;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Activity.ActivityTarget;
+import model.Activity.MaintenanceActivity;
+import model.Competences.CompetenceTarget;
 
 /**
  *
  * @author Group9
  */
 public class AssignmentActivity extends javax.swing.JFrame {
+    
+    private List<MaintenanceActivity> list_in= new LinkedList<>();
+    private List<MaintenanceActivity> list_notIn= new LinkedList<>();
+    private List<ActivityTarget> list = new ArrayList<>();
 
     /** Creates new form AssignmentActivity */
     public AssignmentActivity() {
@@ -151,11 +171,22 @@ public class AssignmentActivity extends javax.swing.JFrame {
 
         jButtonSearch.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButtonSearch.setText("Search");
+        jButtonSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonSearchMouseClicked(evt);
+            }
+        });
 
+        jLabelAdd.setBackground(new java.awt.Color(255, 255, 255));
         jLabelAdd.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add_button.png"))); // NOI18N
         jLabelAdd.setText("Add");
         jLabelAdd.setOpaque(true);
+        jLabelAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAddMouseClicked(evt);
+            }
+        });
 
         jLabelTit1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelTit1.setForeground(new java.awt.Color(255, 255, 255));
@@ -200,7 +231,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
                         .addContainerGap())
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jLabelTitle)
-                        .add(116, 116, 116))))
+                        .add(134, 134, 134))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -259,6 +290,84 @@ public class AssignmentActivity extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel2MouseClicked
 
+    private void jButtonSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSearchMouseClicked
+        initTableActivities();
+    }//GEN-LAST:event_jButtonSearchMouseClicked
+
+    private void jLabelAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddMouseClicked
+        ActivityService comp= ActivityService.getActivityService();
+        String username = jTextFieldUsername.getText();
+        int index=jTableNotInMaintainer.getSelectedRow();
+        
+        try {
+            list = comp.getAllActivityTarget(username);
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignmentCompetence.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UsernotFoundException ex) {
+            Logger.getLogger(AssignmentCompetence.class.getName()).log(Level.SEVERE, null, ex + " or role is not MAINTAINER");
+        }
+         
+        Integer id= Integer.parseInt(jTableNotInMaintainer.getModel().getValueAt(index, 0).toString());
+        List <Integer> list_id= new LinkedList<>();
+        list_id.add(id);
+        ActivityService activity = ActivityService.getActivityService();
+        
+        try {
+            activity.assignActivity(username, list_id);
+            initTableActivities();
+            JOptionPane.showMessageDialog(null, "Activity assigned successfully!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Database internal error");
+        } catch (UsernotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "User not found");
+        } catch (UnsuccessfulUpdateException ex) {
+            JOptionPane.showMessageDialog(null, "Cannot assign competence to activity");
+        } catch (InvalidParameterObjectException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid parameter");
+        }  
+    }//GEN-LAST:event_jLabelAddMouseClicked
+
+    private void initTableActivities() {
+        ActivityService act = ActivityService.getActivityService();
+        String username = jTextFieldUsername.getText();
+        
+       
+        try {
+            list = act.getAllActivityTarget(username);
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UsernotFoundException ex) {
+            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        this.showActivities(list);
+    }
+    
+    public void showActivities(List<ActivityTarget> list){
+        
+        DefaultTableModel intoMaintainer = (DefaultTableModel) jTableInMaintainer.getModel();
+        DefaultTableModel notIntoMaintainer = (DefaultTableModel) jTableNotInMaintainer.getModel();
+        
+        int rowIn = intoMaintainer.getRowCount();
+        for(int i = 0; i < rowIn; i++) {
+            intoMaintainer.removeRow(0);
+        }
+        
+        int rowNotIn = notIntoMaintainer.getRowCount();
+        for(int i = 0; i < rowNotIn; i++) {
+            notIntoMaintainer.removeRow(0);
+        }
+        
+        for(int i=0;i<list.size();i++){
+            Object column[] =new Object[4];
+            column[0] = list.get(i).getID();
+            column[1] = list.get(i).getType();
+            column[2] = list.get(i).getDescription();
+            column[3] = list.get(i).getSkill();
+            if(list.get(i).isActivityLinked()) intoMaintainer.addRow(column);
+            else notIntoMaintainer.addRow(column);
+        }
+    }
     /**
      * @param args the command line arguments
      */

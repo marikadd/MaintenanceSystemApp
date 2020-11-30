@@ -289,7 +289,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "It is not possible to delete this user");
+            JOptionPane.showMessageDialog(null, "Cannot delete this user");
         }
 
     }//GEN-LAST:event_jLabelUpdateMouseClicked

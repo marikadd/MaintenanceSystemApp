@@ -55,7 +55,7 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
-        jButtonInsert.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonInsert.setBackground(new java.awt.Color(255, 255, 255));
         jButtonInsert.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonInsert.setText("Insert Competence");
         jButtonInsert.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -69,7 +69,7 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
             }
         });
 
-        jButtonDelete.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
         jButtonDelete.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonDelete.setText("Delete Competence");
         jButtonDelete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -83,7 +83,7 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
             }
         });
 
-        jButtonUpdate.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
         jButtonUpdate.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonUpdate.setText("Update Competence");
         jButtonUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,7 +102,7 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
         jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitle.setText("COMPETENCE MANAGEMENT");
 
-        jButtonAssignment.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonAssignment.setBackground(new java.awt.Color(255, 255, 255));
         jButtonAssignment.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonAssignment.setText("Assign Competence");
         jButtonAssignment.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,7 +123,7 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
             }
         });
 
-        jButtonView.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonView.setBackground(new java.awt.Color(255, 255, 255));
         jButtonView.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonView.setText("View Competences");
         jButtonView.addMouseListener(new java.awt.event.MouseAdapter() {

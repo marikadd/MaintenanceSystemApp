@@ -6,13 +6,24 @@
 
 package view;
 
+import configuration.Exceptions.ActivityNotFoundException;
+import controller.Services.ActivityService;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import model.Activity.MaintenanceActivity;
 
 /**
  *
  * @author Group9
  */
 public class ViewActivities extends javax.swing.JFrame {
+    
+    List<MaintenanceActivity> activityList = new LinkedList<>();
 
     /** Creates new form ViewActivities */
     public ViewActivities() {
@@ -118,6 +129,11 @@ public class ViewActivities extends javax.swing.JFrame {
 
         jButtonList.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButtonList.setText("List");
+        jButtonList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonListMouseClicked(evt);
+            }
+        });
         jButtonList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonListActionPerformed(evt);
@@ -196,6 +212,38 @@ public class ViewActivities extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
 
+    private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
+        ActivityService activity = ActivityService.getActivityService();
+
+        try {
+            activityList = activity.getAllActivities();
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewActivities.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ActivityNotFoundException ex) {
+            Logger.getLogger(ViewActivities.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.showCompetences(activityList);
+    }//GEN-LAST:event_jButtonListMouseClicked
+
+    public void showCompetences(List<MaintenanceActivity> list){
+        
+        DefaultTableModel competences = (DefaultTableModel) jTableActivities.getModel();
+        
+        int row = competences.getRowCount();
+        for(int i = 0; i < row; i++) {
+            competences.removeRow(0);
+        }
+        
+        for(int i=0;i<list.size();i++){
+            Object column[] =new Object[2];
+            column[0] = list.get(i).getID();
+            column[1] = list.get(i).getDescription();
+            column[2] = list.get(i).getTime();
+            column[3] = list.get(i).getSkill();
+            competences.addRow(column);
+        }
+    }
     /**
      * @param args the command line arguments
      */

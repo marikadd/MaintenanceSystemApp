@@ -57,7 +57,7 @@ public class ManagementUserArea extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
-        jButtonCreate.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonCreate.setBackground(new java.awt.Color(255, 255, 255));
         jButtonCreate.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonCreate.setText("Create User");
         jButtonCreate.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -71,7 +71,7 @@ public class ManagementUserArea extends javax.swing.JFrame {
             }
         });
 
-        jButtonDelete.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
         jButtonDelete.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonDelete.setText("Delete User");
         jButtonDelete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -85,7 +85,7 @@ public class ManagementUserArea extends javax.swing.JFrame {
             }
         });
 
-        jButtonUpdate.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
         jButtonUpdate.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonUpdate.setText("Update User");
         jButtonUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -111,7 +111,7 @@ public class ManagementUserArea extends javax.swing.JFrame {
             }
         });
 
-        jButtonCreate1.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonCreate1.setBackground(new java.awt.Color(255, 255, 255));
         jButtonCreate1.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonCreate1.setText("View Users");
         jButtonCreate1.addMouseListener(new java.awt.event.MouseAdapter() {

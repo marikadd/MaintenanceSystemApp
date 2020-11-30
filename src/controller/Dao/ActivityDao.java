@@ -30,6 +30,7 @@ public class ActivityDao {
     private static ActivityDao activityDao;
     private CompetencesDao compDao;
     
+    //Singleton
     public static ActivityDao init() {
         if (activityDao == null) {
             activityDao = new ActivityDao();
@@ -38,19 +39,20 @@ public class ActivityDao {
         return activityDao;
     }
 
-    public int insertActivity(MaintenanceActivity activity) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+    public int insertActivity(String type, String description, Integer time_activity) 
+            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
-        validateActivity(activity);
+        validateActivity(type, description, time_activity);
 
         Connection con = DBFactory.connectToDB();
 
         String query = "INSERT INTO MaintenanceActivity(Type_Activity, Description, Time_Activity, Assigned) "
-                + "VALUES(?,?,?,?)";
+                       + "VALUES(?,?,?,?)";
 
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, activity.getType());
-        ps.setString(2, activity.getDescription());
-        ps.setInt(3, activity.getTime());
+        ps.setString(1, type);
+        ps.setString(2, description);
+        ps.setInt(3,time_activity);
         ps.setBoolean(4, false);
         
         int affectedRow = ps.executeUpdate();
@@ -67,7 +69,6 @@ public class ActivityDao {
                 throw new SQLException("Creating user failed, no ID obtained.");
             }
         }
-        
     }
     
     public void insertCompentecesInActivity(int activityId, List<Competence> competences) throws SQLException {
@@ -75,50 +76,49 @@ public class ActivityDao {
         Connection con = DBFactory.connectToDB();
 
         String query = "INSERT INTO Activity_Competences "
-                + "VALUES(?,?)";
+                       + "VALUES(?,?)";
         
-        
-        for(Competence c: competences) {
+       for(Competence c: competences) {
             
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, c.getId());
             ps.setInt(2, activityId);
             
             ps.execute();
-            
         }
-        
     }
 
-    public void updateActivity(Integer id, int time_activity, String type) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+    public void updateActivity(Integer id, String type, String description, int time_activity) 
+            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
-        validateActivity(time_activity, type);
+        validateActivity(type, description, time_activity);
+        
         Connection con = DBFactory.connectToDB();
 
-        String query = "UPDATE MaintenanceActivity SET Time_Activity = ?, Type_Activity = ?"
-                + " WHERE ID = ?";
+        String query = "UPDATE MaintenanceActivity SET Type_Activity = ?, Description = ?, Time_Activity = ?"
+                       + " WHERE ID = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setInt(1, time_activity);
-        ps.setString(2, type);
-        ps.setInt(3, id);
+        ps.setString(1, type);
+        ps.setString(2, description);
+        ps.setInt(3, time_activity);
+        ps.setInt(4, id);
 
         boolean result = ps.execute();
-
     }
     
-    public void updateActivity(Integer id) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+    public void assignmentActivity(Integer id) 
+            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         Connection con = DBFactory.connectToDB();
 
         String query = "UPDATE MaintenanceActivity SET Assigned = true"
-                + " WHERE ID = ?";
+                       + " WHERE ID = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, id);
 
         boolean result = ps.execute();
-
     }
 
     public void deleteActivity(Integer id) throws SQLException, UnsuccessfulUpdateException {
@@ -131,7 +131,6 @@ public class ActivityDao {
         ps.setInt(1, id);
 
         boolean result = ps.execute();
-
     }
 
     public MaintenanceActivity findActivityByID(int ID) throws SQLException, ActivityNotFoundException {
@@ -194,15 +193,15 @@ public class ActivityDao {
         }
     }
 
-    public List<MaintenanceActivity> findActivitiestInMaintainer(String username) throws SQLException {
+    public List<MaintenanceActivity> findActivitiesInMaintainer(String username) throws SQLException {
 
         Connection con = DBFactory.connectToDB();
 
         String query = "select ma.* from MaintainanceActivity ma "
-                + "where ma.ID IN "
-                + "(select am.Activity_Maintainer_ID"
-                + "from Activity_Maintainers am where am.Username_Maintainter = ?) "
-                + "group by ma.ID";
+                        + "where ma.ID IN "
+                        + "(select am.Activity_Maintainer_ID"
+                        + "from Activity_Maintainers am where am.Username_Maintainter = ?) "
+                        + "group by ma.ID";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
@@ -222,10 +221,10 @@ public class ActivityDao {
         Connection con = DBFactory.connectToDB();
 
         String query = "select ma.* from MaintainanceActivity ma "
-                + "where ma.ID NOT IN "
-                + "(select am.Activity_Maintainer_ID"
-                + "from Activity_Maintainers am where am.Username_Maintainter = ?) "
-                + "group by ma.ID";
+                        + "where ma.ID NOT IN "
+                        + "(select am.Activity_Maintainer_ID"
+                        + "from Activity_Maintainers am where am.Username_Maintainter = ?) "
+                        + "group by ma.ID";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
@@ -253,15 +252,23 @@ public class ActivityDao {
         
         return activity;
     }
-
-    private void validateActivity(Integer time, String type) throws InvalidParameterObjectException {
+    
+    private void validateActivity(String type, String description, Integer time) throws InvalidParameterObjectException {
         
-        if (type== null) {
+        if (type == null) {
             throw new InvalidParameterObjectException("Activity type must be not null");
         }
 
         if(type.length() > 20) {
             throw new InvalidParameterObjectException("Activity type must be length at most 20 characters");
+        }
+        
+        if (description == null) {
+            throw new InvalidParameterObjectException("Activity description must be not null");
+        }
+
+        if(description.length() > 30) {
+            throw new InvalidParameterObjectException("Activity description must be length at most 30 characters");
         }
         
         if(time == null) {
@@ -274,37 +281,4 @@ public class ActivityDao {
         
     }
     
-    private void validateActivity(MaintenanceActivity activity) throws InvalidParameterObjectException {
-
-        if (activity == null) {
-            throw new InvalidParameterObjectException("The object parameters must be filled");
-        }
-
-        if (activity.getType() == null) {
-            throw new InvalidParameterObjectException("Activity type must be not null");
-        }
-
-        if(activity.getType().length() > 20) {
-            throw new InvalidParameterObjectException("Activity type must be length at most 20 characters");
-        }
-        
-        if (activity.getDescription() == null) {
-            throw new InvalidParameterObjectException("Activity description must be not null");
-        }
-        
-        if(activity.getDescription().length() > 30) {
-            throw new InvalidParameterObjectException("Activity description must be length at most 30 characters");
-        }
-        
-        if(activity.getTime() == null) {
-            throw new InvalidParameterObjectException("Activity time must be not null");
-        }
-        
-        if (activity.getTime() <= 0) {
-            throw new InvalidParameterObjectException("Activity time must be a positive integer");
-        }
-        
-        
-    }
-
 }

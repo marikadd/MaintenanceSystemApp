@@ -6,13 +6,28 @@
 
 package view;
 
+import configuration.Exceptions.ActivityNotFoundException;
+import configuration.Exceptions.InvalidParameterObjectException;
+import configuration.Exceptions.UnsuccessfulUpdateException;
+import controller.Services.ActivityService;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Activity.MaintenanceActivity;
 
 /**
  *
  * @author Group9
  */
 public class UpdateActivity extends javax.swing.JFrame {
+    
+    private List<MaintenanceActivity> activityList = new LinkedList<MaintenanceActivity>();
+    private ActivityService activity = ActivityService.getActivityService();
 
     /** Creates new form UpdateActivity */
     public UpdateActivity() {
@@ -48,7 +63,9 @@ public class UpdateActivity extends javax.swing.JFrame {
         jLabelDescription = new javax.swing.JLabel();
         jLabelType = new javax.swing.JLabel();
         jLabelTime = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelUpdate = new javax.swing.JLabel();
+        jLabelID = new javax.swing.JLabel();
+        jTextFieldID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -98,7 +115,7 @@ public class UpdateActivity extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Description", "Type", "Time"
+                "ID", "Type", "Description", "Time"
             }
         ) {
             Class[] types = new Class [] {
@@ -120,6 +137,11 @@ public class UpdateActivity extends javax.swing.JFrame {
 
         jButtonList.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButtonList.setText("List");
+        jButtonList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonListMouseClicked(evt);
+            }
+        });
 
         jTextFieldDescription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,13 +167,28 @@ public class UpdateActivity extends javax.swing.JFrame {
         jLabelTime.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTime.setText("Time");
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/refresh.png"))); // NOI18N
-        jLabel1.setText("Update");
-        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 0), new java.awt.Color(255, 204, 0), null, null));
-        jLabel1.setOpaque(true);
+        jLabelUpdate.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelUpdate.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelUpdate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/refresh.png"))); // NOI18N
+        jLabelUpdate.setText("Update");
+        jLabelUpdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 0), new java.awt.Color(255, 204, 0), null, null));
+        jLabelUpdate.setOpaque(true);
+        jLabelUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelUpdateMouseClicked(evt);
+            }
+        });
+
+        jLabelID.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelID.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelID.setText("ID");
+
+        jTextFieldID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldIDActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -163,23 +200,30 @@ public class UpdateActivity extends javax.swing.JFrame {
                     .add(jButtonList)
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 403, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jLabelDescription)
-                        .add(jLabelType))
+                        .add(jLabelDescription))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabelTime)
-                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldType, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldDescription)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldTime)))
+                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                                .add(jTextFieldID))
+                            .add(jLabelID))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabelTime)
+                            .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 159, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 159, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabelType))))
                 .add(0, 34, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jLabelTitle)
-                .add(55, 55, 55)
-                .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jLabelTitle)
+                        .add(55, 55, 55)
+                        .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jLabelUpdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(191, 191, 191))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -191,23 +235,24 @@ public class UpdateActivity extends javax.swing.JFrame {
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jButtonList)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(31, 31, 31)
-                        .add(jLabelType)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(jLabelDescription)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 28, Short.MAX_VALUE)
-                        .add(jLabelTime)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(33, 33, 33)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabelType)
+                    .add(jLabelID))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jTextFieldID, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(27, 27, 27)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabelDescription)
+                    .add(jLabelTime))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(30, 30, 30)
+                .add(jLabelUpdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(64, Short.MAX_VALUE))
         );
 
@@ -249,6 +294,64 @@ public class UpdateActivity extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
 
+    private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
+       
+        try {
+            activityList = activity.getAllActivities();
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ActivityNotFoundException ex) {
+            Logger.getLogger(UpdateActivity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+        
+        this.showActivities(activityList);
+        activityList = null;
+    }//GEN-LAST:event_jButtonListMouseClicked
+
+    private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
+        int ID = Integer.parseInt(jTextFieldID.getText());
+        String type = jTextFieldType.getText();
+        String description = jTextFieldDescription.getText();
+        int time = Integer.parseInt(jTextFieldTime.getText());
+     
+        
+        try {
+            activity.updateActivity(ID, type, description, time);
+            JOptionPane.showMessageDialog(null, "Activity updated successfully!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Database internal error");
+        } catch (UnsuccessfulUpdateException ex) {
+            JOptionPane.showMessageDialog(null, "Cannot update this user");
+        } catch (InvalidParameterObjectException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid permission");
+        }  
+    }//GEN-LAST:event_jLabelUpdateMouseClicked
+
+    private void jTextFieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIDActionPerformed
+        
+    }//GEN-LAST:event_jTextFieldIDActionPerformed
+
+    public void showActivities(List<MaintenanceActivity> list){
+        
+        DefaultTableModel model = (DefaultTableModel) jTableActivities.getModel();
+        Object column[] =new Object[4];
+        
+        if(model.getRowCount()!=0){
+            for(int i=0;i<list.size();i++){
+                model.removeRow(0);
+            }
+        }
+        
+        for(int i=0;i<list.size();i++){
+            column[0] = list.get(i).getID();
+            column[1] = list.get(i).getType();
+            column[2] = list.get(i).getDescription();
+            column[4] = list.get(i).getTime();
+            model.addRow(column);
+        }      
+    }    
+    
     /**
      * @param args the command line arguments
      */
@@ -286,18 +389,20 @@ public class UpdateActivity extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonList;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelDescription;
     private javax.swing.JLabel jLabelExit;
+    private javax.swing.JLabel jLabelID;
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelType;
+    private javax.swing.JLabel jLabelUpdate;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableActivities;
     private javax.swing.JTextField jTextFieldDescription;
+    private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldTime;
     private javax.swing.JTextField jTextFieldType;
     // End of variables declaration//GEN-END:variables

@@ -5,9 +5,7 @@
  */
 package model.Activity;
 
-import java.io.*;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import model.Competences.Competence;
 
 /**
@@ -15,6 +13,7 @@ import model.Competences.Competence;
  * @author Group9
  */
 
+//Adaptee
 public class MaintenanceActivity {
      
     private Integer ID;
