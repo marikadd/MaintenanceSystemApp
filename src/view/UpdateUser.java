@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +32,7 @@ public class UpdateUser extends javax.swing.JFrame {
      */
     public UpdateUser() {
         initComponents();
-        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(650,650);

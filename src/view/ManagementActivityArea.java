@@ -6,6 +6,8 @@
 
 package view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Group9
@@ -15,7 +17,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
     /** Creates new form ManagementActivityArea */
     public ManagementActivityArea() {
         initComponents();
-        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(600,500);
@@ -48,6 +50,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         jButtonAssignment = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 0));
         jPanel1.setForeground(new java.awt.Color(255, 204, 0));
@@ -253,12 +256,12 @@ public class ManagementActivityArea extends javax.swing.JFrame {
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         User user = new User();
-        user.setVisible(true)
+        user.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jButtonViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonViewMouseClicked
         setVisible(false);
-        ViewActivities viewActivity = new ViewActivies();
+        ViewActivities viewActivity = new ViewActivities();
         viewActivity.setVisible(true);
     }//GEN-LAST:event_jButtonViewMouseClicked
 
@@ -282,7 +285,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
 
     private void jButtonAssignmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAssignmentMouseClicked
         setVisible(false);
-        AssignmenteActivity aActivity = new AssignmentActivity();
+        AssignmentActivity aActivity = new AssignmentActivity();
         aActivity.setVisible(true);
     }//GEN-LAST:event_jButtonAssignmentMouseClicked
 

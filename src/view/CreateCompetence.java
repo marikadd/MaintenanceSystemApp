@@ -12,6 +12,7 @@ import controller.Services.CompetenceService;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -26,7 +27,7 @@ public class CreateCompetence extends javax.swing.JFrame {
      */
     public CreateCompetence() {
         initComponents();
-        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(500,400);

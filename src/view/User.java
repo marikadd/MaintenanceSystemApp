@@ -5,6 +5,8 @@
  */
 package view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Group9
@@ -16,7 +18,7 @@ public class User extends javax.swing.JFrame {
      */
     public User() {
         initComponents();
-        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(600,500);

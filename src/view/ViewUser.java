@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import model.Users.UserModel;
 
@@ -28,7 +29,7 @@ public class ViewUser extends javax.swing.JFrame {
      */
     public ViewUser() {
         initComponents();
-        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(750,400);

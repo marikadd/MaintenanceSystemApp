@@ -14,6 +14,7 @@ import java.lang.System.Logger.Level;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Competences.Competence;
@@ -31,7 +32,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
      */
     public DeleteCompetence() {
         initComponents();
-        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(600,500);

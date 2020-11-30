@@ -5,6 +5,7 @@
  */
 package view;
 
+import javax.swing.ImageIcon;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 /**
@@ -18,7 +19,7 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
      */
     public ManagementCompetenceArea() {
         initComponents();
-        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(600,500);

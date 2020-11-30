@@ -6,6 +6,8 @@
 
 package view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Group9
@@ -15,7 +17,7 @@ public class UpdateActivity extends javax.swing.JFrame {
     /** Creates new form UpdateActivity */
     public UpdateActivity() {
         initComponents();
-        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(670,500);
@@ -49,6 +51,7 @@ public class UpdateActivity extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 0));
 

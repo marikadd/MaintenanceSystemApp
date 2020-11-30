@@ -5,6 +5,8 @@
  */
 package view;
 
+import javax.swing.ImageIcon;
+
 
 /**
  *
@@ -18,7 +20,7 @@ public class SystemAdminArea extends javax.swing.JFrame {
      */
     public SystemAdminArea() {
         initComponents();
-        mageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(550,500);
