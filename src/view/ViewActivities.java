@@ -230,13 +230,14 @@ public class ViewActivities extends javax.swing.JFrame {
         
         DefaultTableModel competences = (DefaultTableModel) jTableActivities.getModel();
         
-        int row = competences.getRowCount();
-        for(int i = 0; i < row; i++) {
-            competences.removeRow(0);
+        if(competences.getRowCount()!=0){
+            for(int i = 0; i < list.size(); i++) {
+                competences.removeRow(0);
+            }
         }
         
         for(int i=0;i<list.size();i++){
-            Object column[] =new Object[2];
+            Object column[] =new Object[4];
             column[0] = list.get(i).getID();
             column[1] = list.get(i).getDescription();
             column[2] = list.get(i).getTime();
