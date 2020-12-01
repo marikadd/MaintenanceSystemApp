@@ -138,12 +138,13 @@ public class UsersDao{
     public void updateUserModel(String oldUsername, UserModel userModel)
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
-        validateUserModel(userModel);
+        validateUpdate(userModel);
 
         Connection con = DBFactory.connectToDB();
 
-        String query = "UPDATE Users SET Name_User = ?, Surname = ?, Username = ?, PW = ?, Email = ?, PhoneNumber = ? "
-                       + "where Username = ?";
+        String query = "UPDATE Users SET Name_User = coalesce(?, Name_User), Surname = coalesce(?,Surname), "
+                        + "Username = coalesce(?,Username), PW = coalesce(?, PW), Email = coalesce(?,Email), "
+                        + "PhoneNumber = coalesce(?,PhoneNumber) where Username = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, userModel.getName());
@@ -154,8 +155,13 @@ public class UsersDao{
         ps.setString(6, userModel.getPhone());
         ps.setString(7, oldUsername);
 
-        boolean result = ps.execute();
+        int result = ps.executeUpdate();
+        
+        if(result == 0)
+            throw new UnsuccessfulUpdateException("No row update!");
     }
+
+
 
     public void deleteUserModel(String username) throws SQLException, UnsuccessfulUpdateException {
 
@@ -242,6 +248,7 @@ public class UsersDao{
         
         return userModel;
     }
+    
     private void validateUserModel(UserModel userModel) throws InvalidParameterObjectException {
 
         if (userModel == null) {
@@ -322,6 +329,70 @@ public class UsersDao{
         String format = "^(.+)@(.+)$";
         if (!userModel.getEmail().matches(format)) {
             throw new InvalidParameterObjectException("Invalid e-mail address format");
+        }
+    }
+    
+    private void validateUpdate(UserModel userModel) throws InvalidParameterObjectException {
+
+        if (userModel == null) {
+            System.out.println("userModel null");
+            throw new InvalidParameterObjectException("The object parameters must be filled");
+        }
+
+        if (userModel.getUsername() != null){
+            if(userModel.getUsername().length() > 20){  
+                System.out.println("username len > 20");
+                throw new InvalidParameterObjectException("User's username must be at most 20 characters");
+            }
+        }
+        
+        if (userModel.getName() != null){
+            if(userModel.getName().length() > 20){        
+                System.out.println("name len > 20");
+                throw new InvalidParameterObjectException("User's name must be at most 20 characters");
+            }
+        }
+        if (userModel.getSurname() != null){
+            if(userModel.getSurname().length() > 20){              
+                System.out.println("surname len > 20");
+                throw new InvalidParameterObjectException("User's surname must be at most 20 characters");
+            }
+        }
+        
+        if (userModel.getPassword() != null){
+            String passFormat = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,50}$";
+            if(!userModel.getPassword().matches(passFormat)){               
+                System.out.println("pass format invalid");
+                throw new InvalidParameterObjectException("Password must contains at least one number, one uppercase/lowercase letter and one special character. "
+                    + "White spaces are not allowed and password lenght must be at least 8 characters and at most 50");
+            }
+        }
+        
+        if (userModel.getPhone() != null){
+            if(userModel.getPhone().length() != 10){                
+                System.out.println("phone len > 10");
+                throw new InvalidParameterObjectException("User's phone number must be 10 characters");
+            }
+        }
+        
+        if(userModel.getPhone() != null){
+            if(!userModel.getPhone().matches("[0-9]+")){               
+                System.out.println("regex phone");
+                throw new InvalidParameterObjectException("User's phone number must be numeric");
+            }
+        }
+        
+        if (userModel.getEmail() != null){
+            if(userModel.getEmail().length() > 40){
+                throw new InvalidParameterObjectException("User's email must be at most 40 characters");
+            }
+        }  
+        
+        if (userModel.getEmail() != null){
+            String format = "^(.+)@(.+)$";
+            if(!userModel.getEmail().matches(format)){
+                throw new InvalidParameterObjectException("Invalid e-mail address format");
+            }
         }
     }
     

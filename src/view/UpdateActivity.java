@@ -24,6 +24,7 @@ import model.Activity.MaintenanceActivity;
  *
  * @author Group9
  */
+
 public class UpdateActivity extends javax.swing.JFrame {
     
     private List<MaintenanceActivity> activityList = new LinkedList<MaintenanceActivity>();
@@ -277,11 +278,11 @@ public class UpdateActivity extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescriptionActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextFieldDescriptionActionPerformed
 
     private void jTextFieldTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTimeActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextFieldTimeActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
@@ -322,7 +323,7 @@ public class UpdateActivity extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot update this user");
+            JOptionPane.showMessageDialog(null, "Cannot update this activity");
         } catch (InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, "Invalid permission");
         }  
@@ -347,7 +348,7 @@ public class UpdateActivity extends javax.swing.JFrame {
             column[0] = list.get(i).getID();
             column[1] = list.get(i).getType();
             column[2] = list.get(i).getDescription();
-            column[4] = list.get(i).getTime();
+            column[3] = list.get(i).getTime();
             model.addRow(column);
         }      
     }    

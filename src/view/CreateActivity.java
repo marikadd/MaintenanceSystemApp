@@ -6,8 +6,18 @@
 
 package view;
 
+import configuration.Exceptions.InvalidParameterObjectException;
+import configuration.Exceptions.InvalidPermissionException;
+import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
+import controller.Services.CompetenceService;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Competences.Competence;
 
 /**
  *
@@ -16,15 +26,18 @@ import javax.swing.ImageIcon;
 
 public class CreateActivity extends javax.swing.JFrame {
 
+    
+    
     /** Creates new form CreateActivity */
     public CreateActivity() {
         initComponents();
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(500,420);
+        setSize(800,720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getAllSkills();
     }
 
     /** This method is called from within the constructor to
@@ -48,6 +61,14 @@ public class CreateActivity extends javax.swing.JFrame {
         jLabelDescription = new javax.swing.JLabel();
         jLabelTime = new javax.swing.JLabel();
         jLabelCreate = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableToAssociate = new javax.swing.JTable();
+        jButtonAdd = new javax.swing.JButton();
+        jButtonRemove = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableAssociated = new javax.swing.JTable();
+        jLabelTit1 = new javax.swing.JLabel();
+        jLabelTit2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -61,23 +82,6 @@ public class CreateActivity extends javax.swing.JFrame {
                 jLabelBackMouseClicked(evt);
             }
         });
-
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabelBack)
-                .addContainerGap(113, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabelBack)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -131,6 +135,74 @@ public class CreateActivity extends javax.swing.JFrame {
             }
         });
 
+        jTableToAssociate.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Description"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTableToAssociate);
+
+        jButtonAdd.setText("Add");
+        jButtonAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAddMouseClicked(evt);
+            }
+        });
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
+
+        jButtonRemove.setText("Remove");
+        jButtonRemove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonRemoveMouseClicked(evt);
+            }
+        });
+        jButtonRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveActionPerformed(evt);
+            }
+        });
+
+        jTableAssociated.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Description"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTableAssociated);
+
+        jLabelTit1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelTit1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTit1.setText("Skill To Assigne");
+
+        jLabelTit2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelTit2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTit2.setText("Skill Assigned");
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -143,46 +215,101 @@ public class CreateActivity extends javax.swing.JFrame {
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel2Layout.createSequentialGroup()
-                                .add(78, 78, 78)
-                                .add(jLabelTitle))
-                            .add(jPanel2Layout.createSequentialGroup()
                                 .add(37, 37, 37)
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabelTime)
-                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                        .add(jLabelType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(jLabelDescription)
-                                        .add(jTextFieldType, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                                        .add(jTextFieldDescription)
-                                        .add(jTextFieldTime)))))
-                        .add(0, 66, Short.MAX_VALUE)))
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jLabelType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .add(60, 60, 60)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelDescription))
+                                        .add(60, 60, 60)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jLabelTime)
+                                            .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelTit1))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jLabelTit2)
+                                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(213, 213, 213)
+                                .add(jLabelTitle)
+                                .add(0, 0, Short.MAX_VALUE)))
+                        .add(37, 37, 37))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(225, 225, 225)
+                        .add(jButtonAdd)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jButtonRemove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(28, 28, 28)))
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .add(0, 0, Short.MAX_VALUE)
+                .add(0, 276, Short.MAX_VALUE)
                 .add(jLabelCreate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(25, 25, 25))
+                .add(276, 276, 276))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(21, 21, 21)
-                .add(jLabelTitle)
-                .add(36, 36, 36)
-                .add(jLabelType)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(25, 25, 25)
-                .add(jLabelDescription)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(25, 25, 25)
-                .add(jLabelTime)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(29, 29, 29)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabelTitle)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(28, 28, 28)
+                                .add(jLabelType)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                    .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(30, 30, 30)
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                    .add(jLabelDescription)
+                                    .add(jLabelTime))))
+                        .add(59, 59, 59)
+                        .add(jLabelTit1))
+                    .add(jLabelTit2))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jButtonAdd)
+                    .add(jButtonRemove))
+                .add(18, 18, 18)
                 .add(jLabelCreate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 39, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 36, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabelBack)
+                .add(109, 109, 109)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabelBack)
+                .addContainerGap(555, Short.MAX_VALUE))
+            .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -191,26 +318,22 @@ public class CreateActivity extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, 0)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(layout.createSequentialGroup()
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTypeActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextFieldTypeActionPerformed
 
     private void jTextFieldTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTimeActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextFieldTimeActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
@@ -225,26 +348,114 @@ public class CreateActivity extends javax.swing.JFrame {
 
     
     private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
-        /* 
+         
         ActivityService act = ActivityService.getActivityService();
         
         String type = jTextFieldType.getText();
         String description = jTextFieldDescription.getText();
-        String time = jTextFieldTime.getText();
+        Integer time = Integer.parseInt(jTextFieldTime.getText());
+        
+        ArrayList<Competence> skills = new ArrayList<Competence>();
+        
+        DefaultTableModel model = (DefaultTableModel) jTableAssociated.getModel();
+        
+        for(int i = 0; i < model.getRowCount(); i++) {
+            Integer id = Integer.parseInt(model.getValueAt(i, 0).toString());
+            String descriptionSkill = model.getValueAt(i, 1).toString();
+            
+            Competence c = new Competence(id, descriptionSkill);
+            
+            skills.add(c);
+            
+        }
         
         try {
-            act.insertActivity(type, description, time);
-            JOptionPane.showMessageDialog(null, "Competence created successfully!");
+            act.insertActivity(type, description, time, skills);
+            JOptionPane.showMessageDialog(null, "Activity created successfully!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot create this user");
+            JOptionPane.showMessageDialog(null, "Cannot create this activity");
         } catch (InvalidPermissionException ex) {
            JOptionPane.showMessageDialog(null, "Invalid Permission"); 
-        }  
-        */
+        } catch(InvalidParameterObjectException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }//GEN-LAST:event_jLabelCreateMouseClicked
 
+    private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
+  
+    }//GEN-LAST:event_jButtonRemoveActionPerformed
+    
+    
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+   
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddMouseClicked
+        int posToAssociate = jTableToAssociate.getSelectedRow();
+        
+        if(posToAssociate >= 0) {
+            
+            Integer id = Integer.parseInt(jTableToAssociate.getModel().getValueAt(posToAssociate, 0).toString());
+            String description = jTableToAssociate.getModel().getValueAt(posToAssociate, 1).toString();
+            
+            DefaultTableModel model = (DefaultTableModel) jTableAssociated.getModel();
+            Object column[] =new Object[2];
+            
+            column[0] = id;
+            column[1] = description;
+            
+            model.addRow(column);
+            
+            DefaultTableModel modelToAssociate = (DefaultTableModel) jTableToAssociate.getModel();
+            modelToAssociate.removeRow(posToAssociate);
+        }
+    }//GEN-LAST:event_jButtonAddMouseClicked
+
+    private void jButtonRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemoveMouseClicked
+        int posAssociated = jTableAssociated.getSelectedRow();
+        
+        if(posAssociated >= 0) {
+            
+            Integer id = Integer.parseInt(jTableAssociated.getModel().getValueAt(posAssociated, 0).toString());
+            String description = jTableAssociated.getModel().getValueAt(posAssociated, 1).toString();
+            
+            DefaultTableModel model = (DefaultTableModel) jTableToAssociate.getModel();
+            Object column[] =new Object[2];
+            
+            column[0] = id;
+            column[1] = description;
+            
+            model.addRow(column);
+            
+            DefaultTableModel modelAssociated = (DefaultTableModel) jTableAssociated.getModel();
+            modelAssociated.removeRow(posAssociated);
+        }
+    }//GEN-LAST:event_jButtonRemoveMouseClicked
+    
+    private void getAllSkills() {
+    
+        CompetenceService compService = CompetenceService.getCompetenceService();
+        
+        try {
+            List<Competence> competences = compService.getAllCompetences();
+            DefaultTableModel model = (DefaultTableModel) jTableToAssociate.getModel();
+        
+            for(Competence c: competences) {
+            
+                Object[] column = new Object[2];
+                column[0] = c.getId();
+                column[1] = c.getDescription();
+            
+                model.addRow(column);
+            
+            }
+        } catch(SQLException e) {
+           JOptionPane.showMessageDialog(null, "Error in database");
+        }
+        
+    }
     
     /**
      * @param args the command line arguments
@@ -282,15 +493,23 @@ public class CreateActivity extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonRemove;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelCreate;
     private javax.swing.JLabel jLabelDescription;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelTime;
+    private javax.swing.JLabel jLabelTit1;
+    private javax.swing.JLabel jLabelTit2;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelType;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableAssociated;
+    private javax.swing.JTable jTableToAssociate;
     private javax.swing.JTextField jTextFieldDescription;
     private javax.swing.JTextField jTextFieldTime;
     private javax.swing.JTextField jTextFieldType;

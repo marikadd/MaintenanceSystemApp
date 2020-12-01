@@ -210,7 +210,8 @@ public class User extends javax.swing.JFrame {
         setVisible(false);
         ManagementActivityArea aArea = new ManagementActivityArea();
         aArea.setVisible(true);
-    }           
+    }  
+    
     /**
      * @param args the command line arguments
      */

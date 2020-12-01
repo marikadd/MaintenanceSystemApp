@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
  *
  * @author Group9
  */
+
 public class ManagementUserArea extends javax.swing.JFrame {
 
     /**
@@ -243,11 +244,11 @@ public class ManagementUserArea extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed

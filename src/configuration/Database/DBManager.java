@@ -14,7 +14,7 @@ import java.sql.*;
  */
 
 public class DBManager {
-    private final String url = "jdbc:postgresql://localhost/MaintenanceSystem";
+    private final String url = "jdbc:postgresql://localhost/MaintainanceSystem";
     private final String user = "group9";
     private final String password = "Group9";
     

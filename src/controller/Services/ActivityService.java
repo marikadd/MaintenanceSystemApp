@@ -34,7 +34,7 @@ import model.Users.UserModel;
 
 public class ActivityService {
 
-    private static ActivityService activService = new ActivityService();
+    private static ActivityService activService;
     private ActivityDao activityDao;
     private UsersDao usersDao;
 

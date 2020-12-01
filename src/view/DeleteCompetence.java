@@ -20,6 +20,7 @@ import model.Competences.Competence;
  *
  * @author Group9
  */
+
 public class DeleteCompetence extends javax.swing.JFrame {
 
     private List<Competence> compList = new LinkedList<Competence>();
@@ -237,7 +238,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot delete this user");
+            JOptionPane.showMessageDialog(null, "Cannot delete this competence");
         } catch (InvalidPermissionException ex) {
             JOptionPane.showMessageDialog(null, "Invalid Permission");
         }  

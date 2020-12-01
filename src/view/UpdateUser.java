@@ -347,13 +347,13 @@ public class UpdateUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonListMouseClicked
 
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
-        String oldUsername = jTextoldUsername.getText();
-        String newUsername = jTextnewUsername.getText();
-        String password = jPasswordField.getPassword().toString(); 
-        String name = jTextName.getText();
-        String surname = jTextSurname.getText();
-        String email = jTextEmail.getText();
-        String phone = jTextPhone.getText();
+        String oldUsername = check(jTextoldUsername.getText());
+        String newUsername = check(jTextnewUsername.getText());
+        String password = check(jPasswordField.getPassword().toString()); 
+        String name = check(jTextName.getText());
+        String surname = check(jTextSurname.getText());
+        String email = check(jTextEmail.getText());
+        String phone = check(jTextPhone.getText());
         
         UserManagementService ums= UserManagementService.getUserManagementService();
         
@@ -373,6 +373,13 @@ public class UpdateUser extends javax.swing.JFrame {
     
     }//GEN-LAST:event_jLabelUpdateMouseClicked
 
+    public String check(String s){
+        if(s.isBlank()){
+            s = null;
+        }  
+        return s;
+    }
+    
     private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
     
     }//GEN-LAST:event_jPasswordFieldActionPerformed

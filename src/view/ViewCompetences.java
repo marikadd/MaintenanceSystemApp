@@ -16,8 +16,9 @@ import model.Competences.Competence;
 
 /**
  *
- * @author dondi
+ * @author Group9
  */
+
 public class ViewCompetences extends javax.swing.JFrame {
 
     List<Competence> compList = new LinkedList<>();
@@ -140,7 +141,7 @@ public class ViewCompetences extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonList)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addGap(110, 110, 110))
         );
 
         jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
@@ -164,9 +165,9 @@ public class ViewCompetences extends javax.swing.JFrame {
                         .addComponent(jLabelBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(18, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabelIcon)
-                        .addGap(15, 15, 15)))
+                        .addGap(18, 18, 18)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(

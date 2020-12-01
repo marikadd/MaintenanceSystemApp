@@ -23,6 +23,7 @@ import model.Activity.MaintenanceActivity;
  *
  * @author Group9
  */
+
 public class DeleteActivity extends javax.swing.JFrame {
     
     private List<MaintenanceActivity> activityList = new LinkedList<MaintenanceActivity>();
@@ -166,7 +167,7 @@ public class DeleteActivity extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jLabelTitle)
@@ -174,9 +175,7 @@ public class DeleteActivity extends javax.swing.JFrame {
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabelId)
-                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(jButtonList)
-                                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 381, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 381, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jPanel2Layout.createSequentialGroup()
                                 .add(jTextFieldId, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(57, 57, 57)
@@ -184,7 +183,10 @@ public class DeleteActivity extends javax.swing.JFrame {
                         .add(34, 34, 34))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 66, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jButtonList)
+                        .add(26, 26, 26))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -224,7 +226,7 @@ public class DeleteActivity extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextFieldIdActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
@@ -260,7 +262,7 @@ public class DeleteActivity extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot delete this user");
+            JOptionPane.showMessageDialog(null, "Cannot delete this activity");
         }
     }//GEN-LAST:event_jLabelDeleteMouseClicked
 
@@ -279,7 +281,7 @@ public class DeleteActivity extends javax.swing.JFrame {
             column[0] = list.get(i).getID();
             column[1] = list.get(i).getType();
             column[2] = list.get(i).getDescription();
-            column[4] = list.get(i).getTime();
+            column[3] = list.get(i).getTime();
             model.addRow(column);
         }      
     }

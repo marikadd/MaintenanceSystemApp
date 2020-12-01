@@ -21,6 +21,7 @@ import model.Activity.MaintenanceActivity;
  *
  * @author Group9
  */
+
 public class ViewActivities extends javax.swing.JFrame {
     
     List<MaintenanceActivity> activityList = new LinkedList<>();
@@ -101,14 +102,14 @@ public class ViewActivities extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Type", "Description", "Time", "Skill"
+                "Type", "Description", "Time"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -199,7 +200,7 @@ public class ViewActivities extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonListActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
@@ -245,6 +246,7 @@ public class ViewActivities extends javax.swing.JFrame {
             competences.addRow(column);
         }
     }
+    
     /**
      * @param args the command line arguments
      */

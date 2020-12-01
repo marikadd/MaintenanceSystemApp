@@ -140,7 +140,12 @@ public class CompetencesDao {
         ps.setString(1, description);
         ps.setInt(2, id);
         
-        boolean result = ps.execute();
+        int result = ps.executeUpdate();
+        
+        if(result == 0) {
+            throw new UnsuccessfulUpdateException("No rows update");
+        }
+        
     }
     
     public void deleteCompetence(Integer id) throws SQLException, UnsuccessfulUpdateException {

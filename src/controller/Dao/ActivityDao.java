@@ -30,7 +30,6 @@ public class ActivityDao {
     private static ActivityDao activityDao;
     private CompetencesDao compDao;
     
-    //Singleton
     public static ActivityDao init() {
         if (activityDao == null) {
             activityDao = new ActivityDao();
@@ -57,18 +56,24 @@ public class ActivityDao {
         
         int affectedRow = ps.executeUpdate();
         
-        if(affectedRow == 0) {
-            throw new UnsuccessfulUpdateException("Activity not created");
-        }
+        if(affectedRow > 0) {
+            String sqlquery = "SELECT id From MaintenanceActivity "
+                    + "where id = (SELECT max(id) FROM MaintenanceActivity)";
         
-        try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
-            if (generatedKeys.next()) {
-                return generatedKeys.getInt(1);
+            PreparedStatement psSql = con.prepareStatement(sqlquery);
+        
+            ResultSet rsSql = psSql.executeQuery();
+            
+            if(rsSql.next()) {
+                return rsSql.getInt("id");
+            } else {
+                throw new SQLException("Row not insert");
             }
-            else {
-                throw new SQLException("Creating user failed, no ID obtained.");
+            
+        } else {
+                throw new SQLException("Row not insert");
             }
-        }
+        
     }
     
     public void insertCompentecesInActivity(int activityId, List<Competence> competences) throws SQLException {
@@ -104,7 +109,12 @@ public class ActivityDao {
         ps.setInt(3, time_activity);
         ps.setInt(4, id);
 
-        boolean result = ps.execute();
+        int result = ps.executeUpdate();
+        
+        if(result == 0) {
+            throw new UnsuccessfulUpdateException("No rows update");
+        }
+        
     }
     
     public void assignmentActivity(Integer id) 
@@ -185,9 +195,9 @@ public class ActivityDao {
 
             ps.setString(1, maintainer.getUsername());
             ps.setInt(2, id);
-            boolean result = ps.execute();
+            int result = ps.executeUpdate();
 
-            if (!result) {
+            if (result == 0) {
                 throw new UnsuccessfulUpdateException("Cannot assign activity #" + id + " to user " + maintainer.getUsername());
             }
         }
@@ -197,10 +207,10 @@ public class ActivityDao {
 
         Connection con = DBFactory.connectToDB();
 
-        String query = "select ma.* from MaintainanceActivity ma "
+        String query = "select ma.* from MaintenanceActivity ma "
                         + "where ma.ID IN "
-                        + "(select am.Activity_Maintainer_ID"
-                        + "from Activity_Maintainers am where am.Username_Maintainter = ?) "
+                        + "(select am.Activity_Maintainer_ID "
+                        + "from Activity_Maintainers am where am.Username_Maintainer = ?) "
                         + "group by ma.ID";
 
         PreparedStatement ps = con.prepareStatement(query);
@@ -220,10 +230,10 @@ public class ActivityDao {
 
         Connection con = DBFactory.connectToDB();
 
-        String query = "select ma.* from MaintainanceActivity ma "
+        String query = "select ma.* from MaintenanceActivity ma "
                         + "where ma.ID NOT IN "
-                        + "(select am.Activity_Maintainer_ID"
-                        + "from Activity_Maintainers am where am.Username_Maintainter = ?) "
+                        + "(select am.Activity_Maintainer_ID "
+                        + "from Activity_Maintainers am where am.Username_Maintainer = ?) "
                         + "group by ma.ID";
 
         PreparedStatement ps = con.prepareStatement(query);

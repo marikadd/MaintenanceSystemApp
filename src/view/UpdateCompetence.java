@@ -20,6 +20,7 @@ import model.Competences.Competence;
  *
  * @author Group9
  */
+
 public class UpdateCompetence extends javax.swing.JFrame {
 
     private List<Competence> compList = new LinkedList<Competence>();
@@ -198,7 +199,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39))))
+                        .addGap(31, 31, 31))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,6 +261,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextIdActionPerformed
 
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
+        
         try {
             compList = competence.getAllCompetences();
         } catch (SQLException ex) {
@@ -271,6 +273,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonListMouseClicked
 
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
+        
         CompetenceService cs = CompetenceService.getCompetenceService();
         
         String id_string = jTextId.getText();
@@ -286,7 +289,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot delete this user");
+            JOptionPane.showMessageDialog(null, "Cannot update this competance");
         }
 
     }//GEN-LAST:event_jLabelUpdateMouseClicked

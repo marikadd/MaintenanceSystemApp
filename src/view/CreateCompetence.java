@@ -17,6 +17,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  *
  * @author Group9
  */
+
 public class CreateCompetence extends javax.swing.JFrame {
     
     /**
@@ -132,9 +133,6 @@ public class CreateCompetence extends javax.swing.JFrame {
                                         .addGap(83, 83, 83)
                                         .addComponent(jTextDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(109, 109, 109)
-                                        .addComponent(jLabelCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(62, 62, 62)
                                         .addComponent(jLabelTitle)))
                                 .addGap(0, 56, Short.MAX_VALUE)))
@@ -142,7 +140,11 @@ public class CreateCompetence extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(126, 126, 126)
                         .addComponent(jLabelDescription)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(122, 122, 122))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +188,7 @@ public class CreateCompetence extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot create this user");
+            JOptionPane.showMessageDialog(null, "Cannot create this competence");
         } catch (InvalidPermissionException ex) {
            JOptionPane.showMessageDialog(null, "Invalid Permission"); 
         }  
