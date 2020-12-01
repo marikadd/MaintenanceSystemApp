@@ -114,7 +114,7 @@ public class UsersDao{
         return users;
     }
     
-    public void insertUserModel(UserModel userModel, Role role)
+    public int insertUserModel(UserModel userModel, Role role)
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
         validateUserModel(userModel);
@@ -132,10 +132,13 @@ public class UsersDao{
         ps.setString(6, userModel.getPhone());
         ps.setString(7, role.toString());
 
-        boolean result = ps.execute();
+        
+        int result = ps.executeUpdate();
+        
+        return result;
     }
 
-    public void updateUserModel(String oldUsername, UserModel userModel)
+    public int updateUserModel(String oldUsername, UserModel userModel)
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
         validateUpdate(userModel);
@@ -159,11 +162,14 @@ public class UsersDao{
         
         if(result == 0)
             throw new UnsuccessfulUpdateException("No row update!");
+        
+        return result;
+        
     }
 
 
 
-    public void deleteUserModel(String username) throws SQLException, UnsuccessfulUpdateException {
+    public int deleteUserModel(String username) throws SQLException, UnsuccessfulUpdateException {
 
         Connection con = DBFactory.connectToDB();
 
@@ -172,7 +178,10 @@ public class UsersDao{
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
 
-        boolean result = ps.execute();
+        
+        int result = ps.executeUpdate();
+        
+        return result;
     }
     
     private UserModel getSingleUserModel(ResultSet rs, Role role) throws SQLException, UsernotFoundException {
@@ -252,69 +261,52 @@ public class UsersDao{
     private void validateUserModel(UserModel userModel) throws InvalidParameterObjectException {
 
         if (userModel == null) {
-            System.out.println("userModel null");
             throw new InvalidParameterObjectException("The object parameters must be filled");
         }
 
         if (userModel.getUsername() == null) {
-            System.out.println("username null");
             throw new InvalidParameterObjectException("User's username must be not null");
         }
 
         if (userModel.getUsername().length() > 20) {
-            System.out.println("username len > 20");
             throw new InvalidParameterObjectException("User's username must be at most 20 characters");
         }
 
         if (userModel.getName() == null) {
-            System.out.println("name null");
             throw new InvalidParameterObjectException("User's name must be not null");
         }
 
         if (userModel.getName().length() > 20) {
-            System.out.println("name len > 20");
             throw new InvalidParameterObjectException("User's name must be at most 20 characters");
         }
 
         if (userModel.getSurname() == null) {
-            System.out.println("surname is null");
             throw new InvalidParameterObjectException("User's surname must be not null");
         }
 
         if (userModel.getSurname().length() > 20) {
-            System.out.println("surname len > 20");
             throw new InvalidParameterObjectException("User's surname must be at most 20 characters");
         }
 
         if (userModel.getPassword() == null) {
-            System.out.println("password is null");
             throw new InvalidParameterObjectException("User's password must be not null");
-        }
-
-        if (userModel.getPassword().length() > 50) {
-            System.out.println("password len > 20");
-            throw new InvalidParameterObjectException("User's password must be at most 50 characters");
         }
 
         String passFormat = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,50}$";
         if (!userModel.getPassword().matches(passFormat)) {
-            System.out.println("pass format invalid");
             throw new InvalidParameterObjectException("Password must contains at least one number, one uppercase/lowercase letter and one special character. "
                     + "White spaces are not allowed and password lenght must be at least 8 characters and at most 50");
         }
 
         if (userModel.getPhone() == null) {
-            System.out.println("phone null");
             throw new InvalidParameterObjectException("User's phone number must be not null");
         }
 
         if (userModel.getPhone().length() != 10) {
-            System.out.println("phone len > 10");
             throw new InvalidParameterObjectException("User's phone number must be 10 characters");
         }
         
         if(!userModel.getPhone().matches("[0-9]+")) { /*^\\d{10}$*/
-            System.out.println("regex phone");
             throw new InvalidParameterObjectException("User's phone number must be numeric");
         }
 
@@ -335,26 +327,22 @@ public class UsersDao{
     private void validateUpdate(UserModel userModel) throws InvalidParameterObjectException {
 
         if (userModel == null) {
-            System.out.println("userModel null");
             throw new InvalidParameterObjectException("The object parameters must be filled");
         }
 
         if (userModel.getUsername() != null){
             if(userModel.getUsername().length() > 20){  
-                System.out.println("username len > 20");
                 throw new InvalidParameterObjectException("User's username must be at most 20 characters");
             }
         }
         
         if (userModel.getName() != null){
             if(userModel.getName().length() > 20){        
-                System.out.println("name len > 20");
                 throw new InvalidParameterObjectException("User's name must be at most 20 characters");
             }
         }
         if (userModel.getSurname() != null){
             if(userModel.getSurname().length() > 20){              
-                System.out.println("surname len > 20");
                 throw new InvalidParameterObjectException("User's surname must be at most 20 characters");
             }
         }
@@ -362,7 +350,6 @@ public class UsersDao{
         if (userModel.getPassword() != null){
             String passFormat = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,50}$";
             if(!userModel.getPassword().matches(passFormat)){               
-                System.out.println("pass format invalid");
                 throw new InvalidParameterObjectException("Password must contains at least one number, one uppercase/lowercase letter and one special character. "
                     + "White spaces are not allowed and password lenght must be at least 8 characters and at most 50");
             }
@@ -370,14 +357,12 @@ public class UsersDao{
         
         if (userModel.getPhone() != null){
             if(userModel.getPhone().length() != 10){                
-                System.out.println("phone len > 10");
                 throw new InvalidParameterObjectException("User's phone number must be 10 characters");
             }
         }
         
         if(userModel.getPhone() != null){
             if(!userModel.getPhone().matches("[0-9]+")){               
-                System.out.println("regex phone");
                 throw new InvalidParameterObjectException("User's phone number must be numeric");
             }
         }
