@@ -272,7 +272,7 @@ public class DeleteActivity extends javax.swing.JFrame {
         Object column[] =new Object[4];
         
         if(model.getRowCount()!=0){
-            for(int i=0;i<list.size();i++){
+            for(int i=0;i<model.getRowCount();i++){
                 model.removeRow(0);
             }
         }

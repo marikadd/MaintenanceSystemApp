@@ -248,8 +248,10 @@ public class DeleteUser extends javax.swing.JFrame {
         UserManagementService user= UserManagementService.getUserManagementService();
         
         try {
-            user.deleteUser(username);
+            int result=user.deleteUser(username);
+            if(result!=0){
             JOptionPane.showMessageDialog(null, "User deleted successfully!");
+            }
         } catch (InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, "The username is not correct or not exist");
         } catch (SQLException ex) {
@@ -275,7 +277,7 @@ public class DeleteUser extends javax.swing.JFrame {
         Object column[] =new Object[4];
         
         if(model.getRowCount()!=0){
-            for(int i=0;i<list.size();i++){
+            for(int i=0;i<model.getRowCount();i++){
                 model.removeRow(0);
             }
         }

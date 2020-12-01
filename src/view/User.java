@@ -41,7 +41,6 @@ public class User extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButtonSystemAdmin = new javax.swing.JButton();
         jButtonPlanner = new javax.swing.JButton();
-        jButtonMaintainer = new javax.swing.JButton();
         jLabelTitle = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
         jLabelIcon = new javax.swing.JLabel();
@@ -82,15 +81,6 @@ public class User extends javax.swing.JFrame {
             }
         });
 
-        jButtonMaintainer.setBackground(new java.awt.Color(255, 255, 255));
-        jButtonMaintainer.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
-        jButtonMaintainer.setText("Maintainer");
-        jButtonMaintainer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMaintainerActionPerformed(evt);
-            }
-        });
-
         jLabelTitle.setFont(new java.awt.Font("Impact", 0, 33)); // NOI18N
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitle.setText("SELECT USER");
@@ -109,7 +99,6 @@ public class User extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(128, 128, 128)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonMaintainer, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonPlanner, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSystemAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(124, Short.MAX_VALUE))
@@ -133,9 +122,7 @@ public class User extends javax.swing.JFrame {
                 .addComponent(jButtonSystemAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(jButtonPlanner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(jButtonMaintainer, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         jLabelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/login.png"))); // NOI18N
@@ -191,10 +178,6 @@ public class User extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonPlannerActionPerformed
 
-    private void jButtonMaintainerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMaintainerActionPerformed
-
-    }//GEN-LAST:event_jButtonMaintainerActionPerformed
-
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
         
@@ -249,7 +232,6 @@ public class User extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonMaintainer;
     private javax.swing.JButton jButtonPlanner;
     private javax.swing.JButton jButtonSystemAdmin;
     private javax.swing.JLabel jLabelExit;

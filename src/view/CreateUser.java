@@ -298,8 +298,10 @@ public class CreateUser extends javax.swing.JFrame {
         String role = jComboRole.getSelectedItem().toString();
         
         try {
-            this.createUser(username, password, name, surname, email, phone, role);
+           int result=this.createUser(username, password, name, surname, email, phone, role);
+           if (result!=0){
             JOptionPane.showMessageDialog(null, "User created successfully!");
+           }
         } catch (InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, "Some filled fields in in the form are incorrect");
         } catch (SQLException ex) {
@@ -313,26 +315,30 @@ public class CreateUser extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTextSurnameActionPerformed
     
-    private void createUser(String username, String password, String name, String surname, String email, String phone, String role) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException{
+    private int createUser(String username, String password, String name, String surname, String email, String phone, String role) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException{
        UserManagementService user = new UserManagementService();
         
+       int result=0; 
+       
        switch(role){
             case "MAINTAINER": { 
                 
-                user.insertMaintainer(username, password, name, surname, email, phone);
+                result=user.insertMaintainer(username, password, name, surname, email, phone);
                 break;
             }
             case "PLANNER": { 
                 
-                user.insertPlanner(username, password, name, surname, email, phone);
+                result=user.insertPlanner(username, password, name, surname, email, phone);
                 break;
             }
             case "SYSTEM_ADMIN": { 
                 
-                user.insertSystemAdmin(username, password, name, surname, email, phone);
+                result=user.insertSystemAdmin(username, password, name, surname, email, phone);
                 break;
             }
         }
+      
+       return result;
     }
     
     /**

@@ -271,7 +271,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTableCompetences.getModel();
         Object column[] =new Object[4];
         if(model.getRowCount()!=0){
-            for(int i=0;i<list.size();i++){
+            for(int i=0;i<model.getRowCount();i++){
                 model.removeRow(0);
             }
         }

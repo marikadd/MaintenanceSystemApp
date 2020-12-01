@@ -359,8 +359,10 @@ public class UpdateUser extends javax.swing.JFrame {
         
         try {
             String role= ums.getRoleByUsername(oldUsername);
-            this.updateUser(oldUsername, newUsername, password, name, surname, email, phone, role);
+            int result=this.updateUser(oldUsername, newUsername, password, name, surname, email, phone, role);
+            if(result!=0){
             JOptionPane.showMessageDialog(null, "User updated successfully!");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UsernotFoundException ex) {
@@ -368,7 +370,7 @@ public class UpdateUser extends javax.swing.JFrame {
         } catch (InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, "Some filled fields in in the form are incorrect");
         } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannotupdate this user");
+            JOptionPane.showMessageDialog(null, "Cannot update this user");
         }
     
     }//GEN-LAST:event_jLabelUpdateMouseClicked
@@ -402,33 +404,35 @@ public class UpdateUser extends javax.swing.JFrame {
         }      
     }   
     
-    public void updateUser(String oldUsername, String newUsername, String password, String name, String surname, String email, String phone, String role)
+    public int updateUser(String oldUsername, String newUsername, String password, String name, String surname, String email, String phone, String role)
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
     
+        int result=0;
         UserManagementService user = UserManagementService.getUserManagementService();
         
         switch(role){
             case "MAINTAINER": { 
                 
-                user.updateMaintainer(oldUsername, newUsername, password, name, surname, email, phone);
+                result=user.updateMaintainer(oldUsername, newUsername, password, name, surname, email, phone);
                 break;
             }
             case "PLANNER": { 
                 
-                user.updatePlanner(oldUsername, newUsername, password, name, surname, email, phone);
+                result=user.updatePlanner(oldUsername, newUsername, password, name, surname, email, phone);
                 break;
             }
             case "SYSTEM_ADMIN": { 
                 
-                user.updateSystemAdmin(oldUsername, newUsername, password, name, surname, email, phone);
+                result=user.updateSystemAdmin(oldUsername, newUsername, password, name, surname, email, phone);
                 break;
             }
             case "PROD_MANAGER": { 
                 
-                user.updateProdManager(oldUsername, newUsername, password, name, surname, email, phone);
+                result=user.updateProdManager(oldUsername, newUsername, password, name, surname, email, phone);
                 break;
             }
         }
+        return result;
     }  
     
     /**
