@@ -44,7 +44,7 @@ public class CompetenceService {
         return compService;
     }
     
-    public void assignCompetence(String usernameMain, List<Integer> listId) 
+    public int assignCompetence(String usernameMain, List<Integer> listId) 
             throws InvalidPermissionException, SQLException, UsernotFoundException, UnsuccessfulUpdateException {
         
         UtilityUser<Maintainer> utilityUser = new UtilityUser<Maintainer>();
@@ -52,25 +52,25 @@ public class CompetenceService {
         UserModel um = usersDao.findUserByUsername(usernameMain, Role.MAINTAINER);
         utilityUser.setUserModel(um, maintainer);
         
-        compDao.assignCompetenceToUser(maintainer, listId);
+        return compDao.assignCompetenceToUser(maintainer, listId);
     }
     
-    public void insertCompetence(String description) 
+    public int insertCompetence(String description) 
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException {
         
-        compDao.insertCompetence(description);
+        return compDao.insertCompetence(description);
     }
    
-    public void updateCompetence(Integer id, String description) 
+    public int updateCompetence(Integer id, String description) 
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException {
         
-        compDao.updateCompetence(id, description);
+        return compDao.updateCompetence(id, description);
     }
     
         
-    public void deleteCompetence(Integer id) throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException {
+    public int deleteCompetence(Integer id) throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException {
         
-        compDao.deleteCompetence(id);
+        return compDao.deleteCompetence(id);
     }
     
     public List<Competence> getAllCompetences() throws SQLException{

@@ -33,7 +33,7 @@ public class CompetencesDao {
         return compDao;
     }
     
-    public void assignCompetenceToUser(Maintainer maintainer, List<Integer> listId) 
+    public int assignCompetenceToUser(Maintainer maintainer, List<Integer> listId) 
             throws SQLException, UnsuccessfulUpdateException {
         
         Connection con = DBFactory.connectToDB();
@@ -41,17 +41,18 @@ public class CompetencesDao {
         String query = "INSERT INTO Users_Competences VALUES(?,?)";
         
         PreparedStatement ps = con.prepareStatement(query);
-        
+        int result = 0;
         for(Integer id: listId) {
             
             ps.setString(1, maintainer.getUsername());
             ps.setInt(2, id);
-            boolean result = ps.execute();
+            result = ps.executeUpdate();
             
             /*if(!result) {
                 throw new UnsuccessfulUpdateException("Cannot assign competence #" + id + " to user " + maintainer.getUsername());
             }*/
         }
+        return result;
     }
     
     public List<Competence> findAllCompetences() throws SQLException {
@@ -118,7 +119,7 @@ public class CompetencesDao {
         return competences;
     }
     
-    public void insertCompetence(String description) throws  SQLException, UnsuccessfulUpdateException  {
+    public int insertCompetence(String description) throws  SQLException, UnsuccessfulUpdateException  {
 
         Connection con = DBFactory.connectToDB();
         
@@ -127,10 +128,12 @@ public class CompetencesDao {
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, description);
         
-        boolean result = ps.execute();
+        int result = ps.executeUpdate();
+        
+        return result;
     }
     
-    public void updateCompetence(Integer id, String description) throws SQLException, UnsuccessfulUpdateException {
+    public int updateCompetence(Integer id, String description) throws SQLException, UnsuccessfulUpdateException {
         
         Connection con = DBFactory.connectToDB();
         
@@ -146,9 +149,10 @@ public class CompetencesDao {
             throw new UnsuccessfulUpdateException("No rows update");
         }
         
+        return result;
     }
     
-    public void deleteCompetence(Integer id) throws SQLException, UnsuccessfulUpdateException {
+    public int deleteCompetence(Integer id) throws SQLException, UnsuccessfulUpdateException {
         
         Connection con = DBFactory.connectToDB();
         
@@ -157,7 +161,9 @@ public class CompetencesDao {
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, id);
         
-        boolean result = ps.execute();
+        int result = ps.executeUpdate();
+        
+        return result;
     }
     
     
