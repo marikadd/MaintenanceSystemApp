@@ -353,6 +353,17 @@ public class CreateActivity extends javax.swing.JFrame {
         
         String type = jTextFieldType.getText();
         String description = jTextFieldDescription.getText();
+        
+        if("".equals(jTextFieldTime.getText())) {
+             JOptionPane.showMessageDialog(null, "Field Time must be filled");
+             return;
+        }
+        
+        if(!jTextFieldTime.getText().matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(null, "Field Time must be numeric");
+             return;
+        }
+        
         Integer time = Integer.parseInt(jTextFieldTime.getText());
         
         ArrayList<Competence> skills = new ArrayList<Competence>();

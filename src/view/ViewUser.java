@@ -210,7 +210,7 @@ public class ViewUser extends javax.swing.JFrame {
 
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
        
-        UserManagementService user=new UserManagementService();
+        UserManagementService user = UserManagementService.getUserManagementService();
         
         try {
             userList = user.getAllUsers();

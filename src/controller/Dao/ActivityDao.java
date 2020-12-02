@@ -29,7 +29,11 @@ public class ActivityDao {
 
     private static ActivityDao activityDao;
     private CompetencesDao compDao;
-    
+
+    //Singleton
+    private ActivityDao() {
+    }
+        
     public static ActivityDao init() {
         if (activityDao == null) {
             activityDao = new ActivityDao();
@@ -72,25 +76,28 @@ public class ActivityDao {
             
         } else {
                 throw new SQLException("Row not insert");
-            }
+        }
         
     }
     
-    public void insertCompentecesInActivity(int activityId, List<Competence> competences) throws SQLException {
+    public int insertCompentecesInActivity(int activityId, List<Competence> competences) throws SQLException {
         
         Connection con = DBFactory.connectToDB();
 
         String query = "INSERT INTO Activity_Competences "
                        + "VALUES(?,?)";
         
-       for(Competence c: competences) {
+        int result = 0;
+        for(Competence c: competences) {
             
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, c.getId());
             ps.setInt(2, activityId);
             
-            ps.execute();
+            result = ps.executeUpdate();
         }
+       
+       return result;
     }
 
     public void updateActivity(Integer id, String type, String description, int time_activity) 
@@ -131,7 +138,7 @@ public class ActivityDao {
         boolean result = ps.execute();
     }
 
-    public void deleteActivity(Integer id) throws SQLException, UnsuccessfulUpdateException {
+    public int deleteActivity(Integer id) throws SQLException, UnsuccessfulUpdateException {
 
         Connection con = DBFactory.connectToDB();
 
@@ -140,7 +147,10 @@ public class ActivityDao {
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, id);
 
-        boolean result = ps.execute();
+        int result = ps.executeUpdate();
+        
+        return result;
+        
     }
 
     public MaintenanceActivity findActivityByID(int ID) throws SQLException, ActivityNotFoundException {
@@ -268,12 +278,20 @@ public class ActivityDao {
         if (type == null) {
             throw new InvalidParameterObjectException("Activity type must be not null");
         }
+        
+        if("".equals(type)) {
+            throw new InvalidParameterObjectException("Activity type must be not null");
+        }
 
         if(type.length() > 20) {
             throw new InvalidParameterObjectException("Activity type must be length at most 20 characters");
         }
         
         if (description == null) {
+            throw new InvalidParameterObjectException("Activity description must be not null");
+        }
+        
+        if("".equals(description)) {
             throw new InvalidParameterObjectException("Activity description must be not null");
         }
 

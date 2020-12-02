@@ -265,9 +265,9 @@ public class AssignmentActivity extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(0, 0, 0)
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -323,9 +323,9 @@ public class AssignmentActivity extends javax.swing.JFrame {
         } catch (UsernotFoundException ex) {
             JOptionPane.showMessageDialog(null, "User not found");
         } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot assign activity to user");
+            JOptionPane.showMessageDialog(null, "Cannot assign activity to maintainer");
         } catch (InvalidParameterObjectException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid parameter");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }  
     }//GEN-LAST:event_jLabelAddMouseClicked
 
@@ -337,9 +337,9 @@ public class AssignmentActivity extends javax.swing.JFrame {
         try {
             list = act.getAllActivityTarget(username);
         } catch (SQLException ex) {
-            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UsernotFoundException ex) {
-            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "You can assign activities only to a maintainer");
         }
          
         this.showActivities(list);

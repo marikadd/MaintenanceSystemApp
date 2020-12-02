@@ -314,6 +314,17 @@ public class UpdateActivity extends javax.swing.JFrame {
         int ID = Integer.parseInt(jTextFieldID.getText());
         String type = jTextFieldType.getText();
         String description = jTextFieldDescription.getText();
+        
+        if("".equals(jTextFieldTime.getText())) {
+             JOptionPane.showMessageDialog(null, "Field Time must be filled");
+             return;
+        }
+        
+        if(!jTextFieldTime.getText().matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(null, "Field Time must be numeric");
+             return;
+        }
+        
         int time = Integer.parseInt(jTextFieldTime.getText());
      
         
@@ -325,7 +336,7 @@ public class UpdateActivity extends javax.swing.JFrame {
         } catch (UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, "Cannot update this activity");
         } catch (InvalidParameterObjectException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid permission");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }  
     }//GEN-LAST:event_jLabelUpdateMouseClicked
 

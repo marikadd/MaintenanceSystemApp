@@ -32,6 +32,9 @@ public class UsersDao{
     private static UsersDao usersDao;
     
     //Singleton
+    private UsersDao() {
+    }
+    
     public static UsersDao init() {
         if(usersDao == null) usersDao = new UsersDao();
         return usersDao;
@@ -286,6 +289,14 @@ public class UsersDao{
 
         if (userModel.getSurname().length() > 20) {
             throw new InvalidParameterObjectException("User's surname must be at most 20 characters");
+        }
+        
+        if("".equals(userModel.getName())) {
+            throw new InvalidParameterObjectException("User's name must be fill");
+        }
+        
+        if("".equals(userModel.getSurname())) {
+            throw new InvalidParameterObjectException("User's surname must be fill");
         }
 
         if (userModel.getPassword() == null) {

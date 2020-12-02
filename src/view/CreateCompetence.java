@@ -5,10 +5,13 @@
  */
 package view;
 
+import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -183,14 +186,20 @@ public class CreateCompetence extends javax.swing.JFrame {
         String description = jTextDescription.getText();
         
         try {
-            comp.insertCompetence(description);
-            JOptionPane.showMessageDialog(null, "Competence created successfully!");
+            int result = comp.insertCompetence(description);
+            if(result > 0) {
+                JOptionPane.showMessageDialog(null, "Competence created successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No competence insert!");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, "Cannot create this competence");
         } catch (InvalidPermissionException ex) {
            JOptionPane.showMessageDialog(null, "Invalid Permission"); 
+        } catch (InvalidParameterObjectException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }  
     }//GEN-LAST:event_jLabelCreateMouseClicked
 

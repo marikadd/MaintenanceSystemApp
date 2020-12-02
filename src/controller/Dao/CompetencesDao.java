@@ -27,6 +27,9 @@ public class CompetencesDao {
     private static CompetencesDao compDao;
     
     //Singleton
+    private CompetencesDao() {
+    }
+   
     public static CompetencesDao init() {
         if(compDao == null)
             compDao = new CompetencesDao();
@@ -46,11 +49,8 @@ public class CompetencesDao {
             
             ps.setString(1, maintainer.getUsername());
             ps.setInt(2, id);
-            result = ps.executeUpdate();
-            
-            /*if(!result) {
-                throw new UnsuccessfulUpdateException("Cannot assign competence #" + id + " to user " + maintainer.getUsername());
-            }*/
+            result += ps.executeUpdate();
+ 
         }
         return result;
     }
@@ -119,8 +119,10 @@ public class CompetencesDao {
         return competences;
     }
     
-    public int insertCompetence(String description) throws  SQLException, UnsuccessfulUpdateException  {
+    public int insertCompetence(String description) throws  SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException  {
 
+        validateCompetence(description);
+        
         Connection con = DBFactory.connectToDB();
         
         String query = "INSERT INTO Competence(Description) VALUES(?)";
@@ -133,7 +135,9 @@ public class CompetencesDao {
         return result;
     }
     
-    public int updateCompetence(Integer id, String description) throws SQLException, UnsuccessfulUpdateException {
+    public int updateCompetence(Integer id, String description) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+        
+        validateCompetence(description);
         
         Connection con = DBFactory.connectToDB();
         
@@ -202,6 +206,10 @@ public class CompetencesDao {
     private void validateCompetence(String description) throws InvalidParameterObjectException {
         
         if(description == null) {
+            throw new InvalidParameterObjectException("Description must be required");
+        }
+        
+        if("".equals(description)) {
             throw new InvalidParameterObjectException("Description must be required");
         }
         

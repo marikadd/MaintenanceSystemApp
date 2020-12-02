@@ -233,8 +233,12 @@ public class DeleteCompetence extends javax.swing.JFrame {
         int ID= Integer.parseInt(jTextId.getText());
         
         try {
-            competence.deleteCompetence(ID);
-            JOptionPane.showMessageDialog(null, "Competence deleted successfully!");
+            int result = competence.deleteCompetence(ID);
+            if(result > 0) {
+                JOptionPane.showMessageDialog(null, "Competence deleted successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No competence deleted!");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
@@ -269,13 +273,14 @@ public class DeleteCompetence extends javax.swing.JFrame {
     public void showCompetences(List<Competence> list){
         
         DefaultTableModel model = (DefaultTableModel) jTableCompetences.getModel();
-        Object column[] =new Object[4];
+        int length = model.getRowCount();
         if(model.getRowCount()!=0){
-            for(int i=0;i<model.getRowCount();i++){
+            for(int i=0;i<length;i++){
                 model.removeRow(0);
             }
         }
         for(int i=0;i<list.size();i++){
+            Object column[] =new Object[4];
             column[0] = list.get(i).getId();
             column[1] = list.get(i).getDescription();
             model.addRow(column);

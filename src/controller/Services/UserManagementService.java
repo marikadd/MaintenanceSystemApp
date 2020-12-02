@@ -23,20 +23,19 @@ import model.Users.*;
 public class UserManagementService {
 
     private static UserManagementService ums;
-    private UsersDao usersDao;
+    private UsersDao usersDao = UsersDao.init();
 
-    // Singleton
+    //Singleton
+    private UserManagementService() {
+    }
+    
     public static UserManagementService getUserManagementService() {
         if (ums == null) {
             ums = new UserManagementService();
         }
         return ums;
     }
-    
-    public UserManagementService() {
-        usersDao = UsersDao.init();
-    }
-    
+     
     public String getRoleByUsername(String username) throws SQLException, UsernotFoundException{
         String role= usersDao.findRoleByUsername(username);
         return role;

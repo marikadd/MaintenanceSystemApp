@@ -303,7 +303,7 @@ public class CreateUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "User created successfully!");
            }
         } catch (InvalidParameterObjectException ex) {
-            JOptionPane.showMessageDialog(null, "Some filled fields in in the form are incorrect");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");;
         } catch (UnsuccessfulUpdateException ex) {
@@ -315,8 +315,9 @@ public class CreateUser extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTextSurnameActionPerformed
     
-    private int createUser(String username, String password, String name, String surname, String email, String phone, String role) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException{
-       UserManagementService user = new UserManagementService();
+    private int createUser(String username, String password, String name, String surname, String email, String phone, String role) 
+            throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException{
+       UserManagementService user = UserManagementService.getUserManagementService();
         
        int result=0; 
        

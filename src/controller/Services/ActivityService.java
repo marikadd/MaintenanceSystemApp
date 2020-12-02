@@ -39,8 +39,10 @@ public class ActivityService {
     private UsersDao usersDao;
 
     //Singleton
+    private ActivityService() {
+    }
+    
     public static ActivityService getActivityService() {
-
         if (activService == null) {
             activService = new ActivityService();
             activService.activityDao = ActivityDao.init();
@@ -49,23 +51,7 @@ public class ActivityService {
         return activService;
     }
 
-    public List<MaintenanceActivity> findAllActivities() throws SQLException, ActivityNotFoundException {
-
-        List<MaintenanceActivity> activityList = new LinkedList<>();
-        activityList = activityDao.findAllActivities();
-
-        return activityList;
-    }
-
-    public MaintenanceActivity findActivity(int ID) throws SQLException, ActivityNotFoundException {
-
-        MaintenanceActivity activity = null;
-        activity = activityDao.findActivityByID(ID);
-
-        return activity;
-    }
-
-    public void insertActivity(String type, String description, Integer time, ArrayList<Competence> skill)
+    public int insertActivity(String type, String description, Integer time, ArrayList<Competence> skill)
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         MaintenanceActivity activity = new MaintenanceActivity();
@@ -74,7 +60,7 @@ public class ActivityService {
         activity.setTime(time);
         activity.setAssigned(false);
         int activityId = activityDao.insertActivity(type, description, time);
-        activityDao.insertCompentecesInActivity(activityId, skill);
+        return activityDao.insertCompentecesInActivity(activityId, skill);
     }
 
     public void assignActivity(String usernameMain, List<Integer> listId) 
@@ -97,9 +83,9 @@ public class ActivityService {
         activityDao.updateActivity(id, type, description, timeActivity);
     }
 
-    public void deleteActivity(Integer activityId) throws SQLException, UnsuccessfulUpdateException {
+    public int deleteActivity(Integer activityId) throws SQLException, UnsuccessfulUpdateException {
         
-        activityDao.deleteActivity(activityId);
+        return activityDao.deleteActivity(activityId);
     }
     
     public List<MaintenanceActivity> getAllActivities() throws SQLException, ActivityNotFoundException{

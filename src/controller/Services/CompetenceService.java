@@ -5,6 +5,7 @@
  */
 package controller.Services;
 
+import configuration.Exceptions.InvalidParameterObjectException;
 import controller.Utility.UtilityUser;
 import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
@@ -34,8 +35,10 @@ public class CompetenceService {
     private CompetencesDao compDao;
     
     //Singleton
+    private CompetenceService() {
+    }
+    
     public static CompetenceService getCompetenceService() {
-        
         if(compService == null) {
             compService = new CompetenceService();
             compService.usersDao = UsersDao.init();
@@ -56,13 +59,13 @@ public class CompetenceService {
     }
     
     public int insertCompetence(String description) 
-            throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException {
+            throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
         
         return compDao.insertCompetence(description);
     }
    
     public int updateCompetence(Integer id, String description) 
-            throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException {
+            throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
         
         return compDao.updateCompetence(id, description);
     }

@@ -308,9 +308,11 @@ public class AssignmentCompetence extends javax.swing.JFrame {
         CompetenceService competence= CompetenceService.getCompetenceService();
         
         try {
-            competence.assignCompetence(username, list_id);
+            int result = competence.assignCompetence(username, list_id);
             initTableCompetences();
-            JOptionPane.showMessageDialog(null, "Competence assigned successfully!");
+            
+            if(result > 0) JOptionPane.showMessageDialog(null, "Competence assigned successfully!");
+            else JOptionPane.showMessageDialog(null, "No competence assigned!");
         } catch (InvalidPermissionException ex) {
             JOptionPane.showMessageDialog(null, "Invalid Permission");
         } catch (SQLException ex) {
@@ -328,9 +330,9 @@ public class AssignmentCompetence extends javax.swing.JFrame {
         try {
             list = comp.getAllCompetenceTarget(username);
         } catch (SQLException ex) {
-            Logger.getLogger(AssignmentCompetence.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UsernotFoundException ex) {
-            Logger.getLogger(AssignmentCompetence.class.getName()).log(Level.SEVERE, null, ex + " or role is not MAINTAINER");
+            JOptionPane.showMessageDialog(null, "You can assign competences only to a maintainer");
         }
         this.showCompetences(list);
     }

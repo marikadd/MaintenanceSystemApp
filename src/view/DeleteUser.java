@@ -228,7 +228,7 @@ public class DeleteUser extends javax.swing.JFrame {
 /**/
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
         
-        UserManagementService user=new UserManagementService();
+        UserManagementService user = UserManagementService.getUserManagementService();
         try {
             userList = user.getAllUsers();
         } catch (SQLException | UsernotFoundException ex) {
@@ -250,10 +250,12 @@ public class DeleteUser extends javax.swing.JFrame {
         try {
             int result=user.deleteUser(username);
             if(result!=0){
-            JOptionPane.showMessageDialog(null, "User deleted successfully!");
+                JOptionPane.showMessageDialog(null, "User deleted successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "This user cannot be delete!");
             }
         } catch (InvalidParameterObjectException ex) {
-            JOptionPane.showMessageDialog(null, "The username is not correct or not exist");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
@@ -274,14 +276,15 @@ public class DeleteUser extends javax.swing.JFrame {
     public void showUsers(List<UserModel> list){
         
         DefaultTableModel model = (DefaultTableModel) jTableUsers.getModel();
-        Object column[] =new Object[4];
+        int length = model.getRowCount();
         
         if(model.getRowCount()!=0){
-            for(int i=0;i<model.getRowCount();i++){
+            for(int i=0;i<length;i++){
                 model.removeRow(0);
             }
         }
         for(int i=0;i<list.size();i++){
+            Object column[] =new Object[4];
             column[0] = list.get(i).getUsername();
             column[1] = list.get(i).getName();
             column[2] = list.get(i).getSurname();

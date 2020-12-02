@@ -5,6 +5,7 @@
  */
 package view;
 
+import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
@@ -282,15 +283,20 @@ public class UpdateCompetence extends javax.swing.JFrame {
         
       
         try {
-            cs.updateCompetence(id, newDescription);
-            JOptionPane.showMessageDialog(null, "Competence updated successfully!");
+            int result = cs.updateCompetence(id, newDescription);
+            
+            if(result > 0) JOptionPane.showMessageDialog(null, "Competence updated successfully!");
+            else JOptionPane.showMessageDialog(null, "No competence updated!");
+            
         } catch (InvalidPermissionException ex) {
             JOptionPane.showMessageDialog(null, "Invalid permission");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, "Cannot update this competance");
-        }
+        } catch (InvalidParameterObjectException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } 
 
     }//GEN-LAST:event_jLabelUpdateMouseClicked
 

@@ -18,6 +18,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import model.Users.Maintainer;
+import model.Users.Planner;
+import model.Users.ProdManager;
+import model.Users.SystemAdmin;
 import model.Users.UserModel;
 
 /**
@@ -59,13 +63,9 @@ public class UpdateUser extends javax.swing.JFrame {
         jLabeloldUsername = new javax.swing.JLabel();
         jTextnewUsername = new javax.swing.JTextField();
         jTextEmail = new javax.swing.JTextField();
-        jTextSurname = new javax.swing.JTextField();
         jTextPhone = new javax.swing.JTextField();
-        jTextName = new javax.swing.JTextField();
-        jLabelSurname = new javax.swing.JLabel();
         jLabelnewUsername = new javax.swing.JLabel();
         jLabelPassword = new javax.swing.JLabel();
-        jLabelName = new javax.swing.JLabel();
         jLabelPhone = new javax.swing.JLabel();
         jLabelEmail = new javax.swing.JLabel();
         jLabelUpdate = new javax.swing.JLabel();
@@ -129,16 +129,6 @@ public class UpdateUser extends javax.swing.JFrame {
         jLabeloldUsername.setForeground(new java.awt.Color(255, 255, 255));
         jLabeloldUsername.setText("Old Username");
 
-        jTextName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextNameActionPerformed(evt);
-            }
-        });
-
-        jLabelSurname.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabelSurname.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelSurname.setText("Surname");
-
         jLabelnewUsername.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabelnewUsername.setForeground(new java.awt.Color(255, 255, 255));
         jLabelnewUsername.setText("New Username");
@@ -146,10 +136,6 @@ public class UpdateUser extends javax.swing.JFrame {
         jLabelPassword.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabelPassword.setForeground(new java.awt.Color(255, 255, 255));
         jLabelPassword.setText("Password");
-
-        jLabelName.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabelName.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelName.setText("Name");
 
         jLabelPhone.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabelPhone.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,7 +180,6 @@ public class UpdateUser extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextnewUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelnewUsername)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -209,15 +194,12 @@ public class UpdateUser extends javax.swing.JFrame {
                                         .addComponent(jLabelPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextSurname, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabelSurname, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(55, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextName, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -242,20 +224,16 @@ public class UpdateUser extends javax.swing.JFrame {
                 .addComponent(jButtonList)
                 .addGap(60, 60, 60)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelSurname)
-                    .addComponent(jLabeloldUsername))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextoldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextSurname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelnewUsername, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabeloldUsername)
                     .addComponent(jLabelEmail))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextnewUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextoldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jLabelnewUsername)
+                .addGap(10, 10, 10)
+                .addComponent(jTextnewUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPassword)
@@ -264,12 +242,8 @@ public class UpdateUser extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(jLabelName)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jLabelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
@@ -327,12 +301,8 @@ public class UpdateUser extends javax.swing.JFrame {
         uUser.setVisible(true);      
     }//GEN-LAST:event_jLabelBackMouseClicked
 
-    private void jTextNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNameActionPerformed
-
-    }//GEN-LAST:event_jTextNameActionPerformed
-
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
-        UserManagementService user=new UserManagementService();
+        UserManagementService user = UserManagementService.getUserManagementService();
     
         try {
             userList = user.getAllUsers();
@@ -350,8 +320,6 @@ public class UpdateUser extends javax.swing.JFrame {
         String oldUsername = check(jTextoldUsername.getText());
         String newUsername = check(jTextnewUsername.getText());
         String password = check(jPasswordField.getPassword().toString()); 
-        String name = check(jTextName.getText());
-        String surname = check(jTextSurname.getText());
         String email = check(jTextEmail.getText());
         String phone = check(jTextPhone.getText());
         
@@ -359,7 +327,7 @@ public class UpdateUser extends javax.swing.JFrame {
         
         try {
             String role= ums.getRoleByUsername(oldUsername);
-            int result=this.updateUser(oldUsername, newUsername, password, name, surname, email, phone, role);
+            int result=this.updateUser(oldUsername, newUsername, password, email, phone, role);
             if(result!=0){
             JOptionPane.showMessageDialog(null, "User updated successfully!");
             }
@@ -368,7 +336,7 @@ public class UpdateUser extends javax.swing.JFrame {
         } catch (UsernotFoundException ex) {
             JOptionPane.showMessageDialog(null, "User not found");
         } catch (InvalidParameterObjectException ex) {
-            JOptionPane.showMessageDialog(null, "Some filled fields in in the form are incorrect");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, "Cannot update this user");
         }
@@ -404,31 +372,31 @@ public class UpdateUser extends javax.swing.JFrame {
         }      
     }   
     
-    public int updateUser(String oldUsername, String newUsername, String password, String name, String surname, String email, String phone, String role)
-            throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
+    public int updateUser(String oldUsername, String newUsername, String password, String email, String phone, String role)
+            throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException, UsernotFoundException {
     
         int result=0;
         UserManagementService user = UserManagementService.getUserManagementService();
         
         switch(role){
             case "MAINTAINER": { 
-                
-                result=user.updateMaintainer(oldUsername, newUsername, password, name, surname, email, phone);
+                Maintainer m = user.findMaintainerByUsername(oldUsername);
+                result=user.updateMaintainer(oldUsername, newUsername, password, m.getName(), m.getSurname(), email, phone);
                 break;
             }
             case "PLANNER": { 
-                
-                result=user.updatePlanner(oldUsername, newUsername, password, name, surname, email, phone);
+                Planner p = user.findPlannerByUsername(oldUsername);
+                result=user.updatePlanner(oldUsername, newUsername, password, p.getName(), p.getSurname(), email, phone);
                 break;
             }
             case "SYSTEM_ADMIN": { 
-                
-                result=user.updateSystemAdmin(oldUsername, newUsername, password, name, surname, email, phone);
+                SystemAdmin sa = user.findSystemAdminByUsername(oldUsername);
+                result=user.updateSystemAdmin(oldUsername, newUsername, password, sa.getName(), sa.getSurname(), email, phone);
                 break;
             }
             case "PROD_MANAGER": { 
-                
-                result=user.updateProdManager(oldUsername, newUsername, password, name, surname, email, phone);
+                ProdManager pm = user.findProdManagerByUsername(oldUsername);
+                result=user.updateProdManager(oldUsername, newUsername, password, pm.getName(), pm.getSurname(), email, phone);
                 break;
             }
         }
@@ -475,10 +443,8 @@ public class UpdateUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelExit;
-    private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelPhone;
-    private javax.swing.JLabel jLabelSurname;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelUpdate;
     private javax.swing.JLabel jLabelnewUsername;
@@ -489,9 +455,7 @@ public class UpdateUser extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableUsers;
     private javax.swing.JTextField jTextEmail;
-    private javax.swing.JTextField jTextName;
     private javax.swing.JTextField jTextPhone;
-    private javax.swing.JTextField jTextSurname;
     private javax.swing.JTextField jTextnewUsername;
     private javax.swing.JTextField jTextoldUsername;
     // End of variables declaration//GEN-END:variables

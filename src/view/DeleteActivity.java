@@ -7,6 +7,7 @@
 package view;
 
 import configuration.Exceptions.ActivityNotFoundException;
+import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import java.sql.SQLException;
@@ -257,8 +258,9 @@ public class DeleteActivity extends javax.swing.JFrame {
         int ID= Integer.parseInt(jTextFieldId.getText());
      
         try {
-            activity.deleteActivity(ID);
-            JOptionPane.showMessageDialog(null, "Activity deleted successfully!");
+            int result = activity.deleteActivity(ID);
+            if(result > 0) JOptionPane.showMessageDialog(null, "Activity deleted successfully!");
+            else JOptionPane.showMessageDialog(null, "No activity deleted!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {
@@ -269,15 +271,16 @@ public class DeleteActivity extends javax.swing.JFrame {
     public void showActivities(List<MaintenanceActivity> list){
         
         DefaultTableModel model = (DefaultTableModel) jTableActivities.getModel();
-        Object column[] =new Object[4];
+        int length = model.getRowCount();
         
         if(model.getRowCount()!=0){
-            for(int i=0;i<model.getRowCount();i++){
+            for(int i=0;i<length;i++){
                 model.removeRow(0);
             }
         }
         
         for(int i=0;i<list.size();i++){
+            Object column[] =new Object[4];
             column[0] = list.get(i).getID();
             column[1] = list.get(i).getType();
             column[2] = list.get(i).getDescription();
