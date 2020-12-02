@@ -17,23 +17,23 @@ import static org.junit.Assert.*;
  */
 
 public class UserManagementUpdate {
-    
+
     private UserManagementService ums;
-    
+
     public UserManagementUpdate() {
     }
-       
+
     @Before
     public void setUp() {
-        
+
         ums = UserManagementService.getUserManagementService();
-        
+
     }
 
     /**
-     * Test of updateProdManager method, of class UserManagementService.
-     * Update username,password,email,phone number of a ProdManager
-     * The operation of update is equal for all roles
+     * Test of updateProdManager method, of class UserManagementService. Update
+     * username,password,email,phone number of a ProdManager The operation of
+     * update is equal for all roles
      */
     @Test
     public void testUpdateProdManager() throws Exception {
@@ -45,17 +45,17 @@ public class UserManagementUpdate {
         String surname = null;
         String email = "semp@outlook.com";
         String phone = "3392175666";
-        int result= ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
-        
+        int result = ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
+
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
-   
+
     /**
-     * Test of updateSystemAdmin method, of class UserManagementService.
-     * Update name and surname of a SystemAdmin
+     * Test of updateSystemAdmin method, of class UserManagementService. Update
+     * name and surname of a SystemAdmin
      */
-    @Test(expected=UnsuccessfulUpdateException.class)
+    @Test(expected = UnsuccessfulUpdateException.class)
     public void testUpdateSystemAdmin() throws Exception {
         System.out.println("updateSystemAdmin");
         String oldUsername = "gdipaolo";
@@ -65,16 +65,16 @@ public class UserManagementUpdate {
         String surname = "Esposito";
         String email = null;
         String phone = null;
-        int result= ums.updateSystemAdmin(oldUsername, username, password, name, surname, email, phone);
-        
+        int result = ums.updateSystemAdmin(oldUsername, username, password, name, surname, email, phone);
+
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
 
     /**
-     * Test of updateMaintainer method, of class UserManagementService.
-     * Update username,password,email, phone number of a Maintainer, inserting
-     * old name and surname
+     * Test of updateMaintainer method, of class UserManagementService. Update
+     * username,password,email, phone number of a Maintainer, inserting old name
+     * and surname
      */
     @Test
     public void testUpdateMaintainer() throws Exception {
@@ -86,17 +86,17 @@ public class UserManagementUpdate {
         String surname = "Delle Donne";
         String email = "marikadd@gmail.com";;
         String phone = "3334567111";
-        int result= ums.updatePlanner(oldUsername, username, password, name, surname, email, phone);
-        
+        int result = ums.updatePlanner(oldUsername, username, password, name, surname, email, phone);
+
         int ExpectedResult = 1;
         assertEquals(result, ExpectedResult);
     }
-    
+
     /**
-     * Test of updateMaintainer method, of class UserManagementService.
-     * Update a maintainer,searched by an old username that doesn't exist
+     * Test of updateMaintainer method, of class UserManagementService. Update a
+     * maintainer,searched by an old username that doesn't exist
      */
-    @Test(expected=UnsuccessfulUpdateException.class)
+    @Test(expected = UnsuccessfulUpdateException.class)
     public void testUpdateMaintainer1() throws Exception {
         System.out.println("updateMaintainer");
         String oldUsername = "gmanc";
@@ -106,8 +106,8 @@ public class UserManagementUpdate {
         String surname = null;
         String email = "gmancone@gmail.com";;
         String phone = "3324567111";
-        int result= ums.updatePlanner(oldUsername, username, password, name, surname, email, phone);
-        
+        int result = ums.updatePlanner(oldUsername, username, password, name, surname, email, phone);
+
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }

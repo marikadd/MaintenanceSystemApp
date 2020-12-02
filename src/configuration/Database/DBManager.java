@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package configuration.Database; 
+package configuration.Database;
 
 import java.sql.*;
 
@@ -14,10 +13,11 @@ import java.sql.*;
  */
 
 public class DBManager {
+
     private final String url = "jdbc:postgresql://localhost/MaintenanceSystem";
     private final String user = "group9";
     private final String password = "Group9";
-    
+
     public Connection connect() {
         Connection conn = null;
         try {

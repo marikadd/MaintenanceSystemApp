@@ -29,89 +29,88 @@ import model.Users.UserModel;
  */
 
 public class CompetenceService {
-    
+
     private static CompetenceService compService;
     private UsersDao usersDao;
     private CompetencesDao compDao;
-    
+
     //Singleton
     private CompetenceService() {
     }
-    
+
     public static CompetenceService getCompetenceService() {
-        if(compService == null) {
+        if (compService == null) {
             compService = new CompetenceService();
             compService.usersDao = UsersDao.init();
             compService.compDao = CompetencesDao.init();
         }
         return compService;
     }
-    
-    public int assignCompetence(String usernameMain, List<Integer> listId) 
+
+    public int assignCompetence(String usernameMain, List<Integer> listId)
             throws InvalidPermissionException, SQLException, UsernotFoundException, UnsuccessfulUpdateException {
-        
-        UtilityUser<Maintainer> utilityUser = new UtilityUser<Maintainer>();
-        Maintainer maintainer = new Maintainer(); 
+
+        UtilityUser<Maintainer> utilityUser = new UtilityUser<>();
+        Maintainer maintainer = new Maintainer();
         UserModel um = usersDao.findUserByUsername(usernameMain, Role.MAINTAINER);
         utilityUser.setUserModel(um, maintainer);
-        
+
         return compDao.assignCompetenceToUser(maintainer, listId);
     }
-    
-    public int insertCompetence(String description) 
+
+    public int insertCompetence(String description)
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
-        
+
         return compDao.insertCompetence(description);
     }
-   
-    public int updateCompetence(Integer id, String description) 
+
+    public int updateCompetence(Integer id, String description)
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
-        
+
         return compDao.updateCompetence(id, description);
     }
-    
-        
+
     public int deleteCompetence(Integer id) throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException {
-        
+
         return compDao.deleteCompetence(id);
     }
-    
-    public List<Competence> getAllCompetences() throws SQLException{
-        
+
+    public List<Competence> getAllCompetences() throws SQLException {
+
         List<Competence> compList = new LinkedList<>();
         compList = compDao.findAllCompetences();
-        
+
         return compList;
     }
-    
+
     public List<CompetenceTarget> getAllCompetenceTarget(String username) throws SQLException, UsernotFoundException {
-        
+
         validateMaintainer(username);
         List<Competence> competencesInMaintener = compDao.findCompetencesInMaintener(username);
         List<Competence> competencesNotInMaintener = compDao.findCompetencesNotInMaintener(username);
-        
-        List<CompetenceTarget> targets = new ArrayList<CompetenceTarget>();
+
+        List<CompetenceTarget> targets = new ArrayList<>();
         targets.addAll(getListTargetMaintainer(competencesInMaintener, true));
         targets.addAll(getListTargetMaintainer(competencesNotInMaintener, false));
-        
+
         return targets;
     }
-     
+
     private List<CompetenceTarget> getListTargetMaintainer(List<Competence> competences, boolean linked) {
-        
-        List<CompetenceTarget> targets = new ArrayList<CompetenceTarget>();
-        
-        for(Competence c: competences) {
+
+        List<CompetenceTarget> targets = new ArrayList<>();
+
+        for (Competence c : competences) {
             CompetenceTarget ct = new CompetenceAdapter(linked, c.getId(), c.getDescription());
             targets.add(ct);
         }
-        
+
         return targets;
     }
-    
+
     private void validateMaintainer(String username) throws SQLException, UsernotFoundException {
-        
+
         UserModel um = usersDao.findUserByUsername(username, Role.MAINTAINER);
     }
-    
+
 }

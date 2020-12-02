@@ -30,7 +30,9 @@ import model.Users.UserModel;
  */
 
 public class UpdateUser extends javax.swing.JFrame {
+
     private List<UserModel> userList = new LinkedList<UserModel>();
+
     /**
      * Creates new form UpdateUser
      */
@@ -39,7 +41,7 @@ public class UpdateUser extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(650,650);
+        setSize(650, 650);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -288,7 +290,7 @@ public class UpdateUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-        
+
     }//GEN-LAST:event_jButtonListActionPerformed
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
@@ -298,12 +300,12 @@ public class UpdateUser extends javax.swing.JFrame {
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         ManagementUserArea uUser = new ManagementUserArea();
-        uUser.setVisible(true);      
+        uUser.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
         UserManagementService user = UserManagementService.getUserManagementService();
-    
+
         try {
             userList = user.getAllUsers();
         } catch (SQLException ex) {
@@ -311,7 +313,7 @@ public class UpdateUser extends javax.swing.JFrame {
         } catch (UsernotFoundException ex) {
             Logger.getLogger(UpdateUser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         showUsers(userList);
         userList = null;
     }//GEN-LAST:event_jButtonListMouseClicked
@@ -319,17 +321,17 @@ public class UpdateUser extends javax.swing.JFrame {
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
         String oldUsername = check(jTextoldUsername.getText());
         String newUsername = check(jTextnewUsername.getText());
-        String password = check(jPasswordField.getPassword().toString()); 
+        String password = check(jPasswordField.getPassword().toString());
         String email = check(jTextEmail.getText());
         String phone = check(jTextPhone.getText());
-        
-        UserManagementService ums= UserManagementService.getUserManagementService();
-        
+
+        UserManagementService ums = UserManagementService.getUserManagementService();
+
         try {
-            String role= ums.getRoleByUsername(oldUsername);
-            int result=this.updateUser(oldUsername, newUsername, password, email, phone, role);
-            if(result!=0){
-            JOptionPane.showMessageDialog(null, "User updated successfully!");
+            String role = ums.getRoleByUsername(oldUsername);
+            int result = this.updateUser(oldUsername, newUsername, password, email, phone, role);
+            if (result != 0) {
+                JOptionPane.showMessageDialog(null, "User updated successfully!");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
@@ -340,69 +342,69 @@ public class UpdateUser extends javax.swing.JFrame {
         } catch (UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, "Cannot update this user");
         }
-    
+
     }//GEN-LAST:event_jLabelUpdateMouseClicked
 
-    public String check(String s){
-        if(s.isBlank()){
+    public String check(String s) {
+        if (s.isBlank()) {
             s = null;
-        }  
+        }
         return s;
     }
-    
+
     private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
-    
+
     }//GEN-LAST:event_jPasswordFieldActionPerformed
 
-    public void showUsers(List<UserModel> list){
-        
+    public void showUsers(List<UserModel> list) {
+
         DefaultTableModel model = (DefaultTableModel) jTableUsers.getModel();
-        Object column[] =new Object[4];
-        if(model.getRowCount()!=0){
-            for(int i=0;i<list.size();i++){
+        Object column[] = new Object[4];
+        if (model.getRowCount() != 0) {
+            for (int i = 0; i < list.size(); i++) {
                 model.removeRow(0);
             }
         }
-        for(int i=0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             column[0] = list.get(i).getUsername();
             column[1] = list.get(i).getName();
             column[2] = list.get(i).getSurname();
             column[3] = list.get(i).getRole();
             model.addRow(column);
-        }      
-    }   
-    
+        }
+    }
+
     public int updateUser(String oldUsername, String newUsername, String password, String email, String phone, String role)
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException, UsernotFoundException {
-    
-        int result=0;
+
+        int result = 0;
         UserManagementService user = UserManagementService.getUserManagementService();
-        
-        switch(role){
-            case "MAINTAINER": { 
+
+        switch (role) {
+            case "MAINTAINER": {
                 Maintainer m = user.findMaintainerByUsername(oldUsername);
-                result=user.updateMaintainer(oldUsername, newUsername, password, m.getName(), m.getSurname(), email, phone);
+                result = user.updateMaintainer(oldUsername, newUsername, password, m.getName(), m.getSurname(), email, phone);
                 break;
             }
-            case "PLANNER": { 
+            case "PLANNER": {
                 Planner p = user.findPlannerByUsername(oldUsername);
-                result=user.updatePlanner(oldUsername, newUsername, password, p.getName(), p.getSurname(), email, phone);
+                result = user.updatePlanner(oldUsername, newUsername, password, p.getName(), p.getSurname(), email, phone);
                 break;
             }
-            case "SYSTEM_ADMIN": { 
+            case "SYSTEM_ADMIN": {
                 SystemAdmin sa = user.findSystemAdminByUsername(oldUsername);
-                result=user.updateSystemAdmin(oldUsername, newUsername, password, sa.getName(), sa.getSurname(), email, phone);
+                result = user.updateSystemAdmin(oldUsername, newUsername, password, sa.getName(), sa.getSurname(), email, phone);
                 break;
             }
-            case "PROD_MANAGER": { 
+            case "PROD_MANAGER": {
                 ProdManager pm = user.findProdManagerByUsername(oldUsername);
-                result=user.updateProdManager(oldUsername, newUsername, password, pm.getName(), pm.getSurname(), email, phone);
+                result = user.updateProdManager(oldUsername, newUsername, password, pm.getName(), pm.getSurname(), email, phone);
                 break;
             }
         }
         return result;
-    }  
-    
+    }
+
     /**
      * @param args the command line arguments
      */

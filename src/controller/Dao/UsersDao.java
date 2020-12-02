@@ -27,96 +27,98 @@ import model.Users.UserModel;
  * @author Group9
  */
 
-public class UsersDao{
-    
+public class UsersDao {
+
     private static UsersDao usersDao;
-    
+
     //Singleton
     private UsersDao() {
     }
-    
+
     public static UsersDao init() {
-        if(usersDao == null) usersDao = new UsersDao();
+        if (usersDao == null) {
+            usersDao = new UsersDao();
+        }
         return usersDao;
     }
-    
-    public String findRoleByUsername(String username) throws SQLException, UsernotFoundException{
-        
+
+    public String findRoleByUsername(String username) throws SQLException, UsernotFoundException {
+
         Connection con = DBFactory.connectToDB();
-	String query = "select Role_User " + "from Users " + "where Username= ?";
+        String query = "select Role_User " + "from Users " + "where Username= ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
-        ResultSet rs= ps.executeQuery();
-        String role = null; 
+        ResultSet rs = ps.executeQuery();
+        String role = null;
 
-	if (rs.next()) {
+        if (rs.next()) {
             role = rs.getString("Role_User");
         } else {
             throw new UsernotFoundException("User " + username + " not found");
-	}
+        }
         return role;
     }
-    
+
     public UserModel findUserByUsername(String username, Role role) throws SQLException, UsernotFoundException {
 
-	Connection con = DBFactory.connectToDB();
+        Connection con = DBFactory.connectToDB();
 
-	String query = "select * from Users u " + "where u.Role_User = ? AND " + "u.Username = ?";
+        String query = "select * from Users u " + "where u.Role_User = ? AND " + "u.Username = ?";
 
-	PreparedStatement ps = con.prepareStatement(query);
-	ps.setString(1, role.toString());
-	ps.setString(2, username);
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, role.toString());
+        ps.setString(2, username);
 
-	ResultSet rs = ps.executeQuery();
+        ResultSet rs = ps.executeQuery();
 
-        UserModel userModel = null; 
+        UserModel userModel = null;
 
-	if (rs.next()) {
+        if (rs.next()) {
             userModel = getSingleUserModel(rs, role);
         } else {
             throw new UsernotFoundException("User " + username + " not found");
-	}
-            return userModel;
+        }
+        return userModel;
     }
-    
-    public List<UserModel> getAllUsers() throws SQLException, UsernotFoundException{
-        
-        Connection con = DBFactory.connectToDB();      
+
+    public List<UserModel> getAllUsers() throws SQLException, UsernotFoundException {
+
+        Connection con = DBFactory.connectToDB();
         String query = "select * from Users";
-        
+
         PreparedStatement ps = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        
+
         List<UserModel> users = new LinkedList<>();
-        
-        while(rs.next()) {
+
+        while (rs.next()) {
             UserModel userModel = getAllUserModel(rs, rs.getString("Role_User"));
             users.add(userModel);
         }
-        
+
         return users;
     }
-    
+
     public List<UserModel> findUsersByRole(Role role) throws SQLException, UsernotFoundException {
-        
+
         Connection con = DBFactory.connectToDB();
 
-	String query = "select * from Users u " + "where u.Role_User = ?";
+        String query = "select * from Users u " + "where u.Role_User = ?";
 
-	PreparedStatement ps = con.prepareStatement(query);
-	ps.setString(1, role.toString());
-        
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, role.toString());
+
         ResultSet rs = ps.executeQuery();
         List<UserModel> users = new LinkedList<UserModel>();
-        
-        while(rs.next()) {
+
+        while (rs.next()) {
             UserModel userModel = getSingleUserModel(rs, role);
             users.add(userModel);
         }
-        
+
         return users;
     }
-    
+
     public int insertUserModel(UserModel userModel, Role role)
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
@@ -135,9 +137,8 @@ public class UsersDao{
         ps.setString(6, userModel.getPhone());
         ps.setString(7, role.toString());
 
-        
         int result = ps.executeUpdate();
-        
+
         return result;
     }
 
@@ -149,8 +150,8 @@ public class UsersDao{
         Connection con = DBFactory.connectToDB();
 
         String query = "UPDATE Users SET Name_User = coalesce(?, Name_User), Surname = coalesce(?,Surname), "
-                        + "Username = coalesce(?,Username), PW = coalesce(?, PW), Email = coalesce(?,Email), "
-                        + "PhoneNumber = coalesce(?,PhoneNumber) where Username = ?";
+                + "Username = coalesce(?,Username), PW = coalesce(?, PW), Email = coalesce(?,Email), "
+                + "PhoneNumber = coalesce(?,PhoneNumber) where Username = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, userModel.getName());
@@ -162,15 +163,14 @@ public class UsersDao{
         ps.setString(7, oldUsername);
 
         int result = ps.executeUpdate();
-        
-        if(result == 0)
+
+        if (result == 0) {
             throw new UnsuccessfulUpdateException("No row update!");
-        
+        }
+
         return result;
-        
+
     }
-
-
 
     public int deleteUserModel(String username) throws SQLException, UnsuccessfulUpdateException {
 
@@ -181,86 +181,85 @@ public class UsersDao{
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
 
-        
         int result = ps.executeUpdate();
-        
+
         return result;
     }
-    
+
     private UserModel getSingleUserModel(ResultSet rs, Role role) throws SQLException, UsernotFoundException {
-        
+
         UserModel userModel = null;
-        
-        switch(role) {
+
+        switch (role) {
             case MAINTAINER: {
                 userModel = new Maintainer(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
-                                           rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                 break;
             }
-            
-            case PROD_MANAGER : {
+
+            case PROD_MANAGER: {
                 userModel = new ProdManager(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
-					    rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                 break;
             }
-            
+
             case PLANNER: {
                 userModel = new Planner(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
-                                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
-                            
+                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+
                 break;
             }
-                        
+
             case SYSTEM_ADMIN: {
                 userModel = new SystemAdmin(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
-                                            rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
-                            
+                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+
                 break;
-            } 
-            
+            }
+
             default: {
                 throw new UsernotFoundException("User with role " + role.toString() + " not found");
             }
         }
-        
+
         return userModel;
     }
-    
-    private UserModel getAllUserModel(ResultSet rs, String role) throws SQLException, UsernotFoundException{
-        
+
+    private UserModel getAllUserModel(ResultSet rs, String role) throws SQLException, UsernotFoundException {
+
         UserModel userModel = null;
-        
-        switch(role) {
-            case "MAINTAINER" : {
+
+        switch (role) {
+            case "MAINTAINER": {
                 userModel = new Maintainer(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
-                                           rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                 break;
             }
-            
-            case "PROD_MANAGER" : {
+
+            case "PROD_MANAGER": {
                 userModel = new ProdManager(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
-					    rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
                 break;
             }
-            
+
             case "PLANNER": {
                 userModel = new Planner(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
-                                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
-                            
+                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+
                 break;
             }
-                        
+
             case "SYSTEM_ADMIN": {
                 userModel = new SystemAdmin(rs.getString("Username"), rs.getString("PW"), rs.getString("Name_User"),
-                                            rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
-                            
+                        rs.getString("Surname"), rs.getString("Email"), rs.getString("PhoneNumber"));
+
                 break;
-            } 
+            }
         }
-        
+
         return userModel;
     }
-    
+
     private void validateUserModel(UserModel userModel) throws InvalidParameterObjectException {
 
         if (userModel == null) {
@@ -290,12 +289,12 @@ public class UsersDao{
         if (userModel.getSurname().length() > 20) {
             throw new InvalidParameterObjectException("User's surname must be at most 20 characters");
         }
-        
-        if("".equals(userModel.getName())) {
+
+        if ("".equals(userModel.getName())) {
             throw new InvalidParameterObjectException("User's name must be fill");
         }
-        
-        if("".equals(userModel.getSurname())) {
+
+        if ("".equals(userModel.getSurname())) {
             throw new InvalidParameterObjectException("User's surname must be fill");
         }
 
@@ -316,8 +315,9 @@ public class UsersDao{
         if (userModel.getPhone().length() != 10) {
             throw new InvalidParameterObjectException("User's phone number must be 10 characters");
         }
-        
-        if(!userModel.getPhone().matches("[0-9]+")) { /*^\\d{10}$*/
+
+        if (!userModel.getPhone().matches("[0-9]+")) {
+            /*^\\d{10}$*/
             throw new InvalidParameterObjectException("User's phone number must be numeric");
         }
 
@@ -328,68 +328,68 @@ public class UsersDao{
         if (userModel.getEmail().length() > 40) {
             throw new InvalidParameterObjectException("User's email must be at most 40 characters");
         }
-        
+
         String format = "^(.+)@(.+)$";
         if (!userModel.getEmail().matches(format)) {
             throw new InvalidParameterObjectException("Invalid e-mail address format");
         }
     }
-    
+
     private void validateUpdate(UserModel userModel) throws InvalidParameterObjectException {
 
         if (userModel == null) {
             throw new InvalidParameterObjectException("The object parameters must be filled");
         }
 
-        if (userModel.getUsername() != null){
-            if(userModel.getUsername().length() > 20){  
+        if (userModel.getUsername() != null) {
+            if (userModel.getUsername().length() > 20) {
                 throw new InvalidParameterObjectException("User's username must be at most 20 characters");
             }
         }
-        
-        if (userModel.getName() != null){
-            if(userModel.getName().length() > 20){        
+
+        if (userModel.getName() != null) {
+            if (userModel.getName().length() > 20) {
                 throw new InvalidParameterObjectException("User's name must be at most 20 characters");
             }
         }
-        if (userModel.getSurname() != null){
-            if(userModel.getSurname().length() > 20){              
+        if (userModel.getSurname() != null) {
+            if (userModel.getSurname().length() > 20) {
                 throw new InvalidParameterObjectException("User's surname must be at most 20 characters");
             }
         }
-        
-        if (userModel.getPassword() != null){
+
+        if (userModel.getPassword() != null) {
             String passFormat = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,50}$";
-            if(!userModel.getPassword().matches(passFormat)){               
+            if (!userModel.getPassword().matches(passFormat)) {
                 throw new InvalidParameterObjectException("Password must contains at least one number, one uppercase/lowercase letter and one special character. "
-                    + "White spaces are not allowed and password lenght must be at least 8 characters and at most 50");
+                        + "White spaces are not allowed and password lenght must be at least 8 characters and at most 50");
             }
         }
-        
-        if (userModel.getPhone() != null){
-            if(userModel.getPhone().length() != 10){                
+
+        if (userModel.getPhone() != null) {
+            if (userModel.getPhone().length() != 10) {
                 throw new InvalidParameterObjectException("User's phone number must be 10 characters");
             }
         }
-        
-        if(userModel.getPhone() != null){
-            if(!userModel.getPhone().matches("[0-9]+")){               
+
+        if (userModel.getPhone() != null) {
+            if (!userModel.getPhone().matches("[0-9]+")) {
                 throw new InvalidParameterObjectException("User's phone number must be numeric");
             }
         }
-        
-        if (userModel.getEmail() != null){
-            if(userModel.getEmail().length() > 40){
+
+        if (userModel.getEmail() != null) {
+            if (userModel.getEmail().length() > 40) {
                 throw new InvalidParameterObjectException("User's email must be at most 40 characters");
             }
-        }  
-        
-        if (userModel.getEmail() != null){
+        }
+
+        if (userModel.getEmail() != null) {
             String format = "^(.+)@(.+)$";
-            if(!userModel.getEmail().matches(format)){
+            if (!userModel.getEmail().matches(format)) {
                 throw new InvalidParameterObjectException("Invalid e-mail address format");
             }
         }
     }
-    
+
 }

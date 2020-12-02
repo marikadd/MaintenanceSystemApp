@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package configuration.Database;
 
 import java.sql.Connection;
@@ -14,10 +13,10 @@ import java.sql.Connection;
  */
 
 public class DBFactory {
-	
+
     public static Connection connectToDB() {
-		
-	DBManager dbManager = new DBManager();
-	return dbManager.connect();
+
+        DBManager dbManager = new DBManager();
+        return dbManager.connect();
     }
 }

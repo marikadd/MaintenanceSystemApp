@@ -21,7 +21,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(583,600);
+        setSize(610,600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

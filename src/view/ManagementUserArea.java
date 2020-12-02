@@ -11,18 +11,18 @@ import javax.swing.ImageIcon;
  *
  * @author Group9
  */
-
 public class ManagementUserArea extends javax.swing.JFrame {
 
     /**
      * Creates new form ManagementUserArea
      */
+    
     public ManagementUserArea() {
         initComponents();
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(509,486);
+        setSize(509, 486);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -248,11 +248,11 @@ public class ManagementUserArea extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-       
+
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
-        
+
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked

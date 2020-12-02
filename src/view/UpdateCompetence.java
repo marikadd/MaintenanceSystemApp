@@ -34,7 +34,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(595,517);
+        setSize(585,520);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

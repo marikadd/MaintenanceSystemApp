@@ -5,14 +5,13 @@
  */
 package controller.Services.Activity;
 
+import configuration.Exceptions.UsernotFoundException;
 import controller.Services.ActivityService;
+import java.util.ArrayList;
 import java.util.List;
 import model.Activity.ActivityTarget;
 import model.Activity.MaintenanceActivity;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -20,47 +19,82 @@ import static org.junit.Assert.*;
  *
  * @author Group9
  */
+
 public class ActivityServiceTestGet {
+
     private ActivityService as;
-    
+
     public ActivityServiceTestGet() {
     }
-    
+
     @Before
     public void setUp() {
         as = ActivityService.getActivityService();
     }
+
     /**
      * Test of getAllActivities method, of class ActivityService.
      */
     @Test
     public void testGetAllActivities() throws Exception {
         System.out.println("getAllActivities");
-        ActivityService instance = null;
-        List<MaintenanceActivity> expResult = null;
-        List<MaintenanceActivity> result = instance.getAllActivities();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        List<MaintenanceActivity> list = new ArrayList<>();
+        list = as.getAllActivities();
+        int result = list.size();
+        int ExpectedResult = 2;
+        assertEquals(result, ExpectedResult);
+
     }
 
     /**
-     * Test of getAllActivityTarget method, of class ActivityService.
+     * Test of getAllActivityTarget method, of class ActivityService, getting
+     * all MaintenanceActivity from a valid Maintainer.
      */
     @Test
     public void testGetAllActivityTarget() throws Exception {
         System.out.println("getAllActivityTarget");
-        String username = "";
-        ActivityService instance = null;
-        List<ActivityTarget> expResult = null;
-        List<ActivityTarget> result = instance.getAllActivityTarget(username);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String username = "Marikadd";
+        List<ActivityTarget> list = new ArrayList<>();
+        list = as.getAllActivityTarget(username);
+        int result = list.size();
+        int expectedResult = 1;
+
+        assertEquals(result, expectedResult);
+
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+
+    /**
+     * Test of getAllActivityTarget method, of class ActivityService, getting
+     * all MaintenanceActivity from an invalid Maintainer.
+     */
+    @Test(expected = UsernotFoundException.class)
+    public void testGetAllActivityTarget1() throws Exception {
+        System.out.println("getAllActivityTarget");
+        String username = "giacomo";
+        List<ActivityTarget> list = new ArrayList<>();
+        list = as.getAllActivityTarget(username);
+        int result = list.size();
+        int expectedResult = 0;
+
+        assertEquals(result, expectedResult);
+
+    }
+
+    /**
+     * Test of getAllActivityTarget method, of class ActivityService, getting
+     * all MaintenanceActivity from an invalid User.
+     */
+    @Test(expected = UsernotFoundException.class)
+    public void testGetAllActivityTarget2() throws Exception {
+        System.out.println("getAllActivityTarget");
+        String username = "icantalupo";
+        List<ActivityTarget> list = new ArrayList<>();
+        list = as.getAllActivityTarget(username);
+        int result = list.size();
+        int expectedResult = 0;
+
+        assertEquals(result, expectedResult);
+
+    }
+
 }

@@ -5,18 +5,12 @@
  */
 package controller.Services.Competence;
 
-import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.CompetenceService;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import model.Competences.Competence;
-import model.Competences.CompetenceTarget;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

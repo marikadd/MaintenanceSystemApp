@@ -17,25 +17,23 @@ import static org.junit.Assert.*;
  *
  * @author Group9
  */
+
 public class UserManagementGet {
-     
+
     private UserManagementService ums;
-     
-     
+
     public UserManagementGet() {
     }
-  
-    
+
     @Before
     public void setUp() {
-       
+
         ums = UserManagementService.getUserManagementService();
     }
-    
-   
-     /**
-     * Test of getRoleByUsername method, of class UserManagementService.
-     * Get role associated to username given as parameter
+
+    /**
+     * Test of getRoleByUsername method, of class UserManagementService. Get
+     * role associated to username given as parameter
      */
     @Test
     public void testGetRoleByUsername() throws Exception {
@@ -45,12 +43,12 @@ public class UserManagementGet {
         String result = ums.getRoleByUsername(username);
         assertEquals(expResult, result);
     }
-    
-     /**
-     * Test of getRoleByUsername method, of class UserManagementService.
-     * Get role associated to username given as parameter, that doesn't exist
+
+    /**
+     * Test of getRoleByUsername method, of class UserManagementService. Get
+     * role associated to username given as parameter, that doesn't exist
      */
-    @Test(expected=UsernotFoundException.class)
+    @Test(expected = UsernotFoundException.class)
     public void testGetRoleByUsername1() throws Exception {
         System.out.println("getRoleByUsername");
         String username = "pippo";
@@ -58,19 +56,18 @@ public class UserManagementGet {
         String result = ums.getRoleByUsername(username);
         assertEquals(expResult, result);
     }
-    
-     /**
-     * Test of getAllUsers method, of class UserManagementService.
-     * Get a list of all users
+
+    /**
+     * Test of getAllUsers method, of class UserManagementService. Get a list of
+     * all users
      */
     @Test
     public void testGetAllUsers() throws Exception {
         System.out.println("getAllUsers");
         List<UserModel> list = ums.getAllUsers();
         int result = list.size();
-        
+
         int ExpectedResult = 4;
         assertEquals(result, ExpectedResult);
     }
 }
-
