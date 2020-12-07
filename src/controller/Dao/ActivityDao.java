@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Activity.MaintenanceActivity;
 import model.Competences.Competence;
+import model.Department.Department;
 import model.Users.Maintainer;
 
 /**
@@ -41,21 +42,23 @@ public class ActivityDao {
         return activityDao;
     }
 
-    public int insertActivity(String type, String description, Integer time_activity)
+    public int insertActivity(String type, String description, Integer time_activity, Integer week_num, Department dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         validateActivity(type, description, time_activity);
 
         Connection con = DBFactory.connectToDB();
 
-        String query = "INSERT INTO MaintenanceActivity(Type_Activity, Description, Time_Activity, Assigned) "
-                + "VALUES(?,?,?,?)";
+        String query = "INSERT INTO MaintenanceActivity(Type_Activity, Site, Description, Time_Activity, Week_Number, Assigned) "
+                + "VALUES(?,?,?,?,?,?)";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
-        ps.setString(2, description);
-        ps.setInt(3, time_activity);
-        ps.setBoolean(4, false);
+        ps.setString(2, dep.getArea());
+        ps.setString(3, description);
+        ps.setInt(4, time_activity);
+        ps.setInt(5, week_num);
+        ps.setBoolean(6, false);
 
         int affectedRow = ps.executeUpdate();
 
@@ -99,21 +102,23 @@ public class ActivityDao {
         return result;
     }
 
-    public int updateActivity(Integer id, String type, String description, int time_activity)
+    public int updateActivity(Integer id, String type, String description, int time_activity, Integer week_num, Department dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         validateActivity(type, description, time_activity);
 
         Connection con = DBFactory.connectToDB();
 
-        String query = "UPDATE MaintenanceActivity SET Type_Activity = ?, Description = ?, Time_Activity = ?"
+        String query = "UPDATE MaintenanceActivity SET Type_Activity = ?, Site = ?, Description = ?, Time_Activity = ?, Week_Number = ?"
                 + " WHERE ID = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
-        ps.setString(2, description);
-        ps.setInt(3, time_activity);
-        ps.setInt(4, id);
+        ps.setString(2, dep.getArea());
+        ps.setString(3, description);
+        ps.setInt(4, time_activity);
+        ps.setInt(5, week_num);
+        ps.setInt(6, id);
 
         int result = ps.executeUpdate();
 
@@ -266,12 +271,13 @@ public class ActivityDao {
     private MaintenanceActivity getMaintenanceActivity(ResultSet rs) throws SQLException {
 
         Integer activityId = rs.getInt("ID");
+        Department department = new Department(rs.getString("Site"));
 
         MaintenanceActivity activity = null;
         List<Competence> skills = new ArrayList<Competence>();
         skills = compDao.getCompetencesByActivityId(activityId);
 
-        activity = new MaintenanceActivity(activityId, rs.getString("Type_Activity"), rs.getString("Description"), rs.getInt("Time_Activity"), rs.getBoolean("Assigned"));
+        activity = new MaintenanceActivity(activityId, rs.getString("Type_Activity"), rs.getString("Description"), rs.getInt("Time_Activity"), rs.getBoolean("Assigned"), rs.getInt("Week_Number"), department);
         activity.setSkill(skills);
 
         return activity;

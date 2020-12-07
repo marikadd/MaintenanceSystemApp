@@ -8,6 +8,7 @@ package controller.Services.Activity;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
+import model.Department.Department;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -40,8 +41,10 @@ public class ActivityServiceTestUpdate {
         String type = "Mechanical";
         String description = "Change Oil";
         int timeActivity = 22;
+        int week_num= 33;
+        Department department= new Department("Mechanical area");
         int notExpectedResult = 0;
-        int result = as.updateActivity(id, type, description, timeActivity);
+        int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
 
         assertNotEquals(result, notExpectedResult);
 
@@ -58,8 +61,10 @@ public class ActivityServiceTestUpdate {
         String type = "Mechanical";
         String description = "Change Oil";
         int timeActivity = 22;
+        int week_num= 22;
+        Department department= new Department("Mechanical area");
         int ExpectedResult = 0;
-        int result = as.updateActivity(id, type, description, timeActivity);
+        int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
 
         assertEquals(result, ExpectedResult);
 
@@ -76,8 +81,10 @@ public class ActivityServiceTestUpdate {
         String type = "Mechanical";
         String description = "Change Oil";
         int timeActivity = -3;
+        int week_num= 11;
+        Department department= new Department("Mechanical area");
         int ExpectedResult = 0;
-        int result = as.updateActivity(id, type, description, timeActivity);
+        int result = as.updateActivity(id, type, description, timeActivity,week_num, department);
 
         assertEquals(result, ExpectedResult);
 
@@ -94,8 +101,10 @@ public class ActivityServiceTestUpdate {
         String type = "";
         String description = "Change Oil";
         int timeActivity = 122;
+        int week_num= 21;
+        Department department= new Department("Mechanical area");
         int ExpectedResult = 0;
-        int result = as.updateActivity(id, type, description, timeActivity);
+        int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
 
         assertEquals(result, ExpectedResult);
 
@@ -112,11 +121,71 @@ public class ActivityServiceTestUpdate {
         String type = "Mechanical";
         String description = "";
         int timeActivity = 122;
+        int week_num=21;
+        Department department= new Department("Mechanical area");
         int ExpectedResult = 0;
-        int result = as.updateActivity(id, type, description, timeActivity);
+        int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
 
         assertEquals(result, ExpectedResult);
 
     }
+    
+    /**
+     * Test of updateActivity method, of class ActivityService, updating an
+     * valid MaintenanceActivity with an invalid week number.
+     */
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testUpdateActivity5() throws Exception {
+        System.out.println("updateActivity");
+        Integer id = 8;
+        String type = "Mechanical";
+        String description = "";
+        int timeActivity = 122;
+        int week_num=0;
+        Department department= new Department("Mechanical area");
+        int ExpectedResult = 0;
+        int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
 
+        assertEquals(result, ExpectedResult);
+
+    }
+    
+     /**
+     * Test of updateActivity method, of class ActivityService, updating an
+     * valid MaintenanceActivity with an invalid week number.
+     */
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testUpdateActivity7() throws Exception {
+        System.out.println("updateActivity");
+        Integer id = 8;
+        String type = "Mechanical";
+        String description = "";
+        int timeActivity = 122;
+        int week_num=0;
+        Department department= new Department("Mechanical area");
+        int ExpectedResult = 99;
+        int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
+
+        assertEquals(result, ExpectedResult);
+
+    }
+     /**
+     * Test of updateActivity method, of class ActivityService, updating an
+     * valid MaintenanceActivity with an invalid Department.
+     */
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testUpdateActivity8() throws Exception {
+        System.out.println("updateActivity");
+        Integer id = 8;
+        String type = "Mechanical";
+        String description = "";
+        int timeActivity = 122;
+        int week_num=-1;
+        Department department= new Department("Engineering and metal processing and production area");
+        int ExpectedResult = 99;
+        int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
+
+        assertEquals(result, ExpectedResult);
+
+    }
 }

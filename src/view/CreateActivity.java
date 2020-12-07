@@ -10,13 +10,18 @@ import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import controller.Services.CompetenceService;
+import controller.Services.DepartmentService;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Competences.Competence;
+import model.Department.Department;
 
 /**
  *
@@ -24,6 +29,8 @@ import model.Competences.Competence;
  */
 public class CreateActivity extends javax.swing.JFrame {
 
+    private List<Department> depList = new LinkedList<>();
+    private DepartmentService dep = DepartmentService.getDepartmentService();
     /**
      * Creates new form CreateActivity
      */
@@ -32,7 +39,7 @@ public class CreateActivity extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(790, 600);
+        setSize(1060, 610);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getAllSkills();
@@ -67,6 +74,12 @@ public class CreateActivity extends javax.swing.JFrame {
         jTableAssociated = new javax.swing.JTable();
         jLabelTit1 = new javax.swing.JLabel();
         jLabelTit2 = new javax.swing.JLabel();
+        jComboWeek = new javax.swing.JComboBox<>();
+        jLabelWeeknum = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableDepartment = new javax.swing.JTable();
+        jButtonRemove1 = new javax.swing.JButton();
+        jLabelTit3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -195,99 +208,165 @@ public class CreateActivity extends javax.swing.JFrame {
 
         jLabelTit1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelTit1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTit1.setText("Skill To Assigne");
+        jLabelTit1.setText("Skill To Assign");
 
         jLabelTit2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelTit2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTit2.setText("Skill Assigned");
+        jLabelTit2.setText("Department");
+
+        jComboWeek.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52" }));
+
+        jLabelWeeknum.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelWeeknum.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelWeeknum.setText("Week Number");
+
+        jTableDepartment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Area"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTableDepartment);
+
+        jButtonRemove1.setText("List");
+        jButtonRemove1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonRemove1MouseClicked(evt);
+            }
+        });
+        jButtonRemove1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemove1ActionPerformed(evt);
+            }
+        });
+
+        jLabelTit3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelTit3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTit3.setText("Skill Assigned");
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 63, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(37, 37, 37)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jPanel2Layout.createSequentialGroup()
-                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jLabelType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                        .add(60, 60, 60)
-                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(jLabelDescription))
-                                        .add(60, 60, 60)
-                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jLabelTime)
-                                            .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(jLabelTit1))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jLabelTit2)
-                                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(213, 213, 213)
-                                .add(jLabelTitle)
-                                .add(0, 0, Short.MAX_VALUE)))
-                        .add(37, 37, 37))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(225, 225, 225)
-                        .add(jButtonAdd)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jButtonRemove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(28, 28, 28)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 63, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .add(0, 276, Short.MAX_VALUE)
+                .add(0, 0, Short.MAX_VALUE)
                 .add(jLabelCreate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(276, 276, 276))
+                .add(321, 321, 321))
+            .add(jPanel2Layout.createSequentialGroup()
+                .add(37, 37, 37)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabelType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(60, 60, 60)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabelDescription))
+                        .add(60, 60, 60)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabelTime)
+                            .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jButtonAdd)
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(227, 227, 227)
+                        .add(jButtonRemove))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabelTit1)
+                        .add(205, 205, 205)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabelTit3)
+                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(44, 44, 44)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabelWeeknum)
+                            .add(jComboWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 44, Short.MAX_VALUE)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabelTit2)
+                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(jButtonRemove1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(28, 28, 28))))
+            .add(jPanel2Layout.createSequentialGroup()
+                .add(213, 213, 213)
+                .add(jLabelTitle)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(29, 29, 29)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(jLabelTitle)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(jLabelTitle)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel2Layout.createSequentialGroup()
                                 .add(28, 28, 28)
-                                .add(jLabelType)
+                                .add(jLabelType))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                    .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(30, 30, 30)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                    .add(jLabelDescription)
-                                    .add(jLabelTime))))
-                        .add(59, 59, 59)
-                        .add(jLabelTit1))
-                    .add(jLabelTit2))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                    .add(jLabelTime)
+                                    .add(jLabelWeeknum))))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jComboWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(30, 30, 30)
+                        .add(jLabelDescription)))
+                .add(110, 110, 110)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jLabelTit1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabelTit3)
+                            .add(jLabelTit2))
+                        .add(8, 8, 8)))
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButtonAdd)
-                    .add(jButtonRemove))
-                .add(18, 18, 18)
+                    .add(jButtonRemove)
+                    .add(jButtonRemove1))
+                .add(27, 27, 27)
                 .add(jLabelCreate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 39, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
@@ -363,6 +442,10 @@ public class CreateActivity extends javax.swing.JFrame {
         }
 
         Integer time = Integer.parseInt(jTextFieldTime.getText());
+        Integer week_num = Integer.parseInt(jComboWeek.getSelectedItem().toString());
+        
+        int row = jTableDepartment.getSelectedRow();
+        Department dep = new Department(jTableDepartment.getModel().getValueAt(row, 0).toString());
 
         ArrayList<Competence> skills = new ArrayList<Competence>();
 
@@ -379,7 +462,7 @@ public class CreateActivity extends javax.swing.JFrame {
         }
 
         try {
-            act.insertActivity(type, description, time, skills);
+            act.insertActivity(type, description, time, skills, week_num, dep);
             JOptionPane.showMessageDialog(null, "Activity created successfully!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
@@ -443,6 +526,42 @@ public class CreateActivity extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonRemoveMouseClicked
 
+    private void jButtonRemove1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemove1MouseClicked
+        
+        try {
+            depList = dep.getAllDepartments();
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteDepartment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        this.showDepartments(depList);
+        depList = null;
+    }//GEN-LAST:event_jButtonRemove1MouseClicked
+
+    public void showDepartments(List<Department> list){
+        
+        DefaultTableModel departments = (DefaultTableModel) jTableDepartment.getModel();
+        
+        int length = departments.getRowCount();
+        
+        if(length != 0){
+            for(int i = 0; i < length; i++) {
+                departments.removeRow(0);
+            }
+        }
+        
+        for(int i=0;i<list.size();i++){
+            Object column[] =new Object[1];
+            column[0] = list.get(i).getArea();
+            
+            departments.addRow(column);
+        }
+    }
+    
+    private void jButtonRemove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemove1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRemove1ActionPerformed
+
     private void getAllSkills() {
 
         CompetenceService compService = CompetenceService.getCompetenceService();
@@ -504,6 +623,8 @@ public class CreateActivity extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonRemove;
+    private javax.swing.JButton jButtonRemove1;
+    private javax.swing.JComboBox<String> jComboWeek;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelCreate;
     private javax.swing.JLabel jLabelDescription;
@@ -511,13 +632,17 @@ public class CreateActivity extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JLabel jLabelTit1;
     private javax.swing.JLabel jLabelTit2;
+    private javax.swing.JLabel jLabelTit3;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelType;
+    private javax.swing.JLabel jLabelWeeknum;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableAssociated;
+    private javax.swing.JTable jTableDepartment;
     private javax.swing.JTable jTableToAssociate;
     private javax.swing.JTextField jTextFieldDescription;
     private javax.swing.JTextField jTextFieldTime;

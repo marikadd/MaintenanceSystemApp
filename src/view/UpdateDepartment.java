@@ -236,8 +236,7 @@ public class UpdateDepartment extends javax.swing.JFrame {
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
 
         int row = jTableDepartments.getSelectedRow();
-        int col = jTableDepartments.getSelectedColumn();
-        String oldArea = jTableDepartments.getModel().getValueAt(row, col).toString();
+        String oldArea = jTableDepartments.getModel().getValueAt(row, 0).toString();
 
         String newArea = jTextnewArea.getText();
 

@@ -7,6 +7,7 @@ package model.Activity;
 
 import java.util.List;
 import model.Competences.Competence;
+import model.Department.Department;
 
 /**
  *
@@ -28,6 +29,14 @@ public interface ActivityTarget {
     public Integer getTime();
 
     public void setTime(Integer time);
+    
+    public Integer getWeekNum();
+
+    public void setWeekNum(Integer week_num);
+    
+    public Department getDepartment();
+
+    public void setDepartment(Department dep);
 
     public List<Competence> getSkill();
 

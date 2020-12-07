@@ -24,6 +24,7 @@ import model.Users.Maintainer;
 import model.Users.Role;
 import model.Activity.MaintenanceActivity;
 import model.Competences.Competence;
+import model.Department.Department;
 import model.Users.UserModel;
 
 /**
@@ -52,7 +53,7 @@ public class ActivityService {
         return activService;
     }
 
-    public int insertActivity(String type, String description, Integer time, ArrayList<Competence> skill)
+    public int insertActivity(String type, String description, Integer time, ArrayList<Competence> skill, Integer week_num, Department dep)
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         MaintenanceActivity activity = new MaintenanceActivity();
@@ -60,7 +61,7 @@ public class ActivityService {
         activity.setDescription(description);
         activity.setTime(time);
         activity.setAssigned(false);
-        int activityId = activityDao.insertActivity(type, description, time);
+        int activityId = activityDao.insertActivity(type, description, time, week_num, dep);
         return activityDao.insertCompentecesInActivity(activityId, skill);
     }
 
@@ -81,10 +82,10 @@ public class ActivityService {
         return result;
     }
 
-    public int updateActivity(Integer id, String type, String description, int timeActivity)
+    public int updateActivity(Integer id, String type, String description, int timeActivity, Integer week_num, Department dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
-        return activityDao.updateActivity(id, type, description, timeActivity);
+        return activityDao.updateActivity(id, type, description, timeActivity, week_num, dep);
     }
 
     public int deleteActivity(Integer activityId) throws SQLException, UnsuccessfulUpdateException {
@@ -120,7 +121,7 @@ public class ActivityService {
         List<ActivityTarget> targets = new ArrayList<ActivityTarget>();
 
         for (MaintenanceActivity ma : activities) {
-            ActivityTarget at = new ActivityAdapter(linked, ma.getID(), ma.getType(), ma.getDescription(), ma.getTime(), ma.getAssigned());
+            ActivityTarget at = new ActivityAdapter(linked, ma.getID(), ma.getType(), ma.getDescription(), ma.getTime(), ma.getAssigned(), ma.getWeekNum(), ma.getDepartment());
             targets.add(at);
         }
 
