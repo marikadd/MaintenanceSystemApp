@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.Services.Competence;
+package controller.Services.Competences;
 
-import configuration.Exceptions.InvalidParameterObjectException;
 import controller.Services.CompetenceService;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +13,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Group9
+ * @author dondi
  */
 public class CompetenceServiceTestInsert {
     
@@ -25,19 +24,21 @@ public class CompetenceServiceTestInsert {
         cps = CompetenceService.getCompetenceService();
     }
 
+
     /**
      * Test of insertCompetence method, inserting a new Competence
-     * with its description.
+     * with his description.
      */
     @Test
     public void testInsertCompetence() throws Exception {
         System.out.println("insertCompetence");
         String description = "Repair Tubes";       
         int result = cps.insertCompetence(description);
-        int ExpectedResult = 1;
-        assertEquals(result, ExpectedResult);
+        int notExpectedResult = 0;
+        assertNotEquals(result, notExpectedResult);
+       
     }
-   
+    
     /**
      * Test of insertCompetence method, inserting a Competence
      * with a description that already exists.
@@ -45,18 +46,19 @@ public class CompetenceServiceTestInsert {
     @Test(expected=SQLException.class)
     public void testInsertCompetence1() throws Exception {
         System.out.println("insertCompetence");
-        String description = "PAV Certification";
- 
+        String description = "Repair Tubes";
+        
         int result = cps.insertCompetence(description);
         int expectedResult = 0;
-        assertEquals(result, expectedResult);
+        assertNotEquals(result, expectedResult);
+        
     }
     
     /**
      * Test of insertCompetence method, inserting a Competence
      * with an invalid description (empty).
      */
-    @Test(expected=InvalidParameterObjectException.class)
+    @Test
     public void testInsertCompetence2() throws Exception {
         System.out.println("insertCompetence");
         String description = "";
@@ -64,20 +66,21 @@ public class CompetenceServiceTestInsert {
         int result = cps.insertCompetence(description);
         int expectedResult = 0;
         assertEquals(result, expectedResult);
+        
     }
-    
     /**
      * Test of insertCompetence method, inserting a Competence
-     * with an invalid description (lenght > 50).
+     * with an invalid description (lenght>50).
      */
-    @Test(expected=InvalidParameterObjectException.class)
+    @Test(expected=SQLException.class)
     public void testInsertCompetence3() throws Exception {
         System.out.println("insertCompetence");
         String description = "Samalamadumaloomayoureassumingimahumanwhatigottadotogetitthroughtoyouimasuperhuman";
         
         int result = cps.insertCompetence(description);
         int expectedResult = 0;
-        assertEquals(result, expectedResult);
+        assertNotEquals(result, expectedResult);
+        
     }
- 
+    
 }

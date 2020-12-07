@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.Services.Competence;
+package controller.Services.Competences;
 
-import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +12,8 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Group9
+ * @author dondi
  */
-
 public class CompetenceServiceTestDelete {
     
     private CompetenceService cps;
@@ -32,22 +30,24 @@ public class CompetenceServiceTestDelete {
     @Test
     public void testDeleteCompetence() throws Exception {
         System.out.println("deleteCompetence");
-        Integer id = 2;
-        int ExpResult = 1;
+        Integer id = 7;
+        int notExpResult = 0;
         int result = cps.deleteCompetence(id);
-        assertEquals(result, ExpResult);
+        assertNotEquals(result, notExpResult);
+        
     }
 
     /**
      * Test of deleteCompetence method of class CompetenceService, deleting
      * Competence with an unexisting ID.
      */
-    @Test(expected=UnsuccessfulUpdateException.class)
+    @Test
     public void testDeleteCompetence1() throws Exception {
         System.out.println("deleteCompetence");
         Integer id = 150;
         Integer expResult = 0;
         Integer result = cps.deleteCompetence(id);
         assertEquals(result, expResult);       
-    } 
+    }
+    
 }

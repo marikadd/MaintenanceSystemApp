@@ -23,6 +23,8 @@ import model.Department.Department;
 public class DepartmentDao {
     
     private static DepartmentDao depDao;
+
+    private DepartmentDao() {}
     
     //Singleton
     public static DepartmentDao init() {
@@ -68,7 +70,7 @@ public class DepartmentDao {
         return depList;
     }
     
-    public Department findDepartment(String area) throws SQLException, DepartmentnotFoundException {
+    public Department findDepartmentByArea(String area) throws SQLException, DepartmentnotFoundException {
         
         Connection con = DBFactory.connectToDB();
         

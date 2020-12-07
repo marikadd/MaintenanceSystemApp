@@ -3,22 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.Services.Competence;
+package controller.Services.Competences;
 
+import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.CompetenceService;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import model.Competences.Competence;
+import model.Competences.CompetenceTarget;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author Group9
+ * @author dondi
  */
-
 public class CompetenceServiceTestAssignCompetence {
     
     private CompetenceService cps;
@@ -30,7 +35,7 @@ public class CompetenceServiceTestAssignCompetence {
 
     
     /**
-     * Test of assignCompetence method, of class CompetenceService, assigning
+     * Test of assignCompetence method, of class CompetenceService, assignin 
      * an existing Competence to a valid Maintainer.
      */
     @Test
@@ -38,7 +43,7 @@ public class CompetenceServiceTestAssignCompetence {
         System.out.println("assignCompetence");
         String usernameMain = "mrossi";
         List<Integer> listId = new LinkedList<>();
-        listId.add(4);
+        listId.add(2);
         int notExpResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
         assertNotEquals(result, notExpResult);       
@@ -91,31 +96,18 @@ public class CompetenceServiceTestAssignCompetence {
 
     /**
      * Test of assignCompetence method, of class CompetenceService, assigning 
-     * an existing Competence to a valid Maintainer, who already has that Competence.
+     * an existing Competence to a valid Maintainer 
+     * who already has that Competence.
      */
     @Test(expected=SQLException.class)
     public void testAssignCompetence4() throws Exception {
         System.out.println("assignCompetence");
         String usernameMain = "mrossi";
         List<Integer> listId = new LinkedList<>();
-        listId.add(2);
-        int ExpResult = 0;
+        listId.add(5);
+        int notExpResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
-        assertEquals(result, ExpResult);       
+        assertNotEquals(result, notExpResult);       
     }
     
-     /**
-     * Test of assignCompetence method, of class CompetenceService, assigning 
-     * an existing Competence without passing username.
-     */
-    @Test(expected=UsernotFoundException.class)
-    public void testAssignCompetence5() throws Exception {
-        System.out.println("assignCompetence");
-        String usernameMain = "";
-        List<Integer> listId = new LinkedList<>();
-        listId.add(1);
-        int ExpResult = 0;
-        int result = cps.assignCompetence(usernameMain, listId);
-        assertEquals(result, ExpResult);       
-    }
 }

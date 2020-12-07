@@ -25,6 +25,7 @@ public class DepartmentService {
 
     private DepartmentDao depDao;
 
+    //Singleton
     public static DepartmentService getDepartmentService() {
         if (depService == null) {
             depService = new DepartmentService();
@@ -58,6 +59,6 @@ public class DepartmentService {
     }
 
     public Department getDepartment(String area) throws SQLException, DepartmentnotFoundException {
-        return depDao.findDepartment(area);
+        return depDao.findDepartmentByArea(area);
     }
 }
