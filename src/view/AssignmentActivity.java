@@ -72,7 +72,6 @@ public class AssignmentActivity extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMaintainers = new javax.swing.JTable();
         jLabelTit3 = new javax.swing.JLabel();
-        jButtonSelect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -228,15 +227,6 @@ public class AssignmentActivity extends javax.swing.JFrame {
         jLabelTit3.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTit3.setText("Maintainers");
 
-        jButtonSelect.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButtonSelect.setText("Select");
-        jButtonSelect.setEnabled(false);
-        jButtonSelect.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonSelectMouseClicked(evt);
-            }
-        });
-
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -251,11 +241,8 @@ public class AssignmentActivity extends javax.swing.JFrame {
                                 .add(jLabelTit3)
                                 .add(345, 345, 345))
                             .add(jPanel2Layout.createSequentialGroup()
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
-                                        .add(jButtonSearch)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(jButtonSelect))
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jButtonSearch)
                                     .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 317, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -291,9 +278,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 149, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jButtonSearch)
-                            .add(jButtonSelect)))
+                        .add(jButtonSearch))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(21, 21, 21)
@@ -405,10 +390,6 @@ public class AssignmentActivity extends javax.swing.JFrame {
         }  
     }//GEN-LAST:event_jLabelAddMouseClicked
 
-    private void jButtonSelectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSelectMouseClicked
-        initTableActivities();
-    }//GEN-LAST:event_jButtonSelectMouseClicked
-
     private void initTableActivities() {
         ActivityService act = ActivityService.getActivityService();
         int row = jTableMaintainers.getSelectedRow();
@@ -489,7 +470,6 @@ public class AssignmentActivity extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSearch;
-    private javax.swing.JButton jButtonSelect;
     private javax.swing.JLabel jLabelAdd;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;

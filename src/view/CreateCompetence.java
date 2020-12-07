@@ -195,7 +195,7 @@ public class CreateCompetence extends javax.swing.JFrame {
         } catch (UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, "Cannot create this competence");
         } catch (InvalidPermissionException ex) {
-           JOptionPane.showMessageDialog(null, "Invalid Permission"); 
+            JOptionPane.showMessageDialog(null, "Invalid Permission"); 
         } catch (InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }  

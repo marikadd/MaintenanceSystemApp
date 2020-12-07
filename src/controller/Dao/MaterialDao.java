@@ -19,7 +19,7 @@ import model.Material.*;
 
 /**
  *
- * @author giusi
+ * @author Group9
  */
 public class MaterialDao {
    

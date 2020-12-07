@@ -24,7 +24,7 @@ public class MaterialService {
         private MaterialDao matDao;
         
         //Singleton
-         public static MaterialService getDepartmentService() {
+         public static MaterialService getMaterialService() {
         if (matService == null) {
             matService = new MaterialService();
             matService.matDao = MaterialDao.init();
@@ -43,7 +43,7 @@ public class MaterialService {
             return matDao.updateMaterial(oldType, newType);
         }
 
-        public int deleteDepartment(String type) throws SQLException, UnsuccessfulUpdateException {
+        public int deleteMaterial(String type) throws SQLException, UnsuccessfulUpdateException {
 
             return matDao.deleteMaterial(type);
         }
