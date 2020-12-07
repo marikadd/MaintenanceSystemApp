@@ -21,7 +21,7 @@ import model.Competences.Competence;
 
 public class ViewCompetences extends javax.swing.JFrame {
 
-    List<Competence> compList = new LinkedList<>();
+    private List<Competence> compList = new LinkedList<>();
     /**
      * Creates new form ViewCompetences
      */
@@ -224,11 +224,13 @@ public class ViewCompetences extends javax.swing.JFrame {
         
         DefaultTableModel competences = (DefaultTableModel) jTableCompetences.getModel();
         
-        int row = competences.getRowCount();
-        for(int i = 0; i < row; i++) {
-            competences.removeRow(0);
-        }
+        int length = competences.getRowCount();
         
+        if(length != 0){
+            for(int i = 0; i < length; i++) {
+                competences.removeRow(0);
+            }
+        }
         for(int i=0;i<list.size();i++){
             Object column[] =new Object[2];
             column[0] = list.get(i).getId();

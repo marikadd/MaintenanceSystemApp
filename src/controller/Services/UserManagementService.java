@@ -48,6 +48,13 @@ public class UserManagementService {
         
         return userList;
     }
+    
+    public List<UserModel> getAllMaintainers() throws SQLException, UsernotFoundException{
+        
+        List<UserModel> userList = new LinkedList<>();
+        userList = usersDao.findUsersByRole(Role.MAINTAINER);
+        return userList;
+    }
 
     public int deleteUser(String username) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
         return usersDao.deleteUserModel(username);

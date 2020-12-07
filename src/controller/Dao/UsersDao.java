@@ -266,7 +266,7 @@ public class UsersDao {
             throw new InvalidParameterObjectException("The object parameters must be filled");
         }
 
-        if (userModel.getUsername() == null) {
+        if (userModel.getUsername() == null || userModel.getUsername().isBlank()) {
             throw new InvalidParameterObjectException("User's username must be not null");
         }
 
@@ -274,7 +274,7 @@ public class UsersDao {
             throw new InvalidParameterObjectException("User's username must be at most 20 characters");
         }
 
-        if (userModel.getName() == null) {
+        if (userModel.getName() == null || userModel.getName().isBlank()) {
             throw new InvalidParameterObjectException("User's name must be not null");
         }
 
@@ -282,7 +282,7 @@ public class UsersDao {
             throw new InvalidParameterObjectException("User's name must be at most 20 characters");
         }
 
-        if (userModel.getSurname() == null) {
+        if (userModel.getSurname() == null || userModel.getSurname().isBlank()) {
             throw new InvalidParameterObjectException("User's surname must be not null");
         }
 
@@ -290,15 +290,7 @@ public class UsersDao {
             throw new InvalidParameterObjectException("User's surname must be at most 20 characters");
         }
 
-        if ("".equals(userModel.getName())) {
-            throw new InvalidParameterObjectException("User's name must be fill");
-        }
-
-        if ("".equals(userModel.getSurname())) {
-            throw new InvalidParameterObjectException("User's surname must be fill");
-        }
-
-        if (userModel.getPassword() == null) {
+        if (userModel.getPassword() == null || userModel.getPassword().isBlank()) {
             throw new InvalidParameterObjectException("User's password must be not null");
         }
 
@@ -352,6 +344,7 @@ public class UsersDao {
                 throw new InvalidParameterObjectException("User's name must be at most 20 characters");
             }
         }
+        
         if (userModel.getSurname() != null) {
             if (userModel.getSurname().length() > 20) {
                 throw new InvalidParameterObjectException("User's surname must be at most 20 characters");

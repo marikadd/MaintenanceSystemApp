@@ -7,7 +7,6 @@
 package view;
 
 import configuration.Exceptions.ActivityNotFoundException;
-import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import java.sql.SQLException;
@@ -259,8 +258,12 @@ public class DeleteActivity extends javax.swing.JFrame {
      
         try {
             int result = activity.deleteActivity(ID);
-            if(result > 0) JOptionPane.showMessageDialog(null, "Activity deleted successfully!");
-            else JOptionPane.showMessageDialog(null, "No activity deleted!");
+            if(result > 0){ 
+                JOptionPane.showMessageDialog(null, "Activity deleted successfully!");
+            }
+            else{ 
+                JOptionPane.showMessageDialog(null, "No activity deleted!");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UnsuccessfulUpdateException ex) {

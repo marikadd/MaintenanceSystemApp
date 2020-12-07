@@ -25,7 +25,6 @@ public class CompetenceServiceTestInsert {
         cps = CompetenceService.getCompetenceService();
     }
 
-
     /**
      * Test of insertCompetence method, inserting a new Competence
      * with its description.

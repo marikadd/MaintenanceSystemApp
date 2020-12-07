@@ -43,7 +43,7 @@ public class CompetenceServiceTestUpdate {
 
     /**
      * Test of updateCompetence method, of class CompetenceService, updating an
-     * invalid Competence (id doesen't exist) with a valid description.
+     * invalid Competence (id doesn't exist) with a valid description.
      */
     @Test(expected = UnsuccessfulUpdateException.class)
     public void testUpdateCompetence1() throws Exception {

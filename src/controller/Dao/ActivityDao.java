@@ -279,11 +279,7 @@ public class ActivityDao {
 
     private void validateActivity(String type, String description, Integer time) throws InvalidParameterObjectException {
 
-        if (type == null) {
-            throw new InvalidParameterObjectException("Activity type must be not null");
-        }
-
-        if ("".equals(type)) {
+        if (type == null || type.isBlank()) {
             throw new InvalidParameterObjectException("Activity type must be not null");
         }
 
@@ -291,11 +287,7 @@ public class ActivityDao {
             throw new InvalidParameterObjectException("Activity type must be length at most 20 characters");
         }
 
-        if (description == null) {
-            throw new InvalidParameterObjectException("Activity description must be not null");
-        }
-
-        if ("".equals(description)) {
+        if (description == null || description.isBlank()) {
             throw new InvalidParameterObjectException("Activity description must be not null");
         }
 

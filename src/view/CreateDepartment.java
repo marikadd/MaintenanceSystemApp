@@ -8,8 +8,10 @@ package view;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
-import controller.Services.CompetenceService;
+import controller.Services.DepartmentService;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -18,18 +20,17 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  *
  * @author Group9
  */
+public class CreateDepartment extends javax.swing.JFrame {
 
-public class CreateCompetence extends javax.swing.JFrame {
-    
     /**
-     * Creates new form CreateCompetence
+     * Creates new form CreateDepartment
      */
-    public CreateCompetence() {
+    public CreateDepartment() {
         initComponents();
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(500,400);
+        setSize(500, 350);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -47,9 +48,9 @@ public class CreateCompetence extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabelBack = new javax.swing.JLabel();
         jLabelTitle = new javax.swing.JLabel();
-        jTextDescription = new javax.swing.JTextField();
+        jTextArea = new javax.swing.JTextField();
         jLabelCreate = new javax.swing.JLabel();
-        jLabelDescription = new javax.swing.JLabel();
+        jLabelArea = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,11 +85,11 @@ public class CreateCompetence extends javax.swing.JFrame {
 
         jLabelTitle.setFont(new java.awt.Font("Impact", 0, 30)); // NOI18N
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTitle.setText("CREATE COMPETENCE");
+        jLabelTitle.setText("CREATE DEPARTMENT");
 
-        jTextDescription.addActionListener(new java.awt.event.ActionListener() {
+        jTextArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextDescriptionActionPerformed(evt);
+                jTextAreaActionPerformed(evt);
             }
         });
 
@@ -105,9 +106,9 @@ public class CreateCompetence extends javax.swing.JFrame {
             }
         });
 
-        jLabelDescription.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelDescription.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelDescription.setText("Insert Description");
+        jLabelArea.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelArea.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelArea.setText("Insert Area");
 
         jLabelExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
         jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,29 +124,25 @@ public class CreateCompetence extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(83, 83, 83)
-                                        .addComponent(jTextDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(62, 62, 62)
-                                        .addComponent(jLabelTitle)))
-                                .addGap(0, 56, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(jLabelDescription)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122))))
+                        .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(jLabelTitle))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(jLabelCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(96, 96, 96)
+                                .addComponent(jTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(161, 161, 161)
+                                .addComponent(jLabelArea)))
+                        .addGap(0, 76, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,12 +152,12 @@ public class CreateCompetence extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabelTitle)
                 .addGap(35, 35, 35)
-                .addComponent(jLabelDescription)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addComponent(jLabelArea)
+                .addGap(18, 18, 18)
+                .addComponent(jTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addComponent(jLabelCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -177,39 +174,40 @@ public class CreateCompetence extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
-        
-        CompetenceService comp = CompetenceService.getCompetenceService();
-        
-        String description = jTextDescription.getText();
-        
-        try {
-            int result = comp.insertCompetence(description);
-            if(result > 0) {
-                JOptionPane.showMessageDialog(null, "Competence created successfully!");
-            } else {
-                JOptionPane.showMessageDialog(null, "No competence insert!");
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot create this competence");
-        } catch (InvalidPermissionException ex) {
-           JOptionPane.showMessageDialog(null, "Invalid Permission"); 
-        } catch (InvalidParameterObjectException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }  
-    }//GEN-LAST:event_jLabelCreateMouseClicked
-
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
-        ManagementCompetenceArea cUser = new ManagementCompetenceArea();
-        cUser.setVisible(true);
+        ManagementDepartmentArea dArea = new ManagementDepartmentArea();
+        dArea.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
 
-    private void jTextDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDescriptionActionPerformed
+    private void jTextAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextAreaActionPerformed
 
-    }//GEN-LAST:event_jTextDescriptionActionPerformed
+    }//GEN-LAST:event_jTextAreaActionPerformed
+
+    private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
+
+        DepartmentService dep = DepartmentService.getDepartmentService();
+
+        String area = jTextArea.getText();
+        int result = 0;
+
+        try {
+            result = dep.insertDepartment(area);
+        } catch (InvalidPermissionException ex) {
+            Logger.getLogger(CreateDepartment.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateDepartment.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsuccessfulUpdateException ex) {
+            Logger.getLogger(CreateDepartment.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameterObjectException ex) {
+            Logger.getLogger(CreateDepartment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (result > 0) {
+            JOptionPane.showMessageDialog(null, "Department created successfully!");
+        } else {
+            JOptionPane.showMessageDialog(null, "No area inserted!");
+        }
+    }//GEN-LAST:event_jLabelCreateMouseClicked
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
@@ -232,32 +230,32 @@ public class CreateCompetence extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateCompetence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateDepartment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateCompetence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateDepartment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateCompetence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateDepartment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateCompetence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateDepartment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateCompetence().setVisible(true);
+                new CreateDepartment().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelArea;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelCreate;
-    private javax.swing.JLabel jLabelDescription;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextDescription;
+    private javax.swing.JTextField jTextArea;
     // End of variables declaration//GEN-END:variables
 }

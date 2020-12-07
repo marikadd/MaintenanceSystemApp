@@ -11,6 +11,7 @@ import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Dao.ActivityDao;
+import controller.Dao.DepartmentDao;
 import controller.Dao.UsersDao;
 import controller.Utility.UtilityUser;
 import java.sql.SQLException;
@@ -35,6 +36,7 @@ public class ActivityService {
     private static ActivityService activService;
     private ActivityDao activityDao;
     private UsersDao usersDao;
+    private DepartmentDao depDao;
 
     //Singleton
     private ActivityService() {
@@ -45,6 +47,7 @@ public class ActivityService {
             activService = new ActivityService();
             activService.activityDao = ActivityDao.init();
             activService.usersDao = UsersDao.init();
+            activService.depDao = DepartmentDao.init();
         }
         return activService;
     }
@@ -64,6 +67,7 @@ public class ActivityService {
     public int assignActivity(String usernameMain, List<Integer> listId)
             throws SQLException, UsernotFoundException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
+        // Da eliminare, la lista è infallibile
         UtilityUser<Maintainer> utilityUser = new UtilityUser<Maintainer>();
         Maintainer maintainer = new Maintainer();
         UserModel um = usersDao.findUserByUsername(usernameMain, Role.MAINTAINER);

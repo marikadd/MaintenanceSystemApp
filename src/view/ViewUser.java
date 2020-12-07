@@ -224,12 +224,14 @@ public class ViewUser extends javax.swing.JFrame {
 
     public void showUsers(List<UserModel> list){
         
-        DefaultTableModel model = (DefaultTableModel) jTableUsers.getModel();
+        DefaultTableModel users = (DefaultTableModel) jTableUsers.getModel();
         Object column[] =new Object[6];
         
-        if(model.getRowCount()!=0){
-            for(int i=0;i<list.size();i++){
-                model.removeRow(0);
+        int length = users.getRowCount();
+        
+        if(length !=0){
+            for(int i=0;i<length;i++){
+                users.removeRow(0);
             }
         }
         
@@ -240,7 +242,7 @@ public class ViewUser extends javax.swing.JFrame {
             column[3] = list.get(i).getRole();
             column[4] = list.get(i).getEmail();
             column[5] = list.get(i).getPhone();
-            model.addRow(column);
+            users.addRow(column);
         }      
     }
     

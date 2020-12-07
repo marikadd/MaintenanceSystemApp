@@ -43,6 +43,7 @@ public class SystemAdminArea extends javax.swing.JFrame {
         jButtonCompetence = new javax.swing.JButton();
         jLabelTitle = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
+        jButtonCompetence1 = new javax.swing.JButton();
         jLabelBack = new javax.swing.JLabel();
         jLabelIcon = new javax.swing.JLabel();
 
@@ -92,6 +93,20 @@ public class SystemAdminArea extends javax.swing.JFrame {
             }
         });
 
+        jButtonCompetence1.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonCompetence1.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
+        jButtonCompetence1.setText("Department Management");
+        jButtonCompetence1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCompetence1MouseClicked(evt);
+            }
+        });
+        jButtonCompetence1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCompetence1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -102,7 +117,8 @@ public class SystemAdminArea extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButtonCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonCompetence1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(74, 74, 74))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabelTitle)
@@ -121,7 +137,9 @@ public class SystemAdminArea extends javax.swing.JFrame {
                 .addComponent(jButtonManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(jButtonCompetence, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addGap(42, 42, 42)
+                .addComponent(jButtonCompetence1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
@@ -204,6 +222,16 @@ public class SystemAdminArea extends javax.swing.JFrame {
         cArea.setVisible(true);
     }//GEN-LAST:event_jButtonCompetenceMouseClicked
 
+    private void jButtonCompetence1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCompetence1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCompetence1MouseClicked
+
+    private void jButtonCompetence1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCompetence1ActionPerformed
+        setVisible(false);
+        ManagementDepartmentArea dArea = new ManagementDepartmentArea();
+        dArea.setVisible(true);
+    }//GEN-LAST:event_jButtonCompetence1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -241,6 +269,7 @@ public class SystemAdminArea extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCompetence;
+    private javax.swing.JButton jButtonCompetence1;
     private javax.swing.JButton jButtonManagement;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;

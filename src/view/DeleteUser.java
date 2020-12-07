@@ -50,8 +50,6 @@ public class DeleteUser extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextUsername = new javax.swing.JTextField();
-        jLabelUsername = new javax.swing.JLabel();
         jButtonList = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableUsers = new javax.swing.JTable();
@@ -66,16 +64,6 @@ public class DeleteUser extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 204, 0));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-
-        jTextUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextUsernameActionPerformed(evt);
-            }
-        });
-
-        jLabelUsername.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelUsername.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelUsername.setText("Username");
 
         jButtonList.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButtonList.setText("List");
@@ -145,28 +133,25 @@ public class DeleteUser extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelUsername)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(152, 152, 152))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(154, 154, 154)
+                .addGap(154, 164, Short.MAX_VALUE)
                 .addComponent(jLabelTitle)
                 .addGap(154, 154, 154))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(27, 27, 27)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(180, 180, 180)
+                            .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,13 +163,9 @@ public class DeleteUser extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(jLabelUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(120, 120, 120))
+                .addGap(26, 26, 26)
+                .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
@@ -239,12 +220,10 @@ public class DeleteUser extends javax.swing.JFrame {
         userList = null;
     }//GEN-LAST:event_jButtonListActionPerformed
 
-    private void jTextUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUsernameActionPerformed
-
-    }//GEN-LAST:event_jTextUsernameActionPerformed
-
     private void jLabelDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDeleteMouseClicked
-        String username= jTextUsername.getText();
+        
+        int row = jTableUsers.getSelectedRow();
+        String username = jTableUsers.getModel().getValueAt(row, 0).toString();
         UserManagementService user= UserManagementService.getUserManagementService();
         
         try {
@@ -275,12 +254,12 @@ public class DeleteUser extends javax.swing.JFrame {
 
     public void showUsers(List<UserModel> list){
         
-        DefaultTableModel model = (DefaultTableModel) jTableUsers.getModel();
-        int length = model.getRowCount();
+        DefaultTableModel users = (DefaultTableModel) jTableUsers.getModel();
+        int length = users.getRowCount();
         
-        if(model.getRowCount()!=0){
+        if(length !=0 ){
             for(int i=0;i<length;i++){
-                model.removeRow(0);
+                users.removeRow(0);
             }
         }
         for(int i=0;i<list.size();i++){
@@ -289,7 +268,7 @@ public class DeleteUser extends javax.swing.JFrame {
             column[1] = list.get(i).getName();
             column[2] = list.get(i).getSurname();
             column[3] = list.get(i).getRole();
-            model.addRow(column);
+            users.addRow(column);
         }      
     }
     /**
@@ -333,11 +312,9 @@ public class DeleteUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDelete;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelTitle;
-    private javax.swing.JLabel jLabelUsername;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableUsers;
-    private javax.swing.JTextField jTextUsername;
     // End of variables declaration//GEN-END:variables
 }

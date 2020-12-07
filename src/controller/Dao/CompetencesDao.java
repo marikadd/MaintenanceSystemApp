@@ -203,11 +203,7 @@ public class CompetencesDao {
 
     private void validateCompetence(String description) throws InvalidParameterObjectException {
 
-        if (description == null) {
-            throw new InvalidParameterObjectException("Description must be required");
-        }
-
-        if ("".equals(description)) {
+        if (description == null || description.isBlank()) {
             throw new InvalidParameterObjectException("Description must be required");
         }
 

@@ -5,7 +5,6 @@
  */
 package controller.Services.Competence;
 
-import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
 import org.junit.Before;

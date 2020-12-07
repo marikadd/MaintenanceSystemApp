@@ -10,6 +10,7 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.ActivityService;
+import controller.Services.UserManagementService;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -21,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Activity.ActivityTarget;
 import model.Activity.MaintenanceActivity;
+import model.Users.UserModel;
 
 /**
  *
@@ -32,6 +34,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
     private List<MaintenanceActivity> list_in= new LinkedList<>();
     private List<MaintenanceActivity> list_notIn= new LinkedList<>();
     private List<ActivityTarget> list = new ArrayList<>();
+    private List<UserModel> listMaintainers = new LinkedList<>();
 
     /** Creates new form AssignmentActivity */
     public AssignmentActivity() {
@@ -39,7 +42,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(650,670);
+        setSize(1037,584);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -61,13 +64,15 @@ public class AssignmentActivity extends javax.swing.JFrame {
         jTableInMaintainer = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableNotInMaintainer = new javax.swing.JTable();
-        jTextFieldUsername = new javax.swing.JTextField();
-        jLabelUsername = new javax.swing.JLabel();
         jButtonSearch = new javax.swing.JButton();
         jLabelAdd = new javax.swing.JLabel();
         jLabelTit1 = new javax.swing.JLabel();
         jLabelTit2 = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableMaintainers = new javax.swing.JTable();
+        jLabelTit3 = new javax.swing.JLabel();
+        jButtonSelect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -158,18 +163,8 @@ public class AssignmentActivity extends javax.swing.JFrame {
         jTableNotInMaintainer.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jTableNotInMaintainer);
 
-        jTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUsernameActionPerformed(evt);
-            }
-        });
-
-        jLabelUsername.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelUsername.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelUsername.setText("Username");
-
         jButtonSearch.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButtonSearch.setText("Search");
+        jButtonSearch.setText("List");
         jButtonSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonSearchMouseClicked(evt);
@@ -204,59 +199,110 @@ public class AssignmentActivity extends javax.swing.JFrame {
             }
         });
 
+        jTableMaintainers.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Username", "Name", "Surname"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTableMaintainers);
+
+        jLabelTit3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelTit3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTit3.setText("Maintainers");
+
+        jButtonSelect.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jButtonSelect.setText("Select");
+        jButtonSelect.setEnabled(false);
+        jButtonSelect.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonSelectMouseClicked(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(jLabelTitle)
-                        .add(134, 134, 134))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(25, 25, 25)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(0, 0, Short.MAX_VALUE)
+                                .add(jLabelTit3)
+                                .add(345, 345, 345))
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .add(jButtonSearch)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(jButtonSelect))
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 317, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabelTit2)
-                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(jLabelUsername)
-                                .add(jLabelTit1)
-                                .add(jPanel2Layout.createSequentialGroup()
-                                    .add(345, 345, 345)
-                                    .add(jLabelAdd, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 67, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(jPanel2Layout.createSequentialGroup()
-                                    .add(jTextFieldUsername, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(41, 41, 41)
-                                    .add(jButtonSearch))
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 412, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 412, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(52, 52, 52))))
+                            .add(jLabelTit1)
+                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 412, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 412, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jLabelAdd, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 67, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(jLabelTitle)
+                                .add(293, 293, 293)))))
+                .add(49, 49, 49))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .add(0, 0, Short.MAX_VALUE)
+                .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(25, 25, 25)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabelTitle)
-                .add(36, 36, 36)
-                .add(jLabelUsername)
+                .add(29, 29, 29)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabelTit3)
+                    .add(jLabelTit1))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jTextFieldUsername, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButtonSearch))
-                .add(36, 36, 36)
-                .add(jLabelTit1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(47, 47, 47)
-                .add(jLabelTit2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 149, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jButtonSearch)
+                            .add(jButtonSelect)))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(21, 21, 21)
+                        .add(jLabelTit2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(18, 18, 18)
                 .add(jLabelAdd)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -266,8 +312,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(0, 0, 0)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(0, 0, 0))
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -277,10 +322,6 @@ public class AssignmentActivity extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsernameActionPerformed
-
-    }//GEN-LAST:event_jTextFieldUsernameActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
@@ -293,13 +334,48 @@ public class AssignmentActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jButtonSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSearchMouseClicked
-        initTableActivities();
+        
+        UserManagementService user = UserManagementService.getUserManagementService();
+        
+        try {
+            listMaintainers = user.getAllMaintainers();
+        } catch (SQLException | UsernotFoundException ex) {
+            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        this.showUsers(listMaintainers);
+        listMaintainers = null;
+        
+        jButtonSelect.setEnabled(true);
     }//GEN-LAST:event_jButtonSearchMouseClicked
 
+    public void showUsers(List<UserModel> list){
+        
+        DefaultTableModel users = (DefaultTableModel) jTableMaintainers.getModel();
+        Object column[] = new Object[3];
+        
+        int length = users.getRowCount();
+        if(length !=0){
+            for(int i=0;i<length;i++){
+                users.removeRow(0);
+            }
+        }
+        
+        for(int i=0;i<list.size();i++){
+            column[0] = list.get(i).getUsername();
+            column[1] = list.get(i).getName();
+            column[2] = list.get(i).getSurname();
+            users.addRow(column);
+        }      
+    }
+    
     private void jLabelAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddMouseClicked
-        ActivityService comp= ActivityService.getActivityService();
-        String username = jTextFieldUsername.getText();
-        int index=jTableNotInMaintainer.getSelectedRow();
+        
+        ActivityService comp = ActivityService.getActivityService();
+        
+        int row = jTableMaintainers.getSelectedRow();
+        String username = jTableMaintainers.getModel().getValueAt(row, 0).toString();
+        int index = jTableNotInMaintainer.getSelectedRow();
         
         try {
             list = comp.getAllActivityTarget(username);
@@ -308,7 +384,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         } catch (UsernotFoundException ex) {
             Logger.getLogger(AssignmentCompetence.class.getName()).log(Level.SEVERE, null, ex + " or role is not MAINTAINER");
         }
-         
+        
         Integer id= Integer.parseInt(jTableNotInMaintainer.getModel().getValueAt(index, 0).toString());
         List <Integer> list_id= new LinkedList<>();
         list_id.add(id);
@@ -329,11 +405,16 @@ public class AssignmentActivity extends javax.swing.JFrame {
         }  
     }//GEN-LAST:event_jLabelAddMouseClicked
 
+    private void jButtonSelectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSelectMouseClicked
+        initTableActivities();
+    }//GEN-LAST:event_jButtonSelectMouseClicked
+
     private void initTableActivities() {
         ActivityService act = ActivityService.getActivityService();
-        String username = jTextFieldUsername.getText();
+        int row = jTableMaintainers.getSelectedRow();
+        String username = jTableMaintainers.getModel().getValueAt(row, 0).toString();
+        int index= jTableNotInMaintainer.getSelectedRow();
         
-       
         try {
             list = act.getAllActivityTarget(username);
         } catch (SQLException ex) {
@@ -408,20 +489,22 @@ public class AssignmentActivity extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSearch;
+    private javax.swing.JButton jButtonSelect;
     private javax.swing.JLabel jLabelAdd;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelTit1;
     private javax.swing.JLabel jLabelTit2;
+    private javax.swing.JLabel jLabelTit3;
     private javax.swing.JLabel jLabelTitle;
-    private javax.swing.JLabel jLabelUsername;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableInMaintainer;
+    private javax.swing.JTable jTableMaintainers;
     private javax.swing.JTable jTableNotInMaintainer;
-    private javax.swing.JTextField jTextFieldUsername;
     // End of variables declaration//GEN-END:variables
 
 }
