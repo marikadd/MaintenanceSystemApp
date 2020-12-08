@@ -35,7 +35,7 @@ public class DeleteActivity extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(550,450);
+        setSize(617,480);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -58,6 +58,7 @@ public class DeleteActivity extends javax.swing.JFrame {
         jLabelDelete = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableActivities = new javax.swing.JTable();
+        jLabelMinimize1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -150,6 +151,13 @@ public class DeleteActivity extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableActivities);
 
+        jLabelMinimize1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
+        jLabelMinimize1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelMinimize1MouseClicked(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -159,35 +167,38 @@ public class DeleteActivity extends javax.swing.JFrame {
                 .add(jLabelTitle)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(jPanel2Layout.createSequentialGroup()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(420, Short.MAX_VALUE)
-                        .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 66, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(166, 166, 166)
-                        .add(jLabelDelete, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .add(jPanel2Layout.createSequentialGroup()
                 .add(22, 22, 22)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jButtonList)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(0, 0, Short.MAX_VALUE))
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButtonList))
+                .add(0, 22, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jLabelMinimize1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 66, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jLabelDelete, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(184, 184, 184))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabelMinimize1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(34, 34, 34)
                 .add(jLabelTitle)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(11, 11, 11)
                 .add(jButtonList)
-                .add(18, 18, 18)
+                .add(36, 36, 36)
                 .add(jLabelDelete, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -234,6 +245,11 @@ public class DeleteActivity extends javax.swing.JFrame {
 
     private void jLabelDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDeleteMouseClicked
         
+        if (jTableActivities.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null, "Please, select an activity first");
+            return;
+        }
+        
         int row = jTableActivities.getSelectedRow();
         int ID = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 0).toString());
      
@@ -252,6 +268,10 @@ public class DeleteActivity extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabelDeleteMouseClicked
 
+    private void jLabelMinimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimize1MouseClicked
+        this.setExtendedState(this.ICONIFIED);
+    }//GEN-LAST:event_jLabelMinimize1MouseClicked
+
     public void showActivities(List<MaintenanceActivity> list){
         
         DefaultTableModel model = (DefaultTableModel) jTableActivities.getModel();
@@ -264,11 +284,13 @@ public class DeleteActivity extends javax.swing.JFrame {
         }
         
         for(int i=0;i<list.size();i++){
-            Object column[] =new Object[4];
+            Object column[] =new Object[6];
             column[0] = list.get(i).getID();
-            column[1] = list.get(i).getType();
-            column[2] = list.get(i).getDescription();
-            column[3] = list.get(i).getTime();
+            column[1] = list.get(i).getDepartment().getArea();
+            column[2] = list.get(i).getType();
+            column[3] = list.get(i).getDescription();
+            column[4] = list.get(i).getTime();
+            column[5] = list.get(i).getWeekNum();
             model.addRow(column);
         }      
     }
@@ -313,6 +335,8 @@ public class DeleteActivity extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelDelete;
     private javax.swing.JLabel jLabelExit;
+    private javax.swing.JLabel jLabelMinimize;
+    private javax.swing.JLabel jLabelMinimize1;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

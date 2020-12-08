@@ -42,7 +42,7 @@ public class ActivityServiceTestUpdate {
         String description = "Change Oil";
         int timeActivity = 22;
         int week_num= 33;
-        Department department= new Department("Mechanical area");
+        String department= "Fisciano - Molding";
         int notExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
 
@@ -62,7 +62,7 @@ public class ActivityServiceTestUpdate {
         String description = "Change Oil";
         int timeActivity = 22;
         int week_num= 22;
-        Department department= new Department("Mechanical area");
+        String department= "Fisciano - Molding";
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
 
@@ -81,8 +81,8 @@ public class ActivityServiceTestUpdate {
         String type = "Mechanical";
         String description = "Change Oil";
         int timeActivity = -3;
-        int week_num= 11;
-        Department department= new Department("Mechanical area");
+        int week_num = 11;
+        String department = "Fisciano - Molding";
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity,week_num, department);
 
@@ -102,7 +102,7 @@ public class ActivityServiceTestUpdate {
         String description = "Change Oil";
         int timeActivity = 122;
         int week_num= 21;
-        Department department= new Department("Mechanical area");
+        String department= "Fisciano - Molding";
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
 
@@ -121,8 +121,8 @@ public class ActivityServiceTestUpdate {
         String type = "Mechanical";
         String description = "";
         int timeActivity = 122;
-        int week_num=21;
-        Department department= new Department("Mechanical area");
+        int week_num = 21;
+        String department = "Fisciano - Molding";
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
 
@@ -142,7 +142,7 @@ public class ActivityServiceTestUpdate {
         String description = "";
         int timeActivity = 122;
         int week_num=0;
-        Department department= new Department("Mechanical area");
+        String department = "Fisciano - Molding";
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
 
@@ -161,8 +161,8 @@ public class ActivityServiceTestUpdate {
         String type = "Mechanical";
         String description = "";
         int timeActivity = 122;
-        int week_num=0;
-        Department department= new Department("Mechanical area");
+        int week_num = 0;
+        String department = "Fisciano - Molding";
         int ExpectedResult = 99;
         int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
 
@@ -180,8 +180,8 @@ public class ActivityServiceTestUpdate {
         String type = "Mechanical";
         String description = "";
         int timeActivity = 122;
-        int week_num=-1;
-        Department department= new Department("Engineering and metal processing and production area");
+        int week_num = -1;
+        String department = "Milano - Central";
         int ExpectedResult = 99;
         int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
 

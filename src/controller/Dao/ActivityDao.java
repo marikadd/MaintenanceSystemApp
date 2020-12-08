@@ -102,19 +102,20 @@ public class ActivityDao {
         return result;
     }
 
-    public int updateActivity(Integer id, String type, String description, int time_activity, Integer week_num, Department dep)
+    public int updateActivity(Integer id, String type, String description, int time_activity, Integer week_num, String dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
-        validateActivity(type, description, time_activity);
+        validateUpdate(type, description, time_activity, week_num);
 
         Connection con = DBFactory.connectToDB();
 
-        String query = "UPDATE MaintenanceActivity SET Type_Activity = ?, Site = ?, Description = ?, Time_Activity = ?, Week_Number = ?"
+        String query = "UPDATE MaintenanceActivity SET Type_Activity = coalesce(?,Type_Activity), Site = coalesce(?, Site),"
+                + " Description = coalesce(?,Description), Time_Activity = coalesce(?,Time_Activity), Week_Number = coalesce(?,Week_number)"
                 + " WHERE ID = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
-        ps.setString(2, dep.getArea());
+        ps.setString(2, dep);
         ps.setString(3, description);
         ps.setInt(4, time_activity);
         ps.setInt(5, week_num);
@@ -129,8 +130,7 @@ public class ActivityDao {
         return result;
     }
 
-    public void assignmentActivity(Integer id)
-            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+    public void assignmentActivity(Integer id) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         Connection con = DBFactory.connectToDB();
 
@@ -309,6 +309,27 @@ public class ActivityDao {
             throw new InvalidParameterObjectException("Activity time must be a positive integer");
         }
 
+    }
+    
+    private void validateUpdate(String type, String description, Integer time, Integer week_num) throws InvalidParameterObjectException {
+        
+        if (type != null){
+            if (type.length() > 20) {
+                throw new InvalidParameterObjectException("Activity type must be length at most 20 characters");
+            }
+        }
+        
+        if (description != null){
+            if (description.length() > 30) {
+                throw new InvalidParameterObjectException("Activity description must be length at most 30 characters");
+            }
+        }
+        
+        if (time != null){
+            if (time <= 0) {
+                throw new InvalidParameterObjectException("Activity time must be a positive integer");
+            }
+        }
     }
 
 }

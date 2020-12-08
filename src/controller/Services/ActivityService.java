@@ -82,7 +82,7 @@ public class ActivityService {
         return result;
     }
 
-    public int updateActivity(Integer id, String type, String description, int timeActivity, Integer week_num, Department dep)
+    public int updateActivity(Integer id, String type, String description, int timeActivity, Integer week_num, String dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         return activityDao.updateActivity(id, type, description, timeActivity, week_num, dep);

@@ -23,7 +23,7 @@ public class SystemAdminArea extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(550,450);
+        setSize(556,551);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -45,6 +45,7 @@ public class SystemAdminArea extends javax.swing.JFrame {
         jLabelExit = new javax.swing.JLabel();
         jButtonMaterial = new javax.swing.JButton();
         jButtonDepartment = new javax.swing.JButton();
+        jLabelMinimize1 = new javax.swing.JLabel();
         jLabelBack = new javax.swing.JLabel();
         jLabelIcon = new javax.swing.JLabel();
 
@@ -122,6 +123,13 @@ public class SystemAdminArea extends javax.swing.JFrame {
             }
         });
 
+        jLabelMinimize1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
+        jLabelMinimize1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelMinimize1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -137,8 +145,10 @@ public class SystemAdminArea extends javax.swing.JFrame {
                             .addComponent(jButtonMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(74, 74, 74))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabelMinimize1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelExit)
-                        .addGap(21, 21, 21))))
+                        .addContainerGap())))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(98, 98, 98)
                 .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,7 +157,9 @@ public class SystemAdminArea extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelMinimize1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
@@ -253,17 +265,23 @@ public class SystemAdminArea extends javax.swing.JFrame {
 
     private void jButtonMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMaterialActionPerformed
         setVisible(false);
-        ManagementDepartmentArea dArea = new ManagementDepartmentArea();
-        dArea.setVisible(true);
+        ManagementMaterialArea mArea = new ManagementMaterialArea();
+        mArea.setVisible(true);
     }//GEN-LAST:event_jButtonMaterialActionPerformed
 
     private void jButtonDepartmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDepartmentMouseClicked
-        // TODO add your handling code here:
+        setVisible(false);
+        ManagementDepartmentArea dArea = new ManagementDepartmentArea();
+        dArea.setVisible(true);
     }//GEN-LAST:event_jButtonDepartmentMouseClicked
 
     private void jButtonDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepartmentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonDepartmentActionPerformed
+
+    private void jLabelMinimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimize1MouseClicked
+        this.setExtendedState(this.ICONIFIED);
+    }//GEN-LAST:event_jLabelMinimize1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -308,6 +326,8 @@ public class SystemAdminArea extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelIcon;
+    private javax.swing.JLabel jLabelMinimize;
+    private javax.swing.JLabel jLabelMinimize1;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

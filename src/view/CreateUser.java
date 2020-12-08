@@ -53,6 +53,7 @@ public class CreateUser extends javax.swing.JFrame {
         jTextEmail = new javax.swing.JTextField();
         jLabelCreate = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
+        jLabelMinimize = new javax.swing.JLabel();
         jLabelBack = new javax.swing.JLabel();
         jLabelSurname = new javax.swing.JLabel();
         jLabelUsername = new javax.swing.JLabel();
@@ -120,6 +121,13 @@ public class CreateUser extends javax.swing.JFrame {
             }
         });
 
+        jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
+        jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelMinimizeMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -138,11 +146,13 @@ public class CreateUser extends javax.swing.JFrame {
                             .addComponent(jTextName, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPasswordField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextUsername, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(138, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 87, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelExit)
                                 .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -156,7 +166,9 @@ public class CreateUser extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jLabelTitle)
                 .addGap(36, 36, 36)
@@ -324,6 +336,10 @@ public class CreateUser extends javax.swing.JFrame {
     private void jComboRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboRoleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboRoleActionPerformed
+
+    private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
+        this.setExtendedState(this.ICONIFIED);
+    }//GEN-LAST:event_jLabelMinimizeMouseClicked
     
     private int createUser(String username, String password, String name, String surname, String email, String phone, String role) 
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException{
@@ -393,6 +409,7 @@ public class CreateUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCreate;
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelExit;
+    private javax.swing.JLabel jLabelMinimize;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelPhone;
