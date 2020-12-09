@@ -79,6 +79,35 @@ public class CompetenceService {
         return compDao.deleteCompetence(id);
     }
 
+    public List<Competence> getAllSkills(int activityID) throws SQLException {
+
+        List<Competence> compList = new LinkedList<>();
+        compList = compDao.getCompetencesByActivityId(activityID);
+
+        return compList;
+    }
+    
+    public String getCommonSkills(List<Competence> activityComp, String username) throws SQLException{
+        
+        
+        int totalSkills = activityComp.size();
+        int commonSkills = 0;
+        // Get Maintainer's competences
+        List<Competence> maintainerComp = compDao.findCompetencesInMaintener(username);
+        
+        // Verify how many Maintainer's competences are included in Activity competences 
+        for(Competence c: activityComp){
+            if (maintainerComp.contains(c)){
+                commonSkills++;
+            }
+        }
+        
+        String result = String.valueOf(commonSkills)+"/"+String.valueOf(totalSkills);
+        
+        return result;
+    }
+
+
     public List<Competence> getAllCompetences() throws SQLException {
 
         List<Competence> compList = new LinkedList<>();

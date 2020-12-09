@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import model.Activity.MaintenanceActivity;
 import model.Competences.Competence;
@@ -202,6 +203,26 @@ public class ActivityDao {
 
         return activity;
     }
+
+public List<MaintenanceActivity> findActivitiesByWeekNum(int week_num) throws SQLException, ActivityNotFoundException {
+
+        Connection con = dbProduct.connectToDB();
+
+        String query = "select * from MaintenanceActivity " + "where Week_Number = ?";
+
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, week_num);
+
+        ResultSet rs = ps.executeQuery();
+        
+        List<MaintenanceActivity> activities = new ArrayList<>();
+
+        while (rs.next()) {
+            activities.add(getMaintenanceActivity(rs));
+        }
+
+        return activities;
+ }
     public List<MaintenanceActivity> findAllActivities() throws SQLException, ActivityNotFoundException {
 
         Connection con = dbProduct.connectToDB();
@@ -246,6 +267,27 @@ public class ActivityDao {
         return result;
     }
 
+public List<String> findAssignedActivities() throws SQLException{
+        
+        Connection con = dbProduct.connectToDB();
+
+        String query = "select a.Username_Maintainer,m.Site, m.Description,m.Week_Number\n" +
+                        "from Activity_Maintainers a join MaintenanceActivity m\n" +
+                        "on a.Activity_Maintainer_ID = m.ID;";
+        
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        
+        List<String> result = new LinkedList<>();
+        
+        while (rs.next()){
+            //result.add(rs.);
+        }
+        
+        return result;
+    }
+
+/*
     public List<MaintenanceActivity> findActivitiesInMaintainer(String username) throws SQLException {
 
         Connection con = dbProduct.connectToDB();
@@ -294,7 +336,7 @@ String query = "select ma.* from MaintenanceActivity ma "
 
         return activities;
     }
-
+*/
     private MaintenanceActivity getMaintenanceActivity(ResultSet rs) throws SQLException {
 
         Integer activityId = rs.getInt("ID");

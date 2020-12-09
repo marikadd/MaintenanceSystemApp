@@ -239,7 +239,7 @@ public class ViewActivities extends javax.swing.JFrame {
         
         this.showActivities(activityList);
     }//GEN-LAST:event_jButtonListMouseClicked
-
+    
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(this.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked

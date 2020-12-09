@@ -106,6 +106,16 @@ public class ActivityService {
         return activityList;
     }
 
+    public List<MaintenanceActivity> getAllActivitiesInWeek(int week_num) throws SQLException, ActivityNotFoundException {
+
+        List<MaintenanceActivity> activityList = new LinkedList<>();
+
+        activityList = activityDao.findActivitiesByWeekNum(week_num);
+
+        return activityList;
+    }
+
+    /*
     public List<ActivityInterface> getAllActivityTarget(String username)
             throws SQLException, UsernotFoundException {
 
@@ -119,7 +129,8 @@ public class ActivityService {
 
         return targets;
     }
-
+    */
+    
     private List<ActivityInterface> getListTargetMaintainer(List<MaintenanceActivity> activities, boolean linked) {
 
         List<ActivityInterface> targets = new ArrayList<ActivityInterface>();

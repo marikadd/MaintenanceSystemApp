@@ -272,11 +272,11 @@ public class UpdateActivity extends javax.swing.JFrame {
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabelUpdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(41, 41, 41)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 80, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 63, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 249, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonRemove1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(30, 30, 30))
+                .add(47, 47, 47))
             .add(jPanel2Layout.createSequentialGroup()
                 .add(126, 126, 126)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -409,10 +409,9 @@ public class UpdateActivity extends javax.swing.JFrame {
         if (!jTableDepartment.getSelectionModel().isSelectionEmpty()) {
             int rowdep = jTableDepartment.getSelectedRow();
             area = jTableDepartment.getModel().getValueAt(rowdep, 0).toString();
-            
         }
-        Department department= new Department(area);
-
+        Department department = new Department(area);
+        
         try {
             int result = activity.updateActivity(ID, type, description, time, week_num, department);
             if (result > 0) {
