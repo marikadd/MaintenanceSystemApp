@@ -5,10 +5,12 @@
  */
 package controller.Services.Department;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.DepartmentService;
 import java.sql.SQLException;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,6 +22,7 @@ import static org.junit.Assert.*;
 public class DepartmentServiceTestUpdate {
     
     private DepartmentService ds;
+    private ConnectionForTest cft;
     
     public DepartmentServiceTestUpdate() {
     }
@@ -27,8 +30,14 @@ public class DepartmentServiceTestUpdate {
     @Before
     public void setUp() {
         ds = DepartmentService.getDepartmentService();
+        cft = ConnectionForTest.init();
     }
 
+    @After
+    public void setAfter() {
+        cft.rollbackConnection();
+    }
+    
     /**
      * Test of updateDepartment method, of class DepartmentService, updating an
      * existing Department with a new area.
@@ -51,9 +60,9 @@ public class DepartmentServiceTestUpdate {
     @Test(expected = SQLException.class)
     public void testUpdateDepartment1() throws Exception {
         System.out.println("updateDepartment");
-        String oldArea = "Fisciano - Base";
-        String newArea = "Arzano - Service"; 
-        int expResult = 0;
+        String oldArea = "Fisciano - Molding";
+        String newArea = "Nusco - Carpentry"; 
+        int expResult = 0; 
         int result = ds.updateDepartment(oldArea, newArea);
         assertEquals(result, expResult);
         
@@ -81,7 +90,7 @@ public class DepartmentServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateDepartment3() throws Exception {
         System.out.println("updateDepartment");
-        String oldArea = "Fisciano - Base";
+        String oldArea = "Fisciano - Molding";
         String newArea = ""; 
         int expResult = 0;
         int result = ds.updateDepartment(oldArea, newArea);
@@ -96,7 +105,7 @@ public class DepartmentServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateDepartment4() throws Exception {
         System.out.println("updateDepartment");
-        String oldArea = "Fisciano - Base";
+        String oldArea = "Fisciano - Molding";
         String newArea = "Domodossola - Activity Exchange Center"; 
         int expResult = 0;
         int result = ds.updateDepartment(oldArea, newArea);

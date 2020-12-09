@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author giusi
+ * @author Group9
  */
 public class ConnectionForTest {
     

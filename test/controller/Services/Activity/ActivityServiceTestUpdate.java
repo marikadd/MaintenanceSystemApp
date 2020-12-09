@@ -5,10 +5,12 @@
  */
 package controller.Services.Activity;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import model.Department.Department;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -21,6 +23,8 @@ import static org.junit.Assert.*;
 public class ActivityServiceTestUpdate {
 
     private ActivityService as;
+    private ConnectionForTest cft;
+    
 
     public ActivityServiceTestUpdate() {
     }
@@ -28,8 +32,14 @@ public class ActivityServiceTestUpdate {
     @Before
     public void setUp() {
         as = ActivityService.getActivityService();
+        cft = ConnectionForTest.init();
     }
-
+    
+    @After
+    public void setAfter() {
+        cft.rollbackConnection();
+    }
+    
     /**
      * Test of updateActivity method, of class ActivityService, updating a valid
      * MaintenanceActivity.
@@ -37,12 +47,12 @@ public class ActivityServiceTestUpdate {
     @Test
     public void testUpdateActivity() throws Exception {
         System.out.println("updateActivity");
-        Integer id = 7;
+        Integer id = 7;//id giusto
         String type = "Mechanical";
-        String description = "Change Oil";
+        String description = "Change oil";
         int timeActivity = 22;
         int week_num= 33;
-        Department department= new Department("Mechanical area");
+        Department department= new Department("Nusco - Carpentry");
         int notExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
 
@@ -57,12 +67,12 @@ public class ActivityServiceTestUpdate {
     @Test(expected = UnsuccessfulUpdateException.class)
     public void testUpdateActivity1() throws Exception {
         System.out.println("updateActivity");
-        Integer id = 55;
+        Integer id = 55;//id che non esiste
         String type = "Mechanical";
-        String description = "Change Oil";
+        String description = "Change oil";
         int timeActivity = 22;
         int week_num= 22;
-        Department department= new Department("Mechanical area");
+        Department department= new Department("Nusco - Carpentry");
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
 
@@ -77,12 +87,12 @@ public class ActivityServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateActivity2() throws Exception {
         System.out.println("updateActivity");
-        Integer id = 8;
+        Integer id = 8; //id che esiste
         String type = "Mechanical";
-        String description = "Change Oil";
+        String description = "Change oil";
         int timeActivity = -3;
         int week_num= 11;
-        Department department= new Department("Mechanical area");
+        Department department= new Department("Nusco - Carpentry");
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity,week_num, department);
 
@@ -97,12 +107,12 @@ public class ActivityServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateActivity3() throws Exception {
         System.out.println("updateActivity");
-        Integer id = 8;
+        Integer id = 8; //id che esiste
         String type = "";
-        String description = "Change Oil";
+        String description = "Change oil";
         int timeActivity = 122;
         int week_num= 21;
-        Department department= new Department("Mechanical area");
+        Department department= new Department("Nusco - Carpentry");
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
 
@@ -117,12 +127,12 @@ public class ActivityServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateActivity4() throws Exception {
         System.out.println("updateActivity");
-        Integer id = 8;
+        Integer id = 8;//id che esiste
         String type = "Mechanical";
         String description = "";
         int timeActivity = 122;
         int week_num=21;
-        Department department= new Department("Mechanical area");
+        Department department= new Department("Nusco - Carpentry");
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
 
@@ -137,12 +147,12 @@ public class ActivityServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateActivity5() throws Exception {
         System.out.println("updateActivity");
-        Integer id = 8;
+        Integer id = 8;//id che esiste
         String type = "Mechanical";
         String description = "";
         int timeActivity = 122;
         int week_num=0;
-        Department department= new Department("Mechanical area");
+        Department department= new Department("Nusco - Carpentry");
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
 
@@ -157,12 +167,12 @@ public class ActivityServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateActivity7() throws Exception {
         System.out.println("updateActivity");
-        Integer id = 8;
+        Integer id = 8;//id che esiste
         String type = "Mechanical";
         String description = "";
         int timeActivity = 122;
         int week_num=0;
-        Department department= new Department("Mechanical area");
+        Department department= new Department("Nusco - Carpentry");
         int ExpectedResult = 99;
         int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
 
@@ -171,7 +181,7 @@ public class ActivityServiceTestUpdate {
     }
      /**
      * Test of updateActivity method, of class ActivityService, updating an
-     * valid MaintenanceActivity with an invalid Department.
+     * valid MaintenanceActivity with an invalid Department (it doesn't exist)
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateActivity8() throws Exception {
@@ -180,9 +190,9 @@ public class ActivityServiceTestUpdate {
         String type = "Mechanical";
         String description = "";
         int timeActivity = 122;
-        int week_num=-1;
-        Department department= new Department("Engineering and metal processing and production area");
-        int ExpectedResult = 99;
+        int week_num=11;
+        Department department= new Department("Morra - Painting");
+        int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
 
         assertEquals(result, ExpectedResult);

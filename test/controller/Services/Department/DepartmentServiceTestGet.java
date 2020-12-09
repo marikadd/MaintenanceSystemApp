@@ -5,11 +5,13 @@
  */
 package controller.Services.Department;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.DepartmentnotFoundException;
 import controller.Services.DepartmentService;
 import java.sql.SQLException;
 import java.util.List;
 import model.Department.Department;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -21,6 +23,7 @@ import static org.junit.Assert.*;
 public class DepartmentServiceTestGet {
     
     private DepartmentService ds;
+    private ConnectionForTest cft;
     
     public DepartmentServiceTestGet() {
     }
@@ -28,8 +31,13 @@ public class DepartmentServiceTestGet {
     @Before
     public void setUp() {
         ds = DepartmentService.getDepartmentService();
+        cft = ConnectionForTest.init();
     }
 
+    @After
+    public void setAfter() {
+        cft.rollbackConnection();
+    }
     /**
      * Test of getAllDepartments method, of class DepartmentService.
      */
@@ -51,9 +59,8 @@ public class DepartmentServiceTestGet {
     public void testGetDepartment() throws Exception {
         System.out.println("getDepartment");       
         String area = "Fisciano - Molding";       
-        String result = ds.getDepartment(area).getArea();
-        
-        assertEquals(result, area);
+        String department = ds.getDepartment(area).getArea();
+        assertEquals(department, area);
         
     }
     
@@ -65,7 +72,8 @@ public class DepartmentServiceTestGet {
     public void testGetDepartment1() throws Exception {
         System.out.println("getDepartment");       
         String area = "Milano - Foundries";       
-        Department dep = ds.getDepartment(area);     
+        String department = ds.getDepartment(area).getArea();    
+        assertEquals(department, area);
         
     }
     

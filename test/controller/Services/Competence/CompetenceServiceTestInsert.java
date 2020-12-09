@@ -5,12 +5,14 @@
  */
 package controller.Services.Competence;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.InvalidParameterObjectException;
 import controller.Services.CompetenceService;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.sql.SQLException;
+import org.junit.After;
 
 /**
  *
@@ -19,12 +21,19 @@ import java.sql.SQLException;
 public class CompetenceServiceTestInsert {
     
     private CompetenceService cps;
+    private ConnectionForTest cft;
     
     @Before
     public void setUp() {
         cps = CompetenceService.getCompetenceService();
+        cft = ConnectionForTest.init(); 
     }
-
+    
+    @After
+    public void setAfter() {
+        cft.rollbackConnection();
+    }
+    
     /**
      * Test of insertCompetence method, inserting a new Competence
      * with its description.
@@ -46,7 +55,6 @@ public class CompetenceServiceTestInsert {
     public void testInsertCompetence1() throws Exception {
         System.out.println("insertCompetence");
         String description = "PAV Certification";
- 
         int result = cps.insertCompetence(description);
         int expectedResult = 0;
         assertEquals(result, expectedResult);
@@ -59,8 +67,7 @@ public class CompetenceServiceTestInsert {
     @Test(expected=InvalidParameterObjectException.class)
     public void testInsertCompetence2() throws Exception {
         System.out.println("insertCompetence");
-        String description = "";
-        
+        String description = "";  
         int result = cps.insertCompetence(description);
         int expectedResult = 0;
         assertEquals(result, expectedResult);
@@ -74,7 +81,6 @@ public class CompetenceServiceTestInsert {
     public void testInsertCompetence3() throws Exception {
         System.out.println("insertCompetence");
         String description = "Samalamadumaloomayoureassumingimahumanwhatigottadotogetitthroughtoyouimasuperhuman";
-        
         int result = cps.insertCompetence(description);
         int expectedResult = 0;
         assertEquals(result, expectedResult);

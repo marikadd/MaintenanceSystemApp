@@ -5,6 +5,7 @@
  */
 package controller.Services.Department;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.DepartmentService;
 import java.util.List;
@@ -23,6 +24,7 @@ import static org.junit.Assert.*;
 public class DepartmentServiceTestDelete {
     
     private DepartmentService ds;
+    private ConnectionForTest cft;
     
     public DepartmentServiceTestDelete() {
     }
@@ -30,8 +32,14 @@ public class DepartmentServiceTestDelete {
     @Before
     public void setUp() {
         ds = DepartmentService.getDepartmentService();
+        cft = ConnectionForTest.init();
     }
-
+    
+    @After
+    public void setAfter() {
+        cft.rollbackConnection();
+    }
+    
     /**
      * Test of deleteDepartment method, of class DepartmentService, deleting 
      * an existing Department.
@@ -39,7 +47,7 @@ public class DepartmentServiceTestDelete {
     @Test
     public void testDeleteDepartment() throws Exception {
         System.out.println("deleteDepartment");
-        String area = "Arzano - Service";
+        String area = "Fisciano - Molding";
         int notExpResult = 0;
         int result = ds.deleteDepartment(area);
         assertNotEquals(result, notExpResult);
@@ -57,5 +65,5 @@ public class DepartmentServiceTestDelete {
         int result = ds.deleteDepartment(area);
         assertEquals(expResult, result);
     }
-
+ 
 }

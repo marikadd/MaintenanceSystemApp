@@ -5,12 +5,14 @@
  */
 package controller.Services.Department;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.InvalidParameterObjectException;
 import controller.Services.DepartmentService;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.sql.SQLException;
+import org.junit.After;
 
 /**
  *
@@ -20,6 +22,7 @@ import java.sql.SQLException;
 public class DepartmentServiceTestInsert {
     
     private DepartmentService ds;
+    private ConnectionForTest cft;
     
     public DepartmentServiceTestInsert() {
     }
@@ -27,8 +30,14 @@ public class DepartmentServiceTestInsert {
     @Before
     public void setUp() {
         ds = DepartmentService.getDepartmentService();
+        cft = ConnectionForTest.init();
     }
-
+    
+    @After
+    public void setAfter() {
+        cft.rollbackConnection();
+    }
+    
     /**
      * Test of insertDepartment method, of class DepartmentService, inserting a
      * new valid Department.
@@ -50,7 +59,7 @@ public class DepartmentServiceTestInsert {
     @Test(expected=SQLException.class)
     public void testInsertDepartment1() throws Exception {
         System.out.println("insertDepartment");
-        String area = "Arzano - Service";
+        String area = "Fisciano - Molding";
         int expResult = 0;
         int result = ds.insertDepartment(area);
         assertEquals(result, expResult);

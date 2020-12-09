@@ -5,9 +5,11 @@
  */
 package controller.Services.Competence;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,12 +22,19 @@ import static org.junit.Assert.*;
 public class CompetenceServiceTestUpdate {
 
     private CompetenceService cps;
+     private ConnectionForTest cft;
 
     @Before
     public void setUp() {
         cps = CompetenceService.getCompetenceService();
+        cft = ConnectionForTest.init(); 
     }
 
+    @After
+    public void setAfter() {
+        cft.rollbackConnection();
+    }
+    
     /**
      * Test of updateCompetence method, of class CompetenceService, updating an
      * existing Competence with a valid description.
@@ -33,9 +42,8 @@ public class CompetenceServiceTestUpdate {
     @Test
     public void testUpdateCompetence() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 5;
+        Integer id = 35;//id che esiste
         String newDescription = "Repair Broken Tubes";
-
         int notExpResult = 0;
         int result = cps.updateCompetence(id, newDescription);
         assertNotEquals(result, notExpResult);
@@ -48,9 +56,8 @@ public class CompetenceServiceTestUpdate {
     @Test(expected = UnsuccessfulUpdateException.class)
     public void testUpdateCompetence1() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 150;
+        Integer id = 150; //id che non esiste
         String newDescription = "Repair Computers";
-
         int expResult = 0;
         int result = cps.updateCompetence(id, newDescription);
         assertEquals(result, expResult);
@@ -63,9 +70,8 @@ public class CompetenceServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateCompetence2() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 2;
+        Integer id = 19; //id che esiste
         String newDescription = "Samaloomadumaloomayoureassumingimahumanwhatigottadotogetitthroughtoyouimasuperhuman";
-
         int expResult = 0;
         int result = cps.updateCompetence(id, newDescription);
         assertEquals(result, expResult);
@@ -78,9 +84,8 @@ public class CompetenceServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateCompetence4() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 2;
+        Integer id = 19;//id che esiste
         String newDescription = "";
-
         int expResult = 0;
         int result = cps.updateCompetence(id, newDescription);
         assertEquals(result, expResult);

@@ -45,12 +45,12 @@ public class ActivityServiceTestAssignActivity {
     @Test
     public void testAssignActivity() throws Exception {
         System.out.println("assignActivity");
-        String usernameMain = "Marikadd";
+        String usernameMain = "mrossi";
         List<Integer> listId = new ArrayList<>();
         listId.add(7);
         int NotExpectedResult = 0;
         int result = as.assignActivity(usernameMain, listId);
-        
+         
         assertNotEquals(result,NotExpectedResult);
     }
     
@@ -61,7 +61,7 @@ public class ActivityServiceTestAssignActivity {
     @Test(expected=UsernotFoundException.class)
     public void testAssignActivity1() throws Exception {
         System.out.println("assignActivity");
-        String usernameMain = "icantalupo";
+        String usernameMain = "";
         List<Integer> listId = new ArrayList<>();
         listId.add(7);
         int ExpectedResult = 0;
@@ -77,7 +77,7 @@ public class ActivityServiceTestAssignActivity {
     @Test(expected=SQLException.class)
     public void testAssignActivity2() throws Exception {
         System.out.println("assignActivity");
-        String usernameMain = "Marikadd";
+        String usernameMain = "mrossi";
         List<Integer> listId = new ArrayList<>();
         listId.add(7);
         int ExpectedResult = 0;
@@ -93,7 +93,7 @@ public class ActivityServiceTestAssignActivity {
     @Test(expected=SQLException.class)
     public void testAssignActivity3() throws Exception {
         System.out.println("assignActivity");
-        String usernameMain = "Marikadd";
+        String usernameMain = "mrossi";
         List<Integer> listId = new ArrayList<>();
         listId.add(55);
         int ExpectedResult = 0;

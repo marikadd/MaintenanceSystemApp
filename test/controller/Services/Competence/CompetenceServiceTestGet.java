@@ -5,6 +5,7 @@
  */
 package controller.Services.Competence;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.CompetenceService;
 import java.util.LinkedList;
@@ -14,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import model.Competences.CompetenceInterface;
+import org.junit.After;
 
 /**
  *
@@ -23,6 +25,7 @@ import model.Competences.CompetenceInterface;
 public class CompetenceServiceTestGet {
     
     private CompetenceService cps;
+    private ConnectionForTest cft;
     
     public CompetenceServiceTestGet() {
     }
@@ -31,19 +34,23 @@ public class CompetenceServiceTestGet {
     public void setUp() {
         
         cps = CompetenceService.getCompetenceService();
+        cft = ConnectionForTest.init(); 
     }
 
+    @After
+    public void setAfter() {
+        cft.rollbackConnection();
+    }
+    
     /**
      * Test of getAllCompetences method, of class CompetenceService.
      */
     @Test
     public void testGetAllCompetences() throws Exception {
         System.out.println("getAllCompetences");
-        
         List<Competence> list = cps.getAllCompetences();
         int result = list.size();
-        
-        int ExpectedResult = 5;
+        int ExpectedResult = 4; //righe della tabella competence
         assertEquals(result, ExpectedResult);
     }
 
@@ -55,12 +62,10 @@ public class CompetenceServiceTestGet {
     public void testGetAllCompetenceTarget() throws Exception {
         System.out.println("getAllCompetenceTarget");
         String username = "mrossi";
-   
         List<CompetenceInterface> list = new LinkedList<>();
         list = cps.getAllCompetenceTarget(username);
-        
         int result = list.size();
-        int ExpectedResult = 2;
+        int ExpectedResult = 4; //efettive righe nel database
         assertEquals(result, ExpectedResult);
     }
     
@@ -71,11 +76,9 @@ public class CompetenceServiceTestGet {
     @Test(expected=UsernotFoundException.class)
     public void testGetAllCompetenceTarget1() throws Exception {
         System.out.println("getAllCompetenceTarget");
-        String username = "giulio";
-   
+        String username = "lgiulio";
         List<CompetenceInterface> list = new LinkedList<>();
         list = cps.getAllCompetenceTarget(username);
-        
         int result = list.size();
         int expectedResult = 0;
         assertEquals(result, expectedResult);
@@ -89,10 +92,8 @@ public class CompetenceServiceTestGet {
     public void testGetAllCompetenceTarget2() throws Exception {
         System.out.println("getAllCompetenceTarget");
         String username = "lbianchi";
-   
         List<CompetenceInterface> list = new LinkedList<>();
         list = cps.getAllCompetenceTarget(username);
-        
         int result = list.size();
         int expectedResult = 0;
         assertEquals(result, expectedResult);
@@ -105,11 +106,9 @@ public class CompetenceServiceTestGet {
     @Test
     public void testGetAllCompetenceTarget3() throws Exception {
         System.out.println("getAllCompetenceTarget");
-        String username = "tcaio";
-   
+        String username = "fcerruti";
         List<CompetenceInterface> list = new LinkedList<>();
         list = cps.getAllCompetenceTarget(username);
-        
         int result = getResultNumberFor(list, true);
         int expectedResult = 0;
         assertEquals(result, expectedResult);

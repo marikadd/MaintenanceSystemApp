@@ -5,8 +5,10 @@
  */
 package controller.Services.Competence;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -19,12 +21,19 @@ import static org.junit.Assert.*;
 public class CompetenceServiceTestDelete {
     
     private CompetenceService cps;
+     private ConnectionForTest cft;
     
     @Before
     public void setUp() {
         cps = CompetenceService.getCompetenceService();
+        cft = ConnectionForTest.init(); 
     }
-
+    
+    @After
+    public void setAfter() {
+        cft.rollbackConnection();
+    }
+    
     /**
      * Test of deleteCompetence method of class CompetenceService, deleting
      * a Competence passing its ID.
@@ -32,7 +41,7 @@ public class CompetenceServiceTestDelete {
     @Test
     public void testDeleteCompetence() throws Exception {
         System.out.println("deleteCompetence");
-        Integer id = 2;
+        Integer id = 153; //id che esiste nel database
         int ExpResult = 1;
         int result = cps.deleteCompetence(id);
         assertEquals(result, ExpResult);
@@ -45,7 +54,7 @@ public class CompetenceServiceTestDelete {
     @Test(expected=UnsuccessfulUpdateException.class)
     public void testDeleteCompetence1() throws Exception {
         System.out.println("deleteCompetence");
-        Integer id = 150;
+        Integer id = 150; //id che non esiste nel database
         Integer expResult = 0;
         Integer result = cps.deleteCompetence(id);
         assertEquals(result, expResult);       

@@ -5,11 +5,13 @@
  */
 package controller.Services.Competence;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.CompetenceService;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -22,12 +24,18 @@ import static org.junit.Assert.*;
 public class CompetenceServiceTestAssignCompetence {
     
     private CompetenceService cps;
+    private ConnectionForTest cft;
     
     @Before
     public void setUp() {
         cps = CompetenceService.getCompetenceService();
+        cft = ConnectionForTest.init(); 
     }
 
+     @After
+    public void setAfter() {
+        cft.rollbackConnection();
+    }
     
     /**
      * Test of assignCompetence method, of class CompetenceService, assigning
@@ -38,7 +46,7 @@ public class CompetenceServiceTestAssignCompetence {
         System.out.println("assignCompetence");
         String usernameMain = "mrossi";
         List<Integer> listId = new LinkedList<>();
-        listId.add(4);
+        listId.add(4);//id di una competenza che esiste
         int notExpResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
         assertNotEquals(result, notExpResult);       
@@ -53,7 +61,7 @@ public class CompetenceServiceTestAssignCompetence {
         System.out.println("assignCompetence");
         String usernameMain = "giulio";
         List<Integer> listId = new LinkedList<>();
-        listId.add(5);
+        listId.add(5);//id di una competenza che esiste
         int expResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
         assertEquals(result, expResult);       
@@ -68,7 +76,7 @@ public class CompetenceServiceTestAssignCompetence {
         System.out.println("assignCompetence");
         String usernameMain = "lbianchi";
         List<Integer> listId = new LinkedList<>();
-        listId.add(5);
+        listId.add(5);//id di una competenza che esiste
         int expResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
         assertEquals(result, expResult);       
@@ -83,7 +91,7 @@ public class CompetenceServiceTestAssignCompetence {
         System.out.println("assignCompetence");
         String usernameMain = "mrossi";
         List<Integer> listId = new LinkedList<>();
-        listId.add(15);
+        listId.add(15); //id di una competenza che non esiste
         int expResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
         assertEquals(result, expResult);       
@@ -98,7 +106,7 @@ public class CompetenceServiceTestAssignCompetence {
         System.out.println("assignCompetence");
         String usernameMain = "mrossi";
         List<Integer> listId = new LinkedList<>();
-        listId.add(2);
+        listId.add(2);//id di una competenza che esiste e che ha già mrossi
         int ExpResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
         assertEquals(result, ExpResult);       
@@ -113,7 +121,7 @@ public class CompetenceServiceTestAssignCompetence {
         System.out.println("assignCompetence");
         String usernameMain = "";
         List<Integer> listId = new LinkedList<>();
-        listId.add(1);
+        listId.add(1);//id di una competenza che esiste
         int ExpResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
         assertEquals(result, ExpResult);       
