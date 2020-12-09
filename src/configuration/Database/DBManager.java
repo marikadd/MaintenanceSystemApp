@@ -14,11 +14,9 @@ import java.sql.*;
 
 public class DBManager {
 
-    private final String url = "jdbc:postgresql://localhost/MaintenanceSystem";
-    private final String user = "group9";
-    private final String password = "Group9";
+    public final static DBInstanceType instanceType = DBInstanceType.POSTGRESS;
 
-    public Connection connect() {
+    public Connection connect(String url, String user, String password) {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url, user, password);

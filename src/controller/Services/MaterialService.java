@@ -26,8 +26,12 @@ public class MaterialService {
         //Singleton
          public static MaterialService getMaterialService() {
         if (matService == null) {
-            matService = new MaterialService();
-            matService.matDao = MaterialDao.init();
+            synchronized(MaterialService.class) {
+                if(matService == null) {
+                    matService = new MaterialService();
+                    matService.matDao = MaterialDao.init();
+                }
+            }
         }
         return matService;
     }

@@ -10,7 +10,7 @@ package model.Competences;
  * @author Group9
  */
 
-public interface CompetenceTarget {
+public interface CompetenceInterface {
     
     public Integer getId();
 

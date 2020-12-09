@@ -28,8 +28,12 @@ public class DepartmentService {
     //Singleton
     public static DepartmentService getDepartmentService() {
         if (depService == null) {
-            depService = new DepartmentService();
-            depService.depDao = DepartmentDao.init();
+            synchronized(DepartmentService.class) {
+                if(depService == null) {
+                    depService = new DepartmentService();
+                    depService.depDao = DepartmentDao.init();
+                }
+            }
         }
         return depService;
     }

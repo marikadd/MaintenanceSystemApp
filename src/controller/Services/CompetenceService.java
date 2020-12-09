@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import model.Competences.Competence;
-import model.Competences.CompetenceAdapter;
-import model.Competences.CompetenceTarget;
+import model.Competences.CompetenceLinked;
 import model.Users.Maintainer;
 import model.Users.Role;
 import model.Users.UserModel;
+import model.Competences.CompetenceInterface;
 
 /**
  *
@@ -40,9 +40,13 @@ public class CompetenceService {
 
     public static CompetenceService getCompetenceService() {
         if (compService == null) {
-            compService = new CompetenceService();
-            compService.usersDao = UsersDao.init();
-            compService.compDao = CompetencesDao.init();
+            synchronized(CompetenceService.class) {
+                if(compService == null) {
+                    compService = new CompetenceService();
+                    compService.usersDao = UsersDao.init();
+                    compService.compDao = CompetencesDao.init();
+                }
+            }
         }
         return compService;
     }
@@ -83,25 +87,25 @@ public class CompetenceService {
         return compList;
     }
 
-    public List<CompetenceTarget> getAllCompetenceTarget(String username) throws SQLException, UsernotFoundException {
+    public List<CompetenceInterface> getAllCompetenceTarget(String username) throws SQLException, UsernotFoundException {
 
         validateMaintainer(username);
         List<Competence> competencesInMaintener = compDao.findCompetencesInMaintener(username);
         List<Competence> competencesNotInMaintener = compDao.findCompetencesNotInMaintener(username);
 
-        List<CompetenceTarget> targets = new ArrayList<>();
+        List<CompetenceInterface> targets = new ArrayList<>();
         targets.addAll(getListTargetMaintainer(competencesInMaintener, true));
         targets.addAll(getListTargetMaintainer(competencesNotInMaintener, false));
 
         return targets;
     }
 
-    private List<CompetenceTarget> getListTargetMaintainer(List<Competence> competences, boolean linked) {
+    private List<CompetenceInterface> getListTargetMaintainer(List<Competence> competences, boolean linked) {
 
-        List<CompetenceTarget> targets = new ArrayList<>();
+        List<CompetenceInterface> targets = new ArrayList<>();
 
         for (Competence c : competences) {
-            CompetenceTarget ct = new CompetenceAdapter(linked, c.getId(), c.getDescription());
+            CompetenceInterface ct = new CompetenceLinked(linked, c.getId(), c.getDescription());
             targets.add(ct);
         }
 

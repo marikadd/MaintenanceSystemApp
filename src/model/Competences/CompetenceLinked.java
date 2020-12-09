@@ -10,11 +10,11 @@ package model.Competences;
  * @author Group9
  */
 
-public class CompetenceAdapter extends Competence implements CompetenceTarget {
+public class CompetenceLinked extends Competence implements CompetenceInterface {
     
     private boolean competenceLinked;
 
-    public CompetenceAdapter(boolean competenceLinked, Integer id, String description) {
+    public CompetenceLinked(boolean competenceLinked, Integer id, String description) {
         super(id, description);
         this.competenceLinked = competenceLinked;
     }

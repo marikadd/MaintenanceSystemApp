@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Activity.ActivityTarget;
+import model.Activity.ActivityInterface;
 import model.Activity.MaintenanceActivity;
 import model.Users.UserModel;
 
@@ -33,7 +33,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
     
     private List<MaintenanceActivity> list_in= new LinkedList<>();
     private List<MaintenanceActivity> list_notIn= new LinkedList<>();
-    private List<ActivityTarget> list = new ArrayList<>();
+    private List<ActivityInterface> list = new ArrayList<>();
     private List<UserModel> listMaintainers = new LinkedList<>();
 
     /** Creates new form AssignmentActivity */
@@ -442,7 +442,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         this.showActivities(list);
     }
     
-    public void showActivities(List<ActivityTarget> list){
+    public void showActivities(List<ActivityInterface> list){
         
         DefaultTableModel intoMaintainer = (DefaultTableModel) jTableInMaintainer.getModel();
         DefaultTableModel notIntoMaintainer = (DefaultTableModel) jTableNotInMaintainer.getModel();

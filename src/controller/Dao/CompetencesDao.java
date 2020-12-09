@@ -5,9 +5,13 @@
  */
 package controller.Dao;
 
+import configuration.Database.ConnectionForTest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import configuration.Database.DBFactory;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import java.sql.SQLException;
@@ -25,6 +29,8 @@ import model.Users.Maintainer;
 public class CompetencesDao {
 
     private static CompetencesDao compDao;
+    private DBProduct dbProduct;
+    private ConnectionForTest cft;
 
     //Singleton
     private CompetencesDao() {
@@ -32,7 +38,14 @@ public class CompetencesDao {
 
     public static CompetencesDao init() {
         if (compDao == null) {
-            compDao = new CompetencesDao();
+            synchronized(CompetencesDao.class) {
+                if(compDao == null) {
+                    compDao = new CompetencesDao();
+                    DBAbstractFactory dbFactory = new DBFactoryContext();
+                    compDao.cft = ConnectionForTest.init();
+                    compDao.dbProduct = dbFactory.getInstance(DBManager.instanceType);
+                }
+            }
         }
         return compDao;
     }
@@ -40,7 +53,8 @@ public class CompetencesDao {
     public int assignCompetenceToUser(Maintainer maintainer, List<Integer> listId)
             throws SQLException, UnsuccessfulUpdateException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "INSERT INTO Users_Competences VALUES(?,?)";
 
@@ -58,7 +72,8 @@ public class CompetencesDao {
 
     public List<Competence> findAllCompetences() throws SQLException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "select * from Competence";
 
@@ -76,7 +91,8 @@ public class CompetencesDao {
 
     public List<Competence> findCompetencesNotInMaintener(String username) throws SQLException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "select c.* from Competence c "
                 + "where c.ID NOT IN "
@@ -99,7 +115,8 @@ public class CompetencesDao {
 
     public List<Competence> findCompetencesInMaintener(String username) throws SQLException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "select c.* from Competence c "
                 + "where c.ID IN "
@@ -124,7 +141,8 @@ public class CompetencesDao {
 
         validateCompetence(description);
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "INSERT INTO Competence(Description) VALUES(?)";
 
@@ -140,7 +158,8 @@ public class CompetencesDao {
 
         validateCompetence(description);
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "UPDATE Competence SET Description = ? WHERE ID = ?";
 
@@ -159,7 +178,8 @@ public class CompetencesDao {
 
     public int deleteCompetence(Integer id) throws SQLException, UnsuccessfulUpdateException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "DELETE FROM Competence WHERE ID = ?";
 
@@ -173,7 +193,8 @@ public class CompetencesDao {
 
     public List<Competence> getCompetencesByActivityId(Integer activityId) throws SQLException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "select c.* from Competence c join Activity_Competences ac "
                 + "ON (c.id = ac.Competence_ID) "

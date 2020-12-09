@@ -4,9 +4,13 @@
  * and open the template in the editor.
  */
 package controller.Dao;
+import configuration.Database.ConnectionForTest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import configuration.Database.DBFactory;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.DepartmentnotFoundException;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
@@ -23,12 +27,24 @@ import model.Department.Department;
 public class DepartmentDao {
     
     private static DepartmentDao depDao;
+    private DBProduct dbProduct;
+    private ConnectionForTest cft;
 
     private DepartmentDao() {}
     
     //Singleton
     public static DepartmentDao init() {
-        if(depDao == null) depDao = new DepartmentDao();
+        if(depDao == null) {
+            synchronized(DepartmentDao.class) {
+                if(depDao == null) {
+                    depDao = new DepartmentDao();
+                    depDao.cft = ConnectionForTest.init();
+            
+                    DBAbstractFactory dbFactory = new DBFactoryContext();
+                    depDao.dbProduct = dbFactory.getInstance(DBManager.instanceType);
+                }
+            }
+        }
         return depDao;
     }
     
@@ -36,7 +52,8 @@ public class DepartmentDao {
         
         validateDepartment(area);
         
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         
         String query = "INSERT INTO Department(Area) VALUES(?)";
         
@@ -54,7 +71,8 @@ public class DepartmentDao {
     
     public List<Department> findAllDepartments() throws SQLException {
         
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         
         String query = "SELECT * FROM Department";
         
@@ -72,7 +90,8 @@ public class DepartmentDao {
     
     public Department findDepartmentByArea(String area) throws SQLException, DepartmentnotFoundException {
         
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         
         String query = "SELECT Area FROM Department WHERE Area = ?";
         
@@ -96,7 +115,8 @@ public class DepartmentDao {
         
         validateDepartment(newArea);
         
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         
         String query = "UPDATE Department SET Area = ? WHERE Area = ?";
         
@@ -115,7 +135,8 @@ public class DepartmentDao {
     
     public int deleteDepartment(String area) throws SQLException, UnsuccessfulUpdateException {
         
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         
         String query = "DELETE FROM Department WHERE Area = ?";
         

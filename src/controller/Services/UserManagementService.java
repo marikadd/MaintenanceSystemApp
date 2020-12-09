@@ -31,7 +31,9 @@ public class UserManagementService {
     
     public static UserManagementService getUserManagementService() {
         if (ums == null) {
-            ums = new UserManagementService();
+            synchronized(UserManagementService.class) {
+                if(ums == null) ums = new UserManagementService();
+            }
         }
         return ums;
     }

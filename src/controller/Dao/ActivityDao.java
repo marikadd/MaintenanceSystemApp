@@ -5,7 +5,12 @@
  */
 package controller.Dao;
 
-import configuration.Database.DBFactory;
+import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.ActivityNotFoundException;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
@@ -29,15 +34,26 @@ public class ActivityDao {
 
     private static ActivityDao activityDao;
     private CompetencesDao compDao;
+    private DBProduct dbProduct;
+    private ConnectionForTest cft;
 
     //Singleton
     private ActivityDao() {
     }
 
     public static ActivityDao init() {
-        if (activityDao == null) {
-            activityDao = new ActivityDao();
-            activityDao.compDao = CompetencesDao.init();
+        
+        if(activityDao == null) {
+            synchronized(ActivityDao.class) {
+                if (activityDao == null) {
+                    activityDao = new ActivityDao();
+                    activityDao.compDao = CompetencesDao.init();
+                    activityDao.cft = ConnectionForTest.init();
+                    DBAbstractFactory dbFactory = new DBFactoryContext();
+                    activityDao.dbProduct = dbFactory.getInstance(DBManager.instanceType);
+                    
+                }
+            }
         }
         return activityDao;
     }
@@ -47,9 +63,10 @@ public class ActivityDao {
 
         validateActivity(type, description, time_activity);
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
-        String query = "INSERT INTO MaintenanceActivity(Type_Activity, Site, Description, Time_Activity, Week_Number, Assigned) "
+ String query = "INSERT INTO MaintenanceActivity(Type_Activity, Site, Description, Time_Activity, Week_Number, Assigned) "
                 + "VALUES(?,?,?,?,?,?)";
 
         PreparedStatement ps = con.prepareStatement(query);
@@ -84,9 +101,10 @@ public class ActivityDao {
 
     public int insertCompentecesInActivity(int activityId, List<Competence> competences) throws SQLException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
-        String query = "INSERT INTO Activity_Competences "
+             String query = "INSERT INTO Activity_Competences "
                 + "VALUES(?,?)";
 
         int result = 0;
@@ -102,20 +120,21 @@ public class ActivityDao {
         return result;
     }
 
-    public int updateActivity(Integer id, String type, String description, int time_activity, Integer week_num, String dep)
+    public int updateActivity(Integer id, String type, String description, int time_activity, Integer week_num, Department dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
-        validateUpdate(type, description, time_activity, week_num);
+        validateActivity(type, description, time_activity);
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
-        String query = "UPDATE MaintenanceActivity SET Type_Activity = coalesce(?,Type_Activity), Site = coalesce(?, Site),"
+    String query = "UPDATE MaintenanceActivity SET Type_Activity = coalesce(?,Type_Activity), Site = coalesce(?, Site),"
                 + " Description = coalesce(?,Description), Time_Activity = coalesce(?,Time_Activity), Week_Number = coalesce(?,Week_number)"
                 + " WHERE ID = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
-        ps.setString(2, dep);
+        ps.setString(2, dep.toString());
         ps.setString(3, description);
         ps.setInt(4, time_activity);
         ps.setInt(5, week_num);
@@ -130,9 +149,11 @@ public class ActivityDao {
         return result;
     }
 
-    public void assignmentActivity(Integer id) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+    public void assignmentActivity(Integer id)
+            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "UPDATE MaintenanceActivity SET Assigned = true"
                 + " WHERE ID = ?";
@@ -145,7 +166,8 @@ public class ActivityDao {
 
     public int deleteActivity(Integer id) throws SQLException, UnsuccessfulUpdateException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "DELETE FROM MaintenanceActivity WHERE ID = ?";
 
@@ -160,7 +182,8 @@ public class ActivityDao {
 
     public MaintenanceActivity findActivityByID(int ID) throws SQLException, ActivityNotFoundException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "select * from MaintenanceActivity " + "where ID = ?";
 
@@ -179,11 +202,11 @@ public class ActivityDao {
 
         return activity;
     }
-
     public List<MaintenanceActivity> findAllActivities() throws SQLException, ActivityNotFoundException {
 
-        Connection con = DBFactory.connectToDB();
-        String query = "select * from MaintenanceActivity";
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+          String query = "select * from MaintenanceActivity";
 
         PreparedStatement ps = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
@@ -200,9 +223,10 @@ public class ActivityDao {
     public int assignActivityToMaintainer(Maintainer maintainer, List<Integer> listId)
             throws SQLException, UnsuccessfulUpdateException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
-        String query = "INSERT INTO Activity_Maintainers VALUES(?,?)";
+       String query = "INSERT INTO Activity_Maintainers VALUES(?,?)";
 
         PreparedStatement ps = con.prepareStatement(query);
 
@@ -224,7 +248,8 @@ public class ActivityDao {
 
     public List<MaintenanceActivity> findActivitiesInMaintainer(String username) throws SQLException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "select ma.* from MaintenanceActivity ma "
                 + "where ma.ID IN "
@@ -245,11 +270,13 @@ public class ActivityDao {
         return activities;
     }
 
+
     public List<MaintenanceActivity> findActivitiesNotInMaintainer(String username) throws SQLException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
-        String query = "select ma.* from MaintenanceActivity ma "
+String query = "select ma.* from MaintenanceActivity ma "
                 + "where ma.ID NOT IN "
                 + "(select am.Activity_Maintainer_ID "
                 + "from Activity_Maintainers am where am.Username_Maintainer = ?) "
@@ -283,7 +310,7 @@ public class ActivityDao {
         return activity;
     }
 
-    private void validateActivity(String type, String description, Integer time) throws InvalidParameterObjectException {
+     private void validateActivity(String type, String description, Integer time) throws InvalidParameterObjectException {
 
         if (type == null || type.isBlank()) {
             throw new InvalidParameterObjectException("Activity type must be not null");
@@ -331,5 +358,4 @@ public class ActivityDao {
             }
         }
     }
-
 }

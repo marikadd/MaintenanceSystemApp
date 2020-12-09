@@ -5,11 +5,13 @@
  */
 package controller.Services.Activity;
 
+import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.UsernotFoundException;
 import java.sql.SQLException;
 import controller.Services.ActivityService;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,6 +22,7 @@ import static org.junit.Assert.*;
  */
 public class ActivityServiceTestAssignActivity {
     private ActivityService as;
+    private ConnectionForTest cft;
     
     public ActivityServiceTestAssignActivity() {
     }
@@ -27,6 +30,12 @@ public class ActivityServiceTestAssignActivity {
     @Before
     public void setUp() {
         as = ActivityService.getActivityService();
+        cft = ConnectionForTest.init();
+    }
+    
+    @After
+    public void setAfter() {
+        cft.rollbackConnection();
     }
 
     /**

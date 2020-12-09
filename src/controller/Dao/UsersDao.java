@@ -5,7 +5,11 @@
  */
 package controller.Dao;
 
-import configuration.Database.DBFactory;
+import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
@@ -30,6 +34,8 @@ import model.Users.UserModel;
 public class UsersDao {
 
     private static UsersDao usersDao;
+    private DBProduct dbProduct;
+    private ConnectionForTest cft;
 
     //Singleton
     private UsersDao() {
@@ -37,14 +43,22 @@ public class UsersDao {
 
     public static UsersDao init() {
         if (usersDao == null) {
-            usersDao = new UsersDao();
+            synchronized(UsersDao.class) {
+                if(usersDao == null) {
+                    usersDao = new UsersDao();
+                    usersDao.cft = ConnectionForTest.init();
+                    DBAbstractFactory dbFactory = new DBFactoryContext();
+                    usersDao.dbProduct = dbFactory.getInstance(DBManager.instanceType);
+                }
+            }
         }
         return usersDao;
     }
 
     public String findRoleByUsername(String username) throws SQLException, UsernotFoundException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         String query = "select Role_User " + "from Users " + "where Username= ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
@@ -61,7 +75,8 @@ public class UsersDao {
 
     public UserModel findUserByUsername(String username, Role role) throws SQLException, UsernotFoundException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "select * from Users u " + "where u.Role_User = ? AND " + "u.Username = ?";
 
@@ -83,7 +98,8 @@ public class UsersDao {
 
     public List<UserModel> getAllUsers() throws SQLException, UsernotFoundException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         String query = "select * from Users";
 
         PreparedStatement ps = con.prepareStatement(query);
@@ -101,7 +117,8 @@ public class UsersDao {
 
     public List<UserModel> findUsersByRole(Role role) throws SQLException, UsernotFoundException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "select * from Users u " + "where u.Role_User = ?";
 
@@ -124,7 +141,8 @@ public class UsersDao {
 
         validateUserModel(userModel);
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "INSERT INTO Users VALUES(?,?,?,?,?,?,?)";
 
@@ -147,7 +165,8 @@ public class UsersDao {
 
         validateUpdate(userModel);
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "UPDATE Users SET Name_User = coalesce(?, Name_User), Surname = coalesce(?,Surname), "
                 + "Username = coalesce(?,Username), PW = coalesce(?, PW), Email = coalesce(?,Email), "
@@ -174,7 +193,8 @@ public class UsersDao {
 
     public int deleteUserModel(String username) throws SQLException, UnsuccessfulUpdateException {
 
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
 
         String query = "DELETE FROM Users WHERE Username = ?";
 

@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import model.Competences.Competence;
-import model.Competences.CompetenceTarget;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import model.Competences.CompetenceInterface;
 
 /**
  *
@@ -57,7 +57,7 @@ public class CompetenceServiceTestGet {
         System.out.println("getAllCompetenceTarget");
         String username = "mrossi";
    
-        List<CompetenceTarget> list = new LinkedList<>();
+        List<CompetenceInterface> list = new LinkedList<>();
         list = cps.getAllCompetenceTarget(username);
         
         int result = list.size();
@@ -75,7 +75,7 @@ public class CompetenceServiceTestGet {
         System.out.println("getAllCompetenceTarget");
         String username = "giulio";
    
-        List<CompetenceTarget> list = new LinkedList<>();
+        List<CompetenceInterface> list = new LinkedList<>();
         list = cps.getAllCompetenceTarget(username);
         
         int result = list.size();
@@ -93,7 +93,7 @@ public class CompetenceServiceTestGet {
         System.out.println("getAllCompetenceTarget");
         String username = "lbianchi";
    
-        List<CompetenceTarget> list = new LinkedList<>();
+        List<CompetenceInterface> list = new LinkedList<>();
         list = cps.getAllCompetenceTarget(username);
         
         int result = list.size();
@@ -111,7 +111,7 @@ public class CompetenceServiceTestGet {
         System.out.println("getAllCompetenceTarget");
         String username = "tcaio";
    
-        List<CompetenceTarget> list = new LinkedList<>();
+        List<CompetenceInterface> list = new LinkedList<>();
         list = cps.getAllCompetenceTarget(username);
         
         int result = list.size();

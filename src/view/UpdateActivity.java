@@ -405,11 +405,13 @@ public class UpdateActivity extends javax.swing.JFrame {
        }
 
        // Site update checking
-        String department = null;
+        String area = null;
         if (!jTableDepartment.getSelectionModel().isSelectionEmpty()) {
             int rowdep = jTableDepartment.getSelectedRow();
-            department = jTableDepartment.getModel().getValueAt(rowdep, 0).toString();
+            area = jTableDepartment.getModel().getValueAt(rowdep, 0).toString();
+            
         }
+        Department department= new Department(area);
 
         try {
             int result = activity.updateActivity(ID, type, description, time, week_num, department);

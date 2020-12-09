@@ -14,7 +14,7 @@ import model.Department.Department;
  * @author Group9
  */
 
-public interface ActivityTarget {
+public interface ActivityInterface {
     
     public int getID();
 

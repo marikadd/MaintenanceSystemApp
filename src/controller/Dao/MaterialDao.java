@@ -5,7 +5,11 @@
  */
 package controller.Dao;
 
-import configuration.Database.DBFactory;
+import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import java.sql.Connection;
@@ -24,19 +28,31 @@ import model.Material.*;
 public class MaterialDao {
    
     private static MaterialDao matDao;
+    private DBProduct dbProduct;
+    private ConnectionForTest cft;
     
     private MaterialDao(){}
     
     //Singleton
     public static MaterialDao init(){
-        if(matDao==null) 
-            matDao=new MaterialDao();
+        if(matDao==null) {
+            synchronized(MaterialDao.class) {
+                if(matDao == null) {
+                    matDao=new MaterialDao();
+                    matDao.cft = ConnectionForTest.init();
+            
+                    DBAbstractFactory dbFactory = new DBFactoryContext();
+                    matDao.dbProduct = dbFactory.getInstance(DBManager.instanceType);
+                }
+            }
+        }
         return matDao;
     }
     
     public int insertMaterial(String type) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
         validateMaterial(type);
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         
         String query = "INSERT INTO Material(Type) VALUES(?)";
         
@@ -58,7 +74,8 @@ public class MaterialDao {
     }
     public List<Material> findAllMaterials() throws SQLException {
         
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         
         String query = "SELECT * FROM Material";
         
@@ -78,7 +95,8 @@ public class MaterialDao {
         
         validateMaterial(newMaterial);
         
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         
         String query = "UPDATE Material SET Type = ? WHERE Type = ?";
         
@@ -97,7 +115,8 @@ public class MaterialDao {
     
     public int deleteMaterial(String type) throws SQLException, UnsuccessfulUpdateException {
         
-        Connection con = DBFactory.connectToDB();
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
         
         String query = "DELETE FROM Material WHERE Type = ?";
         

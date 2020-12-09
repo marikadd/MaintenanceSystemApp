@@ -5,18 +5,12 @@
  */
 package configuration.Database;
 
-import java.sql.Connection;
-
 /**
  *
  * @author Group9
  */
-
-public class DBFactory {
-
-    public static Connection connectToDB() {
-
-        DBManager dbManager = new DBManager();
-        return dbManager.connect();
-    }
+public enum DBInstanceType {
+    
+    POSTGRESS;
+    
 }

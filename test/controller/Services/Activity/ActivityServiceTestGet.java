@@ -9,11 +9,11 @@ import configuration.Exceptions.UsernotFoundException;
 import controller.Services.ActivityService;
 import java.util.ArrayList;
 import java.util.List;
-import model.Activity.ActivityTarget;
 import model.Activity.MaintenanceActivity;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import model.Activity.ActivityInterface;
 
 /**
  *
@@ -54,7 +54,7 @@ public class ActivityServiceTestGet {
     public void testGetAllActivityTarget() throws Exception {
         System.out.println("getAllActivityTarget");
         String username = "Marikadd";
-        List<ActivityTarget> list = new ArrayList<>();
+        List<ActivityInterface> list = new ArrayList<>();
         list = as.getAllActivityTarget(username);
         int result = list.size();
         int expectedResult = 1;
@@ -71,7 +71,7 @@ public class ActivityServiceTestGet {
     public void testGetAllActivityTarget1() throws Exception {
         System.out.println("getAllActivityTarget");
         String username = "giacomo";
-        List<ActivityTarget> list = new ArrayList<>();
+        List<ActivityInterface> list = new ArrayList<>();
         list = as.getAllActivityTarget(username);
         int result = list.size();
         int expectedResult = 0;
@@ -88,7 +88,7 @@ public class ActivityServiceTestGet {
     public void testGetAllActivityTarget2() throws Exception {
         System.out.println("getAllActivityTarget");
         String username = "icantalupo";
-        List<ActivityTarget> list = new ArrayList<>();
+        List<ActivityInterface> list = new ArrayList<>();
         list = as.getAllActivityTarget(username);
         int result = list.size();
         int expectedResult = 0;

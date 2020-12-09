@@ -18,14 +18,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import model.Activity.ActivityAdapter;
-import model.Activity.ActivityTarget;
+import model.Activity.ActivityLinked;
 import model.Users.Maintainer;
 import model.Users.Role;
 import model.Activity.MaintenanceActivity;
 import model.Competences.Competence;
 import model.Department.Department;
 import model.Users.UserModel;
+import model.Activity.ActivityInterface;
 
 /**
  *
@@ -45,10 +45,14 @@ public class ActivityService {
 
     public static ActivityService getActivityService() {
         if (activService == null) {
-            activService = new ActivityService();
-            activService.activityDao = ActivityDao.init();
-            activService.usersDao = UsersDao.init();
-            activService.depDao = DepartmentDao.init();
+            synchronized(ActivityService.class) {
+                if(activService == null) {
+                    activService = new ActivityService();
+                    activService.activityDao = ActivityDao.init();
+                    activService.usersDao = UsersDao.init();
+                    activService.depDao = DepartmentDao.init();
+                }
+            }
         }
         return activService;
     }
@@ -82,7 +86,7 @@ public class ActivityService {
         return result;
     }
 
-    public int updateActivity(Integer id, String type, String description, int timeActivity, Integer week_num, String dep)
+    public int updateActivity(Integer id, String type, String description, int timeActivity, Integer week_num, Department dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         return activityDao.updateActivity(id, type, description, timeActivity, week_num, dep);
@@ -102,26 +106,26 @@ public class ActivityService {
         return activityList;
     }
 
-    public List<ActivityTarget> getAllActivityTarget(String username)
+    public List<ActivityInterface> getAllActivityTarget(String username)
             throws SQLException, UsernotFoundException {
 
         validateMaintainer(username);
         List<MaintenanceActivity> activitiesInMaintener = activityDao.findActivitiesInMaintainer(username);
         List<MaintenanceActivity> activitiesNotInMaintener = activityDao.findActivitiesNotInMaintainer(username);
 
-        List<ActivityTarget> targets = new ArrayList<ActivityTarget>();
+        List<ActivityInterface> targets = new ArrayList<ActivityInterface>();
         targets.addAll(getListTargetMaintainer(activitiesInMaintener, true));
         targets.addAll(getListTargetMaintainer(activitiesNotInMaintener, false));
 
         return targets;
     }
 
-    private List<ActivityTarget> getListTargetMaintainer(List<MaintenanceActivity> activities, boolean linked) {
+    private List<ActivityInterface> getListTargetMaintainer(List<MaintenanceActivity> activities, boolean linked) {
 
-        List<ActivityTarget> targets = new ArrayList<ActivityTarget>();
+        List<ActivityInterface> targets = new ArrayList<ActivityInterface>();
 
         for (MaintenanceActivity ma : activities) {
-            ActivityTarget at = new ActivityAdapter(linked, ma.getID(), ma.getType(), ma.getDescription(), ma.getTime(), ma.getAssigned(), ma.getWeekNum(), ma.getDepartment());
+            ActivityInterface at = new ActivityLinked(linked, ma.getID(), ma.getType(), ma.getDescription(), ma.getTime(), ma.getAssigned(), ma.getWeekNum(), ma.getDepartment());
             targets.add(at);
         }
 

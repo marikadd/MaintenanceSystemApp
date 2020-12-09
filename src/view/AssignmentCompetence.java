@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Competences.Competence;
-import model.Competences.CompetenceTarget;
+import model.Competences.CompetenceInterface;
 
 /**
  *
@@ -29,7 +29,7 @@ import model.Competences.CompetenceTarget;
 public class AssignmentCompetence extends javax.swing.JFrame {
     private List<Competence> list_in= new LinkedList<>();
     private List<Competence> list_notIn= new LinkedList<>();
-    private List<CompetenceTarget> list = new ArrayList<>();
+    private List<CompetenceInterface> list = new ArrayList<>();
     /**
      * Creates new form AssignementCompetence
      */
@@ -355,7 +355,7 @@ public class AssignmentCompetence extends javax.swing.JFrame {
         this.showCompetences(list);
     }
     
-    public void showCompetences(List<CompetenceTarget> list){
+    public void showCompetences(List<CompetenceInterface> list){
         
         DefaultTableModel intoMaintainer = (DefaultTableModel) jTableInMaintainer.getModel();
         DefaultTableModel notIntoMaintainer = (DefaultTableModel) jTableNotInMaintainer.getModel();
