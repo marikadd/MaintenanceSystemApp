@@ -49,7 +49,7 @@ public class ViewUser extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButtonList = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableUsers = new javax.swing.JTable();
         jLabelTitle = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
@@ -101,7 +101,7 @@ public class ViewUser extends javax.swing.JFrame {
             }
         });
         jTableUsers.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTableUsers);
+        jScrollPane.setViewportView(jTableUsers);
 
         jLabelTitle.setFont(new java.awt.Font("Impact", 0, 30)); // NOI18N
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
@@ -136,7 +136,7 @@ public class ViewUser extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabelTitle)
@@ -151,7 +151,7 @@ public class ViewUser extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(jLabelTitle)
                 .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
                 .addContainerGap())
@@ -164,7 +164,7 @@ public class ViewUser extends javax.swing.JFrame {
             }
         });
 
-        jLabelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_list.png"))); // NOI18N
+        jLabelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_profile.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -178,8 +178,8 @@ public class ViewUser extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelIcon)
-                        .addGap(18, 18, 18)))
+                        .addComponent(jLabelIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -187,9 +187,9 @@ public class ViewUser extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabelBack, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelIcon)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(58, 58, 58))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -306,7 +306,7 @@ public class ViewUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableUsers;
     // End of variables declaration//GEN-END:variables
 }

@@ -351,6 +351,52 @@ String query = "select ma.* from MaintenanceActivity ma "
 
         return activity;
     }
+    
+    public int setMaintainerActivityDays(String username, Integer maId, List<Integer> days) throws SQLException {
+        
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+        
+        String query = "Insert into MaintainerActivityDay(username, ma_id, week_day) VALUES(?, ?, ?)";
+        
+        int result = 0;
+        for(Integer day: days) {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setInt(2, maId);
+            ps.setInt(3, day);
+            
+            result += ps.executeUpdate();
+            
+        }
+        
+        return result;
+        
+    }
+    
+       
+    public int getSumActivityDay(String username, int day) throws SQLException {
+        
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+        
+        String query = "SELECT sum(Time_Activity) as result FROM MaintenanceActivity WHERE "
+                        + "id in (SELECT ma_id FROM MaintainerActivityDay WHERE username = ? "
+                        + " AND week_day = ?)";
+        
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, username);
+        ps.setInt(2, day);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next()) {
+            return rs.getInt("result");
+        } else {
+            return 0;
+        }
+        
+    }
 
      private void validateActivity(String type, String description, Integer time) throws InvalidParameterObjectException {
 
@@ -379,7 +425,7 @@ String query = "select ma.* from MaintenanceActivity ma "
         }
 
     }
-    
+     
     private void validateUpdate(String type, String description, Integer time, Integer week_num) throws InvalidParameterObjectException {
         
         if (type != null){

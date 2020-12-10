@@ -99,7 +99,7 @@
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="jLabelnewUsername" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelNewUsername" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="356" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -110,10 +110,10 @@
                                           <EmptySpace min="-2" pref="291" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jScrollPane2" alignment="1" min="-2" pref="430" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane" alignment="1" min="-2" pref="430" max="-2" attributes="0"/>
                                   <Component id="jButtonList" min="-2" pref="73" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jTextnewUsername" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="jTextNewUsername" min="-2" pref="154" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabelEmail" min="-2" pref="55" max="-2" attributes="0"/>
@@ -144,18 +144,18 @@
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" pref="141" max="-2" attributes="0"/>
+                      <Component id="jScrollPane" min="-2" pref="141" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelnewUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelNewUsername" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextnewUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextNewUsername" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -187,7 +187,7 @@
                 <Property name="text" type="java.lang.String" value="UPDATE USER"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+            <Container class="javax.swing.JScrollPane" name="jScrollPane">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -223,13 +223,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonListActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextnewUsername">
+            <Component class="javax.swing.JTextField" name="jTextNewUsername">
             </Component>
             <Component class="javax.swing.JTextField" name="jTextEmail">
             </Component>
             <Component class="javax.swing.JTextField" name="jTextPhone">
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelnewUsername">
+            <Component class="javax.swing.JLabel" name="jLabelNewUsername">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="12" style="1"/>

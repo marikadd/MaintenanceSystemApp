@@ -69,11 +69,11 @@ public class UpdateActivity extends javax.swing.JFrame {
         jLabelType = new javax.swing.JLabel();
         jLabelTime = new javax.swing.JLabel();
         jLabelUpdate = new javax.swing.JLabel();
-        jLabelTime1 = new javax.swing.JLabel();
+        jLabelWeekNum = new javax.swing.JLabel();
         jComboWeek = new javax.swing.JComboBox<>();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jTableDepartment = new javax.swing.JTable();
-        jButtonRemove1 = new javax.swing.JButton();
+        jButtonView = new javax.swing.JButton();
         jLabelMinimize = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -195,9 +195,9 @@ public class UpdateActivity extends javax.swing.JFrame {
             }
         });
 
-        jLabelTime1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelTime1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTime1.setText("Week Number");
+        jLabelWeekNum.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelWeekNum.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelWeekNum.setText("Week Number");
 
         jComboWeek.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "no_change", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52" }));
 
@@ -224,17 +224,17 @@ public class UpdateActivity extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTableDepartment);
+        jScrollPane2.setViewportView(jTableDepartment);
 
-        jButtonRemove1.setText("View");
-        jButtonRemove1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonView.setText("View");
+        jButtonView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonRemove1MouseClicked(evt);
+                jButtonViewMouseClicked(evt);
             }
         });
-        jButtonRemove1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemove1ActionPerformed(evt);
+                jButtonViewActionPerformed(evt);
             }
         });
 
@@ -265,7 +265,7 @@ public class UpdateActivity extends javax.swing.JFrame {
                             .add(jLabelDescription))
                         .add(80, 80, 80)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabelTime1)
+                            .add(jLabelWeekNum)
                             .add(jComboWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jLabelTime)))
@@ -274,8 +274,8 @@ public class UpdateActivity extends javax.swing.JFrame {
                         .add(41, 41, 41)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 63, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 249, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonRemove1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 249, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonView, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(47, 47, 47))
             .add(jPanel2Layout.createSequentialGroup()
                 .add(126, 126, 126)
@@ -303,9 +303,9 @@ public class UpdateActivity extends javax.swing.JFrame {
                 .add(35, 35, 35)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButtonRemove1)
+                        .add(jButtonView)
                         .addContainerGap(59, Short.MAX_VALUE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -318,7 +318,7 @@ public class UpdateActivity extends javax.swing.JFrame {
                         .add(25, 25, 25)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabelDescription)
-                            .add(jLabelTime1))
+                            .add(jLabelWeekNum))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -438,7 +438,7 @@ public class UpdateActivity extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTypeActionPerformed
 
-    private void jButtonRemove1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemove1MouseClicked
+    private void jButtonViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonViewMouseClicked
 
         try {
             depList = dep.getAllDepartments();
@@ -448,7 +448,7 @@ public class UpdateActivity extends javax.swing.JFrame {
 
         this.showDepartments(depList);
         depList = null;
-    }//GEN-LAST:event_jButtonRemove1MouseClicked
+    }//GEN-LAST:event_jButtonViewMouseClicked
 
     public void showDepartments(List<Department> list) {
 
@@ -470,9 +470,9 @@ public class UpdateActivity extends javax.swing.JFrame {
         }
     }
 
-    private void jButtonRemove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemove1ActionPerformed
+    private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonRemove1ActionPerformed
+    }//GEN-LAST:event_jButtonViewActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(this.ICONIFIED);
@@ -537,21 +537,21 @@ public class UpdateActivity extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonList;
-    private javax.swing.JButton jButtonRemove1;
+    private javax.swing.JButton jButtonView;
     private javax.swing.JComboBox<String> jComboWeek;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelDescription;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelMinimize;
     private javax.swing.JLabel jLabelTime;
-    private javax.swing.JLabel jLabelTime1;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelType;
     private javax.swing.JLabel jLabelUpdate;
+    private javax.swing.JLabel jLabelWeekNum;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableActivities;
     private javax.swing.JTable jTableDepartment;
     private javax.swing.JTextField jTextFieldDescription;

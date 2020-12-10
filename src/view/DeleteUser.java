@@ -51,7 +51,7 @@ public class DeleteUser extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButtonList = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableUsers = new javax.swing.JTable();
         jLabelTitle = new javax.swing.JLabel();
         jLabelDelete = new javax.swing.JLabel();
@@ -98,7 +98,7 @@ public class DeleteUser extends javax.swing.JFrame {
             }
         });
         jTableUsers.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTableUsers);
+        jScrollPane.setViewportView(jTableUsers);
         if (jTableUsers.getColumnModel().getColumnCount() > 0) {
             jTableUsers.getColumnModel().getColumn(0).setResizable(false);
             jTableUsers.getColumnModel().getColumn(1).setResizable(false);
@@ -157,7 +157,7 @@ public class DeleteUser extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -172,7 +172,7 @@ public class DeleteUser extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabelTitle)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
                 .addGap(26, 26, 26)
@@ -335,7 +335,7 @@ public class DeleteUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableUsers;
     // End of variables declaration//GEN-END:variables
 }

@@ -54,10 +54,10 @@ public class UpdateMaterial extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabelExit = new javax.swing.JLabel();
         jLabelTitle = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableMaterials = new javax.swing.JTable();
         jButtonList = new javax.swing.JButton();
-        jLabelnewArea = new javax.swing.JLabel();
+        jLabelNewType = new javax.swing.JLabel();
         jTextNewType = new javax.swing.JTextField();
         jLabelUpdate = new javax.swing.JLabel();
         jLabelMinimize = new javax.swing.JLabel();
@@ -127,7 +127,7 @@ public class UpdateMaterial extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableMaterials);
+        jScrollPane.setViewportView(jTableMaterials);
 
         jButtonList.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButtonList.setText("List");
@@ -137,9 +137,9 @@ public class UpdateMaterial extends javax.swing.JFrame {
             }
         });
 
-        jLabelnewArea.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelnewArea.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelnewArea.setText("New Type");
+        jLabelNewType.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelNewType.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNewType.setText("New Type");
 
         jTextNewType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,10 +181,10 @@ public class UpdateMaterial extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelnewArea)
+                            .addComponent(jLabelNewType)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jTextNewType, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
@@ -203,11 +203,11 @@ public class UpdateMaterial extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabelTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
                 .addGap(44, 44, 44)
-                .addComponent(jLabelnewArea, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelNewType, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextNewType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,12 +348,12 @@ public class UpdateMaterial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelMinimize;
+    private javax.swing.JLabel jLabelNewType;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelUpdate;
-    private javax.swing.JLabel jLabelnewArea;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableMaterials;
     private javax.swing.JTextField jTextNewType;
     // End of variables declaration//GEN-END:variables

@@ -47,7 +47,7 @@ public class ViewCompetences extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabelTitle = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableCompetences = new javax.swing.JTable();
         jButtonList = new javax.swing.JButton();
         jLabelExit = new javax.swing.JLabel();
@@ -91,7 +91,7 @@ public class ViewCompetences extends javax.swing.JFrame {
             }
         });
         jTableCompetences.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTableCompetences);
+        jScrollPane.setViewportView(jTableCompetences);
 
         jButtonList.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButtonList.setText("List");
@@ -139,7 +139,7 @@ public class ViewCompetences extends javax.swing.JFrame {
                 .addGap(99, 99, 99)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 99, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -151,7 +151,7 @@ public class ViewCompetences extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabelTitle)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
                 .addContainerGap())
@@ -299,7 +299,7 @@ public class ViewCompetences extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableCompetences;
     // End of variables declaration//GEN-END:variables
 }

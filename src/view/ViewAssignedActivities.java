@@ -39,48 +39,49 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        jLabelTitle1 = new javax.swing.JLabel();
-        jButtonList1 = new javax.swing.JButton();
-        jLabelExit1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableActivities1 = new javax.swing.JTable();
-        jLabelMinimize1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabelTitle = new javax.swing.JLabel();
+        jButtonList = new javax.swing.JButton();
+        jLabelExit = new javax.swing.JLabel();
+        jScrollPane = new javax.swing.JScrollPane();
+        jTableActivities = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabelBack = new javax.swing.JLabel();
+        jLabelIcon = new javax.swing.JLabel();
+        jLabelMinimize = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabelTitle1.setFont(new java.awt.Font("Impact", 0, 30)); // NOI18N
-        jLabelTitle1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitle1.setText("ASSIGNED ACTIVITIES");
+        jLabelTitle.setFont(new java.awt.Font("Impact", 0, 30)); // NOI18N
+        jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitle.setText("ASSIGNED ACTIVITIES");
 
-        jButtonList1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButtonList1.setText("List");
-        jButtonList1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonList.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jButtonList.setText("List");
+        jButtonList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonList1MouseClicked(evt);
+                jButtonListMouseClicked(evt);
             }
         });
-        jButtonList1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonList1ActionPerformed(evt);
+                jButtonListActionPerformed(evt);
             }
         });
 
-        jLabelExit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
-        jLabelExit1.setText("jLabel3");
-        jLabelExit1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabelExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
+        jLabelExit.setText("jLabel3");
+        jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelExit1MouseClicked(evt);
+                jLabelExitMouseClicked(evt);
             }
         });
 
-        jTableActivities1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableActivities.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -103,14 +104,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTableActivities1);
-
-        jLabelMinimize1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
-        jLabelMinimize1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelMinimize1MouseClicked(evt);
-            }
-        });
+        jScrollPane.setViewportView(jTableActivities);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 0));
         jPanel1.setForeground(new java.awt.Color(255, 204, 0));
@@ -122,6 +116,8 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
             }
         });
 
+        jLabelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_list.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -130,93 +126,112 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelBack)
                 .addContainerGap(154, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelIcon)
+                .addGap(16, 16, 16))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelBack)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelIcon)
+                .addGap(85, 85, 85))
         );
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
+        jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelMinimizeMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabelMinimize1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(461, 461, 461)
+                        .addComponent(jButtonList)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelExit1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButtonList1)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 21, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelTitle1)
-                        .addGap(150, 150, 150))))
+                                .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(107, 107, 107)
+                                        .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(221, 221, 221)
+                                        .addComponent(jLabelTitle)))
+                                .addGap(0, 75, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelExit1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelMinimize1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addComponent(jLabelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonList1)
-                .addContainerGap(38, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(238, 238, 238))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addComponent(jButtonList)
+                .addContainerGap(60, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonList1MouseClicked
+    private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
         
 
-    }//GEN-LAST:event_jButtonList1MouseClicked
+    }//GEN-LAST:event_jButtonListMouseClicked
 
-    private void jButtonList1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonList1ActionPerformed
+    private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
 
-    }//GEN-LAST:event_jButtonList1ActionPerformed
+    }//GEN-LAST:event_jButtonListActionPerformed
 
-    private void jLabelExit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExit1MouseClicked
+    private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
-    }//GEN-LAST:event_jLabelExit1MouseClicked
-
-    private void jLabelMinimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimize1MouseClicked
-        this.setExtendedState(this.ICONIFIED);
-    }//GEN-LAST:event_jLabelMinimize1MouseClicked
+    }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         ManagementActivityArea activityArea = new ManagementActivityArea();
         activityArea.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
+
+    private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
+        this.setExtendedState(this.ICONIFIED);
+    }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -255,14 +270,15 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonList1;
+    private javax.swing.JButton jButtonList;
     private javax.swing.JLabel jLabelBack;
-    private javax.swing.JLabel jLabelExit1;
-    private javax.swing.JLabel jLabelMinimize1;
-    private javax.swing.JLabel jLabelTitle1;
+    private javax.swing.JLabel jLabelExit;
+    private javax.swing.JLabel jLabelIcon;
+    private javax.swing.JLabel jLabelMinimize;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableActivities1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JTable jTableActivities;
     // End of variables declaration//GEN-END:variables
 }

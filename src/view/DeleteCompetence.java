@@ -51,7 +51,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabelBack = new javax.swing.JLabel();
         jLabelTitle = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableCompetences = new javax.swing.JTable();
         jButtonList = new javax.swing.JButton();
         jLabelDelete = new javax.swing.JLabel();
@@ -109,7 +109,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableCompetences);
+        jScrollPane.setViewportView(jTableCompetences);
 
         jButtonList.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButtonList.setText("List");
@@ -166,12 +166,10 @@ public class DeleteCompetence extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(45, 45, 45)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(106, 106, 106)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(184, 184, 184)
@@ -192,7 +190,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabelTitle)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
                 .addGap(35, 35, 35)
@@ -332,7 +330,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableCompetences;
     // End of variables declaration//GEN-END:variables
 }

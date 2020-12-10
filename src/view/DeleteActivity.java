@@ -56,9 +56,9 @@ public class DeleteActivity extends javax.swing.JFrame {
         jLabelExit = new javax.swing.JLabel();
         jButtonList = new javax.swing.JButton();
         jLabelDelete = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableActivities = new javax.swing.JTable();
-        jLabelMinimize1 = new javax.swing.JLabel();
+        jLabelMinimize = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -149,12 +149,12 @@ public class DeleteActivity extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableActivities);
+        jScrollPane.setViewportView(jTableActivities);
 
-        jLabelMinimize1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
-        jLabelMinimize1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
+        jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelMinimize1MouseClicked(evt);
+                jLabelMinimizeMouseClicked(evt);
             }
         });
 
@@ -169,36 +169,36 @@ public class DeleteActivity extends javax.swing.JFrame {
             .add(jPanel2Layout.createSequentialGroup()
                 .add(22, 22, 22)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButtonList))
                 .add(0, 22, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(jLabelMinimize1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabelMinimize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 66, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jLabelDelete, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(184, 184, 184))))
+                        .add(191, 191, 191))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabelMinimize1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jLabelMinimize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(34, 34, 34)
                 .add(jLabelTitle)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(11, 11, 11)
+                .add(5, 5, 5)
+                .add(jScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jButtonList)
-                .add(36, 36, 36)
+                .add(43, 43, 43)
                 .add(jLabelDelete, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -268,9 +268,9 @@ public class DeleteActivity extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabelDeleteMouseClicked
 
-    private void jLabelMinimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimize1MouseClicked
+    private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(this.ICONIFIED);
-    }//GEN-LAST:event_jLabelMinimize1MouseClicked
+    }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     public void showActivities(List<MaintenanceActivity> list){
         
@@ -336,11 +336,10 @@ public class DeleteActivity extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDelete;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelMinimize;
-    private javax.swing.JLabel jLabelMinimize1;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableActivities;
     // End of variables declaration//GEN-END:variables
 

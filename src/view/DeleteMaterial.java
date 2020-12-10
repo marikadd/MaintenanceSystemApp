@@ -47,11 +47,11 @@ public class DeleteMaterial extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabelBack1 = new javax.swing.JLabel();
+        jLabelBack = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabelExit = new javax.swing.JLabel();
         jLabelTitle = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableMaterials = new javax.swing.JTable();
         jButtonList = new javax.swing.JButton();
         jLabelDelete = new javax.swing.JLabel();
@@ -62,10 +62,10 @@ public class DeleteMaterial extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 0));
 
-        jLabelBack1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
-        jLabelBack1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
+        jLabelBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelBack1MouseClicked(evt);
+                jLabelBackMouseClicked(evt);
             }
         });
 
@@ -75,14 +75,14 @@ public class DeleteMaterial extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelBack1)
+                .addComponent(jLabelBack)
                 .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelBack1)
+                .addComponent(jLabelBack)
                 .addContainerGap(480, Short.MAX_VALUE))
         );
 
@@ -122,7 +122,7 @@ public class DeleteMaterial extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableMaterials);
+        jScrollPane.setViewportView(jTableMaterials);
 
         jButtonList.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButtonList.setText("List");
@@ -170,7 +170,7 @@ public class DeleteMaterial extends javax.swing.JFrame {
                             .addComponent(jLabelTitle))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGap(84, 84, 84)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 85, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -193,7 +193,7 @@ public class DeleteMaterial extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addComponent(jLabelTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonList)
                 .addGap(57, 57, 57)
@@ -219,11 +219,11 @@ public class DeleteMaterial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabelBack1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBack1MouseClicked
+    private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         ManagementMaterialArea mArea = new ManagementMaterialArea();
         mArea.setVisible(true);
-    }//GEN-LAST:event_jLabelBack1MouseClicked
+    }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
@@ -330,14 +330,14 @@ public class DeleteMaterial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonList;
-    private javax.swing.JLabel jLabelBack1;
+    private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelDelete;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelMinimize;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableMaterials;
     // End of variables declaration//GEN-END:variables
 }

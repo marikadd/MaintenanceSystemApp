@@ -73,20 +73,20 @@ public class CreateActivity extends javax.swing.JFrame {
         jButtonRemove = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableAssociated = new javax.swing.JTable();
-        jLabelTit1 = new javax.swing.JLabel();
-        jLabelTit2 = new javax.swing.JLabel();
+        jLabelTitleSkillsToAssign = new javax.swing.JLabel();
+        jLabelTitleDep = new javax.swing.JLabel();
         jComboWeek = new javax.swing.JComboBox<>();
-        jLabelWeeknum = new javax.swing.JLabel();
+        jLabelWeekNum = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableDepartment = new javax.swing.JTable();
-        jLabelTit3 = new javax.swing.JLabel();
+        jLabelTitleSkillsAssigned = new javax.swing.JLabel();
         jLabelMinimize1 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableMaterialsToAssociate = new javax.swing.JTable();
-        jLabelMaterial = new javax.swing.JLabel();
+        jLabelTitleMaterialsToAssign = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableMaterialsAssociated = new javax.swing.JTable();
-        jLabelMaterial1 = new javax.swing.JLabel();
+        jLabelMaterialsAssigned = new javax.swing.JLabel();
         jButtonAdd1 = new javax.swing.JButton();
         jButtonRemove1 = new javax.swing.JButton();
 
@@ -215,19 +215,19 @@ public class CreateActivity extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTableAssociated);
 
-        jLabelTit1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelTit1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTit1.setText("Skill To Assign");
+        jLabelTitleSkillsToAssign.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelTitleSkillsToAssign.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitleSkillsToAssign.setText("Skills To Assign");
 
-        jLabelTit2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelTit2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTit2.setText("Department");
+        jLabelTitleDep.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelTitleDep.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitleDep.setText("Department");
 
         jComboWeek.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52" }));
 
-        jLabelWeeknum.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelWeeknum.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelWeeknum.setText("Week Number");
+        jLabelWeekNum.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelWeekNum.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelWeekNum.setText("Week Number");
 
         jTableDepartment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -254,9 +254,9 @@ public class CreateActivity extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTableDepartment);
 
-        jLabelTit3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelTit3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTit3.setText("Skill Assigned");
+        jLabelTitleSkillsAssigned.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelTitleSkillsAssigned.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitleSkillsAssigned.setText("Skills Assigned");
 
         jLabelMinimize1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
         jLabelMinimize1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -290,9 +290,9 @@ public class CreateActivity extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jTableMaterialsToAssociate);
 
-        jLabelMaterial.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelMaterial.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelMaterial.setText("Materials To Assign ");
+        jLabelTitleMaterialsToAssign.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelTitleMaterialsToAssign.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitleMaterialsToAssign.setText("Materials To Assign ");
 
         jTableMaterialsAssociated.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -319,9 +319,9 @@ public class CreateActivity extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(jTableMaterialsAssociated);
 
-        jLabelMaterial1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelMaterial1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelMaterial1.setText("Materials Assigned ");
+        jLabelMaterialsAssigned.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelMaterialsAssigned.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelMaterialsAssigned.setText("Materials Assigned ");
 
         jButtonAdd1.setText("Add");
         jButtonAdd1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -360,7 +360,7 @@ public class CreateActivity extends javax.swing.JFrame {
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(35, 35, 35)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabelTit3)
+                            .add(jLabelTitleSkillsAssigned)
                             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                 .add(jButtonRemove)
                                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
@@ -384,10 +384,10 @@ public class CreateActivity extends javax.swing.JFrame {
                                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                                     .add(jLabelTime)
                                                     .add(jTextFieldTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jLabelTit1))
+                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jLabelTitleSkillsToAssign))
                                         .add(54, 54, 54)
                                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jLabelWeeknum)
+                                            .add(jLabelWeekNum)
                                             .add(jComboWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 231, Short.MAX_VALUE))
                                     .add(jPanel2Layout.createSequentialGroup()
@@ -402,20 +402,20 @@ public class CreateActivity extends javax.swing.JFrame {
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                                     .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                    .add(jLabelMaterial1)
+                                                    .add(jLabelMaterialsAssigned)
                                                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                                         .add(jButtonAdd1)
                                                         .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                                    .add(jLabelMaterial))))
+                                                    .add(jLabelTitleMaterialsToAssign))))
                                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(56, 56, 56)
                                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                    .add(jLabelTit2)
+                                                    .add(jLabelTitleDep)
                                                     .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                                             .add(jPanel2Layout.createSequentialGroup()
-                                                .add(126, 126, 126)
-                                                .add(jLabelCreate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                                .add(145, 145, 145)
+                                                .add(jLabelCreate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 121, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -442,7 +442,7 @@ public class CreateActivity extends javax.swing.JFrame {
                                 .add(18, 18, 18)
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                                     .add(jLabelTime)
-                                    .add(jLabelWeeknum))))
+                                    .add(jLabelWeekNum))))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jTextFieldType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -456,8 +456,8 @@ public class CreateActivity extends javax.swing.JFrame {
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(52, 52, 52)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jLabelTit1)
-                            .add(jLabelMaterial))
+                            .add(jLabelTitleSkillsToAssign)
+                            .add(jLabelTitleMaterialsToAssign))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel2Layout.createSequentialGroup()
@@ -470,8 +470,8 @@ public class CreateActivity extends javax.swing.JFrame {
                                     .add(jButtonAdd1))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                    .add(jLabelTit3)
-                                    .add(jLabelMaterial1))
+                                    .add(jLabelTitleSkillsAssigned)
+                                    .add(jLabelMaterialsAssigned))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -479,8 +479,8 @@ public class CreateActivity extends javax.swing.JFrame {
                             .add(jPanel2Layout.createSequentialGroup()
                                 .add(3, 3, 3)
                                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(87, 87, 87)
-                                .add(jLabelCreate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(93, 93, 93)
+                                .add(jLabelCreate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -488,7 +488,7 @@ public class CreateActivity extends javax.swing.JFrame {
                             .add(jButtonRemove1)))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(60, 60, 60)
-                        .add(jLabelTit2)))
+                        .add(jLabelTitleDep)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -769,16 +769,16 @@ public class CreateActivity extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCreate;
     private javax.swing.JLabel jLabelDescription;
     private javax.swing.JLabel jLabelExit;
-    private javax.swing.JLabel jLabelMaterial;
-    private javax.swing.JLabel jLabelMaterial1;
+    private javax.swing.JLabel jLabelMaterialsAssigned;
     private javax.swing.JLabel jLabelMinimize1;
     private javax.swing.JLabel jLabelTime;
-    private javax.swing.JLabel jLabelTit1;
-    private javax.swing.JLabel jLabelTit2;
-    private javax.swing.JLabel jLabelTit3;
     private javax.swing.JLabel jLabelTitle;
+    private javax.swing.JLabel jLabelTitleDep;
+    private javax.swing.JLabel jLabelTitleMaterialsToAssign;
+    private javax.swing.JLabel jLabelTitleSkillsAssigned;
+    private javax.swing.JLabel jLabelTitleSkillsToAssign;
     private javax.swing.JLabel jLabelType;
-    private javax.swing.JLabel jLabelWeeknum;
+    private javax.swing.JLabel jLabelWeekNum;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -61,17 +61,18 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelIconUpdate" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelIconDelete" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelIconCreate" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
+                  <Component id="jLabelIconAssign" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -81,14 +82,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabelBack" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelIconCreate" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelIconUpdate" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelIconDelete" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel4" min="-2" pref="123" max="-2" attributes="0"/>
-                  <EmptySpace pref="47" max="32767" attributes="0"/>
+                  <Component id="jLabelIconAssign" min="-2" pref="128" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -104,28 +105,28 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelBackMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="jLabelIconCreate">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/add_comp.png"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="jLabelIconDelete">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/remove_comp.png"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="jLabelIconUpdate">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/update_comp.png"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="jLabelIconAssign">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/assign.png"/>
@@ -146,8 +147,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jLabelMinimize" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabelMinimize" min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabelExit" min="-2" pref="67" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               </Group>
@@ -161,8 +162,8 @@
                   </Group>
                   <EmptySpace pref="41" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButtonAssignment" max="32767" attributes="0"/>
-                      <Component id="jButtonView1" max="32767" attributes="0"/>
+                      <Component id="jButtonSelect" max="32767" attributes="0"/>
+                      <Component id="jButtonViewAssigned" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
@@ -176,9 +177,12 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabelMinimize" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      </Group>
                       <Component id="jLabelExit" min="-2" pref="56" max="-2" attributes="0"/>
-                      <Component id="jLabelMinimize" min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
@@ -187,16 +191,16 @@
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonCreate" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                      <Component id="jButtonView1" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="jButtonViewAssigned" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonUpdate" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                      <Component id="jButtonAssignment" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="jButtonSelect" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="jButtonDelete" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="154" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -271,7 +275,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDeleteActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonAssignment">
+        <Component class="javax.swing.JButton" name="jButtonSelect">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="3"/>
@@ -279,8 +283,8 @@
             <Property name="text" type="java.lang.String" value="Select Activity"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonAssignmentMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAssignmentActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSelectMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSelectActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelMinimize">
@@ -293,16 +297,16 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelMinimizeMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonView1">
+        <Component class="javax.swing.JButton" name="jButtonViewAssigned">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="3"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Show Assigned Activities"/>
+            <Property name="text" type="java.lang.String" value="View Assigned Activities"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonView1MouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonView1ActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonViewAssignedMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonViewAssignedActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

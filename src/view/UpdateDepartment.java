@@ -54,13 +54,13 @@ public class UpdateDepartment extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabelBack = new javax.swing.JLabel();
         jLabelTitle = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableDepartments = new javax.swing.JTable();
         jButtonList = new javax.swing.JButton();
         jLabelUpdate = new javax.swing.JLabel();
-        jLabelnewArea = new javax.swing.JLabel();
+        jLabelNewArea = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
-        jTextnewArea = new javax.swing.JTextField();
+        jTextNewArea = new javax.swing.JTextField();
         jLabelMinimize = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,7 +121,7 @@ public class UpdateDepartment extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableDepartments);
+        jScrollPane.setViewportView(jTableDepartments);
 
         jButtonList.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButtonList.setText("List");
@@ -144,9 +144,9 @@ public class UpdateDepartment extends javax.swing.JFrame {
             }
         });
 
-        jLabelnewArea.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelnewArea.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelnewArea.setText("New Area");
+        jLabelNewArea.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelNewArea.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNewArea.setText("New Area");
 
         jLabelExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
         jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,9 +155,9 @@ public class UpdateDepartment extends javax.swing.JFrame {
             }
         });
 
-        jTextnewArea.addActionListener(new java.awt.event.ActionListener() {
+        jTextNewArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextnewAreaActionPerformed(evt);
+                jTextNewAreaActionPerformed(evt);
             }
         });
 
@@ -179,13 +179,11 @@ public class UpdateDepartment extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextnewArea, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextNewArea, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
-                                .addComponent(jLabelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(144, 144, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelnewArea)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jLabelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelNewArea))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +192,7 @@ public class UpdateDepartment extends javax.swing.JFrame {
                                 .addGap(113, 113, 113))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(2, 2, 2)
@@ -211,14 +209,14 @@ public class UpdateDepartment extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jLabelTitle)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
                 .addGap(52, 52, 52)
-                .addComponent(jLabelnewArea, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelNewArea, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextnewArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNewArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
@@ -237,9 +235,9 @@ public class UpdateDepartment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextnewAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextnewAreaActionPerformed
+    private void jTextNewAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNewAreaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextnewAreaActionPerformed
+    }//GEN-LAST:event_jTextNewAreaActionPerformed
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
@@ -253,7 +251,7 @@ public class UpdateDepartment extends javax.swing.JFrame {
         }
         int row = jTableDepartments.getSelectedRow();
         String oldArea = jTableDepartments.getModel().getValueAt(row, 0).toString();
-        String newArea = jTextnewArea.getText();
+        String newArea = jTextNewArea.getText();
 
         try {
             int result = dep.updateDepartment(oldArea, newArea);
@@ -352,13 +350,13 @@ public class UpdateDepartment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelMinimize;
+    private javax.swing.JLabel jLabelNewArea;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelUpdate;
-    private javax.swing.JLabel jLabelnewArea;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableDepartments;
-    private javax.swing.JTextField jTextnewArea;
+    private javax.swing.JTextField jTextNewArea;
     // End of variables declaration//GEN-END:variables
 }

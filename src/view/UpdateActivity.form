@@ -107,7 +107,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelTime1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelWeekNum" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboWeek" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldTime" min="-2" pref="129" max="-2" attributes="0"/>
                               <Component id="jLabelTime" min="-2" max="-2" attributes="0"/>
@@ -120,8 +120,8 @@
                   </Group>
                   <EmptySpace pref="63" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane3" alignment="1" min="-2" pref="249" max="-2" attributes="0"/>
-                      <Component id="jButtonRemove1" alignment="1" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="1" min="-2" pref="249" max="-2" attributes="0"/>
+                      <Component id="jButtonView" alignment="1" min="-2" pref="60" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
               </Group>
@@ -156,9 +156,9 @@
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane3" min="-2" pref="155" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="155" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonRemove1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonView" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="59" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -174,7 +174,7 @@
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabelDescription" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelTime1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelWeekNum" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -349,7 +349,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelUpdateMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelTime1">
+        <Component class="javax.swing.JLabel" name="jLabelWeekNum">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="1"/>
@@ -424,7 +424,7 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -445,13 +445,13 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButtonRemove1">
+        <Component class="javax.swing.JButton" name="jButtonView">
           <Properties>
             <Property name="text" type="java.lang.String" value="View"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonRemove1MouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRemove1ActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonViewMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonViewActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelMinimize">

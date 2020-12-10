@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.5" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
-  <NonVisualComponents>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTable" name="jTableActivities">
-          <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="0">
-                <Column editable="false" title="ID" type="java.lang.Object"/>
-                <Column editable="false" title="Area" type="java.lang.String"/>
-                <Column editable="false" title="Type" type="java.lang.String"/>
-                <Column editable="false" title="Time" type="java.lang.Integer"/>
-              </Table>
-            </Property>
-            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-            </Property>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
-  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="undecorated" type="boolean" value="true"/>
@@ -51,9 +25,11 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="jPanel2" max="32767" attributes="0"/>
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -90,7 +66,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabelBack" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="448" max="32767" attributes="0"/>
+                  <EmptySpace pref="549" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -121,50 +97,108 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jLabelMinimize" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabelExit" min="-2" pref="64" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelInfo" min="-2" pref="242" max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" min="-2" pref="205" max="-2" attributes="0"/>
-                      <Component id="jLabelInfos" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabelNum1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jLabelWeek" min="-2" pref="74" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jLabelTit3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jButtonSelect" min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="655" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jLabelMinimize" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabelExit" min="-2" pref="64" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="320" max="-2" attributes="0"/>
+                          <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="364" max="-2" attributes="0"/>
-                  <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="479" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jLabelWeekNum" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabelInfo" min="-2" pref="242" max="-2" attributes="0"/>
+                              <Component id="jScrollPane2" alignment="0" min="-2" pref="205" max="-2" attributes="0"/>
+                              <Component id="jLabelActivityInfo" min="-2" pref="141" max="-2" attributes="0"/>
+                              <Component id="jLabelSkills" min="-2" pref="113" max="-2" attributes="0"/>
+                              <Component id="jLabelWeek" min="-2" pref="45" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="jLabelTitleCheck" max="32767" attributes="0"/>
+                                              <Component id="jLabelTitleAct" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jCheckBoxMon" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="jLabelMon" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jCheckBoxTue" min="-2" pref="29" max="-2" attributes="0"/>
+                                              <Component id="jLabelTue" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jLabelWed" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jCheckBoxWed" min="-2" pref="27" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jCheckBoxThu" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="jLabelThu" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jLabelFri" max="32767" attributes="0"/>
+                                              <Component id="jCheckBoxFri" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jCheckBoxSat" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="jLabelSat" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jCheckBoxSun" alignment="1" min="-2" pref="27" max="-2" attributes="0"/>
+                                              <Component id="jLabelSun" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jScrollPane1" pref="655" max="32767" attributes="0"/>
+                                              <Component id="jLabelMaintainersAvail" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jButtonAssign" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -172,37 +206,68 @@
                               <Component id="jLabelMinimize" min="-2" pref="38" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jLabelNum1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                  <Component id="jLabelTit3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jLabelWeek" alignment="1" min="-2" pref="38" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jLabelInfos" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelWeekNum" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabelInfo" min="-2" pref="38" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" min="-2" pref="141" max="-2" attributes="0"/>
+                          <Component id="jLabelWeek" min="-2" pref="34" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="jLabelActivityInfo" min="-2" pref="22" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="177" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonSelect" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                          <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabelMon" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelTue" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelWed" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelThu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelFri" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelSat" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelSun" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jCheckBoxMon" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCheckBoxTue" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCheckBoxWed" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCheckBoxThu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCheckBoxFri" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCheckBoxSat" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCheckBoxSun" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jLabelTitleCheck" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                  <Component id="jLabelTitleAct" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabelInfo" min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                          <Component id="jLabelSkills" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="141" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabelMaintainersAvail" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="177" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jButtonAssign" min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -237,7 +302,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTableMaintainers">
+            <Component class="javax.swing.JTable" name="jTableMaintainersAvail">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="9" rowCount="0">
@@ -256,18 +321,28 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabelTit3">
+        <Component class="javax.swing.JLabel" name="jLabelMaintainersAvail">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="cc" red="ff" type="rgb"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="1"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Availability Maintainer"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder>
+                  <Color PropertyName="highlightOuter" blue="0" green="cc" red="ff" type="rgb"/>
+                  <Color PropertyName="highlightInner" blue="0" green="cc" red="ff" type="rgb"/>
+                </BevelBorder>
+              </Border>
             </Property>
-            <Property name="text" type="java.lang.String" value="Maintainers"/>
+            <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonSelect">
+        <Component class="javax.swing.JButton" name="jButtonAssign">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="1"/>
@@ -275,7 +350,7 @@
             <Property name="text" type="java.lang.String" value="Assign"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSelectMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonAssignMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelMinimize">
@@ -288,7 +363,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelMinimizeMouseClicked"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -297,10 +372,22 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="jTableSkills">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Lucida Grande" size="12" style="1"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="1" rowCount="0">
-                    <Column editable="false" title="Skills Needed" type="java.lang.String"/>
+                    <Column editable="false" title="Skills" type="java.lang.String"/>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -331,20 +418,231 @@
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelInfos">
+        <Component class="javax.swing.JLabel" name="jLabelActivityInfo">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="cc" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Activity Info"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Activity To Assign"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder>
+                  <Color PropertyName="highlightOuter" blue="0" green="cc" red="ff" type="rgb"/>
+                  <Color PropertyName="highlightInner" blue="0" green="cc" red="ff" type="rgb"/>
+                </BevelBorder>
+              </Border>
+            </Property>
+            <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelNum1">
+        <Component class="javax.swing.JLabel" name="jLabelWeekNum">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Week N&#xb0;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxMon">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jCheckBox1"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jCheckBoxMonStateChanged"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxTue">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jCheckBox2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jCheckBoxTueStateChanged"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxWed">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jCheckBox3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jCheckBoxWedStateChanged"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxThu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jCheckBox4"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jCheckBoxThuStateChanged"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxFri">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jCheckBox5"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jCheckBoxFriStateChanged"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxSat">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jCheckBox6"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jCheckBoxSatStateChanged"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxSun">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jCheckBox7"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jCheckBoxSunStateChanged"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelMon">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Mon"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelTue">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Tue"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelWed">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Wed"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelFri">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Fri"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelThu">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Thu"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelSat">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Sat"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelSun">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Sun"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelSkills">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="cc" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Skills Needed"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder>
+                  <Color PropertyName="highlightOuter" blue="0" green="cc" red="ff" type="rgb"/>
+                  <Color PropertyName="highlightInner" blue="0" green="cc" red="ff" type="rgb"/>
+                </BevelBorder>
+              </Border>
+            </Property>
+            <Property name="opaque" type="boolean" value="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelTitleAct">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="cc" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="To Assign Activity"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder>
+                  <Color PropertyName="highlightOuter" blue="0" green="cc" red="ff" type="rgb"/>
+                  <Color PropertyName="highlightInner" blue="0" green="cc" red="ff" type="rgb"/>
+                </BevelBorder>
+              </Border>
+            </Property>
+            <Property name="opaque" type="boolean" value="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelTitleCheck">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="cc" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Check Day"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder>
+                  <Color PropertyName="highlightOuter" blue="0" green="cc" red="ff" type="rgb"/>
+                  <Color PropertyName="highlightInner" blue="0" green="cc" red="ff" type="rgb"/>
+                </BevelBorder>
+              </Border>
+            </Property>
+            <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
       </SubComponents>

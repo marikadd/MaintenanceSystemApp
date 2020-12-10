@@ -37,7 +37,7 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelIcon = new javax.swing.JLabel();
         jLabelBack = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabelTitle = new javax.swing.JLabel();
@@ -53,7 +53,7 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 0));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/renovation.png"))); // NOI18N
+        jLabelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/renovation.png"))); // NOI18N
 
         jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
         jLabelBack.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -72,7 +72,7 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(jLabelIcon)
                 .addGap(17, 17, 17))
         );
         jPanel1Layout.setVerticalGroup(
@@ -81,7 +81,7 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelBack, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(140, 140, 140)
-                .addComponent(jLabel1)
+                .addComponent(jLabelIcon)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -318,9 +318,9 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonUpdate;
     private javax.swing.JButton jButtonView;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
+    private javax.swing.JLabel jLabelIcon;
     private javax.swing.JLabel jLabelMinimize;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;

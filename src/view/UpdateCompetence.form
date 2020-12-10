@@ -66,15 +66,15 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jScrollPane1" min="-2" pref="418" max="-2" attributes="0"/>
+                              <Component id="jScrollPane" min="-2" pref="418" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabelnewDescription" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelNewDescription" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="345" max="-2" attributes="0"/>
                                       <Component id="jButtonList" min="-2" pref="73" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="jTextnewDescription" min="-2" pref="189" max="-2" attributes="0"/>
+                                      <Component id="jTextNewDescription" min="-2" pref="189" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                       <Component id="jLabelUpdate" min="-2" pref="95" max="-2" attributes="0"/>
                                   </Group>
@@ -97,14 +97,14 @@
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="138" max="-2" attributes="0"/>
+                  <Component id="jScrollPane" min="-2" pref="138" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
-                  <Component id="jLabelnewDescription" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="jLabelNewDescription" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextnewDescription" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextNewDescription" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelUpdate" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="90" max="32767" attributes="0"/>
@@ -164,7 +164,7 @@
             <Property name="text" type="java.lang.String" value="UPDATE COMPETENCE"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -195,9 +195,9 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonListActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextnewDescription">
+        <Component class="javax.swing.JTextField" name="jTextNewDescription">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextnewDescriptionActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextNewDescriptionActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelUpdate">
@@ -227,7 +227,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelUpdateMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelnewDescription">
+        <Component class="javax.swing.JLabel" name="jLabelNewDescription">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="1"/>

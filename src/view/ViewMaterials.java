@@ -48,11 +48,11 @@ public class ViewMaterials extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabelBack = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelIcon = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabelExit = new javax.swing.JLabel();
         jLabelTitle = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableMaterials = new javax.swing.JTable();
         jButtonList = new javax.swing.JButton();
         jLabelMinimize = new javax.swing.JLabel();
@@ -69,7 +69,7 @@ public class ViewMaterials extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/material.png"))); // NOI18N
+        jLabelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/material.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,7 +82,7 @@ public class ViewMaterials extends javax.swing.JFrame {
                         .addComponent(jLabelBack))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabelIcon)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -91,7 +91,7 @@ public class ViewMaterials extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelBack)
                 .addGap(148, 148, 148)
-                .addComponent(jLabel1)
+                .addComponent(jLabelIcon)
                 .addContainerGap(148, Short.MAX_VALUE))
         );
 
@@ -133,7 +133,7 @@ public class ViewMaterials extends javax.swing.JFrame {
             }
         });
         jTableMaterials.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(jTableMaterials);
+        jScrollPane.setViewportView(jTableMaterials);
 
         jButtonList.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButtonList.setText("List");
@@ -174,7 +174,7 @@ public class ViewMaterials extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(107, 107, 107))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -186,7 +186,7 @@ public class ViewMaterials extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jLabelTitle)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
                 .addContainerGap(157, Short.MAX_VALUE))
@@ -297,14 +297,14 @@ public class ViewMaterials extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonList;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
+    private javax.swing.JLabel jLabelIcon;
     private javax.swing.JLabel jLabelMinimize;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableMaterials;
     // End of variables declaration//GEN-END:variables
 }

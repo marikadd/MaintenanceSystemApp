@@ -51,16 +51,13 @@
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jTextnewArea" min="-2" pref="189" max="-2" attributes="0"/>
+                                  <Component id="jTextNewArea" min="-2" pref="189" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="jLabelUpdate" min="-2" pref="95" max="-2" attributes="0"/>
-                                  <EmptySpace min="484" pref="144" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabelnewArea" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jLabelNewArea" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="79" max="32767" attributes="0"/>
@@ -71,7 +68,7 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jScrollPane1" min="-2" pref="334" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane" min="-2" pref="334" max="-2" attributes="0"/>
                                       <Component id="jLabelMinimize" min="-2" pref="40" max="-2" attributes="0"/>
                                       <Component id="jButtonList" alignment="1" min="-2" pref="73" max="-2" attributes="0"/>
                                   </Group>
@@ -96,14 +93,14 @@
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="138" max="-2" attributes="0"/>
+                  <Component id="jScrollPane" min="-2" pref="138" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                  <Component id="jLabelnewArea" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="jLabelNewArea" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextnewArea" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextNewArea" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelUpdate" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="56" max="32767" attributes="0"/>
@@ -163,7 +160,7 @@
             <Property name="text" type="java.lang.String" value="UPDATE DEPARTMENT"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -219,7 +216,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelUpdateMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelnewArea">
+        <Component class="javax.swing.JLabel" name="jLabelNewArea">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="1"/>
@@ -240,9 +237,9 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelExitMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextnewArea">
+        <Component class="javax.swing.JTextField" name="jTextNewArea">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextnewAreaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextNewAreaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelMinimize">

@@ -52,12 +52,12 @@ public class UpdateCompetence extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabelBack = new javax.swing.JLabel();
         jLabelTitle = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableCompetences = new javax.swing.JTable();
         jButtonList = new javax.swing.JButton();
-        jTextnewDescription = new javax.swing.JTextField();
+        jTextNewDescription = new javax.swing.JTextField();
         jLabelUpdate = new javax.swing.JLabel();
-        jLabelnewDescription = new javax.swing.JLabel();
+        jLabelNewDescription = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
         jLabelMinimize = new javax.swing.JLabel();
 
@@ -112,7 +112,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableCompetences);
+        jScrollPane.setViewportView(jTableCompetences);
 
         jButtonList.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButtonList.setText("List");
@@ -127,9 +127,9 @@ public class UpdateCompetence extends javax.swing.JFrame {
             }
         });
 
-        jTextnewDescription.addActionListener(new java.awt.event.ActionListener() {
+        jTextNewDescription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextnewDescriptionActionPerformed(evt);
+                jTextNewDescriptionActionPerformed(evt);
             }
         });
 
@@ -146,9 +146,9 @@ public class UpdateCompetence extends javax.swing.JFrame {
             }
         });
 
-        jLabelnewDescription.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelnewDescription.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelnewDescription.setText("New Description");
+        jLabelNewDescription.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelNewDescription.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNewDescription.setText("New Description");
 
         jLabelExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
         jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -182,14 +182,14 @@ public class UpdateCompetence extends javax.swing.JFrame {
                         .addGap(104, 104, 104))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelnewDescription)
+                                .addComponent(jLabelNewDescription)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(345, 345, 345)
                                     .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jTextnewDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextNewDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(26, 26, 26)
                                     .addComponent(jLabelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(31, 31, 31))))
@@ -204,14 +204,14 @@ public class UpdateCompetence extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(jLabelTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
                 .addGap(77, 77, 77)
-                .addComponent(jLabelnewDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelNewDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextnewDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNewDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(90, Short.MAX_VALUE))
         );
@@ -268,7 +268,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
         }
         int row = jTableCompetences.getSelectedRow();
         int id = Integer.parseInt(jTableCompetences.getModel().getValueAt(row, 0).toString());
-        String newDescription = jTextnewDescription.getText();        
+        String newDescription = jTextNewDescription.getText();        
       
         try {
             int result = competence.updateCompetence(id, newDescription);
@@ -288,9 +288,9 @@ public class UpdateCompetence extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabelUpdateMouseClicked
 
-    private void jTextnewDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextnewDescriptionActionPerformed
+    private void jTextNewDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNewDescriptionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextnewDescriptionActionPerformed
+    }//GEN-LAST:event_jTextNewDescriptionActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(this.ICONIFIED);
@@ -352,13 +352,13 @@ public class UpdateCompetence extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelMinimize;
+    private javax.swing.JLabel jLabelNewDescription;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelUpdate;
-    private javax.swing.JLabel jLabelnewDescription;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableCompetences;
-    private javax.swing.JTextField jTextnewDescription;
+    private javax.swing.JTextField jTextNewDescription;
     // End of variables declaration//GEN-END:variables
 }

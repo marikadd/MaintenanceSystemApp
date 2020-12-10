@@ -20,7 +20,7 @@ import model.Activity.MaintenanceActivity;
 
 /**
  *
- * @author dondi
+ * @author Group9
  */
 public class SelectActivity extends javax.swing.JFrame {
 
@@ -53,11 +53,10 @@ public class SelectActivity extends javax.swing.JFrame {
         jLabelTitle = new javax.swing.JLabel();
         jButtonList = new javax.swing.JButton();
         jLabelExit = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableActivities = new javax.swing.JTable();
         jLabelMinimize = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabelIcon = new javax.swing.JLabel();
         jLabelBack = new javax.swing.JLabel();
         jComboWeek = new javax.swing.JComboBox<>();
         jLabelWeeknum = new javax.swing.JLabel();
@@ -117,7 +116,7 @@ public class SelectActivity extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableActivities);
+        jScrollPane.setViewportView(jTableActivities);
 
         jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
         jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -128,8 +127,6 @@ public class SelectActivity extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 0));
         jPanel1.setForeground(new java.awt.Color(255, 204, 0));
-
-        jLabelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/checklist.png"))); // NOI18N
 
         jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
         jLabelBack.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,23 +140,16 @@ public class SelectActivity extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabelIcon))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelBack)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabelBack)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelIcon)
-                .addGap(155, 155, 155))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jComboWeek.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52" }));
@@ -189,11 +179,11 @@ public class SelectActivity extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
+                        .addGap(239, 239, 239)
                         .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,17 +200,15 @@ public class SelectActivity extends javax.swing.JFrame {
                                             .addComponent(jComboWeek, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jButtonList))
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(116, 116, 116))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -229,7 +217,7 @@ public class SelectActivity extends javax.swing.JFrame {
                     .addComponent(jButtonList)
                     .addComponent(jLabelWeeknum))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonSelect)
                 .addGap(81, 81, 81))
@@ -315,7 +303,7 @@ public class SelectActivity extends javax.swing.JFrame {
         int ID = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 0).toString());
         String area = jTableActivities.getModel().getValueAt(row, 1).toString();
         String type = jTableActivities.getModel().getValueAt(row, 2).toString();
-        int time = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 3).toString());
+        double time = Double.parseDouble(jTableActivities.getModel().getValueAt(row, 3).toString());
         
         setVisible(false);
         AssignmentActivity aActivity = null;
@@ -372,13 +360,12 @@ public class SelectActivity extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboWeek;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
-    private javax.swing.JLabel jLabelIcon;
     private javax.swing.JLabel jLabelMinimize;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelWeeknum;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableActivities;
     // End of variables declaration//GEN-END:variables
 }

@@ -58,13 +58,13 @@ public class UpdateUser extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabelTitle = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableUsers = new javax.swing.JTable();
         jButtonList = new javax.swing.JButton();
-        jTextnewUsername = new javax.swing.JTextField();
+        jTextNewUsername = new javax.swing.JTextField();
         jTextEmail = new javax.swing.JTextField();
         jTextPhone = new javax.swing.JTextField();
-        jLabelnewUsername = new javax.swing.JLabel();
+        jLabelNewUsername = new javax.swing.JLabel();
         jLabelPassword = new javax.swing.JLabel();
         jLabelPhone = new javax.swing.JLabel();
         jLabelEmail = new javax.swing.JLabel();
@@ -111,7 +111,7 @@ public class UpdateUser extends javax.swing.JFrame {
             }
         });
         jTableUsers.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTableUsers);
+        jScrollPane.setViewportView(jTableUsers);
 
         jButtonList.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButtonList.setText("List");
@@ -126,9 +126,9 @@ public class UpdateUser extends javax.swing.JFrame {
             }
         });
 
-        jLabelnewUsername.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabelnewUsername.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelnewUsername.setText("New Username");
+        jLabelNewUsername.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabelNewUsername.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNewUsername.setText("New Username");
 
         jLabelPassword.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabelPassword.setForeground(new java.awt.Color(255, 255, 255));
@@ -198,17 +198,17 @@ public class UpdateUser extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabelnewUsername)
+                                    .addComponent(jLabelNewUsername)
                                     .addGap(356, 356, 356))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabelPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jPasswordField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(291, 291, 291)))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextnewUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextNewUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,17 +230,17 @@ public class UpdateUser extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(jLabelTitle)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
                 .addGap(60, 60, 60)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelEmail)
-                    .addComponent(jLabelnewUsername))
+                    .addComponent(jLabelNewUsername))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextnewUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextNewUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPassword)
@@ -333,7 +333,7 @@ public class UpdateUser extends javax.swing.JFrame {
         int row = jTableUsers.getSelectedRow();
         String oldUsername = jTableUsers.getModel().getValueAt(row, 0).toString();
         
-        String newUsername = check(jTextnewUsername.getText());
+        String newUsername = check(jTextNewUsername.getText());
         String password = check(jPasswordField.getPassword().toString());
         String email = check(jTextEmail.getText());
         String phone = check(jTextPhone.getText());
@@ -467,18 +467,18 @@ public class UpdateUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelMinimize;
+    private javax.swing.JLabel jLabelNewUsername;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelPhone;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelUpdate;
-    private javax.swing.JLabel jLabelnewUsername;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableUsers;
     private javax.swing.JTextField jTextEmail;
+    private javax.swing.JTextField jTextNewUsername;
     private javax.swing.JTextField jTextPhone;
-    private javax.swing.JTextField jTextnewUsername;
     // End of variables declaration//GEN-END:variables
 }

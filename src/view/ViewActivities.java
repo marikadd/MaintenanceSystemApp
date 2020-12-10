@@ -53,7 +53,7 @@ public class ViewActivities extends javax.swing.JFrame {
         jLabelTitle = new javax.swing.JLabel();
         jButtonList = new javax.swing.JButton();
         jLabelExit = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jTableActivities = new javax.swing.JTable();
         jLabelMinimize = new javax.swing.JLabel();
 
@@ -147,7 +147,7 @@ public class ViewActivities extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableActivities);
+        jScrollPane.setViewportView(jTableActivities);
 
         jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
         jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -176,7 +176,7 @@ public class ViewActivities extends javax.swing.JFrame {
                 .add(54, 54, 54)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jButtonList)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 518, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 518, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(74, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -188,7 +188,7 @@ public class ViewActivities extends javax.swing.JFrame {
                 .add(13, 13, 13)
                 .add(jLabelTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 71, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jButtonList)
                 .addContainerGap(131, Short.MAX_VALUE))
@@ -310,7 +310,7 @@ public class ViewActivities extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTableActivities;
     // End of variables declaration//GEN-END:variables
 

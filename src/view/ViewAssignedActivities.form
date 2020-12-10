@@ -24,17 +24,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel3" alignment="1" max="32767" attributes="0"/>
+          <Component id="jPanel2" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
+          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel3">
+    <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -47,29 +47,34 @@
               <Group type="102" attributes="0">
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="461" max="-2" attributes="0"/>
+                          <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jLabelMinimize1" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jLabelMinimize" min="-2" pref="40" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabelExit1" min="-2" pref="66" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabelExit" min="-2" pref="66" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jButtonList1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane2" min="-2" pref="518" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane" min="-2" pref="518" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="221" max="-2" attributes="0"/>
+                                          <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="75" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jLabelTitle1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -78,24 +83,30 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelExit1" alignment="1" min="-2" pref="55" max="-2" attributes="0"/>
-                      <Component id="jLabelMinimize1" alignment="1" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabelExit" min="-2" pref="55" max="-2" attributes="0"/>
+                              <Component id="jLabelMinimize" min="-2" pref="38" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="238" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabelTitle" min="-2" pref="71" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane" min="-2" pref="141" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Component id="jLabelTitle1" min="-2" pref="71" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="141" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButtonList1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="60" max="32767" attributes="0"/>
               </Group>
-              <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabelTitle1">
+        <Component class="javax.swing.JLabel" name="jLabelTitle">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Impact" size="30" style="0"/>
@@ -107,7 +118,7 @@
             <Property name="text" type="java.lang.String" value="ASSIGNED ACTIVITIES"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonList1">
+        <Component class="javax.swing.JButton" name="jButtonList">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="1"/>
@@ -115,11 +126,11 @@
             <Property name="text" type="java.lang.String" value="List"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonList1MouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonList1ActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonListMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonListActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelExit1">
+        <Component class="javax.swing.JLabel" name="jLabelExit">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/exit.png"/>
@@ -127,17 +138,17 @@
             <Property name="text" type="java.lang.String" value="jLabel3"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelExit1MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelExitMouseClicked"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTableActivities1">
+            <Component class="javax.swing.JTable" name="jTableActivities">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="0">
@@ -154,16 +165,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabelMinimize1">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icons/minimize.png"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelMinimize1MouseClicked"/>
-          </Events>
-        </Component>
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -177,10 +178,15 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabelBack" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="154" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabelIcon" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -190,6 +196,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabelBack" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabelIcon" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -205,8 +213,25 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelBackMouseClicked"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JLabel" name="jLabelIcon">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/user_list.png"/>
+                </Property>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="jLabelMinimize">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/minimize.png"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelMinimizeMouseClicked"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -129,7 +129,7 @@
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="518" max="-2" attributes="0"/>
+                      <Component id="jScrollPane" min="-2" pref="518" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="74" max="32767" attributes="0"/>
               </Group>
@@ -145,7 +145,7 @@
                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   <Component id="jLabelTitle" min="-2" pref="71" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="141" max="-2" attributes="0"/>
+                  <Component id="jScrollPane" min="-2" pref="141" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="131" max="32767" attributes="0"/>
@@ -189,7 +189,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelExitMouseClicked"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>

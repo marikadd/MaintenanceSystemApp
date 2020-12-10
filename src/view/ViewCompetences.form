@@ -103,7 +103,7 @@
                       <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jButtonList" min="-2" pref="73" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="400" max="-2" attributes="0"/>
+                          <Component id="jScrollPane" min="-2" pref="400" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="99" max="32767" attributes="0"/>
                   </Group>
@@ -119,7 +119,7 @@
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" pref="127" max="-2" attributes="0"/>
+                      <Component id="jScrollPane" min="-2" pref="127" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -140,7 +140,7 @@
                 <Property name="text" type="java.lang.String" value="VIEW COMPETENCES"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+            <Container class="javax.swing.JScrollPane" name="jScrollPane">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>

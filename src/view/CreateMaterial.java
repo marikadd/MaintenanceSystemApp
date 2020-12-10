@@ -51,8 +51,8 @@ public class CreateMaterial extends javax.swing.JFrame {
         jLabelExit = new javax.swing.JLabel();
         jTextType = new javax.swing.JTextField();
         jLabelCreate = new javax.swing.JLabel();
-        jLabelArea = new javax.swing.JLabel();
-        jLabelMinimize1 = new javax.swing.JLabel();
+        jLabelType = new javax.swing.JLabel();
+        jLabelMinimize = new javax.swing.JLabel();
         jLabelBack = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -93,14 +93,14 @@ public class CreateMaterial extends javax.swing.JFrame {
             }
         });
 
-        jLabelArea.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelArea.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelArea.setText("Insert Type");
+        jLabelType.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelType.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelType.setText("Insert Type");
 
-        jLabelMinimize1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
-        jLabelMinimize1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
+        jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelMinimize1MouseClicked(evt);
+                jLabelMinimizeMouseClicked(evt);
             }
         });
 
@@ -108,40 +108,41 @@ public class CreateMaterial extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(jLabelArea)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(86, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTitle)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabelMinimize1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap())
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jTextType, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(100, 100, 100))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabelCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(132, 132, 132)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabelCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(132, 132, 132))))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jTextType, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelTitle))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addComponent(jLabelType)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelMinimize1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(58, 58, 58)
                 .addComponent(jLabelTitle)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelArea)
+                .addGap(24, 24, 24)
+                .addComponent(jLabelType)
                 .addGap(18, 18, 18)
                 .addComponent(jTextType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(23, 23, 23)
                 .addComponent(jLabelCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(140, 140, 140))
         );
@@ -221,9 +222,9 @@ public class CreateMaterial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabelCreateMouseClicked
 
-    private void jLabelMinimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimize1MouseClicked
+    private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(this.ICONIFIED);
-    }//GEN-LAST:event_jLabelMinimize1MouseClicked
+    }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -261,13 +262,12 @@ public class CreateMaterial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelArea;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelCreate;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelMinimize;
-    private javax.swing.JLabel jLabelMinimize1;
     private javax.swing.JLabel jLabelTitle;
+    private javax.swing.JLabel jLabelType;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextType;

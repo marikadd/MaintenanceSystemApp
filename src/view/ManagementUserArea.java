@@ -43,8 +43,7 @@ public class ManagementUserArea extends javax.swing.JFrame {
         jButtonUpdate = new javax.swing.JButton();
         jLabelTitle = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
-        jButtonCreate1 = new javax.swing.JButton();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jButtonView = new javax.swing.JButton();
         jLabelMinimize = new javax.swing.JLabel();
         jLabelBack = new javax.swing.JLabel();
         jLabelIconCreate = new javax.swing.JLabel();
@@ -112,30 +111,19 @@ public class ManagementUserArea extends javax.swing.JFrame {
             }
         });
 
-        jButtonCreate1.setBackground(new java.awt.Color(255, 255, 255));
-        jButtonCreate1.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
-        jButtonCreate1.setText("View Users");
-        jButtonCreate1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonView.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonView.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
+        jButtonView.setText("View Users");
+        jButtonView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCreate1MouseClicked(evt);
+                jButtonViewMouseClicked(evt);
             }
         });
-        jButtonCreate1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCreate1ActionPerformed(evt);
+                jButtonViewActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 27, Short.MAX_VALUE)
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 224, Short.MAX_VALUE)
-        );
 
         jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
         jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,12 +153,10 @@ public class ManagementUserArea extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGap(85, 85, 85)
-                            .addComponent(jButtonCreate1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonView, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jButtonCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,19 +167,14 @@ public class ManagementUserArea extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(jLabelTitle)
                 .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonCreate1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jButtonCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addComponent(jButtonView, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jButtonCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
 
         jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
@@ -294,15 +275,15 @@ public class ManagementUserArea extends javax.swing.JFrame {
         dUser.setVisible(true);
     }//GEN-LAST:event_jButtonDeleteMouseClicked
 
-    private void jButtonCreate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreate1MouseClicked
+    private void jButtonViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonViewMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreate1MouseClicked
+    }//GEN-LAST:event_jButtonViewMouseClicked
 
-    private void jButtonCreate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreate1ActionPerformed
+    private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
         setVisible(false);
         ViewUser vUser = new ViewUser();
         vUser.setVisible(true);
-    }//GEN-LAST:event_jButtonCreate1ActionPerformed
+    }//GEN-LAST:event_jButtonViewActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(this.ICONIFIED);
@@ -345,9 +326,9 @@ public class ManagementUserArea extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCreate;
-    private javax.swing.JButton jButtonCreate1;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonUpdate;
+    private javax.swing.JButton jButtonView;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelIconCreate;
@@ -355,7 +336,6 @@ public class ManagementUserArea extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelIconUpdate;
     private javax.swing.JLabel jLabelMinimize;
     private javax.swing.JLabel jLabelTitle;
-    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

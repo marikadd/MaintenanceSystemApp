@@ -100,10 +100,10 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelnewArea" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelNewType" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jButtonList" min="-2" pref="73" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" min="-2" pref="334" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane" min="-2" pref="334" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jTextNewType" min="-2" pref="189" max="-2" attributes="0"/>
@@ -131,11 +131,11 @@
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="138" max="-2" attributes="0"/>
+                  <Component id="jScrollPane" min="-2" pref="138" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                  <Component id="jLabelnewArea" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="jLabelNewType" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jTextNewType" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -168,7 +168,7 @@
             <Property name="text" type="java.lang.String" value="UPDATE  MATERIAL"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -197,7 +197,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonListMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelnewArea">
+        <Component class="javax.swing.JLabel" name="jLabelNewType">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="1"/>

@@ -45,7 +45,7 @@ public class SystemAdminArea extends javax.swing.JFrame {
         jLabelExit = new javax.swing.JLabel();
         jButtonMaterial = new javax.swing.JButton();
         jButtonDepartment = new javax.swing.JButton();
-        jLabelMinimize1 = new javax.swing.JLabel();
+        jLabelMinimize = new javax.swing.JLabel();
         jLabelBack = new javax.swing.JLabel();
         jLabelIcon = new javax.swing.JLabel();
 
@@ -123,10 +123,10 @@ public class SystemAdminArea extends javax.swing.JFrame {
             }
         });
 
-        jLabelMinimize1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
-        jLabelMinimize1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
+        jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelMinimize1MouseClicked(evt);
+                jLabelMinimizeMouseClicked(evt);
             }
         });
 
@@ -145,7 +145,7 @@ public class SystemAdminArea extends javax.swing.JFrame {
                             .addComponent(jButtonMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(74, 74, 74))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelMinimize1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelExit)
                         .addContainerGap())))
@@ -159,7 +159,7 @@ public class SystemAdminArea extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelMinimize1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
@@ -279,9 +279,9 @@ public class SystemAdminArea extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonDepartmentActionPerformed
 
-    private void jLabelMinimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimize1MouseClicked
+    private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(this.ICONIFIED);
-    }//GEN-LAST:event_jLabelMinimize1MouseClicked
+    }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -327,7 +327,6 @@ public class SystemAdminArea extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelIcon;
     private javax.swing.JLabel jLabelMinimize;
-    private javax.swing.JLabel jLabelMinimize1;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

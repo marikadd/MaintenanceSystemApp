@@ -14,10 +14,12 @@ import controller.Dao.ActivityDao;
 import controller.Dao.DepartmentDao;
 import controller.Dao.UsersDao;
 import controller.Utility.UtilityUser;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import model.Activity.ActivityLinked;
 import model.Users.Maintainer;
 import model.Users.Role;
@@ -69,7 +71,7 @@ public class ActivityService {
         return activityDao.insertCompentecesInActivity(activityId, skill);
     }
 
-    public int assignActivity(String usernameMain, List<Integer> listId)
+    public int assignActivity(String usernameMain, Integer activityId, List<Integer> listIdDay)
             throws SQLException, UsernotFoundException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         // Da eliminare, la lista è infallibile
@@ -78,10 +80,13 @@ public class ActivityService {
         UserModel um = usersDao.findUserByUsername(usernameMain, Role.MAINTAINER);
         utilityUser.setUserModel(um, maintainer);
 
-        int result = activityDao.assignActivityToMaintainer(maintainer, listId);
-        for (Integer id : listId) {
-            activityDao.assignmentActivity(id);
-        }
+        List<Integer> activitiesId = new ArrayList<Integer>();
+        activitiesId.add(activityId);
+        int result = activityDao.assignActivityToMaintainer(maintainer, activitiesId);
+        
+        activityDao.assignmentActivity(activityId);
+        activityDao.setMaintainerActivityDays(usernameMain, activityId, listIdDay);
+        
 
         return result;
     }
@@ -142,10 +147,27 @@ public class ActivityService {
 
         return targets;
     }
+    
+    public int getDailyAvailability(String username, int day, double time) throws SQLException {
+        
+        double maxInDay = 480;
+        
+        double sumNumDay = activityDao.getSumActivityDay(username, day);
+        
+            
+        BigDecimal ratioDay = new BigDecimal(((maxInDay - (sumNumDay + time)) / maxInDay) * 100);
+        int percDay = ratioDay.intValue();
+        
+        if(percDay >= 0) {
+            return percDay;
+        } else {
+            return 0;
+        }
+    }
 
     private void validateMaintainer(String username) throws SQLException, UsernotFoundException {
 
         UserModel um = usersDao.findUserByUsername(username, Role.MAINTAINER);
     }
-
+ 
 }
