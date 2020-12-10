@@ -5,6 +5,9 @@
  */
 package view;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -288,7 +291,12 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
 
     private void jButtonAssignmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAssignmentMouseClicked
         setVisible(false);
-        AssignmentCompetence assignmentArea = new AssignmentCompetence();
+        AssignmentCompetence assignmentArea = null;
+        try {
+            assignmentArea = new AssignmentCompetence();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagementCompetenceArea.class.getName()).log(Level.SEVERE, null, ex);
+        }
         assignmentArea.setVisible(true);
     }//GEN-LAST:event_jButtonAssignmentMouseClicked
 

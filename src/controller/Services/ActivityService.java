@@ -19,7 +19,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import model.Activity.ActivityLinked;
 import model.Users.Maintainer;
 import model.Users.Role;
@@ -28,6 +27,7 @@ import model.Competences.Competence;
 import model.Department.Department;
 import model.Users.UserModel;
 import model.Activity.ActivityInterface;
+import model.Material.Material;
 
 /**
  *
@@ -59,7 +59,7 @@ public class ActivityService {
         return activService;
     }
 
-    public int insertActivity(String type, String description, Integer time, ArrayList<Competence> skill, Integer week_num, Department dep)
+    public int insertActivity(String type, String description, Integer time, ArrayList<Competence> skill, ArrayList<Material> materials, Integer week_num, Department dep)
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         MaintenanceActivity activity = new MaintenanceActivity();
@@ -68,7 +68,8 @@ public class ActivityService {
         activity.setTime(time);
         activity.setAssigned(false);
         int activityId = activityDao.insertActivity(type, description, time, week_num, dep);
-        return activityDao.insertCompentecesInActivity(activityId, skill);
+        int competenceId = activityDao.insertCompentecesInActivity(activityId, skill);
+        return activityDao.insertMaterialsInActivity(activityId, materials);
     }
 
     public int assignActivity(String usernameMain, Integer activityId, List<Integer> listIdDay)

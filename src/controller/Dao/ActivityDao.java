@@ -7,7 +7,6 @@ package controller.Dao;
 
 import configuration.Database.ConnectionForTest;
 import configuration.Database.DBAbstractFactory;
-import configuration.Database.DBAbstractFactory;
 import configuration.Database.DBFactoryContext;
 import configuration.Database.DBManager;
 import configuration.Database.DBProduct;
@@ -24,6 +23,7 @@ import java.util.List;
 import model.Activity.MaintenanceActivity;
 import model.Competences.Competence;
 import model.Department.Department;
+import model.Material.Material;
 import model.Users.Maintainer;
 
 /**
@@ -114,6 +114,27 @@ public class ActivityDao {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, c.getId());
             ps.setInt(2, activityId);
+
+            result = ps.executeUpdate();
+        }
+
+        return result;
+    }
+    
+    public int insertMaterialsInActivity(int activityId, List<Material> materials) throws SQLException {
+
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+
+             String query = "INSERT INTO Activity_Materials "
+                + "VALUES(?,?)";
+
+        int result = 0;
+        for (Material m : materials) {
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, activityId);
+            ps.setString(2, m.getType());
 
             result = ps.executeUpdate();
         }
@@ -374,7 +395,6 @@ String query = "select ma.* from MaintenanceActivity ma "
         
     }
     
-       
     public int getSumActivityDay(String username, int day) throws SQLException {
         
         Connection con = dbProduct.connectToDB();

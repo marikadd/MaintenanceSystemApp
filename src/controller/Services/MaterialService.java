@@ -12,7 +12,6 @@ import controller.Dao.MaterialDao;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import model.Department.Department;
 import model.Material.Material;
 
 /**
@@ -24,17 +23,17 @@ public class MaterialService {
         private MaterialDao matDao;
         
         //Singleton
-         public static MaterialService getMaterialService() {
-        if (matService == null) {
-            synchronized(MaterialService.class) {
-                if(matService == null) {
-                    matService = new MaterialService();
-                    matService.matDao = MaterialDao.init();
+        public static MaterialService getMaterialService() {
+            if (matService == null) {
+                synchronized(MaterialService.class) {
+                    if(matService == null) {
+                        matService = new MaterialService();
+                        matService.matDao = MaterialDao.init();
+                    }
                 }
             }
+            return matService;
         }
-        return matService;
-    }
          
         public int insertMaterial(String type)
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {

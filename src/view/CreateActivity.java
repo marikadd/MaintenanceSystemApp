@@ -11,6 +11,7 @@ import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import controller.Services.CompetenceService;
 import controller.Services.DepartmentService;
+import controller.Services.MaterialService;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Competences.Competence;
 import model.Department.Department;
+import model.Material.Material;
 
 /**
  *
@@ -30,6 +32,7 @@ import model.Department.Department;
 public class CreateActivity extends javax.swing.JFrame {
 
     private List<Department> depList = new LinkedList<>();
+    private List<Material> materials = new LinkedList<>();
     private DepartmentService dep = DepartmentService.getDepartmentService();
     /**
      * Creates new form CreateActivity
@@ -39,11 +42,12 @@ public class CreateActivity extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(1181, 630);
+        setSize(1172, 630);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getAllSkills();
         getDepartments();
+        getAllMaterials();
     }
 
     /**
@@ -575,18 +579,28 @@ public class CreateActivity extends javax.swing.JFrame {
         Department department = new Department(jTableDepartment.getModel().getValueAt(row, 0).toString());
         
         ArrayList<Competence> skills = new ArrayList<Competence>();
-        DefaultTableModel model = (DefaultTableModel) jTableAssociated.getModel();
+        DefaultTableModel modelC = (DefaultTableModel) jTableAssociated.getModel();
 
-        for (int i = 0; i < model.getRowCount(); i++) {
-            Integer id = Integer.parseInt(model.getValueAt(i, 0).toString());
-            String descriptionSkill = model.getValueAt(i, 1).toString();
+        for (int i = 0; i < modelC.getRowCount(); i++) {
+            Integer id = Integer.parseInt(modelC.getValueAt(i, 0).toString());
+            String descriptionSkill = modelC.getValueAt(i, 1).toString();
 
             Competence c = new Competence(id, descriptionSkill);
             skills.add(c);
         }
+        
+        ArrayList<Material> material = new ArrayList<Material>();
+        DefaultTableModel modelM = (DefaultTableModel) jTableMaterialsAssociated.getModel();
+
+        for (int i = 0; i < modelM.getRowCount(); i++) {
+            String typeMaterial = modelM.getValueAt(i, 0).toString();
+
+            Material m = new Material(typeMaterial);
+            material.add(m);
+        }
 
         try {
-            act.insertActivity(type, description, time, skills, week_num, department);
+            act.insertActivity(type, description, time, skills, material, week_num, department);
             JOptionPane.showMessageDialog(null, "Activity created successfully!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
@@ -609,6 +623,12 @@ public class CreateActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddMouseClicked
+        
+        if (jTableToAssociate.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null, "Select a skill first!");
+            return;
+        }
+        
         int posToAssociate = jTableToAssociate.getSelectedRow();
 
         if (posToAssociate >= 0) {
@@ -630,6 +650,12 @@ public class CreateActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddMouseClicked
 
     private void jButtonRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemoveMouseClicked
+        
+        if (jTableAssociated.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null, "Select a skill first!");
+            return;
+        }
+        
         int posAssociated = jTableAssociated.getSelectedRow();
 
         if (posAssociated >= 0) {
@@ -686,7 +712,28 @@ public class CreateActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelMinimize1MouseClicked
 
     private void jButtonAdd1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAdd1MouseClicked
-        // TODO add your handling code here:
+        
+        if (jTableMaterialsToAssociate.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null, "Select a material first!");
+            return;
+        }
+        
+        int posToAssociate = jTableMaterialsToAssociate.getSelectedRow();
+
+        if (posToAssociate >= 0) {
+
+            String type = jTableMaterialsToAssociate.getModel().getValueAt(posToAssociate, 0).toString();
+
+            DefaultTableModel model = (DefaultTableModel) jTableMaterialsAssociated.getModel();
+            Object column[] = new Object[1];
+            
+            column[0] = type;
+
+            model.addRow(column);
+
+            DefaultTableModel modelToAssociate = (DefaultTableModel) jTableMaterialsToAssociate.getModel();
+            modelToAssociate.removeRow(posToAssociate);
+        }
     }//GEN-LAST:event_jButtonAdd1MouseClicked
 
     private void jButtonAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdd1ActionPerformed
@@ -694,7 +741,28 @@ public class CreateActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAdd1ActionPerformed
 
     private void jButtonRemove1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemove1MouseClicked
-        // TODO add your handling code here:
+        
+        if (jTableMaterialsAssociated.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null, "Select a material first!");
+            return;
+        }
+        
+        int posAssociated = jTableMaterialsAssociated.getSelectedRow();
+
+        if (posAssociated >= 0) {
+
+            String type = jTableMaterialsAssociated.getModel().getValueAt(posAssociated, 0).toString();
+
+            DefaultTableModel model = (DefaultTableModel) jTableMaterialsToAssociate.getModel();
+            Object column[] = new Object[1];
+
+            column[0] = type;
+
+            model.addRow(column);
+
+            DefaultTableModel modelAssociated = (DefaultTableModel) jTableMaterialsAssociated.getModel();
+            modelAssociated.removeRow(posAssociated);
+        }
     }//GEN-LAST:event_jButtonRemove1MouseClicked
 
     private void jButtonRemove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemove1ActionPerformed
@@ -723,7 +791,27 @@ public class CreateActivity extends javax.swing.JFrame {
         }
 
     }
-
+    
+    private void getAllMaterials(){
+        
+        MaterialService matService = MaterialService.getMaterialService();       
+        
+        try {
+            
+            materials = matService.getAllMaterials();
+            DefaultTableModel model = (DefaultTableModel) jTableMaterialsToAssociate.getModel();
+                    
+            for (Material m : materials){
+            
+                Object[] column = new Object[1];
+                column[0] = m.getType();
+            
+                model.addRow(column);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error in database");
+        }
+    }
     /**
      * @param args the command line arguments
      */
