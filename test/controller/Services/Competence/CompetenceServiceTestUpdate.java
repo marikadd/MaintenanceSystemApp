@@ -42,7 +42,7 @@ public class CompetenceServiceTestUpdate {
     @Test
     public void testUpdateCompetence() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 35;//id che esiste
+        Integer id = 2;//id che esiste
         String newDescription = "Repair Broken Tubes";
         int notExpResult = 0;
         int result = cps.updateCompetence(id, newDescription);
@@ -70,7 +70,7 @@ public class CompetenceServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateCompetence2() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 19; //id che esiste
+        Integer id = 3; //id che esiste
         String newDescription = "Samaloomadumaloomayoureassumingimahumanwhatigottadotogetitthroughtoyouimasuperhuman";
         int expResult = 0;
         int result = cps.updateCompetence(id, newDescription);
@@ -84,7 +84,7 @@ public class CompetenceServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateCompetence4() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 19;//id che esiste
+        Integer id = 3;//id che esiste
         String newDescription = "";
         int expResult = 0;
         int result = cps.updateCompetence(id, newDescription);

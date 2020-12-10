@@ -78,11 +78,11 @@ public class DepartmentServiceTestInsert {
         int result = ds.insertDepartment(area);
         assertEquals(result, expResult);
         
-    }
+    } 
     
     /**
      * Test of insertDepartment method, of class DepartmentService, inserting an
-     * invalid Department(length>30). 
+     * invalid Department(length > 30). 
      */
     @Test(expected=InvalidParameterObjectException.class)
     public void testInsertDepartment3() throws Exception {

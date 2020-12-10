@@ -1,4 +1,4 @@
-DELETE FROM Competence;
+
 DELETE FROM Users_Competences;
 DELETE FROM Activity_Competences;
 DELETE FROM Activity_Maintainers;
@@ -6,12 +6,13 @@ DELETE FROM MaintenanceActivity;
 DELETE FROM Department;
 DELETE FROM Material;
 DELETE FROM Users;
-
+DELETE FROM Competence;
 
 insert into Users values ('Mario','Rossi', 'mrossi', 'MRossi98', 'mariorossi@gmail.it', '3339546046', 'MAINTAINER');
 insert into Users values ('Luca','Bianchi', 'lbianchi', 'LBianchi*', 'lbianchi@gmail.it', '3349646278', 'PLANNER');
 insert into Users values ('Fabio','Cerruti', 'fcerruti', 'Fcerruti98@', 'fcerruti@gmail.it', '3331146046', 'MAINTAINER');
-
+insert into Users values ('Giacomo','Coppola', 'gcoppola', 'GCoppola98@', 'gcoppola@gmail.it', '3462234556', 'SYSTEM_ADMIN');
+insert into Users values ('Lucio','Fermi', 'lfermi', 'LFermi1998@', 'lfermi@gmail.it', '3331146099', 'PROD_MANAGER');
 
 insert into Competence (Description) values ('PAV Certification');
 insert into Competence (Description) values ('Mechanical Maintenance');
@@ -30,4 +31,4 @@ insert into Material(Type_Material) values ('Iron');
 insert into Material(Type_Material) values ('Wood');
 insert into Material(Type_Material) values ('Marble');
 
-ALTER SEQUENCE Competence_ID_seq RESTART WITH 1;
+

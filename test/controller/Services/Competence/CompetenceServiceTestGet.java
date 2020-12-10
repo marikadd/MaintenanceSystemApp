@@ -50,7 +50,7 @@ public class CompetenceServiceTestGet {
         System.out.println("getAllCompetences");
         List<Competence> list = cps.getAllCompetences();
         int result = list.size();
-        int ExpectedResult = 4; //righe della tabella competence
+        int ExpectedResult = 5; //righe della tabella competence
         assertEquals(result, ExpectedResult);
     }
 
@@ -65,7 +65,7 @@ public class CompetenceServiceTestGet {
         List<CompetenceInterface> list = new LinkedList<>();
         list = cps.getAllCompetenceTarget(username);
         int result = list.size();
-        int ExpectedResult = 4; //efettive righe nel database
+        int ExpectedResult = 5; //efettive righe nel database
         assertEquals(result, ExpectedResult);
     }
     

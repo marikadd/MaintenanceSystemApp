@@ -54,11 +54,11 @@ public class MaterialDao {
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
         
-        String query = "INSERT INTO Material(Type) VALUES(?)";
+        String query = "INSERT INTO Material(Type_Material) VALUES(?)";
         
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
-        
+         
         int result = ps.executeUpdate();
         
         if(result == 0) {
@@ -69,9 +69,12 @@ public class MaterialDao {
     }
     
     private Material getMaterial(ResultSet rs) throws SQLException {
-        Material m = new Material(rs.getString("Type"));
+        
+        Material m = new Material(rs.getString("Type_Material"));
         return m;
+        
     }
+    
     public List<Material> findAllMaterials() throws SQLException {
         
         Connection con = dbProduct.connectToDB();
@@ -98,7 +101,7 @@ public class MaterialDao {
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
         
-        String query = "UPDATE Material SET Type = ? WHERE Type = ?";
+        String query = "UPDATE Material SET Type_Material = ? WHERE Type_Material = ?";
         
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, newMaterial);
@@ -118,7 +121,7 @@ public class MaterialDao {
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
         
-        String query = "DELETE FROM Material WHERE Type = ?";
+        String query = "DELETE FROM Material WHERE Type_Material = ?";
         
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
