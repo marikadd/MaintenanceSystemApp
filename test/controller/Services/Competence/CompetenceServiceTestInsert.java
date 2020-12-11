@@ -51,7 +51,7 @@ public class CompetenceServiceTestInsert {
      * Test of insertCompetence method, inserting a Competence
      * with a description that already exists.
      */
-    @Test(expected=InvalidParameterObjectException.class)
+    @Test(expected=SQLException.class)
     public void testInsertCompetence1() throws Exception {
         System.out.println("insertCompetence");
         String description = "PAV Certification";
@@ -64,7 +64,7 @@ public class CompetenceServiceTestInsert {
      * Test of insertCompetence method, inserting a Competence
      * with an invalid description (empty).
      */
-    @Test(expected=SQLException.class)
+    @Test(expected=InvalidParameterObjectException.class)
     public void testInsertCompetence2() throws Exception {
         System.out.println("insertCompetence");
         String description = "";  

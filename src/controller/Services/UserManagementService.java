@@ -11,8 +11,10 @@ import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Dao.*;
 import controller.Utility.UtilityUser;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import model.Activity.MaintenanceActivity;
 import model.Users.*;
 
 /**
@@ -61,7 +63,32 @@ public class UserManagementService {
     }
 
     public int deleteUser(String username) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
+        
+        unassignedActivityAndNotifyPlanner(username);
         return usersDao.deleteUserModel(username);
+    }
+    
+    private void unassignedActivityAndNotifyPlanner(String username) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+        
+        List<MaintenanceActivity> activities = activityDao.findActivityByMaintainer(username);
+        
+        if(activities.size() > 0) {
+            
+            List<String> notifications = new ArrayList<>();
+            
+            for(MaintenanceActivity activity: activities) {
+                notifications.add(String.format("Activity %s has been not assigned to %s yet", activity.getDescription(), username));
+                activityDao.deassignActivity(activity.getID());
+            }
+            
+            for(String message: notifications) {
+                
+                notificationDao.insertMessageNotificationPlanner(message);
+                
+            }
+            
+        }
+        
     }
     
     public ProdManager findProdManagerByUsername(String username) throws SQLException, UsernotFoundException {

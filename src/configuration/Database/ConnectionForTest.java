@@ -51,7 +51,8 @@ public class ConnectionForTest {
                 if("".equals(line.trim())) continue;
                 
                 PreparedStatement ps = conn.prepareStatement(line);
-                ps.executeUpdate();
+                if(line.startsWith("SELECT")) ps.executeQuery();
+                else ps.executeUpdate();
                 
             }
             

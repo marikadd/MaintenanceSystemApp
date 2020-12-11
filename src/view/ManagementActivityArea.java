@@ -6,7 +6,13 @@
 
 package view;
 
+import controller.Services.NotificationService;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,7 +20,10 @@ import javax.swing.ImageIcon;
  */
 
 public class ManagementActivityArea extends javax.swing.JFrame {
-
+    
+    private NotificationService notService = NotificationService.init();
+    private List<String> messages;
+    
     /** Creates new form ManagementActivityArea */
     public ManagementActivityArea() {
         initComponents();
@@ -24,8 +33,19 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         setSize(752,600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        initNotification();
     }
 
+    private void initNotification() {
+        
+        try {
+            messages = notService.readNotifications();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagementActivityArea.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -35,6 +55,10 @@ public class ManagementActivityArea extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabelBack = new javax.swing.JLabel();
         jLabelIconCreate = new javax.swing.JLabel();
@@ -51,6 +75,13 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         jButtonSelect = new javax.swing.JButton();
         jLabelMinimize = new javax.swing.JLabel();
         jButtonViewAssigned = new javax.swing.JButton();
+        jLabelNotification = new javax.swing.JLabel();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenu1.setText("jMenu1");
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -200,12 +231,21 @@ public class ManagementActivityArea extends javax.swing.JFrame {
             }
         });
 
+        jLabelNotification.setText("Notification");
+        jLabelNotification.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelNotificationMouseClicked(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .add(jLabelNotification, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jLabelMinimize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 67, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -231,10 +271,12 @@ public class ManagementActivityArea extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(jLabelMinimize)
-                        .add(6, 6, 6))
-                    .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jLabelNotification, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabelMinimize))
+                        .add(6, 6, 6)))
                 .add(19, 19, 19)
                 .add(jLabelTitle)
                 .add(35, 35, 35)
@@ -336,6 +378,20 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonViewAssignedActionPerformed
 
+    private void jLabelNotificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelNotificationMouseClicked
+        
+        String notificationDistribution = "";
+        for(String message: messages) {
+            notificationDistribution += message + "\n";
+        }
+        
+        if(!messages.isEmpty()) {
+            JOptionPane.showMessageDialog(null, notificationDistribution, "Messages", 
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jLabelNotificationMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -385,9 +441,14 @@ public class ManagementActivityArea extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelIconDelete;
     private javax.swing.JLabel jLabelIconUpdate;
     private javax.swing.JLabel jLabelMinimize;
+    private javax.swing.JLabel jLabelNotification;
     private javax.swing.JLabel jLabelTitle;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
     // End of variables declaration//GEN-END:variables
 
 }

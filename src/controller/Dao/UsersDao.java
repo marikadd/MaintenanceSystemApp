@@ -168,18 +168,16 @@ public class UsersDao {
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
-        String query = "UPDATE Users SET Name_User = coalesce(?, Name_User), Surname = coalesce(?,Surname), "
+        String query = "UPDATE Users SET "
                 + "Username = coalesce(?,Username), PW = coalesce(?, PW), Email = coalesce(?,Email), "
                 + "PhoneNumber = coalesce(?,PhoneNumber) where Username = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, userModel.getName());
-        ps.setString(2, userModel.getSurname());
-        ps.setString(3, userModel.getUsername());
-        ps.setString(4, userModel.getPassword());
-        ps.setString(5, userModel.getEmail());
-        ps.setString(6, userModel.getPhone());
-        ps.setString(7, oldUsername);
+        ps.setString(1, userModel.getUsername());
+        ps.setString(2, userModel.getPassword());
+        ps.setString(3, userModel.getEmail());
+        ps.setString(4, userModel.getPhone());
+        ps.setString(5, oldUsername);
 
         int result = ps.executeUpdate();
 

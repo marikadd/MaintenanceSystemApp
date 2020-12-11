@@ -365,7 +365,7 @@ public class ActivityDao {
     }
     */
     
-    /*
+    
     public List<MaintenanceActivity> findActivityByMaintainer(String username) throws SQLException {
         
         Connection con = dbProduct.connectToDB();
@@ -388,8 +388,7 @@ public class ActivityDao {
         return activities;
         
     }
-
-     */
+    
     public TreeMap<String, Integer> findAssignedActivities() throws SQLException {
 
         Connection con = dbProduct.connectToDB();

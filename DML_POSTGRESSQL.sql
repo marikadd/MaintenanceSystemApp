@@ -8,6 +8,12 @@ DELETE FROM Material;
 DELETE FROM Users;
 DELETE FROM Competence;
 
+SELECT setval('competence_id_seq', 1, false);
+SELECT setval('maintaineractivityday_id_seq', 1, false);
+SELECT setval('maintenanceactivity_id_seq', 1, false);
+SELECT setval('material_id_seq', 1, false);
+
+
 insert into Users values ('Mario','Rossi', 'mrossi', 'MRossi98', 'mariorossi@gmail.it', '3339546046', 'MAINTAINER');
 insert into Users values ('Luca','Bianchi', 'lbianchi', 'LBianchi*', 'lbianchi@gmail.it', '3349646278', 'PLANNER');
 insert into Users values ('Fabio','Cerruti', 'fcerruti', 'Fcerruti98@', 'fcerruti@gmail.it', '3331146046', 'MAINTAINER');
