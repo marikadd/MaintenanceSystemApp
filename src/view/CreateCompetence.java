@@ -191,8 +191,10 @@ public class CreateCompetence extends javax.swing.JFrame {
         
         String description = jTextDescription.getText();
         
+        int result = 0;
+        
         try {
-            int result = comp.insertCompetence(description);
+            result = comp.insertCompetence(description);
             if(result > 0) {
                 JOptionPane.showMessageDialog(null, "Competence created successfully!");
             } else {

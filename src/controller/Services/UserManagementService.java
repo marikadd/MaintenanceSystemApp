@@ -24,6 +24,8 @@ public class UserManagementService {
 
     private static UserManagementService ums;
     private UsersDao usersDao = UsersDao.init();
+    private ActivityDao activityDao = ActivityDao.init();
+    private NotificationDao notificationDao = NotificationDao.init();
 
     //Singleton
     private UserManagementService() {

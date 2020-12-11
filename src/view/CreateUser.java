@@ -317,13 +317,15 @@ public class CreateUser extends javax.swing.JFrame {
         
         try {
            int result=this.createUser(username, password, name, surname, email, phone, role);
-           if (result!=0){
-            JOptionPane.showMessageDialog(null, "User created successfully!");
-           }
+            if (result > 0){
+                JOptionPane.showMessageDialog(null, "User created successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No user insert!");
+            }
         } catch (InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");;
+            JOptionPane.showMessageDialog(null, "User already exists");;
         } catch (UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, "Cannot insert this user");
         }

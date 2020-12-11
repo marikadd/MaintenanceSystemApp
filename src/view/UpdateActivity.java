@@ -380,12 +380,17 @@ public class UpdateActivity extends javax.swing.JFrame {
 
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
 
+        if (jTableActivities.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null, "Please, select an activity first");
+            return;
+        }
         // ID is selected from the table by clicking on a specific row
         int row = jTableActivities.getSelectedRow();
         int ID = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 0).toString());
 
         String type = check(jTextFieldType.getText());
         String description = check(jTextFieldDescription.getText());
+        
         String time_interv = check(jTextFieldTime.getText());
         int time;
         if (time_interv == null){
@@ -410,12 +415,15 @@ public class UpdateActivity extends javax.swing.JFrame {
             int rowdep = jTableDepartment.getSelectedRow();
             area = jTableDepartment.getModel().getValueAt(rowdep, 0).toString();
         }
+       
         Department department = new Department(area);
         
         try {
             int result = activity.updateActivity(ID, type, description, time, week_num, department);
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Activity updated successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No activity updated!");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");

@@ -365,9 +365,12 @@ public class CreateActivity extends javax.swing.JFrame {
                         .add(35, 35, 35)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabelTitleSkillsAssigned)
-                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(jButtonRemove)
-                                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(jButtonRemove)
+                                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(227, 227, 227)
+                                .add(jButtonRemove1)))
                         .add(0, 0, Short.MAX_VALUE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -395,22 +398,17 @@ public class CreateActivity extends javax.swing.JFrame {
                                             .add(jComboWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 231, Short.MAX_VALUE))
                                     .add(jPanel2Layout.createSequentialGroup()
-                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                            .add(jPanel2Layout.createSequentialGroup()
-                                                .add(0, 0, Short.MAX_VALUE)
-                                                .add(jButtonRemove1))
-                                            .add(jPanel2Layout.createSequentialGroup()
-                                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonAdd))
-                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                    .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                    .add(jLabelMaterialsAssigned)
-                                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                                        .add(jButtonAdd1)
-                                                        .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                                    .add(jLabelTitleMaterialsToAssign))))
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonAdd))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelMaterialsAssigned)
+                                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                                .add(jButtonAdd1)
+                                                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                            .add(jLabelTitleMaterialsToAssign))
                                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(56, 56, 56)
@@ -558,6 +556,7 @@ public class CreateActivity extends javax.swing.JFrame {
         String type = jTextFieldType.getText();
         String description = jTextFieldDescription.getText();
 
+        /*
         if ("".equals(jTextFieldTime.getText())) {
             JOptionPane.showMessageDialog(null, "Field Time must be filled");
             return;
@@ -567,7 +566,8 @@ public class CreateActivity extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Field Time must be numeric");
             return;
         }
-
+        */
+        
         Integer time = Integer.parseInt(jTextFieldTime.getText());
         Integer week_num = Integer.parseInt(jComboWeek.getSelectedItem().toString());
         
@@ -589,6 +589,11 @@ public class CreateActivity extends javax.swing.JFrame {
             skills.add(c);
         }
         
+        if(skills.size() == 0){
+            JOptionPane.showMessageDialog(null, "Please, select almost a skill to assign");
+            return;
+        }
+            
         ArrayList<Material> material = new ArrayList<Material>();
         DefaultTableModel modelM = (DefaultTableModel) jTableMaterialsAssociated.getModel();
 

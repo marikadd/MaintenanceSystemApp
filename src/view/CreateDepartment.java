@@ -216,7 +216,7 @@ public class CreateDepartment extends javax.swing.JFrame {
         } catch (InvalidPermissionException ex) {
             JOptionPane.showMessageDialog(null, "Invalid permission"); 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
+            JOptionPane.showMessageDialog(null, "Department already exists");
         } catch (UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, "Cannot create this department");
         } catch (InvalidParameterObjectException ex) {

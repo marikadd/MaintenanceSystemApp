@@ -6,7 +6,9 @@
 
 package view;
 
+import configuration.Exceptions.ActivityAlreadyAssignedException;
 import configuration.Exceptions.InvalidParameterObjectException;
+import configuration.Exceptions.TimeExpiredException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.ActivityService;
@@ -14,6 +16,9 @@ import controller.Services.CompetenceService;
 import controller.Services.UserManagementService;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,6 +64,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         this.time = time;
         jLabelInfo.setText(this.showInfo());
         jLabelWeek.setText(String.valueOf(week));
+        jLabelCurrentWeek.setText(this.getCurrentWeek());
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
@@ -68,6 +74,13 @@ public class AssignmentActivity extends javax.swing.JFrame {
         showSkillsNeeded();
         getMaintainers();
         initMapIdDays();
+    }
+    
+    private String getCurrentWeek(){
+        Calendar calendar = new GregorianCalendar();
+        Date trialTime = new Date();   
+        calendar.setTime(trialTime);     
+        return String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
     }
     
     private void initMapIdDays() {
@@ -120,9 +133,9 @@ public class AssignmentActivity extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableSkills = new javax.swing.JTable();
         jLabelInfo = new javax.swing.JLabel();
-        jLabelWeek = new javax.swing.JLabel();
+        jLabelCurrentWeek = new javax.swing.JLabel();
         jLabelActivityInfo = new javax.swing.JLabel();
-        jLabelWeekNum = new javax.swing.JLabel();
+        jLabelCurrentWeekNum = new javax.swing.JLabel();
         jCheckBoxMon = new javax.swing.JCheckBox();
         jCheckBoxTue = new javax.swing.JCheckBox();
         jCheckBoxWed = new javax.swing.JCheckBox();
@@ -142,6 +155,8 @@ public class AssignmentActivity extends javax.swing.JFrame {
         jLabelTitleCheck = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabelBack = new javax.swing.JLabel();
+        jLabelWeek = new javax.swing.JLabel();
+        jLabelWeekNum1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -238,9 +253,10 @@ public class AssignmentActivity extends javax.swing.JFrame {
         jLabelInfo.setFont(new java.awt.Font("Impact", 0, 17)); // NOI18N
         jLabelInfo.setOpaque(true);
 
-        jLabelWeek.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelWeek.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
-        jLabelWeek.setOpaque(true);
+        jLabelCurrentWeek.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelCurrentWeek.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
+        jLabelCurrentWeek.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCurrentWeek.setOpaque(true);
 
         jLabelActivityInfo.setBackground(new java.awt.Color(255, 204, 0));
         jLabelActivityInfo.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -249,9 +265,9 @@ public class AssignmentActivity extends javax.swing.JFrame {
         jLabelActivityInfo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 0), new java.awt.Color(255, 204, 0), null, null));
         jLabelActivityInfo.setOpaque(true);
 
-        jLabelWeekNum.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabelWeekNum.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelWeekNum.setText("Week N°");
+        jLabelCurrentWeekNum.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelCurrentWeekNum.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelCurrentWeekNum.setText("Current Week N°");
 
         jCheckBoxMon.setText("jCheckBox1");
         jCheckBoxMon.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -377,6 +393,15 @@ public class AssignmentActivity extends javax.swing.JFrame {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabelWeek.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelWeek.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
+        jLabelWeek.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelWeek.setOpaque(true);
+
+        jLabelWeekNum1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelWeekNum1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelWeekNum1.setText("Activity Week N°");
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -390,60 +415,68 @@ public class AssignmentActivity extends javax.swing.JFrame {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(330, 330, 330)
-                        .add(jLabelTitle)
-                        .add(0, 0, Short.MAX_VALUE))
-                    .add(jPanel2Layout.createSequentialGroup()
                         .add(50, 50, 50)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 205, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabelActivityInfo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabelInfo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 242, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabelWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabelWeekNum)
-                            .add(jLabelSkills, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 51, Short.MAX_VALUE)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jButtonAssign)
-                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabelMaintainersAvail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)))
-                                .add(29, 29, 29))
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(jLabelCurrentWeekNum)
+                                .add(224, 224, 224)
+                                .add(jLabelTitle)
+                                .add(0, 0, Short.MAX_VALUE))
+                            .add(jPanel2Layout.createSequentialGroup()
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabelTitleAct)
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabelTitleCheck, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(39, 39, 39)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jCheckBoxMon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jLabelMon))
-                                .add(50, 50, 50)
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 205, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelActivityInfo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelInfo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 242, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelSkills, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelCurrentWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(jLabelWeekNum1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                                        .add(181, 181, 181)))
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabelTue)
-                                    .add(jCheckBoxTue, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(41, 41, 41)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jCheckBoxWed, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jLabelWed))
-                                .add(45, 45, 45)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabelThu)
-                                    .add(jCheckBoxThu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(39, 39, 39)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabelFri, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jCheckBoxFri, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(47, 47, 47)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabelSat)
-                                    .add(jCheckBoxSat, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(44, 44, 44)
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jCheckBoxSun, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jLabelSun, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(33, 33, 33)))))
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(jButtonAssign)
+                                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabelMaintainersAvail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)))
+                                        .add(29, 29, 29))
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                            .add(jLabelTitleAct, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .add(jLabelTitleCheck, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .add(39, 39, 39)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(jCheckBoxMon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelMon))
+                                        .add(50, 50, 50)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jLabelTue)
+                                            .add(jCheckBoxTue, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .add(41, 41, 41)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(jCheckBoxWed, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelWed))
+                                        .add(45, 45, 45)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jLabelThu)
+                                            .add(jCheckBoxThu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .add(39, 39, 39)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jLabelFri, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jCheckBoxFri, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .add(47, 47, 47)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jLabelSat)
+                                            .add(jCheckBoxSat, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .add(44, 44, 44)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(jCheckBoxSun, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jLabelSun, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .add(33, 33, 33)))))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -464,7 +497,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
                                     .add(jLabelFri)
                                     .add(jLabelSat)
                                     .add(jLabelSun))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 27, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 26, Short.MAX_VALUE)
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                                     .add(jCheckBoxMon)
                                     .add(jCheckBoxTue)
@@ -477,37 +510,41 @@ public class AssignmentActivity extends javax.swing.JFrame {
                             .add(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .add(jLabelTitleCheck)
-                                .add(2, 2, 2)
+                                .add(0, 0, 0)
                                 .add(jLabelTitleAct)
-                                .add(25, 25, 25))))
+                                .add(25, 25, 25)))
+                        .add(6, 6, 6))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jLabelMinimize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jLabelWeekNum)
+                        .add(jLabelCurrentWeekNum)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabelCurrentWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabelWeekNum1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabelWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(23, 23, 23)
-                        .add(jLabelActivityInfo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(18, 18, 18)
+                        .add(jLabelActivityInfo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(5, 5, 5)
-                        .add(jLabelMaintainersAvail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jLabelInfo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(jLabelSkills)
+                        .add(0, 0, 0)
+                        .add(jLabelMaintainersAvail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(83, 83, 83))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 177, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButtonAssign, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(79, 79, 79))))
+                        .add(79, 79, 79))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(16, 16, 16)
+                        .add(jLabelInfo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jLabelSkills)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(83, 83, 83))))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -577,8 +614,34 @@ public class AssignmentActivity extends javax.swing.JFrame {
         }      
     }
     
+    private void leftFromUserTable() {
+        
+        DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
+        
+        int length = users.getRowCount();
+        
+        for(int i = 0; i < length; i++) {
+            users.removeRow(0);
+        }
+        
+    }
+    
     private void jButtonAssignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAssignMouseClicked
         
+        if (jTableMaintainersAvail.getSelectionModel().isSelectionEmpty()){
+                JOptionPane.showMessageDialog(null, "Please, select a Maintainer first");
+                return;
+        }
+        
+        if (!jCheckBoxMon.isSelected() && !jCheckBoxTue.isSelected() && 
+            !jCheckBoxWed.isSelected() && !jCheckBoxThu.isSelected() && 
+            !jCheckBoxFri.isSelected() && !jCheckBoxSat.isSelected() &&
+            !jCheckBoxSun.isSelected()){
+                 
+                JOptionPane.showMessageDialog(null, "Please, select a day first");
+                return;
+        }
+         
         try {
             int selectedIndex = jTableMaintainersAvail.getSelectedRow();
             DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
@@ -596,7 +659,10 @@ public class AssignmentActivity extends javax.swing.JFrame {
             if(jCheckBoxSun.isSelected()) listDays.add(7);
             
             
-            int result = activityService.assignActivity(username, ID, listDays);
+            int result = activityService.assignActivity(username, ID, listDays, time);
+            
+            leftFromUserTable();
+            showUsers(listMaintainers);
             
             if(result > 0) JOptionPane.showMessageDialog(null, "Activity assigned successfully!");
             else JOptionPane.showMessageDialog(null, "No activity assigned!");
@@ -607,6 +673,10 @@ public class AssignmentActivity extends javax.swing.JFrame {
         } catch (UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, "Cannot assign activity to Maintainer");
         } catch (InvalidParameterObjectException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } catch (TimeExpiredException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } catch (ActivityAlreadyAssignedException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         
@@ -649,36 +719,46 @@ public class AssignmentActivity extends javax.swing.JFrame {
         
     }
     
+    private void uncheckWeekDays(int day) {
+        if(day != 1) jCheckBoxMon.setSelected(false);
+        if(day != 2) jCheckBoxTue.setSelected(false);
+        if(day != 3) jCheckBoxWed.setSelected(false);
+        if(day != 4) jCheckBoxThu.setSelected(false);
+        if(day != 5) jCheckBoxFri.setSelected(false);
+        if(day != 6) jCheckBoxSat.setSelected(false);
+        if(day != 7) jCheckBoxSun.setSelected(false);
+    }
+    
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(this.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     private void jCheckBoxMonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxMonStateChanged
-        
+        uncheckWeekDays(1);
     }//GEN-LAST:event_jCheckBoxMonStateChanged
 
     private void jCheckBoxTueStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxTueStateChanged
-  
+        uncheckWeekDays(2);
     }//GEN-LAST:event_jCheckBoxTueStateChanged
 
     private void jCheckBoxWedStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxWedStateChanged
-   
+        uncheckWeekDays(3);
     }//GEN-LAST:event_jCheckBoxWedStateChanged
 
     private void jCheckBoxThuStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxThuStateChanged
- 
+        uncheckWeekDays(4);
     }//GEN-LAST:event_jCheckBoxThuStateChanged
 
     private void jCheckBoxFriStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxFriStateChanged
-
+        uncheckWeekDays(5);
     }//GEN-LAST:event_jCheckBoxFriStateChanged
 
     private void jCheckBoxSatStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxSatStateChanged
-     
+        uncheckWeekDays(6);
     }//GEN-LAST:event_jCheckBoxSatStateChanged
 
     private void jCheckBoxSunStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxSunStateChanged
-
+        uncheckWeekDays(7);
     }//GEN-LAST:event_jCheckBoxSunStateChanged
     
     /**
@@ -731,6 +811,8 @@ public class AssignmentActivity extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBoxWed;
     private javax.swing.JLabel jLabelActivityInfo;
     private javax.swing.JLabel jLabelBack;
+    private javax.swing.JLabel jLabelCurrentWeek;
+    private javax.swing.JLabel jLabelCurrentWeekNum;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelFri;
     private javax.swing.JLabel jLabelInfo;
@@ -747,7 +829,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTue;
     private javax.swing.JLabel jLabelWed;
     private javax.swing.JLabel jLabelWeek;
-    private javax.swing.JLabel jLabelWeekNum;
+    private javax.swing.JLabel jLabelWeekNum1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

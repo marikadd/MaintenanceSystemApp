@@ -5,9 +5,11 @@
  */
 package controller.Services;
 
+import configuration.Exceptions.ActivityAlreadyAssignedException;
 import configuration.Exceptions.ActivityNotFoundException;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.InvalidPermissionException;
+import configuration.Exceptions.TimeExpiredException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Dao.ActivityDao;
@@ -19,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeMap;
 import model.Activity.ActivityLinked;
 import model.Users.Maintainer;
 import model.Users.Role;
@@ -72,9 +75,12 @@ public class ActivityService {
         return activityDao.insertMaterialsInActivity(activityId, materials);
     }
 
-    public int assignActivity(String usernameMain, Integer activityId, List<Integer> listIdDay)
-            throws SQLException, UsernotFoundException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+    public int assignActivity(String usernameMain, Integer activityId, List<Integer> listIdDay, double time)
+            throws SQLException, UsernotFoundException, UnsuccessfulUpdateException, InvalidParameterObjectException, TimeExpiredException, ActivityAlreadyAssignedException {
 
+        checkActivityAlreadyAssigned(activityId);
+        checkTimeInDay(usernameMain, listIdDay.get(0), time);
+        
         // Da eliminare, la lista è infallibile
         UtilityUser<Maintainer> utilityUser = new UtilityUser<Maintainer>();
         Maintainer maintainer = new Maintainer();
@@ -151,24 +157,60 @@ public class ActivityService {
     
     public int getDailyAvailability(String username, int day, double time) throws SQLException {
         
-        double maxInDay = 480;
+        double maxInDay = 420;
         
         double sumNumDay = activityDao.getSumActivityDay(username, day);
         
+        if(sumNumDay == 0.0) {
+            return 100;
+        }
             
-        BigDecimal ratioDay = new BigDecimal(((maxInDay - (sumNumDay + time)) / maxInDay) * 100);
+        BigDecimal ratioDay = new BigDecimal(((maxInDay - (sumNumDay)) / maxInDay) * 100);
         int percDay = ratioDay.intValue();
         
-        if(percDay >= 0) {
+        if(percDay > 0) {
             return percDay;
         } else {
             return 0;
         }
     }
 
+   
+    private void checkTimeInDay(String username, int day , double time) throws SQLException, TimeExpiredException {
+        
+        double sumNumDay = activityDao.getSumActivityDay(username, day);
+        
+        if((sumNumDay + time) > 480) {
+            
+            throw new TimeExpiredException(String.format("Cannot assign to %s %.0f minutes in day %d.\nShow others maintainer's availability in the selected day.", username, time, day));
+            
+        }
+    }
+    
+    private void checkActivityAlreadyAssigned(int maintainerActivityId) throws SQLException, ActivityAlreadyAssignedException {
+        
+        boolean result = activityDao.checkActivityAssigned(maintainerActivityId);
+        
+        if(result) {
+            throw new ActivityAlreadyAssignedException("Activity selected already assigned to another maintainer");
+        }
+    }
+    
+    public TreeMap<String, Integer> getAssignedActivities() throws SQLException{
+        
+        TreeMap<String, Integer> activityMap = new TreeMap<>();
+        activityMap = activityDao.findAssignedActivities();
+        
+        return activityMap;
+        
+    }
+    
+    /*
     private void validateMaintainer(String username) throws SQLException, UsernotFoundException {
 
         UserModel um = usersDao.findUserByUsername(username, Role.MAINTAINER);
     }
+    */
+    
  
 }

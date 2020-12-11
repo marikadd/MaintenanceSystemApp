@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeMap;
 import model.Activity.MaintenanceActivity;
 import model.Competences.Competence;
 import model.Department.Department;
@@ -145,7 +146,7 @@ public class ActivityDao {
     public int updateActivity(Integer id, String type, String description, int time_activity, Integer week_num, Department dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
-        validateActivity(type, description, time_activity);
+        validateUpdate(type, description, time_activity, week_num);
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -156,7 +157,7 @@ public class ActivityDao {
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
-        ps.setString(2, dep.toString());
+        ps.setString(2, dep.getArea());
         ps.setString(3, description);
         ps.setInt(4, time_activity);
         ps.setInt(5, week_num);
@@ -184,6 +185,23 @@ public class ActivityDao {
         ps.setInt(1, id);
 
         boolean result = ps.execute();
+    }
+    
+    public boolean checkActivityAssigned(int activityId) throws SQLException {
+        
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+        
+        String query = "SELECT * FROM MaintenanceActivity WHERE ID = ? AND "
+                + "Assigned = true";
+        
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, activityId);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        return rs.next();
+        
     }
 
     public int deleteActivity(Integer id) throws SQLException, UnsuccessfulUpdateException {
@@ -229,7 +247,7 @@ public List<MaintenanceActivity> findActivitiesByWeekNum(int week_num) throws SQ
 
         Connection con = dbProduct.connectToDB();
 
-        String query = "select * from MaintenanceActivity " + "where Week_Number = ?";
+        String query = "select * from MaintenanceActivity " + "where Week_Number = ? AND Assigned=false";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, week_num);
@@ -287,22 +305,63 @@ public List<MaintenanceActivity> findActivitiesByWeekNum(int week_num) throws SQ
 
         return result;
     }
+    
+    public int deassignActivityMaintainer(String username) throws SQLException {
+        
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+        
+        String query = "UPDATE MaintenanceActivity SET Assigned = false WHERE ID IN ("
+                + "SELECT Activity_Maintainer_ID FROM Activity_Maintainers WHERE "
+                + "username_maintainer = ?)";
+        
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, username);
+        
+        return ps.executeUpdate();
+        
+        
+    }
+    
+    /*
+    public List<MaintenanceActivity> findActivityByMaintainer(String username) throws SQLException {
+        
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+        
+        String query = "SELECT * FROM MaintenanceActivity WHERE ID IN ("
+                + "SELECT Activity_Maintainer_ID FROM Activity_Maintainers WHERE "
+                + "username_maintainer = ?)";
+        
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, username);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        List<MaintenanceActivity> activities = new ArrayList<>();
+        while(rs.next()) {
+            activities.add(getMaintenanceActivity(rs));
+        }
+        
+        return activities;
+        
+    }
 
-public List<String> findAssignedActivities() throws SQLException{
+    */
+    
+public TreeMap<String, Integer> findAssignedActivities() throws SQLException{
         
         Connection con = dbProduct.connectToDB();
 
-        String query = "select a.Username_Maintainer,m.Site, m.Description,m.Week_Number\n" +
-                        "from Activity_Maintainers a join MaintenanceActivity m\n" +
-                        "on a.Activity_Maintainer_ID = m.ID;";
+        String query = "select* from Activity_Maintainers";
         
         PreparedStatement ps = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         
-        List<String> result = new LinkedList<>();
+        TreeMap<String, Integer> result = new TreeMap<>();
         
         while (rs.next()){
-            //result.add(rs.);
+            result.put(rs.getString(0), rs.getInt(1));
         }
         
         return result;
@@ -395,7 +454,7 @@ String query = "select ma.* from MaintenanceActivity ma "
         
     }
     
-    public int getSumActivityDay(String username, int day) throws SQLException {
+    public double getSumActivityDay(String username, int day) throws SQLException {
         
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -411,7 +470,7 @@ String query = "select ma.* from MaintenanceActivity ma "
         ResultSet rs = ps.executeQuery();
         
         if(rs.next()) {
-            return rs.getInt("result");
+            return rs.getDouble("result");
         } else {
             return 0;
         }
@@ -436,14 +495,18 @@ String query = "select ma.* from MaintenanceActivity ma "
             throw new InvalidParameterObjectException("Activity description must be length at most 30 characters");
         }
 
-        if (time == null) {
+        if (time == null || time.toString().isBlank()) {
             throw new InvalidParameterObjectException("Activity time must be not null");
         }
 
         if (time <= 0) {
             throw new InvalidParameterObjectException("Activity time must be a positive integer");
         }
-
+        
+       if (!time.toString().matches("[0-9]+")) {
+            throw new InvalidParameterObjectException("Field Time must be numeric");
+     
+        }
     }
      
     private void validateUpdate(String type, String description, Integer time, Integer week_num) throws InvalidParameterObjectException {
@@ -464,6 +527,11 @@ String query = "select ma.* from MaintenanceActivity ma "
             if (time <= 0) {
                 throw new InvalidParameterObjectException("Activity time must be a positive integer");
             }
+            
+            if (!time.toString().matches("[0-9]+")){
+                throw new InvalidParameterObjectException("Field Time must be numeric");
+            }
         }
+    
     }
 }
