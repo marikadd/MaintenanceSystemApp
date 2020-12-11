@@ -131,9 +131,9 @@ public class User extends javax.swing.JFrame {
                 .addComponent(jLabelTitle)
                 .addGap(55, 55, 55)
                 .addComponent(jButtonSystemAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addGap(36, 36, 36)
                 .addComponent(jButtonPlanner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         jLabelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/login.png"))); // NOI18N

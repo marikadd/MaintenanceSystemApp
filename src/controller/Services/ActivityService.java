@@ -97,6 +97,13 @@ public class ActivityService {
 
         return result;
     }
+    
+    public int unassignActivity(Integer activityId) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException{
+        
+        int result = activityDao.deassignActivity(activityId);
+        
+        return result;
+    }
 
     public int updateActivity(Integer id, String type, String description, int timeActivity, Integer week_num, Department dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
@@ -107,6 +114,11 @@ public class ActivityService {
     public int deleteActivity(Integer activityId) throws SQLException, UnsuccessfulUpdateException {
 
         return activityDao.deleteActivity(activityId);
+    }
+    
+    public MaintenanceActivity getActivity(Integer ID) throws SQLException, ActivityNotFoundException{
+        
+        return activityDao.findActivityByID(ID);
     }
 
     public List<MaintenanceActivity> getAllActivities() throws SQLException, ActivityNotFoundException {

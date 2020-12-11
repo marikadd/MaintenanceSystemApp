@@ -35,7 +35,7 @@ public class SelectActivity extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(776, 394);
+        setSize(780, 444);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -243,6 +243,14 @@ public class SelectActivity extends javax.swing.JFrame {
         Integer week_num = Integer.parseInt(jComboWeek.getSelectedItem().toString());
         try {
             activityList = activity.getAllActivitiesInWeek(week_num);
+            if (activityList.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No activity assigned!");
+                DefaultTableModel model = (DefaultTableModel) jTableActivities.getModel();
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    model.removeRow(0);
+                }
+                return;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ActivityNotFoundException ex) {

@@ -5,24 +5,29 @@
  */
 package view;
 
+import configuration.Exceptions.ActivityNotFoundException;
+import configuration.Exceptions.InvalidParameterObjectException;
+import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import javax.swing.table.DefaultTableModel;
+import model.Activity.MaintenanceActivity;
 
 /**
  *
- * @author dondi
+ * @author Group9
  */
 public class ViewAssignedActivities extends javax.swing.JFrame {
 
     private ActivityService activity = ActivityService.getActivityService();
-    private TreeMap<String,Integer> activityMap = new TreeMap<>();
-   
+    private TreeMap<String, Integer> activityMap = new TreeMap<>();
 
     /**
      * Creates new form ViewAssignedActivies
@@ -32,9 +37,12 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(745,352);
+        setSize(862, 449);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        jTableActivities.getColumnModel().getColumn(4).setMinWidth(0);
+        jTableActivities.getColumnModel().getColumn(4).setMaxWidth(0);
+        jTableActivities.getColumnModel().getColumn(4).setWidth(0);
     }
 
     /**
@@ -56,6 +64,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         jLabelBack = new javax.swing.JLabel();
         jLabelIcon = new javax.swing.JLabel();
         jLabelMinimize = new javax.swing.JLabel();
+        jButtonUnassign = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -93,14 +102,14 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Username", "Description", "Area", "Week Number"
+                "Username", "Description", "Area", "Week Number", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -150,13 +159,26 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
                 .addComponent(jLabelBack)
                 .addGap(190, 190, 190)
                 .addComponent(jLabelIcon)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
         jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelMinimizeMouseClicked(evt);
+            }
+        });
+
+        jButtonUnassign.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jButtonUnassign.setText("Unassign");
+        jButtonUnassign.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonUnassignMouseClicked(evt);
+            }
+        });
+        jButtonUnassign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUnassignActionPerformed(evt);
             }
         });
 
@@ -176,9 +198,12 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
                                 .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonList))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jButtonUnassign)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButtonList)))
                                 .addGap(73, 73, 73))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(205, 205, 205)
@@ -197,8 +222,10 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonList)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonList)
+                    .addComponent(jButtonUnassign))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,8 +243,23 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
-        
 
+        try {
+            activityMap = activity.getAssignedActivities();
+            if (activityMap.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No activity assigned!");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            this.showRecap(activityMap);
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ActivityNotFoundException ex) {
+            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonListMouseClicked
 
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
@@ -239,15 +281,65 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     private void jTableActivitiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableActivitiesMouseClicked
+
+    }//GEN-LAST:event_jTableActivitiesMouseClicked
+
+    private void jButtonUnassignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUnassignMouseClicked
+        
+        if (jTableActivities.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null, "Please, select an activity first");
+            return;
+        }
+        
+        int row = jTableActivities.getSelectedRow();
+        int ID = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 4).toString());
+        
         try {
-            activityMap = activity.getAssignedActivities();
-            if(activityMap.isEmpty()){
-                JOptionPane.showMessageDialog(null, "No activity assigned!");
+            int result = activity.unassignActivity(ID);
+            if(result > 0){ 
+                JOptionPane.showMessageDialog(null, "Activity unassigned successfully!");
             }
         } catch (SQLException ex) {
             Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsuccessfulUpdateException ex) {
+            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameterObjectException ex) {
+            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jTableActivitiesMouseClicked
+        
+    }//GEN-LAST:event_jButtonUnassignMouseClicked
+
+    private void jButtonUnassignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUnassignActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonUnassignActionPerformed
+
+    private void showRecap(TreeMap<String, Integer> map) throws SQLException, ActivityNotFoundException {
+
+        DefaultTableModel users = (DefaultTableModel) jTableActivities.getModel();
+        Object column[] = new Object[5];
+
+        int length = users.getRowCount();
+
+        if (length != 0) {
+            for (int i = 0; i < length; i++) {
+                users.removeRow(0);
+            }
+        }
+
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            
+            MaintenanceActivity selActivity = activity.getActivity(entry.getValue());
+            
+            column[0] = entry.getKey();
+            column[1] = selActivity.getDescription();
+            column[2] = selActivity.getDepartment().getArea();
+            column[3] = selActivity.getWeekNum();
+            column[4] = selActivity.getID();
+            
+            users.addRow(column);
+        }
+
+    }
 
     /**
      * @param args the command line arguments
@@ -287,6 +379,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonList;
+    private javax.swing.JButton jButtonUnassign;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelIcon;
