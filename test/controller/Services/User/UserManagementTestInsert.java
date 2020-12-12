@@ -42,48 +42,10 @@ public class UserManagementTestInsert {
         cft.rollbackConnection();
     }
     
-     /**
-     * Test of insertProdManager method, of class UserManagementService, inserting a ProdManager
-     *  with correct parameters.
-     */
-    @Test
-    public void testInsertProdManager() throws Exception {
-        
-        System.out.println("insertProdManager");
-        String username = "tcaio";
-        String password = "Tiziotto@9";
-        String name = "Tizio";
-        String surname = "Caio";
-        String email = "tcaio@gmail.com";
-        String phone = "1234567890";
-        int result = ums.insertProdManager(username, password, name, surname, email, phone);
-        int notExpectedResult = 0;
-        assertNotEquals(result, notExpectedResult);
-        
-    }
- 
-     /**
-     * Test of insertSystemAdmin method, of class UserManagementService, inserting a SystemAdmin
-     * with correct parameters.
-     */
-    @Test
-    public void testInsertSystemAdmin() throws Exception {
-        System.out.println("insertSystemAdmin");
-        String username = "gdipaolo";
-        String password = "Giuseppina98@";
-        String name = "Giuseppina";
-        String surname = "Di Paolo";
-        String email = "gdipaolo@gmail.com";
-        String phone = "3334567224";
-        int result = ums.insertSystemAdmin(username, password, name, surname, email, phone);
-        int notExpectedResult = 0;
-        assertNotEquals(result, notExpectedResult);
-   
-    }
     
      /**
      * Test of insertPlanner method, of class UserManagementService, inserting a Planner
-     * with correct parameters.
+     * with correct parameters; The operation of insert is equal for all roles..
      */
     @Test
     public void testInsertPlanner() throws Exception {
@@ -95,38 +57,18 @@ public class UserManagementTestInsert {
         String email = "irma98@gmail.com";
         String phone = "3334565336";
         int result=ums.insertPlanner(username, password, name, surname, email, phone);
-        
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
  
      /**
-     * Test of insertMaintainer method, of class UserManagementService, inserting a Maintainer
-     * with correct parameters.
-     */
-    @Test
-    public void testInsertMaintainer() throws Exception {
-        System.out.println("insertMaintainer");
-        String username = "mdelledonne";
-        String password = "Marika98@";
-        String name = "Marika";
-        String surname = "Delle Donne";
-        String email = "mdelledonne@gmail.com";;
-        String phone = "3345645778";
-        int result=ums.insertMaintainer(username, password, name, surname, email, phone);
-        int notExpectedResult = 0;
-        assertNotEquals(result, notExpectedResult);
-    }
-    
-    
-     /**
      * Test of insertProdManager method, of class UserManagementService, inserting a ProdManager
      * without username.
      */
     @Test(expected = InvalidParameterObjectException.class)
-    public void testInsertProdManager1() throws Exception {
+    public void testInsertProdManager() throws Exception {
         System.out.println("insertProdManager");
-        String username = "";
+        String username = null;
         String password = "Ciaociao0@";
         String name = "Tino";
         String surname = "Costanzo";
@@ -143,7 +85,7 @@ public class UserManagementTestInsert {
      * whose username doesn't respect lenght.
      */
     @Test(expected = InvalidParameterObjectException.class)
-    public void testInsertProdManager2() throws Exception {
+    public void testInsertProdManager1() throws Exception {
         System.out.println("insertProdManager");
         String username = "TizianoLuigiCostanzo20";
         String password = "Ciaociao0@";
@@ -162,7 +104,7 @@ public class UserManagementTestInsert {
      * whose username already exists.
      */
     @Test(expected = SQLException.class)
-    public void testInsertProdManager3() throws Exception {
+    public void testInsertProdManager2() throws Exception {
         System.out.println("insertPlanner");
         String username = "lbianchi";
         String password = "Giardino9@";
@@ -184,12 +126,11 @@ public class UserManagementTestInsert {
         System.out.println("insertPlanner");
         String username = "imma881";
         String password = "Giocattolo8@";
-        String name = "";
+        String name = null;
         String surname = "Cantalupo";
         String email = "immac881@gmail.com";
         String phone = "3334565314";
         int result = ums.insertPlanner(username, password, name, surname, email, phone);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
@@ -222,11 +163,10 @@ public class UserManagementTestInsert {
         String username = "imma881";
         String password = "Giocattolo8@";
         String name = "Imma";
-        String surname = "";
+        String surname = null;
         String email = "immac881@gmail.com";
         String phone = "3334565314";
         int result = ums.insertPlanner(username, password, name, surname, email, phone);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
@@ -251,19 +191,18 @@ public class UserManagementTestInsert {
 
     /**
      * Test of insertSystemAdmin method, of class UserManagementService, inserting a SystemAdmin
-     *  without password.
+     * without password.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertSystemAdmin1() throws Exception {
         System.out.println("insertSystemAdmin");
         String username = "giovanni87";
-        String password = "";
+        String password = null;
         String name = "Giovanni";
         String surname = "Turco";
         String email = "gturco@gmail.com";
         String phone = "3334567424";
         int result = ums.insertSystemAdmin(username, password, name, surname, email, phone);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
 
@@ -283,7 +222,6 @@ public class UserManagementTestInsert {
         String email = "gturco@gmail.com";
         String phone = "3334567424";
         int result = ums.insertSystemAdmin(username, password, name, surname, email, phone);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
 
@@ -301,9 +239,8 @@ public class UserManagementTestInsert {
         String name = "Maria";
         String surname = "Costa";
         String email = "mariacosta@gmail.com";;
-        String phone = "";
+        String phone = null;
         int result = ums.insertMaintainer(username, password, name, surname, email, phone);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
@@ -322,7 +259,6 @@ public class UserManagementTestInsert {
         String email = "mariacosta@gmail.com";;
         String phone = "12345678910";
         int result = ums.insertMaintainer(username, password, name, surname, email, phone);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
@@ -341,7 +277,6 @@ public class UserManagementTestInsert {
         String email = "mariacosta@gmail.com";;
         String phone = "123456789";
         int result = ums.insertMaintainer(username, password, name, surname, email, phone);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
@@ -357,10 +292,9 @@ public class UserManagementTestInsert {
         String password = "Saretta98@";
         String name = "Sara";
         String surname = "Rossi";
-        String email = "";
+        String email = null;
         String phone = "3345645778";
         int result = ums.insertMaintainer(username, password, name, surname, email, phone);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
 
@@ -380,7 +314,6 @@ public class UserManagementTestInsert {
         String email = "lbianchi@gmail.it";
         String phone = "3345645778";
         int result = ums.insertMaintainer(username, password, name, surname, email, phone);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
@@ -399,7 +332,6 @@ public class UserManagementTestInsert {
         String email = "Saretta_Chiacchiarerelli_1998@outlook.com";
         String phone = "3345645778";
         int result = ums.insertMaintainer(username, password, name, surname, email, phone);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }

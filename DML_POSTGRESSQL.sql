@@ -33,6 +33,8 @@ insert into MaintenanceActivity(Type_Activity, Site, Description, Time_Activity,
 
 insert into Users_Competences (Username, ID_Competences) values ('mrossi',1);
 
+insert into Activity_Competences(Competence_ID, Activity_ID) values (1,1);
+
 insert into Material(Type_Material) values ('Iron');
 insert into Material(Type_Material) values ('Wood');
 insert into Material(Type_Material) values ('Marble');

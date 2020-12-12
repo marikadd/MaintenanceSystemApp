@@ -25,6 +25,7 @@ public class DepartmentServiceTestGet {
     private DepartmentService ds;
     private ConnectionForTest cft;
     
+    
     public DepartmentServiceTestGet() {
     }
     
@@ -38,6 +39,7 @@ public class DepartmentServiceTestGet {
     public void setAfter() {
         cft.rollbackConnection();
     }
+    
     
     /**
      * Test of getAllDepartments method, of class DepartmentService.

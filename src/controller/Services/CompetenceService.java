@@ -98,12 +98,13 @@ public class CompetenceService {
         return compList;
     }
     
-    public String getCommonSkills(List<Competence> activityComp, String username) throws SQLException{
+    public String getCommonSkills(List<Competence> activityComp, String username) throws SQLException, UsernotFoundException{
         
         
         int totalSkills = activityComp.size();
         int commonSkills = 0;
         // Get Maintainer's competences
+        usersDao.checkuserMaintainer(username);
         List<Competence> maintainerComp = compDao.findCompetencesInMaintener(username);
         
         // Verify how many Maintainer's competences are included in Activity competences 

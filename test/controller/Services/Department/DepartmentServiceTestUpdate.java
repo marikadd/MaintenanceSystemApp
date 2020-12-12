@@ -24,6 +24,7 @@ public class DepartmentServiceTestUpdate {
     private DepartmentService ds;
     private ConnectionForTest cft;
     
+    
     public DepartmentServiceTestUpdate() {
     }
     
@@ -37,6 +38,7 @@ public class DepartmentServiceTestUpdate {
     public void setAfter() {
         cft.rollbackConnection();
     }
+    
     
     /**
      * Test of updateDepartment method, of class DepartmentService, updating an
@@ -91,7 +93,7 @@ public class DepartmentServiceTestUpdate {
     public void testUpdateDepartment3() throws Exception {
         System.out.println("updateDepartment");
         String oldArea = "Fisciano - Molding";
-        String newArea = ""; 
+        String newArea = null; 
         int expResult = 0;
         int result = ds.updateDepartment(oldArea, newArea);
         assertEquals(result, expResult);

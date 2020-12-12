@@ -24,6 +24,7 @@ public class DepartmentServiceTestInsert {
     private DepartmentService ds;
     private ConnectionForTest cft;
     
+    
     public DepartmentServiceTestInsert() {
     }
     
@@ -37,6 +38,7 @@ public class DepartmentServiceTestInsert {
     public void setAfter() {
         cft.rollbackConnection();
     }
+    
     
     /**
      * Test of insertDepartment method, of class DepartmentService, inserting a
@@ -73,7 +75,7 @@ public class DepartmentServiceTestInsert {
     @Test(expected=InvalidParameterObjectException.class)
     public void testInsertDepartment2() throws Exception {
         System.out.println("insertDepartment");
-        String area = "";
+        String area = null;
         int expResult = 0;
         int result = ds.insertDepartment(area);
         assertEquals(result, expResult);

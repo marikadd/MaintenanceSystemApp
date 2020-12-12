@@ -27,6 +27,7 @@ public class MaterialServiceTestInsert {
     private MaterialService ms;
     private ConnectionForTest cft;
     
+    
     public MaterialServiceTestInsert() {
     }
     
@@ -74,7 +75,7 @@ public class MaterialServiceTestInsert {
     @Test(expected=InvalidParameterObjectException.class)
     public void testInsertMaterial2() throws Exception {
         System.out.println("insertMaterial");
-        String type = "";
+        String type = null;
         int expResult = 0;
         int result = ms.insertMaterial(type);
         assertEquals(expResult, result);

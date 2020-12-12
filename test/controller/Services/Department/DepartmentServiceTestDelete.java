@@ -26,6 +26,7 @@ public class DepartmentServiceTestDelete {
     private DepartmentService ds;
     private ConnectionForTest cft;
     
+    
     public DepartmentServiceTestDelete() {
     }
  
@@ -39,6 +40,7 @@ public class DepartmentServiceTestDelete {
     public void setAfter() {
         cft.rollbackConnection();
     }
+    
     
     /**
      * Test of deleteDepartment method, of class DepartmentService, deleting 

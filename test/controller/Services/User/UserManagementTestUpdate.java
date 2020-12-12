@@ -22,6 +22,7 @@ public class UserManagementTestUpdate {
 
     private UserManagementService ums;
     private ConnectionForTest cft;
+    
 
     public UserManagementTestUpdate() {
     }
@@ -38,6 +39,7 @@ public class UserManagementTestUpdate {
     public void setAfter() {
         cft.rollbackConnection();
     }
+    
 
     /**
      * Test of updateProdManager method, of class UserManagementService, updating
@@ -47,7 +49,7 @@ public class UserManagementTestUpdate {
     @Test
     public void testUpdateProdManager() throws Exception {
         System.out.println("updateProdManager");
-        String oldUsername = "lfermi";
+        String oldUsername = "lbianchi";
         String username = "tcaio";
         String password = "Ciaone!78@";
         String name = null;

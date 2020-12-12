@@ -24,6 +24,7 @@ public class MaterialServiceTestDelete {
     private MaterialService ms;
     private ConnectionForTest cft;
     
+    
     public MaterialServiceTestDelete() {
     }
    
@@ -38,6 +39,7 @@ public class MaterialServiceTestDelete {
         cft.rollbackConnection();
     }
 
+    
     /**
      * Test of deleteMaterial method, of class MaterialService, deleting an existing material.
      */

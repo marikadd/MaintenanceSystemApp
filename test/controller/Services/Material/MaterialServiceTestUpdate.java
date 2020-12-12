@@ -27,6 +27,7 @@ public class MaterialServiceTestUpdate {
     private MaterialService ms;
     private ConnectionForTest cft;
     
+    
     public MaterialServiceTestUpdate() {
     }
     
@@ -92,7 +93,7 @@ public class MaterialServiceTestUpdate {
     public void testUpdateMaterial3() throws Exception {
         System.out.println("updateMaterial");
         String oldType = "Wood";
-        String newType = "";
+        String newType = null;
         int expResult = 0;
         int result = ms.updateMaterial(oldType, newType);
         assertEquals(expResult, result);

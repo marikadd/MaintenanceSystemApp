@@ -140,10 +140,10 @@ public class UsersDao {
     public int insertUserModel(UserModel userModel, Role role)
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
-        validateUserModel(userModel);
-
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
+        
+        validateUserModel(userModel);
 
         String query = "INSERT INTO Users VALUES(?,?,?,?,?,?,?)";
 
@@ -187,6 +187,28 @@ public class UsersDao {
         }
 
         return result;
+    }
+    
+    public void checkuserMaintainer(String username) throws SQLException, UsernotFoundException {
+        
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+
+        String query = "select * from Users u " + "where u.Username = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
+
+        UserModel userModel = null;
+        if (rs.next()) {
+            String role = rs.getString("role_user");
+            if(!Role.MAINTAINER.toString().equals(role)) {
+                throw new UsernotFoundException(String.format("The user %s is not a maintainer", username));
+            }
+        } else {
+             throw new UsernotFoundException(String.format("The user with username %s not found", username));
+        }
+        
     }
 
     public int deleteUserModel(String username) throws SQLException, UnsuccessfulUpdateException {

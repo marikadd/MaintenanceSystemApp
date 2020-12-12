@@ -23,6 +23,7 @@ public class UserManagementTestFind {
     private UserManagementService ums;
     private ConnectionForTest cft;
 
+    
     public UserManagementTestFind() {
 
     }
@@ -41,6 +42,7 @@ public class UserManagementTestFind {
         cft.rollbackConnection();
     }
 
+    
     /**
      * Test of findProdManagerByUsername method, of class UserManagementService, finding
      * a ProdManager by his correct username.
@@ -62,7 +64,7 @@ public class UserManagementTestFind {
     public void testFindProdManagerByUsername1() throws Exception {
         System.out.println("findProdManagerByUsername");
         String username = "icantalupo";
-        String expResult = "";
+        String expResult = null;
         String result = ums.findProdManagerByUsername(username).getRole();
         assertEquals(expResult, result);
     }
@@ -76,7 +78,7 @@ public class UserManagementTestFind {
     public void testFindProdManagerByUsername2() throws Exception {
         System.out.println("findProdManagerByUsername");
         String username = "gcoppola";
-        String expResult = "";
+        String expResult = null;
         String result = ums.findProdManagerByUsername(username).getRole();
         assertEquals(expResult, result);
     }
@@ -102,7 +104,7 @@ public class UserManagementTestFind {
     public void testFindMaintainerByUsername1() throws Exception {
         System.out.println("findMaintainerByUsername");
         String username = "gdiapolo";
-        String expResult = "";
+        String expResult = null;
         String result = ums.findMaintainerByUsername(username).getRole();
         assertEquals(expResult, result);
     }
@@ -115,7 +117,7 @@ public class UserManagementTestFind {
     public void testFindMaintainerByUsername2() throws Exception {
         System.out.println("findMaintainerByUsername");
         String username = "lfermi";
-        String expResult = "";
+        String expResult = null;
         String result = ums.findMaintainerByUsername(username).getRole();
         assertEquals(expResult, result);
     }
@@ -127,7 +129,7 @@ public class UserManagementTestFind {
     @Test
     public void testFindPlannerByUsername() throws Exception {
         System.out.println("findPlannerByUsername");
-        String username = "icantalupo";
+        String username = "lbianchi";
         String expResult = "PLANNER";
         String result = ums.findPlannerByUsername(username).getRole();
         assertEquals(expResult, result);
@@ -142,7 +144,7 @@ public class UserManagementTestFind {
     public void testFindPlannerByUsername1() throws Exception {
         System.out.println("findPlannerByUsername");
         String username = "gmancone";
-        String expResult = "";
+        String expResult = null;
         String result = ums.findPlannerByUsername(username).getRole();
         assertEquals(expResult, result);
 
@@ -156,8 +158,8 @@ public class UserManagementTestFind {
     @Test(expected = UsernotFoundException.class)
     public void testFindPlannerByUsername2() throws Exception {
         System.out.println("findPlannerByUsername");
-        String username = "tcaio";
-        String expResult = "";
+        String username = "mrossi";
+        String expResult = null;
         String result = ums.findPlannerByUsername(username).getRole();
         assertEquals(expResult, result);
 
@@ -170,7 +172,7 @@ public class UserManagementTestFind {
     @Test
     public void testFindSystemAdminByUsername() throws Exception {
         System.out.println("findSystemAdminByUsername");
-        String username = "gdipaolo";
+        String username = "gcoppola";
         String expResult = "SYSTEM_ADMIN";
         String result = ums.findSystemAdminByUsername(username).getRole();
         assertEquals(expResult, result);
@@ -184,8 +186,8 @@ public class UserManagementTestFind {
     @Test(expected = UsernotFoundException.class)
     public void testFindSystemAdminByUsername1() throws Exception {
         System.out.println("findSystemAdminByUsername");
-        String username = "mrossi";
-        String expResult = "";
+        String username = "tcaio";
+        String expResult = null;
         String result = ums.findSystemAdminByUsername(username).getRole();
         assertEquals(expResult, result);
 
@@ -199,8 +201,8 @@ public class UserManagementTestFind {
     @Test(expected = UsernotFoundException.class)
     public void testFindSystemAdminByUsername2() throws Exception {
         System.out.println("findSystemAdminByUsername");
-        String username = "mdelledonne";
-        String expResult = "";
+        String username = "mrossi";
+        String expResult = null;
         String result = ums.findSystemAdminByUsername(username).getRole();
         assertEquals(expResult, result);
 

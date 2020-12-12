@@ -14,6 +14,7 @@ import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Dao.ActivityDao;
 import controller.Dao.DepartmentDao;
+import controller.Dao.NotificationDao;
 import controller.Dao.UsersDao;
 import controller.Utility.UtilityUser;
 import java.math.BigDecimal;
@@ -30,6 +31,7 @@ import model.Competences.Competence;
 import model.Department.Department;
 import model.Users.UserModel;
 import model.Activity.ActivityInterface;
+import model.Activity.UsernameResultActivity;
 import model.Material.Material;
 
 /**
@@ -43,6 +45,7 @@ public class ActivityService {
     private ActivityDao activityDao;
     private UsersDao usersDao;
     private DepartmentDao depDao;
+    private NotificationDao notDao;
 
     //Singleton
     private ActivityService() {
@@ -55,6 +58,7 @@ public class ActivityService {
                     activService = new ActivityService();
                     activService.activityDao = ActivityDao.init();
                     activService.usersDao = UsersDao.init();
+                    activService.notDao = NotificationDao.init();
                     activService.depDao = DepartmentDao.init();
                 }
             }
@@ -78,7 +82,7 @@ public class ActivityService {
     public int assignActivity(String usernameMain, Integer activityId, List<Integer> listIdDay, double time)
             throws SQLException, UsernotFoundException, UnsuccessfulUpdateException, InvalidParameterObjectException, TimeExpiredException, ActivityAlreadyAssignedException {
 
-        checkActivityAlreadyAssigned(activityId);
+        checkActivityAlreadyAssigned(activityId, usernameMain);
         checkTimeInDay(usernameMain, listIdDay.get(0), time);
         
         // Da eliminare, la lista è infallibile
@@ -114,6 +118,17 @@ public class ActivityService {
     public int deleteActivity(Integer activityId) throws SQLException, UnsuccessfulUpdateException {
 
         return activityDao.deleteActivity(activityId);
+    }
+    
+    private void notifyActivityDelete(Integer activityId) throws SQLException {
+        
+        String username = activityDao.findMaintainerByActivityId(activityId);
+        
+        if(username != null) {
+            notDao.insertMessageNotificationPlanner(String.
+                    format("The user %s is available again", username));
+        }
+        
     }
     
     public MaintenanceActivity getActivity(Integer ID) throws SQLException, ActivityNotFoundException{
@@ -191,20 +206,25 @@ public class ActivityService {
         
         double sumNumDay = activityDao.getSumActivityDay(username, day);
         
-        if((sumNumDay + time) > 480) {
+        if((sumNumDay + time) > 420) {
             
             throw new TimeExpiredException(String.format("Cannot assign to %s %.0f minutes in day %d.\nShow others maintainer's availability in the selected day.", username, time, day));
             
         }
     }
     
-    private void checkActivityAlreadyAssigned(int maintainerActivityId) throws SQLException, ActivityAlreadyAssignedException {
+     private void checkActivityAlreadyAssigned(int maintainerActivityId, String username) throws SQLException, ActivityAlreadyAssignedException {
         
-        boolean result = activityDao.checkActivityAssigned(maintainerActivityId);
+        UsernameResultActivity ura = activityDao.checkActivityAssigned(maintainerActivityId);
         
-        if(result) {
-            throw new ActivityAlreadyAssignedException("Activity selected already assigned to another maintainer");
+        if(ura.isResult()) {
+            if(!username.equals(ura.getUsername())) {
+                throw new ActivityAlreadyAssignedException("Activity selected already assigned to another maintainer");
+            } else {
+                throw new ActivityAlreadyAssignedException("Activity selected already assigned to this maintainer");
+            }
         }
+    
     }
     
     public TreeMap<Integer, String> getAssignedActivities() throws SQLException{

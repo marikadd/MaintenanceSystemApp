@@ -40,14 +40,15 @@ public class UserManagementTestDelete {
         cft.rollbackConnection();
     }
     
+    
     /**
-     * Test of deleteUser method, of class UserManagementService. Delete an user
-     * serached by his username
+     * Test of deleteUser method, of class UserManagementService, deleting an user
+     * serached by his username.
      */
     @Test
     public void testDeleteUser() throws Exception {
         System.out.println("deleteUser");
-        String username = "tcaio2";
+        String username = "mrossi";
         int result = ums.deleteUser(username);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
@@ -55,30 +56,28 @@ public class UserManagementTestDelete {
     }
 
     /**
-     * Test of deleteUser method, of class UserManagementService. Delete an user
-     * serached by an username that doesn't exist
+     * Test of deleteUser method, of class UserManagementService, deleting an user
+     * serached by an username that doesn't exist.
      */
-    @Test(expected = SQLException.class)
+    @Test
     public void testDeleteUser1() throws Exception {
         System.out.println("deleteUser");
         String username = "gmancone";
         int result = ums.deleteUser(username);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
 
     }
 
     /**
-     * Test of deleteUser method, of class UserManagementService. Delete an user
-     * without passing an username
+     * Test of deleteUser method, of class UserManagementService, deleting an user
+     * without passing an username.
      */
-    @Test(expected = SQLException.class)
+    @Test
     public void testDeleteUser2() throws Exception {
         System.out.println("deleteUser");
-        String username = "";
+        String username = null;
         int result = ums.deleteUser(username);
-
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }

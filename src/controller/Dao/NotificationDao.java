@@ -16,10 +16,10 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
+ 
 /**
  *
- * @author marika
+ * @author Group9
  */
 public class NotificationDao {
     
@@ -88,3 +88,5 @@ public class NotificationDao {
     
     
 }
+
+

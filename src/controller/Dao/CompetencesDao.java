@@ -204,6 +204,12 @@ public class CompetencesDao {
         String query = "DELETE FROM Competence WHERE ID = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
+        
+        // Nel caso in cui l'id è null, per prevenire l'errore di cast in intValue
+        // settiamo l'id a -1. Questo valore non esiste nel database perché la sequenza
+        // degli id prevede interi positivi
+        if(id == null) id = -1;
+        
         ps.setInt(1, id);
 
         int result = ps.executeUpdate();

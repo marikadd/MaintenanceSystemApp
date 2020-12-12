@@ -25,6 +25,7 @@ public class UserManagementTestGet {
     private UserManagementService ums;
     private ConnectionForTest cft;
 
+    
     public UserManagementTestGet() {
     }
 
@@ -39,6 +40,7 @@ public class UserManagementTestGet {
     public void setAfter() {
         cft.rollbackConnection();
     }
+    
     
     /**
      * Test of getRoleByUsername method, of class UserManagementService, getting
@@ -61,7 +63,7 @@ public class UserManagementTestGet {
     public void testGetRoleByUsername1() throws Exception {
         System.out.println("getRoleByUsername");
         String username = "pippo";
-        String expResult = "";
+        String expResult = null;
         String result = ums.getRoleByUsername(username);
         assertEquals(expResult, result);
     }

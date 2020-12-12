@@ -23,6 +23,7 @@ public class CompetenceServiceTestInsert {
     private CompetenceService cps;
     private ConnectionForTest cft;
     
+    
     @Before
     public void setUp() {
         cps = CompetenceService.getCompetenceService();
@@ -33,6 +34,7 @@ public class CompetenceServiceTestInsert {
     public void setAfter() {
         cft.rollbackConnection();
     }
+    
     
     /**
      * Test of insertCompetence method, inserting a new Competence
@@ -67,7 +69,7 @@ public class CompetenceServiceTestInsert {
     @Test(expected=InvalidParameterObjectException.class)
     public void testInsertCompetence2() throws Exception {
         System.out.println("insertCompetence");
-        String description = "";  
+        String description = null;  
         int result = cps.insertCompetence(description);
         int expectedResult = 0;
         assertEquals(result, expectedResult);

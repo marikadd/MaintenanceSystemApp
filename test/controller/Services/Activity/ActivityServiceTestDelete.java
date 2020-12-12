@@ -21,6 +21,7 @@ public class ActivityServiceTestDelete {
     private ActivityService as;
     private ConnectionForTest cft;
     
+    
     public ActivityServiceTestDelete() {
     }
     
@@ -36,6 +37,7 @@ public class ActivityServiceTestDelete {
         cft.rollbackConnection();
     }
     
+    
     /**
      * Test of deleteActivity method, of class ActivityService deleting an
      * Activity by its ID.
@@ -43,7 +45,7 @@ public class ActivityServiceTestDelete {
     @Test
     public void testDeleteActivity() throws Exception {
         System.out.println("deleteActivity");
-        Integer activityId = 8; //id che esiste
+        Integer activityId = 2;
         int expResult = 1;
         int result = as.deleteActivity(activityId);
         assertEquals(expResult, result);
@@ -53,10 +55,10 @@ public class ActivityServiceTestDelete {
      * Test of deleteActivity method, of class ActivityService deleting an
      * Activity by an inexistent ID.
      */
-    @Test //se metto eccezione non va
+    @Test
     public void testDeleteActivity1() throws Exception {
         System.out.println("deleteActivity");
-        Integer activityId = 10; //id che non esiste
+        Integer activityId = 10; 
         int expResult = 0;
         int result = as.deleteActivity(activityId);
         assertEquals(result, expResult);
@@ -64,9 +66,9 @@ public class ActivityServiceTestDelete {
     
     /**
      * Test of deleteActivity method, of class ActivityService deleting an
-     * Activity by an uncorrect ID (it must be positive)
+     * Activity by an uncorrect ID (it must be positive).
      */
-    @Test//se metto eccezione non va
+    @Test
     public void testDeleteActivity2() throws Exception {
         System.out.println("deleteActivity");
         Integer activityId = -1 ;
@@ -74,4 +76,6 @@ public class ActivityServiceTestDelete {
         int result = as.deleteActivity(activityId);
         assertEquals(result, expResult);
     }
+    
+    //caso delete con null
 }

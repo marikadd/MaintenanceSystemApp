@@ -23,6 +23,7 @@ public class CompetenceServiceTestUpdate {
 
     private CompetenceService cps;
      private ConnectionForTest cft;
+     
 
     @Before
     public void setUp() {
@@ -35,6 +36,7 @@ public class CompetenceServiceTestUpdate {
         cft.rollbackConnection();
     }
     
+    
     /**
      * Test of updateCompetence method, of class CompetenceService, updating an
      * existing Competence with a valid description.
@@ -42,7 +44,7 @@ public class CompetenceServiceTestUpdate {
     @Test
     public void testUpdateCompetence() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 2;//id che esiste
+        Integer id = 2;
         String newDescription = "Repair Broken Tubes";
         int notExpResult = 0;
         int result = cps.updateCompetence(id, newDescription);
@@ -56,7 +58,7 @@ public class CompetenceServiceTestUpdate {
     @Test(expected = UnsuccessfulUpdateException.class)
     public void testUpdateCompetence1() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 150; //id che non esiste
+        Integer id = 150; 
         String newDescription = "Repair Computers";
         int expResult = 0;
         int result = cps.updateCompetence(id, newDescription);
@@ -70,7 +72,7 @@ public class CompetenceServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateCompetence2() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 3; //id che esiste
+        Integer id = 3; 
         String newDescription = "Samaloomadumaloomayoureassumingimahumanwhatigottadotogetitthroughtoyouimasuperhuman";
         int expResult = 0;
         int result = cps.updateCompetence(id, newDescription);
@@ -84,8 +86,8 @@ public class CompetenceServiceTestUpdate {
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateCompetence4() throws Exception {
         System.out.println("updateCompetence");
-        Integer id = 3;//id che esiste
-        String newDescription = "";
+        Integer id = 3;
+        String newDescription = null;
         int expResult = 0;
         int result = cps.updateCompetence(id, newDescription);
         assertEquals(result, expResult);

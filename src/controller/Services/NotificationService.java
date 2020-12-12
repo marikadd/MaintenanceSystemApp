@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author giusi
+ * @author Group9
  */
 public class NotificationService {
     
@@ -26,7 +26,7 @@ public class NotificationService {
         }
         return notService;
         
-    }
+    } 
     
     public List<String> readNotifications() throws SQLException {
         
