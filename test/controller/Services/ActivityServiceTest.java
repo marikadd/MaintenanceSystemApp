@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author irmacantalupo
+ * @author Group9
  */
 public class ActivityServiceTest {
     

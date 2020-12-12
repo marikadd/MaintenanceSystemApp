@@ -78,9 +78,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         getMaintainers();
         initMapIdDays();
         
-        jTableMaintainersAvail.setDefaultRenderer(Object.class, new MyTableCellRenderer());
-        System.out.println(jTableMaintainersAvail.getValueAt(1, 3).toString());
-        
+        jTableMaintainersAvail.setDefaultRenderer(Object.class, new MyTableCellRenderer());        
         for(int i=2;i<jTableMaintainersAvail.getColumnCount();i++){
             this.changeTable(jTableMaintainersAvail, i);
         }
@@ -95,19 +93,16 @@ public class AssignmentActivity extends javax.swing.JFrame {
                 final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
                 int st_val = Integer.parseInt(table.getValueAt(row, column).toString());
-
+                
                 if (st_val < 40) {
                     c.setBackground(Color.RED);
-                    String s = ""+ st_val+"%";
-                    table.setValueAt(s, row, column);
+                    setText(String.valueOf(st_val)+"%");
                 } else if (st_val >= 40 && st_val <= 70) {
                     c.setBackground(Color.YELLOW);
-                    String s = ""+ st_val+"%";
-                    table.setValueAt(s, row, column);
+                    setText(String.valueOf(st_val)+"%");
                 } else {
                     c.setBackground(Color.GREEN);
-                    String s = ""+ st_val+"%";
-                    table.setValueAt(s, row, column);
+                    setText(String.valueOf(st_val)+"%");
                 }
 
                 return c;
@@ -143,17 +138,14 @@ public class AssignmentActivity extends javax.swing.JFrame {
         return ID + "-" + area + "-" + type + "-" + time;
     }
 
-    private void getMaintainers() throws SQLException, SQLException, SQLException, SQLException {
+    private void getMaintainers() {
 
         try {
             listMaintainers = user.getAllMaintainers();
-        } catch (SQLException | UsernotFoundException ex) {
-            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
             this.showUsers(listMaintainers);
         } catch (SQLException ex) {
+            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UsernotFoundException ex) {
             Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -641,7 +633,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
 
-    private void showUsers(List<UserModel> list) throws SQLException {
+    private void showUsers(List<UserModel> list) throws SQLException, UsernotFoundException {
 
         DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
         Object column[] = new Object[9];

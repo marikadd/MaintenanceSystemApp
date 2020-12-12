@@ -46,8 +46,9 @@ public class ActivityService {
     private UsersDao usersDao;
     private DepartmentDao depDao;
     private NotificationDao notDao;
-
-    //Singleton
+    private final double maxInDay = 420;
+    
+//Singleton
     private ActivityService() {
     }
 
@@ -184,15 +185,13 @@ public class ActivityService {
     
     public int getDailyAvailability(String username, int day, double time) throws SQLException {
         
-        double maxInDay = 420;
-        
         double sumNumDay = activityDao.getSumActivityDay(username, day);
         
         if(sumNumDay == 0.0) {
             return 100;
         }
             
-        BigDecimal ratioDay = new BigDecimal(((maxInDay - (sumNumDay)) / maxInDay) * 100);
+        BigDecimal ratioDay = new BigDecimal(((this.maxInDay - (sumNumDay)) / this.maxInDay) * 100);
         int percDay = ratioDay.intValue();
         
         if(percDay > 0) {
@@ -206,7 +205,7 @@ public class ActivityService {
         
         double sumNumDay = activityDao.getSumActivityDay(username, day);
         
-        if((sumNumDay + time) > 420) {
+        if((sumNumDay + time) > this.maxInDay) {
             
             throw new TimeExpiredException(String.format("Cannot assign to %s %.0f minutes in day %d.\nShow others maintainer's availability in the selected day.", username, time, day));
             

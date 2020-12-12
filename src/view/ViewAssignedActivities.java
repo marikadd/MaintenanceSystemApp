@@ -170,7 +170,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         });
 
         jButtonUnassign.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButtonUnassign.setText("Unassign");
+        jButtonUnassign.setText("Completed");
         jButtonUnassign.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonUnassignMouseClicked(evt);

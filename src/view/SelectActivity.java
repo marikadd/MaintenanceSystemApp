@@ -317,6 +317,7 @@ public class SelectActivity extends javax.swing.JFrame {
         AssignmentActivity aActivity = null;
         try {
             aActivity = new AssignmentActivity(ID,area,type,time,week);
+            
         } catch (SQLException ex) {
             Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
