@@ -27,7 +27,7 @@ import model.Activity.MaintenanceActivity;
 public class ViewAssignedActivities extends javax.swing.JFrame {
 
     private ActivityService activity = ActivityService.getActivityService();
-    private TreeMap<String, Integer> activityMap = new TreeMap<>();
+    private TreeMap<Integer, String> activityMap = new TreeMap<>();
 
     /**
      * Creates new form ViewAssignedActivies
@@ -313,7 +313,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonUnassignActionPerformed
 
-    private void showRecap(TreeMap<String, Integer> map) throws SQLException, ActivityNotFoundException {
+    private void showRecap(TreeMap<Integer, String> map) throws SQLException, ActivityNotFoundException {
 
         DefaultTableModel users = (DefaultTableModel) jTableActivities.getModel();
         Object column[] = new Object[5];
@@ -326,11 +326,11 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
             }
         }
 
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+        for (Map.Entry<Integer, String> entry : map.entrySet()) {
             
-            MaintenanceActivity selActivity = activity.getActivity(entry.getValue());
+            MaintenanceActivity selActivity = activity.getActivity(entry.getKey());
             
-            column[0] = entry.getKey();
+            column[0] = entry.getValue();
             column[1] = selActivity.getDescription();
             column[2] = selActivity.getDepartment().getArea();
             column[3] = selActivity.getWeekNum();

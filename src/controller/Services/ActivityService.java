@@ -207,9 +207,9 @@ public class ActivityService {
         }
     }
     
-    public TreeMap<String, Integer> getAssignedActivities() throws SQLException{
+    public TreeMap<Integer, String> getAssignedActivities() throws SQLException{
         
-        TreeMap<String, Integer> activityMap = new TreeMap<>();
+        TreeMap<Integer, String> activityMap = new TreeMap<>();
         activityMap = activityDao.findAssignedActivities();
         
         return activityMap;

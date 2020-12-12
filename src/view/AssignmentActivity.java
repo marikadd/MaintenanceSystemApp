@@ -98,10 +98,16 @@ public class AssignmentActivity extends javax.swing.JFrame {
 
                 if (st_val < 40) {
                     c.setBackground(Color.RED);
+                    String s = ""+ st_val+"%";
+                    table.setValueAt(s, row, column);
                 } else if (st_val >= 40 && st_val <= 70) {
                     c.setBackground(Color.YELLOW);
+                    String s = ""+ st_val+"%";
+                    table.setValueAt(s, row, column);
                 } else {
                     c.setBackground(Color.GREEN);
+                    String s = ""+ st_val+"%";
+                    table.setValueAt(s, row, column);
                 }
 
                 return c;

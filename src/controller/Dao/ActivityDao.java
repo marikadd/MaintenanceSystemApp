@@ -388,7 +388,7 @@ public class ActivityDao {
         
     }
     
-    public TreeMap<String, Integer> findAssignedActivities() throws SQLException {
+    public TreeMap<Integer, String> findAssignedActivities() throws SQLException {
 
         Connection con = dbProduct.connectToDB();
 
@@ -397,10 +397,10 @@ public class ActivityDao {
         PreparedStatement ps = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
 
-        TreeMap<String, Integer> result = new TreeMap<>();
+        TreeMap<Integer, String> result = new TreeMap<>();
 
         while (rs.next()) {
-            result.put(rs.getString(1), rs.getInt(2));
+            result.put(rs.getInt(2), rs.getString(1));
         }
 
         return result;
