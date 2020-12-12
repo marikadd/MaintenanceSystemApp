@@ -138,7 +138,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
                 .add(jLabelIconDelete)
                 .add(18, 18, 18)
                 .add(jLabelIconAssign, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 128, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
@@ -231,6 +231,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
             }
         });
 
+        jLabelNotification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/notification_bell.png"))); // NOI18N
         jLabelNotification.setText("Notification");
         jLabelNotification.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -242,14 +243,6 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabelNotification, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jLabelMinimize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 67, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(6, 6, 6))
             .add(jPanel2Layout.createSequentialGroup()
                 .add(131, 131, 131)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
@@ -263,6 +256,14 @@ public class ManagementActivityArea extends javax.swing.JFrame {
                     .add(jButtonViewAssigned, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(37, 37, 37))
             .add(jPanel2Layout.createSequentialGroup()
+                .add(16, 16, 16)
+                .add(jLabelNotification, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jLabelMinimize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 67, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(6, 6, 6))
+            .add(jPanel2Layout.createSequentialGroup()
                 .add(141, 141, 141)
                 .add(jLabelTitle)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -274,10 +275,10 @@ public class ManagementActivityArea extends javax.swing.JFrame {
                     .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jLabelNotification, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabelNotification, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jLabelMinimize))
                         .add(6, 6, 6)))
-                .add(19, 19, 19)
+                .add(11, 11, 11)
                 .add(jLabelTitle)
                 .add(35, 35, 35)
                 .add(jButtonView, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -291,7 +292,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
                     .add(jButtonSelect, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(31, 31, 31)
                 .add(jButtonDelete, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -388,6 +389,8 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         if(!messages.isEmpty()) {
             JOptionPane.showMessageDialog(null, notificationDistribution, "Messages", 
                     JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, "No notifications to read!"); 
         }
         
     }//GEN-LAST:event_jLabelNotificationMouseClicked

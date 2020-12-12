@@ -9,6 +9,7 @@ package model.Users;
  *
  * @author Group9
  */
+
 public interface UserModel {
     
     public String getUsername();

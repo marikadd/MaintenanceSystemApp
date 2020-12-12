@@ -28,9 +28,13 @@ public class NotificationDao {
     
     public static NotificationDao init() {
         if(notificationDao == null) {
-            notificationDao = new NotificationDao();
-            DBAbstractFactory dbFactory = new DBFactoryContext();
-            notificationDao.dbProduct = dbFactory.getInstance(DBManager.instanceType);
+            synchronized(NotificationDao.class) {
+                if(notificationDao == null) {
+                    notificationDao = new NotificationDao();
+                    DBAbstractFactory dbFactory = new DBFactoryContext();
+                    notificationDao.dbProduct = dbFactory.getInstance(DBManager.instanceType);
+                }
+            }
         }
         return notificationDao;
     }
@@ -81,5 +85,6 @@ public class NotificationDao {
         return messages;
         
     }
+    
     
 }

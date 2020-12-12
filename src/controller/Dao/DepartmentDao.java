@@ -160,7 +160,7 @@ public class DepartmentDao {
     private void validateDepartment(String area) throws InvalidParameterObjectException {
         
         if(area == null || area.isBlank()) {
-            throw new InvalidParameterObjectException("Area must be not null");
+            throw new InvalidParameterObjectException("Area must be required");
         }
         
         if(area.length() > 30) {

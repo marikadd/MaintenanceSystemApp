@@ -37,7 +37,9 @@ public class UsersDao {
     private DBProduct dbProduct;
     private ConnectionForTest cft;
 
-    //Singleton
+    /**
+     * Pattern Singleton
+     */
     private UsersDao() {
     }
 
@@ -59,40 +61,41 @@ public class UsersDao {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
+        
         String query = "select Role_User " + "from Users " + "where Username= ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
         ResultSet rs = ps.executeQuery();
+        
         String role = null;
-
         if (rs.next()) {
             role = rs.getString("Role_User");
         } else {
             throw new UsernotFoundException("User " + username + " not found");
         }
+        
         return role;
     }
 
-    public UserModel findUserByUsername(String username, Role role) throws SQLException, UsernotFoundException {
+    public UserModel findUserByUsername(String username, Role role) 
+            throws SQLException, UsernotFoundException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
         String query = "select * from Users u " + "where u.Role_User = ? AND " + "u.Username = ?";
-
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, role.toString());
         ps.setString(2, username);
-
         ResultSet rs = ps.executeQuery();
 
         UserModel userModel = null;
-
         if (rs.next()) {
             userModel = getSingleUserModel(rs, role);
         } else {
             throw new UsernotFoundException("User " + username + " not found");
         }
+        
         return userModel;
     }
 
@@ -120,14 +123,12 @@ public class UsersDao {
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
-        String query = "select * from Users u " + "where u.Role_User = ?";
-
+        String query = "SELECT * FROM Users u " + "WHERE u.Role_User = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, role.toString());
-
         ResultSet rs = ps.executeQuery();
+        
         List<UserModel> users = new LinkedList<UserModel>();
-
         while (rs.next()) {
             UserModel userModel = getSingleUserModel(rs, role);
             users.add(userModel);
@@ -168,9 +169,10 @@ public class UsersDao {
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
-        String query = "UPDATE Users SET "
-                + "Username = coalesce(?,Username), PW = coalesce(?, PW), Email = coalesce(?,Email), "
-                + "PhoneNumber = coalesce(?,PhoneNumber) where Username = ?";
+        String query =   "UPDATE Users SET "
+                       + "Username = coalesce(?,Username), PW = coalesce(?, PW)"
+                       + "Email = coalesce(?,Email), PhoneNumber = coalesce(?,PhoneNumber)" 
+                       + "WHERE Username = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, userModel.getUsername());
@@ -178,7 +180,6 @@ public class UsersDao {
         ps.setString(3, userModel.getEmail());
         ps.setString(4, userModel.getPhone());
         ps.setString(5, oldUsername);
-
         int result = ps.executeUpdate();
 
         if (result == 0) {
@@ -186,7 +187,6 @@ public class UsersDao {
         }
 
         return result;
-
     }
 
     public int deleteUserModel(String username) throws SQLException, UnsuccessfulUpdateException {
@@ -285,7 +285,7 @@ public class UsersDao {
         }
 
         if (userModel.getUsername() == null || userModel.getUsername().isBlank()) {
-            throw new InvalidParameterObjectException("User's username must be not null");
+            throw new InvalidParameterObjectException("User's username must be required");
         }
 
         if (userModel.getUsername().length() > 20) {
@@ -293,7 +293,7 @@ public class UsersDao {
         }
 
         if (userModel.getName() == null || userModel.getName().isBlank()) {
-            throw new InvalidParameterObjectException("User's name must be not null");
+            throw new InvalidParameterObjectException("User's name must be required");
         }
 
         if (userModel.getName().length() > 20) {
@@ -301,7 +301,7 @@ public class UsersDao {
         }
 
         if (userModel.getSurname() == null || userModel.getSurname().isBlank()) {
-            throw new InvalidParameterObjectException("User's surname must be not null");
+            throw new InvalidParameterObjectException("User's surname must be required");
         }
 
         if (userModel.getSurname().length() > 20) {
@@ -309,7 +309,7 @@ public class UsersDao {
         }
 
         if (userModel.getPassword() == null || userModel.getPassword().isBlank()) {
-            throw new InvalidParameterObjectException("User's password must be not null");
+            throw new InvalidParameterObjectException("User's password must be required");
         }
 
         String passFormat = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,50}$";
@@ -319,7 +319,7 @@ public class UsersDao {
         }
 
         if (userModel.getPhone() == null) {
-            throw new InvalidParameterObjectException("User's phone number must be not null");
+            throw new InvalidParameterObjectException("User's phone number must be required");
         }
 
         if (userModel.getPhone().length() != 10) {
@@ -332,7 +332,7 @@ public class UsersDao {
         }
 
         if (userModel.getEmail() == null) {
-            throw new InvalidParameterObjectException("User's email must be not null");
+            throw new InvalidParameterObjectException("User's email must be required");
         }
 
         if (userModel.getEmail().length() > 40) {

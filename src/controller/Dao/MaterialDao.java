@@ -137,11 +137,11 @@ public class MaterialDao {
     private void validateMaterial(String type) throws InvalidParameterObjectException {
         
         if(type == null || type.isBlank()) {
-            throw new InvalidParameterObjectException("The material type must be not null");
+            throw new InvalidParameterObjectException("Material must be required");
         }
         
         if(type.length() > 20) {
-            throw new InvalidParameterObjectException("The material type must be at most 30 characters");
+            throw new InvalidParameterObjectException("Material type must be at most 30 characters");
         }
     }
     
