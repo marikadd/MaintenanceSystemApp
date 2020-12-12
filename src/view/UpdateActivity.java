@@ -11,6 +11,7 @@ import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import controller.Services.DepartmentService;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -380,7 +381,7 @@ public class UpdateActivity extends javax.swing.JFrame {
 
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
 
-        if (jTableActivities.getSelectionModel().isSelectionEmpty()){
+        if (jTableActivities.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select an activity first");
             return;
         }
@@ -388,42 +389,59 @@ public class UpdateActivity extends javax.swing.JFrame {
         int row = jTableActivities.getSelectedRow();
         int ID = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 0).toString());
 
-        String type = check(jTextFieldType.getText());
-        String description = check(jTextFieldDescription.getText());
+        // Checking is used for searching an empty update
+        ArrayList<String> checking = new ArrayList<>();
+
+        String type = check(jTextFieldType.getText());       
+        checking.add(type);
         
+        String description = check(jTextFieldDescription.getText());
+        checking.add(description);
+       
         String time_interv = check(jTextFieldTime.getText());
+        checking.add(time_interv);
         int time;
-        if (time_interv == null){
+        if (time_interv == null) {
             time = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 0).toString());
-        }
-        else{
+        } else {
             time = Integer.parseInt(time_interv);
         }
-        
-       String week = jComboWeek.getSelectedItem().toString();
-       int week_num;
-       if (week.equals("no_change")){
-           week_num = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 5).toString());
-       }
-       else{
-           week_num = Integer.parseInt(week);
-       }
 
-       // Site update checking
+        String week = jComboWeek.getSelectedItem().toString();
+        checking.add(null);
+        int week_num;
+        if (week.equals("no_change")) {
+            week_num = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 5).toString());
+        } else {
+            week_num = Integer.parseInt(week);
+        }
+
+        // Site update checking
         String area = null;
         if (!jTableDepartment.getSelectionModel().isSelectionEmpty()) {
+            checking.add(area);
             int rowdep = jTableDepartment.getSelectedRow();
             area = jTableDepartment.getModel().getValueAt(rowdep, 0).toString();
         }
-       
+
         Department department = new Department(area);
-        
+
+        int count = 0;
+
+        for (String s : checking) {
+            if (s == null) {
+                count++;
+            }
+        }
+
         try {
             int result = activity.updateActivity(ID, type, description, time, week_num, department);
             if (result > 0) {
-                JOptionPane.showMessageDialog(null, "Activity updated successfully!");
-            } else {
-                JOptionPane.showMessageDialog(null, "No activity updated!");
+                if (count != checking.size()) {
+                    JOptionPane.showMessageDialog(null, "Activity updated successfully!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No activity updated!");
+                }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");

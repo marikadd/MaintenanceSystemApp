@@ -365,7 +365,6 @@ public class ActivityDao {
     }
     */
     
-    
     public List<MaintenanceActivity> findActivityByMaintainer(String username) throws SQLException {
         
         Connection con = dbProduct.connectToDB();
@@ -394,7 +393,7 @@ public class ActivityDao {
         Connection con = dbProduct.connectToDB();
 
         String query = "select * from Activity_Maintainers";
-
+        
         PreparedStatement ps = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
 

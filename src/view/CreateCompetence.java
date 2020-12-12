@@ -21,6 +21,8 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class CreateCompetence extends javax.swing.JFrame {
     
+    private CompetenceService comp = CompetenceService.getCompetenceService();
+    
     /**
      * Creates new form CreateCompetence
      */
@@ -186,15 +188,11 @@ public class CreateCompetence extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
-        
-        CompetenceService comp = CompetenceService.getCompetenceService();
-        
+           
         String description = jTextDescription.getText();
         
-        int result = 0;
-        
         try {
-            result = comp.insertCompetence(description);
+            int result = comp.insertCompetence(description);
             if(result > 0) {
                 JOptionPane.showMessageDialog(null, "Competence created successfully!");
             } else {

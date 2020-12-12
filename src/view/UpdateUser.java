@@ -10,6 +10,8 @@ import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.UserManagementService;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -333,18 +335,41 @@ public class UpdateUser extends javax.swing.JFrame {
         int row = jTableUsers.getSelectedRow();
         String oldUsername = jTableUsers.getModel().getValueAt(row, 0).toString();
         
+        // Checking is used for searching an empty update
+        ArrayList<String> checking = new ArrayList<>();
+        
         String newUsername = check(jTextNewUsername.getText());
-        String password = check(jPasswordField.getPassword().toString());
+        checking.add(newUsername);
+        
+        String password = check(String.valueOf(jPasswordField.getPassword()));
+        checking.add(password);
+        
         String email = check(jTextEmail.getText());
+        checking.add(email);
+        
         String phone = check(jTextPhone.getText());
+        checking.add(phone);
+        
+        int count = 0;
+
+        for (String s : checking) {
+            if (s == null) {
+                count++;
+            }
+        }
 
         UserManagementService ums = UserManagementService.getUserManagementService();
 
         try {
             String role = ums.getRoleByUsername(oldUsername);
             int result = this.updateUser(oldUsername, newUsername, password, email, phone, role);
-            if (result != 0) {
-                JOptionPane.showMessageDialog(null, "User updated successfully!");
+            if (result > 0) {
+                System.out.println(count);
+                if (count != checking.size()) {
+                    JOptionPane.showMessageDialog(null, "User updated successfully!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No user updated!");
+                }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");

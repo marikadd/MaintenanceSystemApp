@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import configuration.Exceptions.ActivityAlreadyAssignedException;
@@ -14,6 +13,8 @@ import configuration.Exceptions.UsernotFoundException;
 import controller.Services.ActivityService;
 import controller.Services.CompetenceService;
 import controller.Services.UserManagementService;
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,9 +28,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Activity.ActivityInterface;
-import model.Activity.MaintenanceActivity;
 import model.Competences.Competence;
 import model.Users.UserModel;
 
@@ -37,15 +39,14 @@ import model.Users.UserModel;
  *
  * @author Group9
  */
-
 public class AssignmentActivity extends javax.swing.JFrame {
-    
-    private int ID;
-    private double time;
-    private int week;
-    private String area;
-    private String type;
-    
+
+    private final int ID;
+    private final double time;
+    private final int week;
+    private final String area;
+    private final String type;
+
     private List<ActivityInterface> list = new ArrayList<>();
     private List<UserModel> listMaintainers = new LinkedList<>();
     private CompetenceService competence = CompetenceService.getCompetenceService();
@@ -54,7 +55,9 @@ public class AssignmentActivity extends javax.swing.JFrame {
     private Map<String, List<Integer>> mapIdDays = new HashMap<>();
     private ActivityService activityService = ActivityService.getActivityService();
 
-    /** Creates new form AssignmentActivity */
+    /**
+     * Creates new form AssignmentActivity
+     */
     public AssignmentActivity(int ID, String area, String type, double time, int week) throws SQLException {
         initComponents();
         this.ID = ID;
@@ -68,36 +71,74 @@ public class AssignmentActivity extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(1180,600);
+        setSize(1180, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         showSkillsNeeded();
         getMaintainers();
         initMapIdDays();
-    }
-    
-    private String getCurrentWeek(){
-        Calendar calendar = new GregorianCalendar();
-        Date trialTime = new Date();   
-        calendar.setTime(trialTime);     
-        return String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
-    }
-    
-    private void initMapIdDays() {
         
-        for(UserModel user: listMaintainers) {
-            mapIdDays.put(user.getUsername(), new ArrayList<Integer>());
+        jTableMaintainersAvail.setDefaultRenderer(Object.class, new MyTableCellRenderer());
+        System.out.println(jTableMaintainersAvail.getValueAt(1, 3).toString());
+        
+        for(int i=2;i<jTableMaintainersAvail.getColumnCount();i++){
+            this.changeTable(jTableMaintainersAvail, i);
         }
         
     }
     
-    private String showInfo(){
-        
-        return ID + "-"+ area + "-" + type + "-" + time;
+    private void changeTable(JTable table, int column) {
+        table.getColumnModel().getColumn(column).setCellRenderer(new DefaultTableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                int st_val = Integer.parseInt(table.getValueAt(row, column).toString());
+
+                if (st_val < 40) {
+                    c.setBackground(Color.RED);
+                } else if (st_val >= 40 && st_val <= 70) {
+                    c.setBackground(Color.YELLOW);
+                } else {
+                    c.setBackground(Color.GREEN);
+                }
+
+                return c;
+            }
+        });
     }
     
-    private void getMaintainers() throws SQLException, SQLException, SQLException, SQLException{
-                
+    class MyTableCellRenderer extends DefaultTableCellRenderer {
+
+        @Override
+        public Color getBackground() {
+            return super.getBackground();
+        }
+    }
+
+    private String getCurrentWeek() {
+        Calendar calendar = new GregorianCalendar();
+        Date trialTime = new Date();
+        calendar.setTime(trialTime);
+        return String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
+    }
+
+    private void initMapIdDays() {
+
+        for (UserModel user : listMaintainers) {
+            mapIdDays.put(user.getUsername(), new ArrayList<Integer>());
+        }
+
+    }
+
+    private String showInfo() {
+
+        return ID + "-" + area + "-" + type + "-" + time;
+    }
+
+    private void getMaintainers() throws SQLException, SQLException, SQLException, SQLException {
+
         try {
             listMaintainers = user.getAllMaintainers();
         } catch (SQLException | UsernotFoundException ex) {
@@ -111,12 +152,12 @@ public class AssignmentActivity extends javax.swing.JFrame {
         }
     }
 
-    /** This method is called from within the constructor tprivate String showInfo(){
-        
-    }o
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+    /**
+     * This method is called from within the constructor tprivate String
+     * showInfo(){
+     *
+     * }o initialize the form. WARNING: Do NOT modify this code. The content of
+     * this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -568,104 +609,120 @@ public class AssignmentActivity extends javax.swing.JFrame {
         sActivity.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
 
-    private void showSkillsNeeded(){
-        
+    private void showSkillsNeeded() {
+
         try {
             skills = competence.getAllSkills(ID);
         } catch (SQLException ex) {
             Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         this.showActivitySkills(skills);
     }
-    
-    private void showActivitySkills(List<Competence> list){
-        
+
+    private void showActivitySkills(List<Competence> list) {
+
         DefaultTableModel skills = (DefaultTableModel) jTableSkills.getModel();
-                
-        for(int i=0;i<list.size();i++){
-            Object column[] =new Object[1];
+
+        for (int i = 0; i < list.size(); i++) {
+            Object column[] = new Object[1];
             column[0] = list.get(i).getDescription();
             skills.addRow(column);
         }
     }
-    
+
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
-    
-    private void showUsers(List<UserModel> list) throws SQLException{
-        
+
+    private void showUsers(List<UserModel> list) throws SQLException {
+
         DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
         Object column[] = new Object[9];
-        
-        for(int i=0;i<list.size();i++){
+
+        for (int i = 0; i < list.size(); i++) {
             column[0] = list.get(i).getUsername();
             column[1] = competence.getCommonSkills(skills, list.get(i).getUsername());
-            column[2] = "" + activityService.getDailyAvailability(list.get(i).getUsername(), 1, time) + "%";
-            column[3] = "" + activityService.getDailyAvailability(list.get(i).getUsername(), 2, time) + "%";
-            column[4] = "" + activityService.getDailyAvailability(list.get(i).getUsername(), 3, time) + "%";
-            column[5] = "" + activityService.getDailyAvailability(list.get(i).getUsername(), 4, time) + "%";
-            column[6] = "" + activityService.getDailyAvailability(list.get(i).getUsername(), 5, time) + "%";
-            column[7] = "" + activityService.getDailyAvailability(list.get(i).getUsername(), 6, time) + "%";
-            column[8] = "" + activityService.getDailyAvailability(list.get(i).getUsername(), 7, time) + "%";
-            
+            column[2] = activityService.getDailyAvailability(list.get(i).getUsername(), 1, time);
+            column[3] = activityService.getDailyAvailability(list.get(i).getUsername(), 2, time);
+            column[4] = activityService.getDailyAvailability(list.get(i).getUsername(), 3, time);
+            column[5] = activityService.getDailyAvailability(list.get(i).getUsername(), 4, time);
+            column[6] = activityService.getDailyAvailability(list.get(i).getUsername(), 5, time);
+            column[7] = activityService.getDailyAvailability(list.get(i).getUsername(), 6, time);
+            column[8] = activityService.getDailyAvailability(list.get(i).getUsername(), 7, time);
+
             users.addRow(column);
-        }      
+        }
     }
-    
+
     private void leftFromUserTable() {
-        
+
         DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
-        
+
         int length = users.getRowCount();
-        
-        for(int i = 0; i < length; i++) {
+
+        for (int i = 0; i < length; i++) {
             users.removeRow(0);
         }
-        
+
     }
-    
+
     private void jButtonAssignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAssignMouseClicked
-        
-        if (jTableMaintainersAvail.getSelectionModel().isSelectionEmpty()){
-                JOptionPane.showMessageDialog(null, "Please, select a Maintainer first");
-                return;
+
+        if (jTableMaintainersAvail.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please, select a Maintainer first");
+            return;
         }
-        
-        if (!jCheckBoxMon.isSelected() && !jCheckBoxTue.isSelected() && 
-            !jCheckBoxWed.isSelected() && !jCheckBoxThu.isSelected() && 
-            !jCheckBoxFri.isSelected() && !jCheckBoxSat.isSelected() &&
-            !jCheckBoxSun.isSelected()){
-                 
-                JOptionPane.showMessageDialog(null, "Please, select a day first");
-                return;
+
+        if (!jCheckBoxMon.isSelected() && !jCheckBoxTue.isSelected()
+                && !jCheckBoxWed.isSelected() && !jCheckBoxThu.isSelected()
+                && !jCheckBoxFri.isSelected() && !jCheckBoxSat.isSelected()
+                && !jCheckBoxSun.isSelected()) {
+
+            JOptionPane.showMessageDialog(null, "Please, select a day first");
+            return;
         }
-         
+
         try {
             int selectedIndex = jTableMaintainersAvail.getSelectedRow();
             DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
-            
+
             String username = users.getValueAt(selectedIndex, 0).toString();
-            
+
             List<Integer> listDays = new ArrayList<Integer>();
-            
-            if(jCheckBoxMon.isSelected()) listDays.add(1);
-            if(jCheckBoxTue.isSelected()) listDays.add(2);
-            if(jCheckBoxWed.isSelected()) listDays.add(3);
-            if(jCheckBoxThu.isSelected()) listDays.add(4);
-            if(jCheckBoxFri.isSelected()) listDays.add(5);
-            if(jCheckBoxSat.isSelected()) listDays.add(6);
-            if(jCheckBoxSun.isSelected()) listDays.add(7);
-            
-            
+
+            if (jCheckBoxMon.isSelected()) {
+                listDays.add(1);
+            }
+            if (jCheckBoxTue.isSelected()) {
+                listDays.add(2);
+            }
+            if (jCheckBoxWed.isSelected()) {
+                listDays.add(3);
+            }
+            if (jCheckBoxThu.isSelected()) {
+                listDays.add(4);
+            }
+            if (jCheckBoxFri.isSelected()) {
+                listDays.add(5);
+            }
+            if (jCheckBoxSat.isSelected()) {
+                listDays.add(6);
+            }
+            if (jCheckBoxSun.isSelected()) {
+                listDays.add(7);
+            }
+
             int result = activityService.assignActivity(username, ID, listDays, time);
-            
+
             leftFromUserTable();
             showUsers(listMaintainers);
-            
-            if(result > 0) JOptionPane.showMessageDialog(null, "Activity assigned successfully!");
-            else JOptionPane.showMessageDialog(null, "No activity assigned!");
+
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "Activity assigned successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No activity assigned!");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database internal error");
         } catch (UsernotFoundException ex) {
@@ -679,13 +736,12 @@ public class AssignmentActivity extends javax.swing.JFrame {
         } catch (ActivityAlreadyAssignedException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-        
+
     }//GEN-LAST:event_jButtonAssignMouseClicked
 
-    
     private void checkUncheckDay(int day, boolean value) {
-        
-        switch(day) {
+
+        switch (day) {
             case 1: {
                 this.jCheckBoxMon.setSelected(value);
                 break;
@@ -714,21 +770,35 @@ public class AssignmentActivity extends javax.swing.JFrame {
                 this.jCheckBoxSun.setSelected(value);
                 break;
             }
-            
+
         }
-        
+
     }
-    
+
     private void uncheckWeekDays(int day) {
-        if(day != 1) jCheckBoxMon.setSelected(false);
-        if(day != 2) jCheckBoxTue.setSelected(false);
-        if(day != 3) jCheckBoxWed.setSelected(false);
-        if(day != 4) jCheckBoxThu.setSelected(false);
-        if(day != 5) jCheckBoxFri.setSelected(false);
-        if(day != 6) jCheckBoxSat.setSelected(false);
-        if(day != 7) jCheckBoxSun.setSelected(false);
+        if (day != 1) {
+            jCheckBoxMon.setSelected(false);
+        }
+        if (day != 2) {
+            jCheckBoxTue.setSelected(false);
+        }
+        if (day != 3) {
+            jCheckBoxWed.setSelected(false);
+        }
+        if (day != 4) {
+            jCheckBoxThu.setSelected(false);
+        }
+        if (day != 5) {
+            jCheckBoxFri.setSelected(false);
+        }
+        if (day != 6) {
+            jCheckBoxSat.setSelected(false);
+        }
+        if (day != 7) {
+            jCheckBoxSun.setSelected(false);
+        }
     }
-    
+
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(this.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
@@ -760,7 +830,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
     private void jCheckBoxSunStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxSunStateChanged
         uncheckWeekDays(7);
     }//GEN-LAST:event_jCheckBoxSunStateChanged
-    
+
     /**
      * @param args the command line arguments
      */
@@ -792,7 +862,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new AssignmentActivity(ID,area,type,time,week).setVisible(true);
+                    new AssignmentActivity(ID, area, type, time, week).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
                 }

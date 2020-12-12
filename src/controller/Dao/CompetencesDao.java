@@ -69,6 +69,26 @@ public class CompetencesDao {
         }
         return result;
     }
+    
+    public int deassignCompetenceToUser(Maintainer maintainer, List<Integer> listId)
+            throws SQLException, UnsuccessfulUpdateException {
+
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+
+        String query = "DELETE FROM Users_Competences WHERE Username = ? AND Id_Competences = ?";
+
+        PreparedStatement ps = con.prepareStatement(query);
+        int result = 0;
+        for (Integer id : listId) {
+
+            ps.setString(1, maintainer.getUsername());
+            ps.setInt(2, id);
+            result += ps.executeUpdate();
+
+        }
+        return result;
+    }
 
     public List<Competence> findAllCompetences() throws SQLException {
 

@@ -29,6 +29,7 @@ import model.Users.UserModel;
  */
 public class AssignmentCompetence extends javax.swing.JFrame {
 
+    private CompetenceService comp = CompetenceService.getCompetenceService();
     private List<Competence> list_in = new LinkedList<>();
     private List<Competence> list_notIn = new LinkedList<>();
     private List<CompetenceInterface> list = new ArrayList<>();
@@ -73,6 +74,7 @@ public class AssignmentCompetence extends javax.swing.JFrame {
         jLabelMinimize = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableMaintainers = new javax.swing.JTable();
+        jLabelRemove = new javax.swing.JLabel();
         jLabelBack = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -213,6 +215,19 @@ public class AssignmentCompetence extends javax.swing.JFrame {
         jTableMaintainers.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jTableMaintainers);
 
+        jLabelRemove.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelRemove.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelRemove.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/del_button.png"))); // NOI18N
+        jLabelRemove.setText("Remove");
+        jLabelRemove.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 0), new java.awt.Color(255, 204, 0), null, null));
+        jLabelRemove.setOpaque(true);
+        jLabelRemove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelRemoveMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -224,25 +239,27 @@ public class AssignmentCompetence extends javax.swing.JFrame {
                 .addComponent(jLabelExit)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(jLabelTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonSearch))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabelTitleNotAssigned)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabelTitleAssigned)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonSearch)
+                            .addComponent(jLabelRemove))))
                 .addGap(0, 60, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(jLabelTitle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,13 +277,15 @@ public class AssignmentCompetence extends javax.swing.JFrame {
                 .addComponent(jLabelTitleAssigned)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelRemove)
+                .addGap(3, 3, 3)
                 .addComponent(jLabelTitleNotAssigned)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelAdd)
-                .addGap(61, 61, 61))
+                .addGap(44, 44, 44))
         );
 
         jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
@@ -292,9 +311,7 @@ public class AssignmentCompetence extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelBack)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 705, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -305,7 +322,7 @@ public class AssignmentCompetence extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -330,7 +347,6 @@ public class AssignmentCompetence extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jLabelAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddMouseClicked
-        CompetenceService comp = CompetenceService.getCompetenceService();
 
         if (jTableNotInMaintainer.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a competence first");
@@ -353,10 +369,9 @@ public class AssignmentCompetence extends javax.swing.JFrame {
         Integer id = Integer.parseInt(jTableNotInMaintainer.getModel().getValueAt(index, 0).toString());
         List<Integer> list_id = new LinkedList<>();
         list_id.add(id);
-        CompetenceService competence = CompetenceService.getCompetenceService();
 
         try {
-            int result = competence.assignCompetence(username, list_id);
+            int result = comp.assignCompetence(username, list_id);
             initTableCompetences();
 
             if (result > 0) {
@@ -379,6 +394,50 @@ public class AssignmentCompetence extends javax.swing.JFrame {
         this.setExtendedState(this.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
+    private void jLabelRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelRemoveMouseClicked
+        
+        if (jTableInMaintainer.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please, select a competence first");
+            return;
+        }
+        int index = jTableInMaintainer.getSelectedRow();
+
+        int selectedIndex = jTableMaintainers.getSelectedRow();
+        DefaultTableModel users = (DefaultTableModel) jTableMaintainers.getModel();
+        String username = users.getValueAt(selectedIndex, 0).toString();
+
+        Integer id = Integer.parseInt(jTableInMaintainer.getModel().getValueAt(index, 0).toString());
+        List<Integer> list_id = new LinkedList<>();
+        list_id.add(id);
+        try {
+            int result = comp.deassignCompetence(username, list_id);
+            initTableCompetences();
+
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "Competence deassigned successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No competence deassigned!");
+            }
+        } catch (InvalidPermissionException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid Permission");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Database internal error");
+        } catch (UsernotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "User not found");
+        } catch (UnsuccessfulUpdateException ex) {
+            JOptionPane.showMessageDialog(null, "Cannot assign competence to user");
+        }
+        
+        try {
+            list = comp.getAllCompetenceTarget(username);
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignmentCompetence.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UsernotFoundException ex) {
+            Logger.getLogger(AssignmentCompetence.class.getName()).log(Level.SEVERE, null, ex + " or role is not MAINTAINER");
+        }
+        
+    }//GEN-LAST:event_jLabelRemoveMouseClicked
+
     private void getMaintainers() throws SQLException, SQLException, SQLException, SQLException {
 
         try {
@@ -400,8 +459,7 @@ public class AssignmentCompetence extends javax.swing.JFrame {
     }
 
     private void initTableCompetences() {
-        CompetenceService comp = CompetenceService.getCompetenceService();
-
+        
         if (jTableMaintainers.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a maintainer first");
             return;
@@ -494,6 +552,7 @@ public class AssignmentCompetence extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelMinimize;
+    private javax.swing.JLabel jLabelRemove;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelTitleAssigned;
     private javax.swing.JLabel jLabelTitleNotAssigned;

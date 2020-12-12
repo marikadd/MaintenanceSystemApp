@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.*;
@@ -11,12 +12,10 @@ import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Group9
  */
-
 public class CreateUser extends javax.swing.JFrame {
 
     /**
@@ -27,7 +26,7 @@ public class CreateUser extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(490,610);
+        setSize(490, 610);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -306,18 +305,18 @@ public class CreateUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
-        
+
         String username = jTextUsername.getText();
-        String password = jPasswordField.getPassword().toString(); 
+        String password = String.valueOf(jPasswordField.getPassword());
         String name = jTextName.getText();
         String surname = jTextSurname.getText();
         String email = jTextEmail.getText();
         String phone = jTextPhone.getText();
         String role = jComboRole.getSelectedItem().toString();
-        
+
         try {
-           int result=this.createUser(username, password, name, surname, email, phone, role);
-            if (result > 0){
+            int result = this.createUser(username, password, name, surname, email, phone, role);
+            if (result > 0) {
                 JOptionPane.showMessageDialog(null, "User created successfully!");
             } else {
                 JOptionPane.showMessageDialog(null, "No user insert!");
@@ -342,34 +341,34 @@ public class CreateUser extends javax.swing.JFrame {
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(this.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
-    
-    private int createUser(String username, String password, String name, String surname, String email, String phone, String role) 
-            throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException{
-       UserManagementService user = UserManagementService.getUserManagementService();
-        
-       int result=0; 
-       
-       switch(role){
-            case "MAINTAINER": { 
-                
-                result=user.insertMaintainer(username, password, name, surname, email, phone);
+
+    private int createUser(String username, String password, String name, String surname, String email, String phone, String role)
+            throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
+        UserManagementService user = UserManagementService.getUserManagementService();
+
+        int result = 0;
+
+        switch (role) {
+            case "MAINTAINER": {
+
+                result = user.insertMaintainer(username, password, name, surname, email, phone);
                 break;
             }
-            case "PLANNER": { 
-                
-                result=user.insertPlanner(username, password, name, surname, email, phone);
+            case "PLANNER": {
+
+                result = user.insertPlanner(username, password, name, surname, email, phone);
                 break;
             }
-            case "SYSTEM_ADMIN": { 
-                
-                result=user.insertSystemAdmin(username, password, name, surname, email, phone);
+            case "SYSTEM_ADMIN": {
+
+                result = user.insertSystemAdmin(username, password, name, surname, email, phone);
                 break;
             }
         }
-      
-       return result;
+
+        return result;
     }
-    
+
     /**
      * @param args the command line arguments
      */

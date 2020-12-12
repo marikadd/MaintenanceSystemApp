@@ -186,7 +186,6 @@ public class ActivityService {
             return 0;
         }
     }
-
    
     private void checkTimeInDay(String username, int day , double time) throws SQLException, TimeExpiredException {
         

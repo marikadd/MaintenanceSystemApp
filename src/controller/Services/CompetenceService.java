@@ -61,6 +61,17 @@ public class CompetenceService {
 
         return compDao.assignCompetenceToUser(maintainer, listId);
     }
+    
+    public int deassignCompetence(String usernameMain, List<Integer> listId)
+            throws InvalidPermissionException, SQLException, UsernotFoundException, UnsuccessfulUpdateException {
+
+        UtilityUser<Maintainer> utilityUser = new UtilityUser<>();
+        Maintainer maintainer = new Maintainer();
+        UserModel um = usersDao.findUserByUsername(usernameMain, Role.MAINTAINER);
+        utilityUser.setUserModel(um, maintainer);
+
+        return compDao.deassignCompetenceToUser(maintainer, listId);
+    }
 
     public int insertCompetence(String description)
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
