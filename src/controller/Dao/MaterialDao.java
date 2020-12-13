@@ -25,21 +25,22 @@ import model.Material.*;
  * @author Group9
  */
 public class MaterialDao {
-   
+
     private static MaterialDao matDao;
     private DBProduct dbProduct;
     private ConnectionForTest cft;
-    
-    private MaterialDao(){}
-    
+
+    private MaterialDao() {
+    }
+
     //Singleton
-    public static MaterialDao init(){
-        if(matDao==null) {
-            synchronized(MaterialDao.class) {
-                if(matDao == null) {
-                    matDao=new MaterialDao();
+    public static MaterialDao init() {
+        if (matDao == null) {
+            synchronized (MaterialDao.class) {
+                if (matDao == null) {
+                    matDao = new MaterialDao();
                     matDao.cft = ConnectionForTest.init();
-            
+
                     DBAbstractFactory dbFactory = new DBFactoryContext();
                     matDao.dbProduct = dbFactory.getInstance(DBManager.instanceType);
                 }
@@ -47,102 +48,102 @@ public class MaterialDao {
         }
         return matDao;
     }
-    
+
     public int insertMaterial(String type) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
         validateMaterial(type);
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
-        
+
         String query = "INSERT INTO Material(Type_Material) VALUES(?)";
-        
+
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
-         
+
         int result = ps.executeUpdate();
-        
-        if(result == 0) {
+
+        if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot insert this material");
         }
-        
+
         return result;
     }
-    
+
     private Material getMaterial(ResultSet rs) throws SQLException {
-        
+
         Material m = new Material(rs.getString("Type_Material"));
         return m;
-        
+
     }
-    
+
     public List<Material> findAllMaterials() throws SQLException {
-        
+
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
-        
+
         String query = "SELECT * FROM Material";
-        
+
         PreparedStatement ps = con.prepareStatement(query);
-        
+
         ResultSet rs = ps.executeQuery();
         List<Material> matList = new ArrayList<>();
-        
-        while(rs.next()) {
+
+        while (rs.next()) {
             matList.add(getMaterial(rs));
         }
-        
+
         return matList;
     }
-    
+
     public int updateMaterial(String oldMaterial, String newMaterial) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
-        
+
         validateMaterial(newMaterial);
-        
+
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
-        
+
         String query = "UPDATE Material SET Type_Material = ? WHERE Type_Material = ?";
-        
+
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, newMaterial);
         ps.setString(2, oldMaterial);
-        
+
         int result = ps.executeUpdate();
-        
-        if(result == 0) {
+
+        if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot update this material");
         }
-        
+
         return result;
     }
-    
+
     public int deleteMaterial(String type) throws SQLException, UnsuccessfulUpdateException {
-        
+
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
-        
+
         String query = "DELETE FROM Material WHERE Type_Material = ?";
-        
+
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
-        
+
         int result = ps.executeUpdate();
-        
-        if(result == 0) {
+
+        if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot delete this material");
         }
-        
+
         return result;
     }
-    
+
     private void validateMaterial(String type) throws InvalidParameterObjectException {
-        
-        if(type == null || type.isBlank()) {
+
+        if (type == null || type.isBlank()) {
             throw new InvalidParameterObjectException("Material must be required");
         }
-        
-        if(type.length() > 20) {
+
+        if (type.length() > 20) {
             throw new InvalidParameterObjectException("Material type must be at most 30 characters");
         }
     }
-    
+
 }

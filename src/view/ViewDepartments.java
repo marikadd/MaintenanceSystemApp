@@ -33,7 +33,7 @@ public class ViewDepartments extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(550, 400);
+        setSize(639, 367);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -127,6 +127,10 @@ public class ViewDepartments extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(103, 103, 103)
+                .addComponent(jLabelTitle)
+                .addGap(0, 105, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,14 +138,10 @@ public class ViewDepartments extends javax.swing.JFrame {
                 .addComponent(jLabelExit)
                 .addGap(8, 8, 8))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(jLabelTitle)
-                .addGap(0, 105, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(88, 88, 88)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -213,7 +213,7 @@ public class ViewDepartments extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonListMouseClicked
 
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-    
+
         try {
             depList = dep.getAllDepartments();
         } catch (SQLException ex) {
@@ -222,29 +222,29 @@ public class ViewDepartments extends javax.swing.JFrame {
 
         this.showDepartments(depList);
         depList = null;
-        
+
     }//GEN-LAST:event_jButtonListActionPerformed
 
-    public void showDepartments(List<Department> list){
-        
+    public void showDepartments(List<Department> list) {
+
         DefaultTableModel departments = (DefaultTableModel) jTableDepartments.getModel();
-        
+
         int length = departments.getRowCount();
-        
-        if(length != 0){
-            for(int i = 0; i < length; i++) {
+
+        if (length != 0) {
+            for (int i = 0; i < length; i++) {
                 departments.removeRow(0);
             }
         }
-        
-        for(int i=0;i<list.size();i++){
-            Object column[] =new Object[1];
+
+        for (int i = 0; i < list.size(); i++) {
+            Object column[] = new Object[1];
             column[0] = list.get(i).getArea();
-            
+
             departments.addRow(column);
         }
     }
-    
+
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked

@@ -19,7 +19,7 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
      */
     public ManagementMaterialArea() {
         initComponents();
-         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(540, 460);

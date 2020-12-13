@@ -41,7 +41,7 @@ public class UpdateActivity extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(890, 600);
+        setSize(890, 590);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -392,12 +392,12 @@ public class UpdateActivity extends javax.swing.JFrame {
         // Checking is used for searching an empty update
         ArrayList<String> checking = new ArrayList<>();
 
-        String type = check(jTextFieldType.getText());       
+        String type = check(jTextFieldType.getText());
         checking.add(type);
-        
+
         String description = check(jTextFieldDescription.getText());
         checking.add(description);
-       
+
         String time_interv = check(jTextFieldTime.getText());
         checking.add(time_interv);
         int time;

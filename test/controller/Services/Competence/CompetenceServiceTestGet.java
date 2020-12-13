@@ -8,7 +8,6 @@ package controller.Services.Competence;
 import configuration.Database.ConnectionForTest;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.CompetenceService;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

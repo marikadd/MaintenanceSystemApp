@@ -9,16 +9,15 @@ package model.Users;
  *
  * @author Group9
  */
-
 public abstract class User {
-    
+
     private String username;
     protected String password;
 
     public User() {
-    	
+
     }
-    
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -33,9 +32,9 @@ public abstract class User {
     }
 
     public String getPassword() {
-    	return password;
+        return password;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }

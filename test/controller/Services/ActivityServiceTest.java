@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Group9
+ * @author dondi
  */
 public class ActivityServiceTest {
     
@@ -44,6 +44,39 @@ public class ActivityServiceTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of getActivityService method, of class ActivityService.
+     */
+    @Test
+    public void testGetActivityService() {
+        System.out.println("getActivityService");
+        ActivityService expResult = null;
+        ActivityService result = ActivityService.getActivityService();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of insertActivity method, of class ActivityService.
+     */
+    @Test
+    public void testInsertActivity() throws Exception {
+        System.out.println("insertActivity");
+        String type = "";
+        String description = "";
+        Integer time = null;
+        ArrayList<Competence> skill = null;
+        ArrayList<Material> materials = null;
+        Integer week_num = null;
+        Department dep = null;
+        ActivityService instance = null;
+        int expResult = 0;
+        int result = instance.insertActivity(type, description, time, skill, materials, week_num, dep);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 
     /**
      * Test of assignActivity method, of class ActivityService.
@@ -78,7 +111,40 @@ public class ActivityServiceTest {
         fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of updateActivity method, of class ActivityService.
+     */
+    @Test
+    public void testUpdateActivity() throws Exception {
+        System.out.println("updateActivity");
+        Integer id = null;
+        String type = "";
+        String description = "";
+        int timeActivity = 0;
+        Integer week_num = null;
+        Department dep = null;
+        ActivityService instance = null;
+        int expResult = 0;
+        int result = instance.updateActivity(id, type, description, timeActivity, week_num, dep);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 
+    /**
+     * Test of deleteActivity method, of class ActivityService.
+     */
+    @Test
+    public void testDeleteActivity() throws Exception {
+        System.out.println("deleteActivity");
+        Integer activityId = null;
+        ActivityService instance = null;
+        int expResult = 0;
+        int result = instance.deleteActivity(activityId);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 
     /**
      * Test of getActivity method, of class ActivityService.
@@ -148,8 +214,8 @@ public class ActivityServiceTest {
     public void testGetAssignedActivities() throws Exception {
         System.out.println("getAssignedActivities");
         ActivityService instance = null;
-        TreeMap<String, Integer> expResult = null;
-        TreeMap<String, Integer> result = instance.getAssignedActivities();
+        TreeMap<Integer, String> expResult = null;
+        TreeMap<Integer, String> result = instance.getAssignedActivities();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

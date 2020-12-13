@@ -25,7 +25,7 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(550,500);
+        setSize(550, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -246,7 +246,7 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
-        
+
     }//GEN-LAST:event_jButtonInsertActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
@@ -254,7 +254,7 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        
+
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
@@ -264,7 +264,7 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jButtonAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignmentActionPerformed
-      
+
     }//GEN-LAST:event_jButtonAssignmentActionPerformed
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked

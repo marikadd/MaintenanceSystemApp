@@ -10,7 +10,7 @@ package model.Activity;
  * @author Group9
  */
 public class UsernameResultActivity {
-    
+
     private String username;
     private boolean result;
 
@@ -29,5 +29,5 @@ public class UsernameResultActivity {
     public void setResult(boolean result) {
         this.result = result;
     }
-    
+
 }

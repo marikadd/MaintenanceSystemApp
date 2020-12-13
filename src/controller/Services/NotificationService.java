@@ -14,26 +14,26 @@ import java.util.List;
  * @author Group9
  */
 public class NotificationService {
-    
+
     private static NotificationService notService;
     private NotificationDao notDao;
-    
+
     public static NotificationService init() {
-        
-        if(notService == null) {
+
+        if (notService == null) {
             notService = new NotificationService();
             notService.notDao = NotificationDao.init();
         }
         return notService;
-        
-    } 
-    
+
+    }
+
     public List<String> readNotifications() throws SQLException {
-        
+
         List<String> notifications = notDao.getAllMessagesNotRead();
         notDao.readAllMessage();
         return notifications;
-        
+
     }
- 
+
 }

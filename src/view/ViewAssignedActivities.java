@@ -252,7 +252,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         try {
             this.showRecap(activityMap);
         } catch (SQLException ex) {
@@ -285,18 +285,18 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableActivitiesMouseClicked
 
     private void jButtonUnassignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUnassignMouseClicked
-        
-        if (jTableActivities.getSelectionModel().isSelectionEmpty()){
+
+        if (jTableActivities.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select an activity first");
             return;
         }
-        
+
         int row = jTableActivities.getSelectedRow();
         int ID = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 4).toString());
-        
+
         try {
             int result = activity.unassignActivity(ID);
-            if(result > 0){ 
+            if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Activity unassigned successfully!");
             }
         } catch (SQLException ex) {
@@ -306,7 +306,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         } catch (InvalidParameterObjectException ex) {
             Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jButtonUnassignMouseClicked
 
     private void jButtonUnassignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUnassignActionPerformed
@@ -327,15 +327,15 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         }
 
         for (Map.Entry<Integer, String> entry : map.entrySet()) {
-            
+
             MaintenanceActivity selActivity = activity.getActivity(entry.getKey());
-            
+
             column[0] = entry.getValue();
             column[1] = selActivity.getDescription();
             column[2] = selActivity.getDepartment().getArea();
             column[3] = selActivity.getWeekNum();
             column[4] = selActivity.getID();
-            
+
             users.addRow(column);
         }
 

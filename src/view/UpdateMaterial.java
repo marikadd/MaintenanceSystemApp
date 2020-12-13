@@ -27,6 +27,7 @@ public class UpdateMaterial extends javax.swing.JFrame {
 
     private List<Material> matList = new LinkedList<>();
     private MaterialService mat = MaterialService.getMaterialService();
+
     /**
      * Creates new form UpdateMaterial
      */
@@ -35,7 +36,7 @@ public class UpdateMaterial extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(510, 500);
+        setSize(515, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -109,7 +110,7 @@ public class UpdateMaterial extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Area"
+                "Type"
             }
         ) {
             Class[] types = new Class [] {
@@ -189,10 +190,10 @@ public class UpdateMaterial extends javax.swing.JFrame {
                                 .addComponent(jTextNewType, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
                                 .addComponent(jLabelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(22, 22, 22))
+                        .addGap(35, 35, 35))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabelTitle)
-                        .addGap(78, 78, 78))))
+                        .addGap(93, 93, 93))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +203,7 @@ public class UpdateMaterial extends javax.swing.JFrame {
                     .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabelTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
@@ -250,7 +251,7 @@ public class UpdateMaterial extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(UpdateMaterial.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         showMaterials(matList);
         matList = null;
     }//GEN-LAST:event_jButtonListMouseClicked
@@ -261,7 +262,7 @@ public class UpdateMaterial extends javax.swing.JFrame {
 
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
 
-        if (jTableMaterials.getSelectionModel().isSelectionEmpty()){
+        if (jTableMaterials.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a material first");
             return;
         }
@@ -272,7 +273,7 @@ public class UpdateMaterial extends javax.swing.JFrame {
 
         try {
             int result = mat.updateMaterial(oldType, newType);
-            
+
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Department updated successfully!");
             } else {
@@ -308,6 +309,7 @@ public class UpdateMaterial extends javax.swing.JFrame {
             materials.addRow(column);
         }
     }
+
     /**
      * @param args the command line arguments
      */

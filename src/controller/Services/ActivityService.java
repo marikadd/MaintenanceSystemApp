@@ -38,7 +38,6 @@ import model.Material.Material;
  *
  * @author Group9
  */
-
 public class ActivityService {
 
     private static ActivityService activService;
@@ -47,15 +46,15 @@ public class ActivityService {
     private DepartmentDao depDao;
     private NotificationDao notDao;
     private final double maxInDay = 420;
-    
+
 //Singleton
     private ActivityService() {
     }
 
     public static ActivityService getActivityService() {
         if (activService == null) {
-            synchronized(ActivityService.class) {
-                if(activService == null) {
+            synchronized (ActivityService.class) {
+                if (activService == null) {
                     activService = new ActivityService();
                     activService.activityDao = ActivityDao.init();
                     activService.usersDao = UsersDao.init();
@@ -85,28 +84,27 @@ public class ActivityService {
 
         checkActivityAlreadyAssigned(activityId, usernameMain);
         checkTimeInDay(usernameMain, listIdDay.get(0), time);
-        
+
         // Da eliminare, la lista è infallibile
-        UtilityUser<Maintainer> utilityUser = new UtilityUser<Maintainer>();
+        UtilityUser<Maintainer> utilityUser = new UtilityUser<>();
         Maintainer maintainer = new Maintainer();
         UserModel um = usersDao.findUserByUsername(usernameMain, Role.MAINTAINER);
         utilityUser.setUserModel(um, maintainer);
 
-        List<Integer> activitiesId = new ArrayList<Integer>();
+        List<Integer> activitiesId = new ArrayList<>();
         activitiesId.add(activityId);
         int result = activityDao.assignActivityToMaintainer(maintainer, activitiesId);
-        
+
         activityDao.assignmentActivity(activityId);
         activityDao.setMaintainerActivityDays(usernameMain, activityId, listIdDay);
-        
 
         return result;
     }
-    
-    public int unassignActivity(Integer activityId) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException{
-        
+
+    public int unassignActivity(Integer activityId) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+
         int result = activityDao.deassignActivity(activityId);
-        
+
         return result;
     }
 
@@ -120,20 +118,20 @@ public class ActivityService {
 
         return activityDao.deleteActivity(activityId);
     }
-    
+
     private void notifyActivityDelete(Integer activityId) throws SQLException {
-        
+
         String username = activityDao.findMaintainerByActivityId(activityId);
-        
-        if(username != null) {
+
+        if (username != null) {
             notDao.insertMessageNotificationPlanner(String.
                     format("The user %s is available again", username));
         }
-        
+
     }
-    
-    public MaintenanceActivity getActivity(Integer ID) throws SQLException, ActivityNotFoundException{
-        
+
+    public MaintenanceActivity getActivity(Integer ID) throws SQLException, ActivityNotFoundException {
+
         return activityDao.findActivityByID(ID);
     }
 
@@ -169,8 +167,7 @@ public class ActivityService {
 
         return targets;
     }
-    */
-    
+     */
     private List<ActivityInterface> getListTargetMaintainer(List<MaintenanceActivity> activities, boolean linked) {
 
         List<ActivityInterface> targets = new ArrayList<ActivityInterface>();
@@ -182,65 +179,63 @@ public class ActivityService {
 
         return targets;
     }
-    
+
     public int getDailyAvailability(String username, int day, double time) throws SQLException {
-        
+
         double sumNumDay = activityDao.getSumActivityDay(username, day);
-        
-        if(sumNumDay == 0.0) {
+
+        if (sumNumDay == 0.0) {
             return 100;
         }
-            
+
         BigDecimal ratioDay = new BigDecimal(((this.maxInDay - (sumNumDay)) / this.maxInDay) * 100);
         int percDay = ratioDay.intValue();
-        
-        if(percDay > 0) {
+
+        if (percDay > 0) {
             return percDay;
         } else {
             return 0;
         }
     }
-   
-    private void checkTimeInDay(String username, int day , double time) throws SQLException, TimeExpiredException {
-        
+
+    private void checkTimeInDay(String username, int day, double time) throws SQLException, TimeExpiredException {
+
         double sumNumDay = activityDao.getSumActivityDay(username, day);
-        
-        if((sumNumDay + time) > this.maxInDay) {
-            
+
+        if ((sumNumDay + time) > this.maxInDay) {
+
             throw new TimeExpiredException(String.format("Cannot assign to %s %.0f minutes in day %d.\nShow others maintainer's availability in the selected day.", username, time, day));
-            
+
         }
     }
-    
-     private void checkActivityAlreadyAssigned(int maintainerActivityId, String username) throws SQLException, ActivityAlreadyAssignedException {
-        
+
+    private void checkActivityAlreadyAssigned(int maintainerActivityId, String username) throws SQLException, ActivityAlreadyAssignedException {
+
         UsernameResultActivity ura = activityDao.checkActivityAssigned(maintainerActivityId);
-        
-        if(ura.isResult()) {
-            if(!username.equals(ura.getUsername())) {
+
+        if (ura.isResult()) {
+            if (!username.equals(ura.getUsername())) {
                 throw new ActivityAlreadyAssignedException("Activity selected already assigned to another maintainer");
             } else {
                 throw new ActivityAlreadyAssignedException("Activity selected already assigned to this maintainer");
             }
         }
-    
+
     }
-    
-    public TreeMap<Integer, String> getAssignedActivities() throws SQLException{
-        
+
+    public TreeMap<Integer, String> getAssignedActivities() throws SQLException {
+
         TreeMap<Integer, String> activityMap = new TreeMap<>();
         activityMap = activityDao.findAssignedActivities();
-        
+
         return activityMap;
-        
+
     }
-    
+
     /*
     private void validateMaintainer(String username) throws SQLException, UsernotFoundException {
 
         UserModel um = usersDao.findUserByUsername(username, Role.MAINTAINER);
     }
-    */
-    
- 
+     */
 }

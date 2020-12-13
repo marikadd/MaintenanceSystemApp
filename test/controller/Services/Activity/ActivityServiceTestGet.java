@@ -6,6 +6,7 @@
 package controller.Services.Activity;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Exceptions.ActivityNotFoundException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.ActivityService;
 import java.util.ArrayList;
@@ -58,117 +59,116 @@ public class ActivityServiceTestGet {
 
     }
     
+    /**
+     * Test of getGetActivity method, of class ActivityService, getting
+     * a valid MaintenanceActivity.
+     */
     @Test
     public void testGetActivity() throws Exception {
         System.out.println("getActivity");
         Integer ID = 1;
         List<MaintenanceActivity> list = new ArrayList<>();
-        ActivityService instance = null;
-        MaintenanceActivity expResult = null;
-        result = as.getActivity(ID);
+        int expResult = 1;
+        int result = as.getActivity(ID).getID();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+    }
+    
+    /**
+     * Test of getGetActivity method, of class ActivityService, getting
+     * an invalid MaintenanceActivity.
+     */
+    @Test(expected = ActivityNotFoundException.class)
+    public void testGetActivity1() throws Exception {
+        System.out.println("getActivity1");
+        Integer ID = 51;
+        List<MaintenanceActivity> list = new ArrayList<>();
+        int expResult = 0;
+        int result = as.getActivity(ID).getID();
+        assertEquals(expResult, result);
+        
     }
   
     /**
-     * Test of getAllActivitiesInWeek method, of class ActivityService.
+     * Test of getAllActivitiesInWeek method, of class ActivityService, getting
+     * all MaintenanceActivity in a valid week ([1,52]).
      */
-    /*@Test
+    @Test
     public void testGetAllActivitiesInWeek() throws Exception {
         System.out.println("getAllActivitiesInWeek");
-        int week_num = 0;
-        ActivityService instance = null;
-        List<MaintenanceActivity> expResult = null;
-        List<MaintenanceActivity> result = instance.getAllActivitiesInWeek(week_num);
+        int week_num = 9;
+        int expResult = 1;
+        int result = as.getAllActivitiesInWeek(week_num).size();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of getAllActivitiesInWeek method, of class ActivityService, getting
+     * all MaintenanceActivity in a valid week ([1,52]) without any Activity.
+     */
+    @Test
+    public void testGetAllActivitiesInWeek1() throws Exception {
+        System.out.println("getAllActivitiesInWeek1");
+        int week_num = 1;
+        int expResult = 0;
+        int result = as.getAllActivitiesInWeek(week_num).size();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of getAllActivitiesInWeek method, of class ActivityService, getting
+     * all MaintenanceActivity in an invalid week (>52).
+     */
+    @Test
+    public void testGetAllActivitiesInWeek2() throws Exception {
+        System.out.println("getAllActivitiesInWeek2");
+        int week_num = 53;
+        int expResult = 0;
+        int result = as.getAllActivitiesInWeek(week_num).size();
+        assertEquals(expResult, result);
     }
 
     /**
-     * Test of getDailyAvailability method, of class ActivityService.
+     * Test of getDailyAvailability method, of class ActivityService, getting 
+     * avaiability from a valid Maintainer in a valid day.
      */
     @Test
     public void testGetDailyAvailability() throws Exception {
         System.out.println("getDailyAvailability");
-        String username = "";
-        int day = 0;
-        double time = 0.0;
-        ActivityService instance = null;
-        int expResult = 0;
-        int result = instance.getDailyAvailability(username, day, time);
+        String username = "mrossi";
+        int day = 1;
+        double time = 12.0;
+        int expResult = 100;
+        int result = as.getDailyAvailability(username, day, time);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of getDailyAvailability method, of class ActivityService, getting 
+     * avaiability from an invalid Maintainer.
+     */
+    @Test
+    public void testGetDailyAvailability1() throws Exception {
+        System.out.println("getDailyAvailability");
+        String username = "giulioc";
+        int day = 1;
+        double time = 12.0;
+        int expResult = 100;
+        int result = as.getDailyAvailability(username, day, time);
+        assertEquals(expResult, result);
     }
     
      /**
-     * Test of getAssignedActivities method, of class ActivityService.
+     * Test of getAssignedActivities method, of class ActivityService, getting all
+     * activity assigned.
      */
-    /*
     @Test
     public void testGetAssignedActivities() throws Exception {
         System.out.println("getAssignedActivities");
-        ActivityService instance = null;
-        TreeMap<String, Integer> expResult = null;
-        TreeMap<String, Integer> result = instance.getAssignedActivities();
+        int expResult = 1;
+        int result = as.getAssignedActivities().size();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
-    /**
-     * Test of getAllActivityTarget method, of class ActivityService, getting
-     *all MaintenanceActivity from a valid Maintainer.
-   
-    @Test
-    public void testGetAllActivityTarget() throws Exception {
-        System.out.println("getAllActivityTarget");
-        String username = "mrossi";
-        List<ActivityInterface> list = new ArrayList<>();
-        list = as.getAllActivityTarget(username);
-        int result = list.size(); //restituisce il numero di attività ???
-        int expectedResult = 1;
-
-        assertEquals(result, expectedResult);
-
-    }
-
-    /**
-     * Test of getAllActivityTarget method, of class ActivityService, getting
-     * all MaintenanceActivity from an invalid Maintainer.
-     */ 
-    /*
-    @Test(expected = UsernotFoundException.class)
-    public void testGetAllActivityTarget1() throws Exception {
-        System.out.println("getAllActivityTarget");
-        String username = "lbianchi";
-        List<ActivityInterface> list = new ArrayList<>();
-        list = as.getAllActivityTarget(username);
-        int result = list.size();
-        int expectedResult = 0;
-
-        assertEquals(result, expectedResult);
-
-    }
-
-    /**
-     * Test of getAllActivityTarget method, of class ActivityService, getting
-     * all MaintenanceActivity from an invalid User.
-     */
-    /*
-    @Test(expected = UsernotFoundException.class)
-    public void testGetAllActivityTarget2() throws Exception {
-        System.out.println("getAllActivityTarget");
-        String username = "icantalupo";
-        List<ActivityInterface> list = new ArrayList<>();
-        list = as.getAllActivityTarget(username);
-        int result = list.size();
-        int expectedResult = 0;
-
-        assertEquals(result, expectedResult);
-
-    }*/
 
 }

@@ -12,7 +12,6 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  *
  * @author Group9
  */
-
 public class ManagementDepartmentArea extends javax.swing.JFrame {
 
     /**

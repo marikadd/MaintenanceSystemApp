@@ -11,16 +11,15 @@ import model.Department.Department;
  *
  * @author Group9
  */
-
 public class ActivityLinked extends MaintenanceActivity implements ActivityInterface {
-    
+
     private boolean activityLinked;
 
     public ActivityLinked(boolean activityLinked, int ID, String type, String description, int time, Boolean assigned, int week_num, Department dep) {
         super(ID, type, description, time, assigned, week_num, dep);
         this.activityLinked = activityLinked;
     }
-    
+
     public boolean isActivityLinked() {
         return activityLinked;
     }
@@ -32,6 +31,6 @@ public class ActivityLinked extends MaintenanceActivity implements ActivityInter
     @Override
     public String toString() {
         return "ActivityAdapter{" + "activityLinked=" + activityLinked + '}';
-    }   
-    
+    }
+
 }

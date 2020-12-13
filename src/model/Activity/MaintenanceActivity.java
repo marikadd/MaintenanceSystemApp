@@ -13,10 +13,9 @@ import model.Department.Department;
  *
  * @author Group9
  */
-
 //Adaptee
 public class MaintenanceActivity {
-     
+
     private Integer ID;
     private String type;
     private String description;
@@ -26,8 +25,9 @@ public class MaintenanceActivity {
     private Department department;
     private Boolean assigned;
 
-    public MaintenanceActivity() {}
-    
+    public MaintenanceActivity() {
+    }
+
     public MaintenanceActivity(int ID, String type, String description, int time, Boolean assigned, int week_num, Department dep) {
         this.ID = ID;
         this.type = type;
@@ -97,7 +97,5 @@ public class MaintenanceActivity {
     public void setDepartment(Department department) {
         this.department = department;
     }
-    
-    
-    
+
 }

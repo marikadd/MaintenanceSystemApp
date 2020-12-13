@@ -24,6 +24,7 @@ public class ViewMaterials extends javax.swing.JFrame {
 
     private List<Material> matList = new LinkedList<>();
     private MaterialService mat = MaterialService.getMaterialService();
+
     /**
      * Creates new form ViewMaterials
      */
@@ -189,7 +190,7 @@ public class ViewMaterials extends javax.swing.JFrame {
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -221,13 +222,13 @@ public class ViewMaterials extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
-       
+
         try {
             matList = mat.getAllMaterials();
         } catch (SQLException ex) {
             Logger.getLogger(ViewMaterials.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
         this.showMaterials(matList);
         matList = null;
     }//GEN-LAST:event_jButtonListMouseClicked
@@ -240,26 +241,26 @@ public class ViewMaterials extends javax.swing.JFrame {
         this.setExtendedState(this.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
-    public void showMaterials(List<Material> list){
-        
+    public void showMaterials(List<Material> list) {
+
         DefaultTableModel materials = (DefaultTableModel) jTableMaterials.getModel();
-        
+
         int length = materials.getRowCount();
-        
-        if(length != 0){
-            for(int i = 0; i < length; i++) {
+
+        if (length != 0) {
+            for (int i = 0; i < length; i++) {
                 materials.removeRow(0);
             }
         }
-        
-        for(int i=0;i<list.size();i++){
-            Object column[] =new Object[1];
+
+        for (int i = 0; i < list.size(); i++) {
+            Object column[] = new Object[1];
             column[0] = list.get(i).getType();
-            
+
             materials.addRow(column);
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */

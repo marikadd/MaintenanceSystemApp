@@ -7,13 +7,10 @@ package controller.Services.Material;
 
 import configuration.Database.ConnectionForTest;
 import controller.Services.MaterialService;
-import java.sql.SQLException;
 import java.util.List;
 import model.Material.Material;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -22,29 +19,27 @@ import static org.junit.Assert.*;
  * @author Group9
  */
 public class MaterialServiceTestGet {
-    
-       
+
     private MaterialService ms;
     private ConnectionForTest cft;
-    
-    
+
     public MaterialServiceTestGet() {
     }
-    
+
     @Before
     public void setUp() {
         ms = MaterialService.getMaterialService();
-        cft = ConnectionForTest.init(); 
+        cft = ConnectionForTest.init();
     }
-    
+
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
-    
-    
+
     /**
-     * Test of getAllMaterials method, of class MaterialService, getting all materials..
+     * Test of getAllMaterials method, of class MaterialService, getting all
+     * materials..
      */
     @Test
     public void testGetAllMaterials() throws Exception {
@@ -53,5 +48,5 @@ public class MaterialServiceTestGet {
         List<Material> list = ms.getAllMaterials();
         int result = list.size();
         assertEquals(expResult, result);
-}
+    }
 }
