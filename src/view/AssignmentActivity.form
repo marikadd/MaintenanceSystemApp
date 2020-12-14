@@ -61,17 +61,12 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jScrollPane2" min="-2" pref="205" max="-2" attributes="0"/>
-                                              <Component id="jLabelActivityInfo" min="-2" pref="141" max="-2" attributes="0"/>
-                                              <Component id="jLabelInfo" min="-2" pref="242" max="-2" attributes="0"/>
-                                              <Component id="jLabelSkills" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
-                                              <Component id="jLabelWeek" min="-2" pref="45" max="-2" attributes="0"/>
-                                              <Component id="jLabelCurrentWeek" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="jScrollPane2" min="-2" pref="205" max="-2" attributes="0"/>
+                                      <Component id="jLabelActivityInfo" min="-2" pref="141" max="-2" attributes="0"/>
+                                      <Component id="jLabelInfo" min="-2" pref="242" max="-2" attributes="0"/>
+                                      <Component id="jLabelSkills" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
+                                      <Component id="jLabelWeek" min="-2" pref="45" max="-2" attributes="0"/>
+                                      <Component id="jLabelCurrentWeek" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabelWeekNum1" pref="129" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>

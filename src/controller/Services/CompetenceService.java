@@ -77,7 +77,7 @@ public class CompetenceService {
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         return compDao.insertCompetence(description);
-    }
+    } 
 
     public int updateCompetence(Integer id, String description)
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
@@ -90,7 +90,7 @@ public class CompetenceService {
         return compDao.deleteCompetence(id);
     }
 
-    public List<Competence> getAllSkills(int activityID) throws SQLException {
+    public List<Competence> getAllSkills(Integer activityID) throws SQLException, InvalidParameterObjectException {
 
         List<Competence> compList = new LinkedList<>();
         compList = compDao.getCompetencesByActivityId(activityID);

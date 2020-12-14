@@ -11,6 +11,7 @@ import configuration.Database.DBFactoryContext;
 import configuration.Database.DBManager;
 import configuration.Database.DBProduct;
 import configuration.Exceptions.ActivityNotFoundException;
+import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.ActivityService;
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ import java.sql.Connection;
  *
  * @author Group9
  */
-
 public class ActivityServiceTestGet {
 
     private ActivityService as;
@@ -44,19 +44,19 @@ public class ActivityServiceTestGet {
         DBAbstractFactory dbFactory = new DBFactoryContext();
         cft = ConnectionForTest.init();
         dbProduct = dbFactory.getInstance(DBManager.instanceType);
-        cft.setConn(dbProduct.connectToDB());
+        cft.setConn(dbProduct.connectToDB()); 
         setAfter();
-        
+
     }
-    
+
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
 
     /**
-     * Test of getAllActivities method, of class ActivityService, getting
-     * all activities.
+     * Test of getAllActivities method, of class ActivityService, getting all
+     * activities.
      */
     @Test
     public void testGetAllActivities() throws Exception {
@@ -64,14 +64,14 @@ public class ActivityServiceTestGet {
         List<MaintenanceActivity> list = new ArrayList<>();
         list = as.getAllActivities();
         int result = list.size();
-        int ExpectedResult = 2; 
+        int ExpectedResult = 2;
         assertEquals(result, ExpectedResult);
 
     }
-    
+
     /**
-     * Test of getGetActivity method, of class ActivityService, getting
-     * a valid MaintenanceActivity.
+     * Test of getGetActivity method, of class ActivityService, getting a valid
+     * MaintenanceActivity.
      */
     @Test
     public void testGetActivity() throws Exception {
@@ -81,12 +81,12 @@ public class ActivityServiceTestGet {
         int expResult = 1;
         int result = as.getActivity(ID).getID();
         assertEquals(expResult, result);
-        
+
     }
-    
+
     /**
-     * Test of getGetActivity method, of class ActivityService, getting
-     * an invalid MaintenanceActivity.
+     * Test of getGetActivity method, of class ActivityService, getting an
+     * invalid MaintenanceActivity.
      */
     @Test(expected = ActivityNotFoundException.class)
     public void testGetActivity1() throws Exception {
@@ -96,9 +96,23 @@ public class ActivityServiceTestGet {
         int expResult = 0;
         int result = as.getActivity(ID).getID();
         assertEquals(expResult, result);
-        
+
     }
-  
+
+    /**
+     * Test of getGetActivity method, of class ActivityService, getting an
+     * invalid MaintenanceActivity (empty).
+     */
+    @Test(expected = ActivityNotFoundException.class)
+    public void testGetActivity2() throws Exception {
+        System.out.println("getActivity1");
+        Integer ID = null;
+        List<MaintenanceActivity> list = new ArrayList<>();
+        int expResult = 0;
+        int result = as.getActivity(ID).getID();
+        assertEquals(expResult, result);
+
+    }
     /**
      * Test of getAllActivitiesInWeek method, of class ActivityService, getting
      * all MaintenanceActivity in a valid week ([1,52]).
@@ -106,12 +120,12 @@ public class ActivityServiceTestGet {
     @Test
     public void testGetAllActivitiesInWeek() throws Exception {
         System.out.println("getAllActivitiesInWeek");
-        int week_num = 9;
+        Integer week_num = 9;
         int expResult = 1;
         int result = as.getAllActivitiesInWeek(week_num).size();
         assertEquals(expResult, result);
     }
-    
+
     /**
      * Test of getAllActivitiesInWeek method, of class ActivityService, getting
      * all MaintenanceActivity in a valid week ([1,52]) without any Activity.
@@ -119,58 +133,100 @@ public class ActivityServiceTestGet {
     @Test
     public void testGetAllActivitiesInWeek1() throws Exception {
         System.out.println("getAllActivitiesInWeek1");
-        int week_num = 1;
-        int expResult = 0;
-        int result = as.getAllActivitiesInWeek(week_num).size();
-        assertEquals(expResult, result);
-    }
-    
-    /**
-     * Test of getAllActivitiesInWeek method, of class ActivityService, getting
-     * all MaintenanceActivity in an invalid week (>52).
-     */
-    @Test
-    public void testGetAllActivitiesInWeek2() throws Exception {
-        System.out.println("getAllActivitiesInWeek2");
-        int week_num = 53;
+        Integer week_num = 1;
         int expResult = 0;
         int result = as.getAllActivitiesInWeek(week_num).size();
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of getDailyAvailability method, of class ActivityService, getting 
+     * Test of getAllActivitiesInWeek method, of class ActivityService, getting
+     * all MaintenanceActivity in an invalid week (>52).
+     */
+    @Test(expected = ActivityNotFoundException.class)
+    public void testGetAllActivitiesInWeek2() throws Exception {
+        System.out.println("getAllActivitiesInWeek2");
+        Integer week_num = 53;
+        int expResult = 0;
+        int result = as.getAllActivitiesInWeek(week_num).size();
+        assertEquals(expResult, result);
+    }
+   
+    /**
+     * Test of getAllActivitiesInWeek method, of class ActivityService, getting
+     * all MaintenanceActivity in an invalid week (empty).
+     */
+    @Test(expected = ActivityNotFoundException.class)
+    public void testGetAllActivitiesInWeek3() throws Exception {
+        System.out.println("getAllActivitiesInWeek2");
+        Integer week_num = null;
+        int expResult = 0;
+        int result = as.getAllActivitiesInWeek(week_num).size();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getDailyAvailability method, of class ActivityService, getting
      * avaiability from a valid Maintainer in a valid day.
      */
     @Test
     public void testGetDailyAvailability() throws Exception {
         System.out.println("getDailyAvailability");
         String username = "mrossi";
-        int day = 1;
-        double time = 12.0;
-        int expResult = 71; //Ricorda che mrossi svolge un attività di 120min--> ((420-120)/420) *100
+        Integer day = 1;
+        Double time = 12.0;
+        int expResult = 71; //An activity of 120 min is assigned to mrossi so --> ((420-120)/420)*100) = 71%
         int result = as.getDailyAvailability(username, day, time);
         assertEquals(expResult, result);
     }
-    
-    /**
-     * Test of getDailyAvailability method, of class ActivityService, getting 
-     * avaiability from an invalid Maintainer.
+     /**
+     * Test of getDailyAvailability method, of class ActivityService, getting
+     * avaiability from a valid Maintainer in a unvalid day.
      */
-    @Test
+    @Test//eccezioni
     public void testGetDailyAvailability1() throws Exception {
         System.out.println("getDailyAvailability");
-        String username = "giulioc";
-        int day = 1;
-        double time = 12.0;
-        int expResult = 100;
+        String username = "mrossi";
+        Integer day = null;
+        Double time = 12.0;
+        int expResult = 0;
         int result = as.getDailyAvailability(username, day, time);
         assertEquals(expResult, result);
     }
-    
-     /**
-     * Test of getAssignedActivities method, of class ActivityService, getting all
-     * activity assigned.
+
+    /**
+     * Test of getDailyAvailability method, of class ActivityService, getting
+     * avaiability from a valid Maintainer in a valid day in order to do an .
+     */
+    @Test //eccezioni
+    public void testGetDailyAvailability2() throws Exception {
+        System.out.println("getDailyAvailability");
+        String username = "mrossi";
+        Integer day = 5;
+        Double time = null;
+        int expResult = 0;
+        int result = as.getDailyAvailability(username, day, time);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getDailyAvailability method, of class ActivityService, getting
+     * avaiability from a invalid Maintainer in a valid day. 
+     */
+    @Test(expected= UsernotFoundException.class)
+    public void testGetDailyAvailability3() throws Exception {
+        System.out.println("getDailyAvailability");
+        String username = "giulioc";
+        Integer day = 1;
+        Double time = 12.0;
+        int expResult = 0;
+        int result = as.getDailyAvailability(username, day, time);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getAssignedActivities method, of class ActivityService, getting
+     * all activities assigned.
      */
     @Test
     public void testGetAssignedActivities() throws Exception {
@@ -179,7 +235,5 @@ public class ActivityServiceTestGet {
         int result = as.getAssignedActivities().size();
         assertEquals(expResult, result);
     }
-    
-    
 
 }

@@ -10,7 +10,7 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import java.sql.SQLException;
-import java.util.Map;
+import java.util.Map; 
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -259,6 +259,8 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
             Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ActivityNotFoundException ex) {
             Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameterObjectException ex) {
+            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonListMouseClicked
 
@@ -313,7 +315,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonUnassignActionPerformed
 
-    private void showRecap(TreeMap<Integer, String> map) throws SQLException, ActivityNotFoundException {
+    private void showRecap(TreeMap<Integer, String> map) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         DefaultTableModel users = (DefaultTableModel) jTableActivities.getModel();
         Object column[] = new Object[5];

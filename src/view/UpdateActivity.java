@@ -373,6 +373,8 @@ public class UpdateActivity extends javax.swing.JFrame {
             Logger.getLogger(UpdateActivity.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ActivityNotFoundException ex) {
             Logger.getLogger(UpdateActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameterObjectException ex) {
+            Logger.getLogger(UpdateActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         this.showActivities(activityList);
@@ -559,7 +561,7 @@ public class UpdateActivity extends javax.swing.JFrame {
                 new UpdateActivity().setVisible(true);
             }
         });
-    }
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonList;

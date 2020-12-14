@@ -6,6 +6,10 @@
 package controller.Services.User;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.InvalidParameterObjectException;
 import controller.Services.UserManagementService;
 import java.sql.SQLException;
@@ -19,33 +23,35 @@ import static org.junit.Assert.*;
  * @author Group9
  */
 public class UserManagementTestInsert {
-    
+
     private UserManagementService ums;
     private ConnectionForTest cft;
-    
-    
+    private DBProduct dbProduct;
+
     public UserManagementTestInsert() {
-   
     }
-    
-    
+
     @Before
     public void setUp() {
-        
         ums = UserManagementService.getUserManagementService();
+        DBAbstractFactory dbFactory = new DBFactoryContext();
         cft = ConnectionForTest.init();
-        
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
+        cft.rollbackConnection();
     }
-    
+
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
-    
-    
-     /**
-     * Test of insertPlanner method, of class UserManagementService, inserting a Planner
-     * with correct parameters; The operation of insert is equal for all roles..
+
+    /**
+     * Test of insertPlanner method, of class UserManagementService, inserting a
+     * Planner with correct parameters; The operation of insert is equal for all
+     * roles, for this reason test cases are distributed among the various roles
+     * in a random way.
      */
     @Test
     public void testInsertPlanner() throws Exception {
@@ -56,14 +62,14 @@ public class UserManagementTestInsert {
         String surname = "Cantalupo";
         String email = "irma98@gmail.com";
         String phone = "3334565336";
-        int result=ums.insertPlanner(username, password, name, surname, email, phone);
+        int result = ums.insertPlanner(username, password, name, surname, email, phone);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
- 
-     /**
-     * Test of insertProdManager method, of class UserManagementService, inserting a ProdManager
-     * without username.
+
+    /**
+     * Test of insertProdManager method, of class UserManagementService,
+     * inserting a ProdManager without username.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertProdManager() throws Exception {
@@ -81,8 +87,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertProdManager method, of class UserManagementService, inserting a ProdManager
-     * whose username doesn't respect lenght.
+     * Test of insertProdManager method, of class UserManagementService,
+     * inserting a ProdManager whose username doesn't respect length.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertProdManager1() throws Exception {
@@ -100,8 +106,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertProdManager method, of class UserManagementService, inserting a PrdoManager
-     * whose username already exists.
+     * Test of insertProdManager method, of class UserManagementService,
+     * inserting a PrdoManager whose username already exists.
      */
     @Test(expected = SQLException.class)
     public void testInsertProdManager2() throws Exception {
@@ -118,8 +124,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertPlanner method, of class UserManagementService, inserting a Planneer
-     * without name.
+     * Test of insertPlanner method, of class UserManagementService, inserting a
+     * Planner without name.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertPlanner1() throws Exception {
@@ -136,8 +142,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertPlanner method, of class UserManagementService, inserting a Planner
-     * whose name doesn't respect lenght.
+     * Test of insertPlanner method, of class UserManagementService, inserting a
+     * Planner whose name doesn't respect length.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertPlanner2() throws Exception {
@@ -154,8 +160,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertPlanner method, of class UserManagementService, inserting a Planner
-     * without surname.
+     * Test of insertPlanner method, of class UserManagementService, inserting a
+     * Planner without surname.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertPlanner3() throws Exception {
@@ -172,8 +178,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertPlanner method, of class UserManagementService, inserting a Planner
-     * whose surname doesn't respect lenght.
+     * Test of insertPlanner method, of class UserManagementService, inserting a
+     * Planner whose surname doesn't respect length.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertPlanner4() throws Exception {
@@ -190,8 +196,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertSystemAdmin method, of class UserManagementService, inserting a SystemAdmin
-     * without password.
+     * Test of insertSystemAdmin method, of class UserManagementService,
+     * inserting a SystemAdmin without password.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertSystemAdmin1() throws Exception {
@@ -209,8 +215,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertSystemAdmin method, of class UserManagementService, inserting a SystemAdmin
-     * whose password doesn't respect format.
+     * Test of insertSystemAdmin method, of class UserManagementService,
+     * inserting a SystemAdmin whose password doesn't respect format.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertSystemAdmin2() throws Exception {
@@ -228,8 +234,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertMaintainer method, of class UserManagementService, inserting a Maintainer
-     * whitout phone number.
+     * Test of insertMaintainer method, of class UserManagementService,
+     * inserting a Maintainer whitout phone number.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertMaintainer1() throws Exception {
@@ -246,8 +252,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertMaintainer method, of class UserManagementService, inserting a Maintainer
-     * whose phone number is more than 10 numbers.
+     * Test of insertMaintainer method, of class UserManagementService,
+     * inserting a Maintainer whose phone number is more than 10 numbers.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertMaintainer2() throws Exception {
@@ -264,8 +270,8 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertMaintainer method, of class UserManagementService, inserting a Maintainer
-     * whose phone number is less than 10 numbers.
+     * Test of insertMaintainer method, of class UserManagementService,
+     * inserting a Maintainer whose phone number is less than 10 numbers.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertMaintainer3() throws Exception {
@@ -282,11 +288,29 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertMaintainer method, of class UserManagementService, inserting a Maintainer
-     *  without email.
+     * Test of insertMaintainer method, of class UserManagementService,
+     * inserting a Maintainer whose phone number doesn't respect the format.
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertMaintainer4() throws Exception {
+        System.out.println("insertMaintainer");
+        String username = "Maria98";
+        String password = "Mariacosta98@";
+        String name = "Maria";
+        String surname = "Costa";
+        String email = "mariacosta@gmail.com";;
+        String phone = "ciao";
+        int result = ums.insertMaintainer(username, password, name, surname, email, phone);
+        int ExpectedResult = 0;
+        assertEquals(result, ExpectedResult);
+    }
+
+    /**
+     * Test of insertMaintainer method, of class UserManagementService,
+     * inserting a Maintainer without email.
+     */
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testInsertMaintainer5() throws Exception {
         System.out.println("insertMaintainer");
         String username = "sara98";
         String password = "Saretta98@";
@@ -301,11 +325,11 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertMaintainer method, of class UserManagementService, inserting a Maintainer
-     * whose email already exists.
+     * Test of insertMaintainer method, of class UserManagementService,
+     * inserting a Maintainer whose email already exists.
      */
     @Test(expected = SQLException.class)
-    public void testInsertMaintainer5() throws Exception {
+    public void testInsertMaintainer6() throws Exception {
         System.out.println("insertMaintainer");
         String username = "sara98";
         String password = "Saretta98@";
@@ -319,11 +343,11 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertMaintainer method, of class UserManagementService, inserting a Maintainer
-     * whose email is more than 40 characters.
+     * Test of insertMaintainer method, of class UserManagementService,
+     * inserting a Maintainer whose email is more than 40 characters.
      */
     @Test(expected = InvalidParameterObjectException.class)
-    public void testInsertMaintainer6() throws Exception {
+    public void testInsertMaintainer7() throws Exception {
         System.out.println("insertMaintainer");
         String username = "sara98";
         String password = "Saretta98@";
@@ -337,11 +361,11 @@ public class UserManagementTestInsert {
     }
 
     /**
-     * Test of insertMaintainer method, of class UserManagementService, inserting a Maintainer
-     * whose email doesn't respect format.
+     * Test of insertMaintainer method, of class UserManagementService,
+     * inserting a Maintainer whose email doesn't respect format.
      */
     @Test(expected = InvalidParameterObjectException.class)
-    public void testInsertMaintainer7() throws Exception {
+    public void testInsertMaintainer8() throws Exception {
         System.out.println("insertMaintainer");
         String username = "sara98";
         String password = "Saretta98@";
@@ -353,6 +377,5 @@ public class UserManagementTestInsert {
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
-
 
 }

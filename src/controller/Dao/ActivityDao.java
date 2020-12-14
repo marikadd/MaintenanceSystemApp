@@ -142,13 +142,13 @@ public class ActivityDao {
         return result;
     }
 
-    public int updateActivity(Integer id, String type, String description, int time_activity, Integer week_num, Department dep)
+    public int updateActivity(Integer id, String type, String description, Integer time_activity, Integer week_num, Department dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
-        validateUpdate(type, description, time_activity, week_num, dep);
+        validateUpdate(id, type, description, time_activity, week_num, dep);
 
         String query = "UPDATE MaintenanceActivity SET Type_Activity = coalesce(?,Type_Activity), Site = coalesce(?, Site),"
                 + " Description = coalesce(?,Description), Time_Activity = coalesce(?,Time_Activity), Week_Number = coalesce(?,Week_number)"
@@ -235,10 +235,10 @@ public class ActivityDao {
 
         String query = "DELETE FROM MaintenanceActivity WHERE ID = ?";
 
-        if(id == null) {
+        if (id == null) {
             id = -1;
         }
-        
+
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, id);
 
@@ -248,7 +248,7 @@ public class ActivityDao {
 
     }
 
-    public MaintenanceActivity findActivityByID(int ID) throws SQLException, ActivityNotFoundException {
+    public MaintenanceActivity findActivityByID(int ID) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -271,7 +271,7 @@ public class ActivityDao {
         return activity;
     }
 
-    public List<MaintenanceActivity> findActivitiesByWeekNum(int week_num) throws SQLException, ActivityNotFoundException {
+    public List<MaintenanceActivity> findActivitiesByWeekNum(Integer week_num) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -292,7 +292,7 @@ public class ActivityDao {
         return activities;
     }
 
-    public List<MaintenanceActivity> findAllActivities() throws SQLException, ActivityNotFoundException {
+    public List<MaintenanceActivity> findAllActivities() throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -400,7 +400,7 @@ public class ActivityDao {
 
     }
 
-    public List<MaintenanceActivity> findActivityByMaintainer(String username) throws SQLException {
+    public List<MaintenanceActivity> findActivityByMaintainer(String username) throws SQLException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -492,7 +492,7 @@ String query = "select ma.* from MaintenanceActivity ma "
         return activities;
     }
      */
-    private MaintenanceActivity getMaintenanceActivity(ResultSet rs) throws SQLException {
+    private MaintenanceActivity getMaintenanceActivity(ResultSet rs) throws SQLException, InvalidParameterObjectException {
 
         Integer activityId = rs.getInt("ID");
         Department department = new Department(rs.getString("Site"));
@@ -589,11 +589,20 @@ String query = "select ma.* from MaintenanceActivity ma "
 
         if (weekNum == null) {
             throw new InvalidParameterObjectException("Field Week Num must be not null");
+
+        }
+
+        if (weekNum < 1 && weekNum > 52) {
+            throw new InvalidParameterObjectException("Week Num must be between 1 and 52");
         }
 
     }
 
-    private void validateUpdate(String type, String description, Integer time, Integer week_num, Department dep) throws InvalidParameterObjectException {
+    private void validateUpdate(Integer id, String type, String description, Integer time, Integer week_num, Department dep) throws InvalidParameterObjectException {
+
+        if (id == null) {
+            throw new InvalidParameterObjectException("ID number must be not null");
+        }
 
         if (type != null) {
             if (type.length() > 20) {
@@ -622,9 +631,11 @@ String query = "select ma.* from MaintenanceActivity ma "
         } else {
             throw new InvalidParameterObjectException("Field time must be not null");
         }
-        
-        if(week_num == null) {
-            throw new InvalidParameterObjectException("Field week number must be not null");
+
+        if (week_num != null) {
+            if (week_num < 1 && week_num > 52) {
+                throw new InvalidParameterObjectException("Week Num must be between 1 and 52");
+            }
         }
 
     }

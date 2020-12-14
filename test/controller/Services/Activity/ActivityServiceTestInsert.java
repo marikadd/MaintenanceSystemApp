@@ -29,10 +29,10 @@ import static org.junit.Assert.*;
  * @author Group9
  */
 public class ActivityServiceTestInsert {
-    
+
     private ConnectionForTest cft;
     private ActivityService as;
-    
+    private DBProduct dbProduct;
 
     public ActivityServiceTestInsert() {
     }
@@ -40,18 +40,23 @@ public class ActivityServiceTestInsert {
     @Before
     public void setUp() {
         as = ActivityService.getActivityService();
-        cft = ConnectionForTest.init(); 
+        DBAbstractFactory dbFactory = new DBFactoryContext();
+        cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
+
     }
-    
+
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
-    
-    
+
     /**
-     * Test of insertActivity method, of class ActivityService inserting a new
-     * Activity with its type, description, time, department, week number, materials and skills.
+     * Test of insertActivity method, of class ActivityService, inserting a new
+     * Activity with its type, description, time, department, week number,
+     * materials and skills.
      */
     @Test
     public void testInsertActivity() throws Exception {
@@ -59,12 +64,12 @@ public class ActivityServiceTestInsert {
         String type = "Electrical";
         String description = "Change cable";
         Integer time = 120;
-        Integer week_num=12;
-        Department department= new Department("Fisciano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 12;
+        Department department = new Department("Fisciano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Marble");
+        Material material = new Material("Marble");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
@@ -82,19 +87,19 @@ public class ActivityServiceTestInsert {
         String type = null;
         String description = "change sink";
         Integer time = 100;
-        Integer week_num= 12;
-        Department department= new Department("Fiscinano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 12;
+        Department department = new Department("Fiscinano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Marble");
+        Material material = new Material("Marble");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
-    
+
     /**
      * Test of insertActivity method, of class ActivityService inserting a new
      * Activity without its description.
@@ -105,20 +110,20 @@ public class ActivityServiceTestInsert {
         String type = "Electrical";
         String description = null;
         Integer time = 100;
-        Integer week_num= 12;
-        Department department= new Department("Fiscinano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 12;
+        Department department = new Department("Fiscinano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Iron");
+        Material material = new Material("Iron");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
-    
-     /**
+
+    /**
      * Test of insertActivity method, of class ActivityService inserting a new
      * Activity without its time.
      */
@@ -128,20 +133,20 @@ public class ActivityServiceTestInsert {
         String type = "Electrical";
         String description = "Change engine";
         Integer time = null;
-        Integer week_num= 12;
-        Department department= new Department("Fiscinano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 12;
+        Department department = new Department("Fiscinano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Iron");
+        Material material = new Material("Iron");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
-    
-     /**
+
+    /**
      * Test of insertActivity method, of class ActivityService inserting a new
      * Activity without its week number.
      */
@@ -151,45 +156,45 @@ public class ActivityServiceTestInsert {
         String type = "Electrical";
         String description = "Change engine";
         Integer time = 100;
-        Integer week_num= null;
-        Department department= new Department("Fiscinano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = null;
+        Department department = new Department("Fiscinano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Iron");
+        Material material = new Material("Iron");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
-    
-     /**
+
+    /**
      * Test of insertActivity method, of class ActivityService inserting a new
      * Activity without its department.
      */
-    @Test(expected = InvalidParameterObjectException.class)
+    @Test(expected = SQLException.class)
     public void testInsertActivity5() throws Exception {
         System.out.println("insertActivity");
         String type = "Electrical";
         String description = "Change engine";
         Integer time = 100;
-        Integer week_num= null;
-        Department department= new Department("");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 43; 
+        Department department = new Department("");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Iron");
+        Material material = new Material("Iron");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
-    
-     /**
+
+    /**
      * Test of insertActivity method, of class ActivityService inserting a new
-     * Activity without competences. //la deve creare lo stesso
+     * Activity without competences.//la deve creare lo stesso
      */
     @Test
     public void testInsertActivity6() throws Exception {
@@ -197,18 +202,17 @@ public class ActivityServiceTestInsert {
         String type = "Electrical";
         String description = "Change engine";
         Integer time = 100;
-        Integer week_num= 12;
-        Department department= new Department("Fisciano - Molding");
+        Integer week_num = 12;
+        Department department = new Department("Fisciano - Molding");
         ArrayList<Competence> skill = new ArrayList<>();
-        Material material= new Material("Iron");
+        Material material = new Material("Iron");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 1;
         assertEquals(result, ExpectedResult);
     }
-    
-    
+
     /**
      * Test of insertActivity method, of class ActivityService inserting a new
      * Activity with uncorrect type (length > 20).
@@ -219,15 +223,15 @@ public class ActivityServiceTestInsert {
         String type = "Electrical - Mechanics - Idraulic";
         String description = "Change cable";
         Integer time = 70;
-        Integer week_num= 12;
-        Department department= new Department("Fisciano - Molding ");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 12;
+        Department department = new Department("Fisciano - Molding ");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Marble");
+        Material material = new Material("Marble");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
-        int result = as.insertActivity(type, description, time, skill, materials, week_num,department);
+        int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
@@ -242,16 +246,16 @@ public class ActivityServiceTestInsert {
         String type = "Mechanic";
         String description = "Change cable with a new cable for a new railway";
         Integer time = 60;
-        Integer week_num= 21;
-        Department department= new Department("Fisciano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 21;
+        Department department = new Department("Fisciano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Iron");
+        Material material = new Material("Iron");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
-        int ExpectedResult = 0; 
+        int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
 
@@ -265,20 +269,20 @@ public class ActivityServiceTestInsert {
         String type = "Mechanics";
         String description = "Change tube";
         Integer time = -1;
-        Integer week_num= 2;
-        Department department= new Department("Fisciano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 2;
+        Department department = new Department("Fisciano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Marble");
+        Material material = new Material("Marble");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
-    
-     /**
+
+    /**
      * Test of insertActivity method, of class ActivityService inserting a new
      * Activity with invalid week number (it must be between 1 and 52 ).
      */
@@ -288,12 +292,12 @@ public class ActivityServiceTestInsert {
         String type = "Mechanics";
         String description = "Change tube";
         Integer time = 90;
-        Integer week_num= 0;
-        Department department= new Department("Fisciano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 0;
+        Department department = new Department("Fisciano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Marble");
+        Material material = new Material("Marble");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
@@ -301,9 +305,9 @@ public class ActivityServiceTestInsert {
         assertEquals(result, ExpectedResult);
     }
 
-     /**
+    /**
      * Test of insertActivity method, of class ActivityService inserting a new
-     * Activity with invalid week number (it must be between 1 and 52 ).
+     * Activity with invalid week number (it must be between 1 and 52).
      */
     @Test(expected = SQLException.class)
     public void testInsertActivity11() throws Exception {
@@ -311,19 +315,19 @@ public class ActivityServiceTestInsert {
         String type = "Mechanics";
         String description = "Change tube";
         Integer time = 90;
-        Integer week_num= 53;
-        Department department= new Department("Fisciano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 53;
+        Department department = new Department("Fisciano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Marble");
+        Material material = new Material("Marble");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
-    
+
     /**
      * Test of insertActivity method, of class ActivityService inserting a new
      * Activity with valid week number (borderline case: week_num = 1).
@@ -334,22 +338,22 @@ public class ActivityServiceTestInsert {
         String type = "Mechanics";
         String description = "Change tube";
         Integer time = 90;
-        Integer week_num= 1;
-        Department department= new Department("Fisciano - Molding");
-        Competence c= new Competence(1,"PAV - Certification");
+        Integer week_num = 1;
+        Department department = new Department("Fisciano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Marble");
+        Material material = new Material("Marble");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 1;
         assertEquals(result, ExpectedResult);
     }
-    
+
     /**
      * Test of insertActivity method, of class ActivityService inserting a new
-     * Activity with valid week number (borderline case: week_num = 52 ).
+     * Activity with valid week number (borderline case: week_num = 52).
      */
     @Test
     public void testInsertActivity13() throws Exception {
@@ -357,19 +361,19 @@ public class ActivityServiceTestInsert {
         String type = "Mechanics";
         String description = "Change tube";
         Integer time = 90;
-        Integer week_num= 52;
-        Department department= new Department("Fisciano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 52;
+        Department department = new Department("Fisciano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Marble");
+        Material material = new Material("Marble");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 1;
         assertEquals(result, ExpectedResult);
     }
-    
+
     /**
      * Test of insertActivity method, of class ActivityService inserting a new
      * Activity with a Department which doesn't exist.
@@ -380,33 +384,32 @@ public class ActivityServiceTestInsert {
         String type = "Mechanics";
         String description = "Change tube";
         Integer time = 90;
-        Integer week_num= 22;
-        Department department= new Department("Arzano - Molding");
-        Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 22;
+        Department department = new Department("Arzano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Marble");
+        Material material = new Material("Marble");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
-    
-        
+
     /**
      * Test of insertActivity method, of class ActivityService inserting a new
-     * Activity with an invalid material(empty).
+     * Activity with an invalid material(empty).(The activity must be created anyway).
      */
-    @Test(expected = SQLException.class)
+    @Test
     public void testInsertActivity15() throws Exception {
         System.out.println("insertActivity");
         String type = "Mechanics";
         String description = "Change tube";
         Integer time = 90;
-        Integer week_num= 12;
-        Department department= new Department("Arzano - Molding");
-         Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 12;
+        Department department = new Department("Fisciano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
         ArrayList<Material> materials = new ArrayList<>();
@@ -414,11 +417,11 @@ public class ActivityServiceTestInsert {
         int ExpectedResult = 1;
         assertEquals(result, ExpectedResult);
     }
-    
-     
+
     /**
      * Test of insertActivity method, of class ActivityService inserting a new
-     * Activity with an invalid material (it is not included among the materials bought by the company).//la deve creare lo stesso
+     * Activity with an invalid material (it is not included among the materials
+     * bought by the company).
      */
     @Test(expected = SQLException.class)
     public void testInsertActivity16() throws Exception {
@@ -426,12 +429,12 @@ public class ActivityServiceTestInsert {
         String type = "Mechanics";
         String description = "Change tube";
         Integer time = 90;
-        Integer week_num= 22;
-        Department department= new Department("Arzano - Molding");
-         Competence c= new Competence(1, "PAV - Certification");
+        Integer week_num = 22;
+        Department department = new Department("Fisciano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
         skill.add(c);
-        Material material= new Material("Plastic");
+        Material material = new Material("Plastic");
         ArrayList<Material> materials = new ArrayList<>();
         materials.add(material);
         int result = as.insertActivity(type, description, time, skill, materials, week_num, department);

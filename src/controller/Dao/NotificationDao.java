@@ -9,6 +9,7 @@ import configuration.Database.DBAbstractFactory;
 import configuration.Database.DBFactoryContext;
 import configuration.Database.DBManager;
 import configuration.Database.DBProduct;
+import configuration.Exceptions.InvalidParameterObjectException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -85,5 +86,15 @@ public class NotificationDao {
         return messages;
 
     }
+    
+    private void validateNotification(String message) throws InvalidParameterObjectException {
+        
+        if (message == null || message.isBlank()) {
+            throw new InvalidParameterObjectException("Activity type must be not null");
+        }
 
+        if (message.length() > 255) {
+            throw new InvalidParameterObjectException("Activity type must be length at most 255 characters");
+        }
+    }
 }

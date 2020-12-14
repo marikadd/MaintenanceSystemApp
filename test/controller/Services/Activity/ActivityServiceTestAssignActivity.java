@@ -55,7 +55,6 @@ public class ActivityServiceTestAssignActivity {
      * Test of assignActivity method, of class ActivityService, assigning a
      * valid MaintenanceActivity to a valid Maintainer.
      */
-    
     @Test
     public void testAssignActivity() throws Exception {
         System.out.println("assignActivity");
@@ -65,18 +64,13 @@ public class ActivityServiceTestAssignActivity {
         List<Integer> listDay = new ArrayList<>();
         listDay.add(1);
         int result = as.assignActivity(usernameMain, activityId, listDay, 100.0);
-         
         assertNotEquals(result,NotExpectedResult);
     }
-    
-    /*
-    
-     */
+
     /**
      * Test of assignActivity method, of class ActivityService, assigning an
      * invalid MaintenanceActivity to a valid Maintainer.
      */
-    
     @Test(expected=SQLException.class)
     public void testAssignActivity1() throws Exception {
         System.out.println("assignActivity");
@@ -86,12 +80,9 @@ public class ActivityServiceTestAssignActivity {
         List<Integer> listDay = new ArrayList<>();
         listDay.add(1);
         int result = as.assignActivity(usernameMain, activityId, listDay, 180.0);
-         
         assertEquals(result,ExpectedResult);
     }
-    /*
     
-     */
     /**
      * Test of assignActivity method, of class ActivityService, assigning a
      * MaintenanceActivity to an invalid User.
@@ -105,7 +96,6 @@ public class ActivityServiceTestAssignActivity {
         List<Integer> listDay = new ArrayList<>();
         listDay.add(1);
         int result = as.assignActivity(usernameMain, activityId, listDay, 100.0);
-     
         assertEquals(result,ExpectedResult); 
       }
      
@@ -115,14 +105,13 @@ public class ActivityServiceTestAssignActivity {
      */
     @Test(expected=ActivityAlreadyAssignedException.class)
     public void testAssignActivity3() throws Exception {
-        System.out.println("assignActivity3");
+        System.out.println("assignActivity");
         String usernameMain = "mrossi";
         Integer activityId = 1;
         int ExpectedResult = 0;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(2);
-        int result = as.assignActivity(usernameMain, activityId, listDay, 120.0);
-        
+        int result = as.assignActivity(usernameMain, activityId, listDay, 120.0); 
         assertEquals(result,ExpectedResult);
     }
     
@@ -133,14 +122,13 @@ public class ActivityServiceTestAssignActivity {
      */
     @Test(expected=ActivityAlreadyAssignedException.class)
     public void testAssignActivity4() throws Exception {
-        System.out.println("assignActivity4");
+        System.out.println("assignActivity");
         String usernameMain = "fcerruti";
         Integer activityId = 1;
         int ExpectedResult = 0;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(2);
         int result = as.assignActivity(usernameMain, activityId, listDay, 120.0);
-        
         assertEquals(result,ExpectedResult);
     }
     
@@ -151,7 +139,7 @@ public class ActivityServiceTestAssignActivity {
      */
     @Test(expected=TimeExpiredException.class)
     public void testAssignActivity5() throws Exception {
-        System.out.println("assignActivity5");
+        System.out.println("assignActivity");
         String usernameMain = "mrossi";
         Integer activityId = 2;
         int ExpectedResult = 0;
@@ -159,9 +147,25 @@ public class ActivityServiceTestAssignActivity {
         listDay.add(1);
         // mrossi already used 120 minutes of time availability on monday
         int result = as.assignActivity(usernameMain, activityId, listDay, 400.0);
-        
+        assertEquals(result,ExpectedResult);
+    } 
+    
+    /**
+     * Test of assignActivity method, of class ActivityService, assigning a
+     * MaintenanceActivity to a valid Maintainer, but the ..
+     */
+    @Test(expected=TimeExpiredException.class)
+    public void testAssignActivity6() throws Exception {
+        System.out.println("assignActivity");
+        String usernameMain = "mrossi";
+        Integer activityId = 2;
+        int ExpectedResult = 0;
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(8);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 50.0);
         assertEquals(result,ExpectedResult);
     }
+    
     
     /**
      * Test of unassignActivity method, of class ActivityService, unassigning a
@@ -182,11 +186,11 @@ public class ActivityServiceTestAssignActivity {
      */
     @Test(expected = UnsuccessfulUpdateException.class)
     public void testUnassignActivity1() throws Exception {
-        System.out.println("unassignActivity1");
+        System.out.println("unassignActivity");
         Integer activityId = 69;
         int ExpectedResult = 0;
         int result = as.unassignActivity(activityId);
-        assertEquals(ExpectedResult, result);
+        assertEquals(ExpectedResult, result); 
     }
 
     /**
@@ -195,7 +199,7 @@ public class ActivityServiceTestAssignActivity {
      */
     @Test(expected = UnsuccessfulUpdateException.class)
     public void testUnassignActivity2() throws Exception {
-        System.out.println("unassignActivity1");
+        System.out.println("unassignActivity");
         Integer activityId = 2;
         int ExpectedResult = 0;
         int result = as.unassignActivity(activityId);

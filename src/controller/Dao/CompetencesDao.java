@@ -176,8 +176,8 @@ public class CompetencesDao {
 
     public int updateCompetence(Integer id, String description) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
-        validateCompetence(description);
-
+        validateUpdateCompetence(description, id);
+ 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
@@ -185,6 +185,7 @@ public class CompetencesDao {
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, description);
+        
         ps.setInt(2, id);
 
         int result = ps.executeUpdate();
@@ -194,7 +195,7 @@ public class CompetencesDao {
         }
 
         return result;
-    }
+    } 
 
     public int deleteCompetence(Integer id) throws SQLException, UnsuccessfulUpdateException {
 
@@ -208,7 +209,10 @@ public class CompetencesDao {
         // Nel caso in cui l'id è null, per prevenire l'errore di cast in intValue
         // settiamo l'id a -1. Questo valore non esiste nel database perché la sequenza
         // degli id prevede interi positivi
-        if(id == null) id = -1;
+        if(id == null) {
+            
+            id = -1;
+        }
         
         ps.setInt(1, id);
 
@@ -217,11 +221,14 @@ public class CompetencesDao {
         return result;
     }
 
-    public List<Competence> getCompetencesByActivityId(Integer activityId) throws SQLException {
+    public List<Competence> getCompetencesByActivityId(Integer activityId) throws SQLException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
+        validateGetCompetence(activityId);
+        
+       
         String query = "select c.* from Competence c join Activity_Competences ac "
                 + "ON (c.id = ac.Competence_ID) "
                 + "where ac.Activity_ID = ?";
@@ -256,7 +263,30 @@ public class CompetencesDao {
 
         if (description.length() > 50) {
             throw new InvalidParameterObjectException("Description must be at most 50 characters");
-        }
+        }  
+        
     }
 
+     private void validateUpdateCompetence(String description, Integer id) throws InvalidParameterObjectException {
+
+        if (description == null || description.isBlank()) {
+            throw new InvalidParameterObjectException("Description must be required");
+        }
+
+        if (description.length() > 50) {
+            throw new InvalidParameterObjectException("Description must be at most 50 characters");
+        }  
+         
+        if(id == null) {
+            throw new InvalidParameterObjectException("ID must be not null"); 
+        }
+    }
+        
+     private void validateGetCompetence(Integer id) throws InvalidParameterObjectException {
+
+         if(id == null) {
+            throw new InvalidParameterObjectException("ID must be not null"); 
+        }
+    } 
+    
 }

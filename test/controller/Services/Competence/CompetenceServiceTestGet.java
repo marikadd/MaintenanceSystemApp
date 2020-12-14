@@ -6,6 +6,11 @@
 package controller.Services.Competence;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
+import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.CompetenceService;
 import java.util.Arrays;
@@ -22,46 +27,49 @@ import org.junit.After;
  *
  * @author Group9
  */
-
 public class CompetenceServiceTestGet {
-    
+
     private CompetenceService cps;
     private ConnectionForTest cft;
-    
-    
+    private DBProduct dbProduct;
+
     public CompetenceServiceTestGet() {
-    }
-       
+    } 
+
     @Before
     public void setUp() {
-        
         cps = CompetenceService.getCompetenceService();
-        cft = ConnectionForTest.init(); 
+        DBAbstractFactory dbFactory = new DBFactoryContext();
+        cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
+        cft.rollbackConnection();
     }
 
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
-    
-    
+
     /**
-     * Test of getAllCompetences method, of class CompetenceService, getting
-     * all competences.
+     * Test of getAllCompetences method, of class CompetenceService, getting all
+     * competences.
      */
     @Test
     public void testGetAllCompetences() throws Exception {
         System.out.println("getAllCompetences");
         List<Competence> list = cps.getAllCompetences();
         int result = list.size();
-        int ExpectedResult = 4; 
+        int ExpectedResult = 4;
         assertEquals(result, ExpectedResult);
     }
 
     /**
-     * Test of getAllCompetenceTarget method, of class CompetenceService, getting
-     * all competences of a valid Maintainer.(This method return the sum of competences assigned to the 
-     * maintainer plus the number of activities that have not been assigned to him).
+     * Test of getAllCompetenceTarget method, of class CompetenceService,
+     * getting all competences of a valid Maintainer.(This method return the sum
+     * of competences assigned to the maintainer plus the number of competences
+     * that have not been assigned to him).
      */
     @Test
     public void testGetAllCompetenceTarget() throws Exception {
@@ -70,15 +78,15 @@ public class CompetenceServiceTestGet {
         List<CompetenceInterface> list = new LinkedList<>();
         list = cps.getAllCompetenceTarget(username);
         int result = list.size();
-        int ExpectedResult = 4; 
+        int ExpectedResult = 4;
         assertEquals(result, ExpectedResult);
     }
-    
+
     /**
-     * Test of getAllCompetenceTarget method, of class CompetenceService, getting
-     * all competences of an invalid Maintainer.
+     * Test of getAllCompetenceTarget method, of class CompetenceService,
+     * getting all competences of an invalid Maintainer.
      */
-    @Test(expected=UsernotFoundException.class)
+    @Test(expected = UsernotFoundException.class)
     public void testGetAllCompetenceTarget1() throws Exception {
         System.out.println("getAllCompetenceTarget");
         String username = "lgiulio";
@@ -88,12 +96,12 @@ public class CompetenceServiceTestGet {
         int expectedResult = 0;
         assertEquals(result, expectedResult);
     }
-    
+
     /**
-     * Test of getAllCompetenceTarget method, of class CompetenceService, getting
-     * all competences of an invalid User(not a Maintainer).
+     * Test of getAllCompetenceTarget method, of class CompetenceService,
+     * getting all competences of an invalid User (not a Maintainer).
      */
-    @Test(expected=UsernotFoundException.class)
+    @Test(expected = UsernotFoundException.class)
     public void testGetAllCompetenceTarget2() throws Exception {
         System.out.println("getAllCompetenceTarget");
         String username = "lbianchi";
@@ -103,10 +111,10 @@ public class CompetenceServiceTestGet {
         int expectedResult = 0;
         assertEquals(result, expectedResult);
     }
-    
+
     /**
-     * Test of getAllCompetenceTarget method, of class CompetenceService, getting
-     * all competences of a valid Maintainer with no competences.
+     * Test of getAllCompetenceTarget method, of class CompetenceService,
+     * getting all competences of a valid Maintainer with no competences.
      */
     @Test
     public void testGetAllCompetenceTarget3() throws Exception {
@@ -119,10 +127,10 @@ public class CompetenceServiceTestGet {
         assertEquals(result, expectedResult);
 
     }
-      
+
     /**
-     * Test of getCommonSkills method, of class CompetenceService, getting how much competences
-     * of those taken as input, has the maintainer.
+     * Test of getCommonSkills method, of class CompetenceService, getting how
+     * much competences of those taken as input, has the maintainer.
      */
     @Test
     public void testGetCommonSkills() throws Exception {
@@ -135,10 +143,11 @@ public class CompetenceServiceTestGet {
         String result = cps.getCommonSkills(activityComp, username);
         assertEquals(expResult, result);
     }
- 
+
     /**
-     * Test of getCommonSkills method, of class CompetenceService, getting how much competences
-     * of those taken as input, has an user who is not a maintainer.
+     * Test of getCommonSkills method, of class CompetenceService, getting how
+     * much competences of those taken as input, has an user who is not a
+     * maintainer.
      */
     @Test(expected = UsernotFoundException.class)
     public void testGetCommonSkills1() throws Exception {
@@ -151,12 +160,12 @@ public class CompetenceServiceTestGet {
         String result = cps.getCommonSkills(activityComp, username);
         assertEquals(expResult, result);
     }
-    
-     /**
-     * Test of getCommonSkills method, of class CompetenceService, getting how much competences
-     * of those taken as input, has an user who doesn't exist.
+
+    /**
+     * Test of getCommonSkills method, of class CompetenceService, getting how
+     * much competences of those taken as input, has an user who doesn't exist.
      */
-    @Test(expected= UsernotFoundException.class)
+    @Test(expected = UsernotFoundException.class)
     public void testGetCommonSkills2() throws Exception {
         System.out.println("getCommonSkills");
         Competence cPAV = new Competence(1, "PAV Certification");
@@ -167,10 +176,10 @@ public class CompetenceServiceTestGet {
         String result = cps.getCommonSkills(activityComp, username);
         assertEquals(expResult, result);
     }
-    
+
     /**
-     * Test of getAllSkills method, of class CompetenceService, getting all skills
-     associated to the activity taken as an input.
+     * Test of getAllSkills method, of class CompetenceService, getting all
+     * skills associated to the activity taken as an input.
      */
     @Test
     public void testGetAllSkills() throws Exception {
@@ -178,13 +187,13 @@ public class CompetenceServiceTestGet {
         int activityID = 1;
         List<Competence> list = cps.getAllSkills(activityID);
         int result = list.size();
-        int  expResult = 1;
+        int expResult = 1;
         assertEquals(expResult, result);
     }
-    
-     /**
-     * Test of getAllSkills method, of class CompetenceService, getting all skills
-     associated to an unexisting activity taken as an input.
+
+    /**
+     * Test of getAllSkills method, of class CompetenceService, getting all
+     * skills associated to an unexisting activity taken as an input.
      */
     @Test
     public void testGetAllSkills1() throws Exception {
@@ -192,21 +201,34 @@ public class CompetenceServiceTestGet {
         int activityID = 8;
         List<Competence> list = cps.getAllSkills(activityID);
         int result = list.size();
-        int  expResult = 0;
+        int expResult = 0;
         assertEquals(expResult, result);
     }
     
-    
-    private int getResultNumberFor(List<CompetenceInterface> list, boolean type) { 
-        
+     /**
+     * Test of getAllSkills method, of class CompetenceService, getting all
+     * skills associated to an unexisting activity taken as an input (ID empty).
+     */
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testGetAllSkills2() throws Exception {
+        System.out.println("getAllSkills");
+        Integer activityID = null;
+        List<Competence> list = cps.getAllSkills(activityID);
+        int result = list.size();
+        int expResult = 0;
+        assertEquals(expResult, result);
+    } 
+
+    private int getResultNumberFor(List<CompetenceInterface> list, boolean type) {
+
         int count = 0;
-        for(CompetenceInterface ct: list) {
-            
-            if(ct.isCompetenceLinked() == type) {
+        for (CompetenceInterface ct : list) {
+
+            if (ct.isCompetenceLinked() == type) {
                 count++;
             }
         }
         return count;
     }
-    
+
 }

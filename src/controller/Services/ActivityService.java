@@ -106,9 +106,9 @@ public class ActivityService {
         int result = activityDao.deassignActivity(activityId);
 
         return result;
-    }
+    } 
 
-    public int updateActivity(Integer id, String type, String description, int timeActivity, Integer week_num, Department dep)
+    public int updateActivity(Integer id, String type, String description, Integer timeActivity, Integer week_num, Department dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         return activityDao.updateActivity(id, type, description, timeActivity, week_num, dep);
@@ -130,12 +130,12 @@ public class ActivityService {
 
     }
 
-    public MaintenanceActivity getActivity(Integer ID) throws SQLException, ActivityNotFoundException {
+    public MaintenanceActivity getActivity(Integer ID) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         return activityDao.findActivityByID(ID);
     }
 
-    public List<MaintenanceActivity> getAllActivities() throws SQLException, ActivityNotFoundException {
+    public List<MaintenanceActivity> getAllActivities() throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         List<MaintenanceActivity> activityList = new LinkedList<>();
 
@@ -144,7 +144,7 @@ public class ActivityService {
         return activityList;
     }
 
-    public List<MaintenanceActivity> getAllActivitiesInWeek(int week_num) throws SQLException, ActivityNotFoundException {
+    public List<MaintenanceActivity> getAllActivitiesInWeek(Integer week_num) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         List<MaintenanceActivity> activityList = new LinkedList<>();
 
@@ -180,8 +180,9 @@ public class ActivityService {
         return targets;
     }
 
-    public int getDailyAvailability(String username, int day, double time) throws SQLException {
+    public int getDailyAvailability(String username, int day, double time) throws SQLException, UsernotFoundException {
 
+        validateMaintainer(username);
         double sumNumDay = activityDao.getSumActivityDay(username, day);
 
         if (sumNumDay == 0.0) {
@@ -238,4 +239,8 @@ public class ActivityService {
         UserModel um = usersDao.findUserByUsername(username, Role.MAINTAINER);
     }
      */
+    private void validateMaintainer(String username) throws SQLException, UsernotFoundException {
+
+        UserModel um = usersDao.findUserByUsername(username, Role.MAINTAINER);
+    }
 }

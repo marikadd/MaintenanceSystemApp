@@ -7,6 +7,7 @@
 package view;
 
 import configuration.Exceptions.ActivityNotFoundException;
+import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import java.sql.SQLException;
@@ -236,6 +237,8 @@ public class DeleteActivity extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(DeleteActivity.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ActivityNotFoundException ex) {
+            Logger.getLogger(DeleteActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameterObjectException ex) {
             Logger.getLogger(DeleteActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
         

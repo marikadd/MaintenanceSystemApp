@@ -6,6 +6,10 @@
 package controller.Services.Material;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
@@ -23,29 +27,33 @@ import static org.junit.Assert.*;
  * @author Group9
  */
 public class MaterialServiceTestUpdate {
-    
+
     private MaterialService ms;
     private ConnectionForTest cft;
-    
-    
+    private DBProduct dbProduct;
+
     public MaterialServiceTestUpdate() {
     }
-    
+
     @Before
     public void setUp() {
         ms = MaterialService.getMaterialService();
-        cft = ConnectionForTest.init(); 
+        DBAbstractFactory dbFactory = new DBFactoryContext();
+        cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
+        cft.rollbackConnection();
     }
-    
+
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
 
-
     /**
-     * Test of updateMaterial method, of class MaterialService, updating an exisiting material 
-     * with a new type.
+     * Test of updateMaterial method, of class MaterialService, updating an
+     * exisiting material with a new type.
      */
     @Test
     public void testUpdateMaterial() throws Exception {
@@ -56,10 +64,10 @@ public class MaterialServiceTestUpdate {
         int result = ms.updateMaterial(oldType, newType);
         assertEquals(expResult, result);
     }
-    
+
     /**
-     * Test of updateMaterial method, of class MaterialService, updating an exisiting material 
-     * with a new type that already exists.
+     * Test of updateMaterial method, of class MaterialService, updating an
+     * exisiting material with a new type that already exists.
      */
     @Test(expected = SQLException.class)
     public void testUpdateMaterial1() throws Exception {
@@ -70,12 +78,12 @@ public class MaterialServiceTestUpdate {
         int result = ms.updateMaterial(oldType, newType);
         assertEquals(expResult, result);
     }
-    
+
     /**
-     * Test of updateMaterial method, of class MaterialService, updating an unexisting material 
-     * with a new type.
+     * Test of updateMaterial method, of class MaterialService, updating an
+     * unexisting material with a new type.
      */
-    @Test(expected = UnsuccessfulUpdateException.class) 
+    @Test(expected = UnsuccessfulUpdateException.class)
     public void testUpdateMaterial2() throws Exception {
         System.out.println("updateMaterial");
         String oldType = "Plastic";
@@ -84,10 +92,10 @@ public class MaterialServiceTestUpdate {
         int result = ms.updateMaterial(oldType, newType);
         assertEquals(expResult, result);
     }
-    
-     /**
-     * Test of updateMaterial method, of class MaterialService, updating an existing material 
-     * with a new invalid type (empty).
+
+    /**
+     * Test of updateMaterial method, of class MaterialService, updating an
+     * existing material with a new invalid type (empty).
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateMaterial3() throws Exception {
@@ -98,10 +106,10 @@ public class MaterialServiceTestUpdate {
         int result = ms.updateMaterial(oldType, newType);
         assertEquals(expResult, result);
     }
- 
-     /**
-     * Test of updateMaterial method, of class MaterialService, updating an existing material 
-     * with a new invalid type (lenght > 20).
+
+    /**
+     * Test of updateMaterial method, of class MaterialService, updating an
+     * existing material with a new invalid type (length > 20).
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateMaterial4() throws Exception {
@@ -112,5 +120,5 @@ public class MaterialServiceTestUpdate {
         int result = ms.updateMaterial(oldType, newType);
         assertEquals(expResult, result);
     }
-   
-}
+
+} 

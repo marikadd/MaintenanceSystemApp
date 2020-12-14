@@ -6,6 +6,10 @@
 package controller.Services.Activity;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import controller.Services.ActivityService;
 import org.junit.After;
 import org.junit.Before;
@@ -20,6 +24,7 @@ public class ActivityServiceTestDelete {
     
     private ActivityService as;
     private ConnectionForTest cft;
+    private DBProduct dbProduct;
     
     
     public ActivityServiceTestDelete() {
@@ -29,7 +34,11 @@ public class ActivityServiceTestDelete {
      @Before
     public void setUp() {
         as = ActivityService.getActivityService();
+        DBAbstractFactory dbFactory = new DBFactoryContext();
         cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
     }
     
     @After
@@ -90,5 +99,4 @@ public class ActivityServiceTestDelete {
         assertEquals(result, expResult);
     }
     
-    //caso delete con null
 }

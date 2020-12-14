@@ -6,6 +6,10 @@
 package controller.Services.Competence;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.CompetenceService;
 import java.sql.SQLException;
@@ -24,15 +28,23 @@ public class CompetenceServiceTestAssignCompetence {
     
     private CompetenceService cps;
     private ConnectionForTest cft;
-    
-    
+    private DBProduct dbProduct;
+
+    public CompetenceServiceTestAssignCompetence() {
+    }
+
     @Before
     public void setUp() {
         cps = CompetenceService.getCompetenceService();
-        cft = ConnectionForTest.init(); 
+        DBAbstractFactory dbFactory = new DBFactoryContext();
+        cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
+        cft.rollbackConnection();
     }
-
-     @After
+    
+    @After
     public void setAfter() {
         cft.rollbackConnection();
     }
@@ -145,7 +157,7 @@ public class CompetenceServiceTestAssignCompetence {
     
     /**
      * Test of DeassignCompetence method, of class CompetenceService, deassigning 
-     *  to an invalid Maintainer an existing Competence.
+     * to an invalid Maintainer an existing Competence.
      */
     @Test(expected=UsernotFoundException.class)
     public void testDeassignCompetence1() throws Exception {
@@ -197,7 +209,6 @@ public class CompetenceServiceTestAssignCompetence {
         System.out.println("deassignCompetence");
         String usernameMain = "mrossi";
         List<Integer> listId = new LinkedList<>();
-        // Deassign to mrossi compotence with id 2
         listId.add(2);
         int ExpResult = 0;
         int result = cps.deassignCompetence(usernameMain, listId);

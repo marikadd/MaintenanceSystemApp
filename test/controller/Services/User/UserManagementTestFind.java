@@ -6,6 +6,10 @@
 package controller.Services.User;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.UserManagementService;
 import org.junit.After;
@@ -17,35 +21,36 @@ import static org.junit.Assert.*;
  *
  * @author Group9
  */
-
 public class UserManagementTestFind {
 
     private UserManagementService ums;
     private ConnectionForTest cft;
+    private DBProduct dbProduct;
 
-    
     public UserManagementTestFind() {
 
     }
 
     @Before
     public void setUp() {
-
         ums = UserManagementService.getUserManagementService();
+        DBAbstractFactory dbFactory = new DBFactoryContext();
         cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
+        cft.rollbackConnection();
 
     }
-    
-    
+
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
 
-    
     /**
-     * Test of findProdManagerByUsername method, of class UserManagementService, finding
-     * a ProdManager by his correct username.
+     * Test of findProdManagerByUsername method, of class UserManagementService,
+     * finding a ProdManager by his correct username.
      */
     @Test
     public void testFindProdManagerByUsername() throws Exception {
@@ -57,8 +62,8 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findProdManagerByUsername method, of class UserManagementService, finding 
-     * a ProdManager by an username that doesn't exist.
+     * Test of findProdManagerByUsername method, of class UserManagementService,
+     * finding a ProdManager by an username that doesn't exist.
      */
     @Test(expected = UsernotFoundException.class)
     public void testFindProdManagerByUsername1() throws Exception {
@@ -70,8 +75,8 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findProdManagerByUsername method, of class UserManagementService, finding
-     * a ProdManager by an username that belongs to another user with a
+     * Test of findProdManagerByUsername method, of class UserManagementService,
+     * finding a ProdManager by an username that belongs to another user with a
      * different role.
      */
     @Test(expected = UsernotFoundException.class)
@@ -84,8 +89,8 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findMaintainerByUsername method, of class UserManagementService, finding
-     * a Maintainer by his correct username.
+     * Test of findMaintainerByUsername method, of class UserManagementService,
+     * finding a Maintainer by his correct username.
      */
     @Test
     public void testFindMaintainerByUsername() throws Exception {
@@ -97,8 +102,9 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findProdMaintainerByUsername method, of class UserManagementService, finding
-     * a Maintainer by an username that doesn't exist.
+     * Test of findProdMaintainerByUsername method, of class
+     * UserManagementService, finding a Maintainer by an username that doesn't
+     * exist.
      */
     @Test(expected = UsernotFoundException.class)
     public void testFindMaintainerByUsername1() throws Exception {
@@ -110,8 +116,9 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findProdMaintainerByUsername method, of class UserManagementService, finding a Maintainer
-     * by an username that belongs to another user with a different role.
+     * Test of findProdMaintainerByUsername method, of class
+     * UserManagementService, finding a Maintainer by an username that belongs
+     * to another user with a different role.
      */
     @Test(expected = UsernotFoundException.class)
     public void testFindMaintainerByUsername2() throws Exception {
@@ -123,8 +130,8 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findPlannerByUsername method, of class UserManagementService, finding a Planner
-     * by his correct username.
+     * Test of findPlannerByUsername method, of class UserManagementService,
+     * finding a Planner by his correct username.
      */
     @Test
     public void testFindPlannerByUsername() throws Exception {
@@ -137,8 +144,8 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findPlannerByUsername method, of class UserManagementService, finding 
-     * a Planner by an username that doesn't exist.
+     * Test of findPlannerByUsername method, of class UserManagementService,
+     * finding a Planner by an username that doesn't exist.
      */
     @Test(expected = UsernotFoundException.class)
     public void testFindPlannerByUsername1() throws Exception {
@@ -151,8 +158,8 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findPlannerByUsername method, of class UserManagementService, finding
-     * a Planner by an username that belongs to another user with a
+     * Test of findPlannerByUsername method, of class UserManagementService,
+     * finding a Planner by an username that belongs to another user with a
      * different role.
      */
     @Test(expected = UsernotFoundException.class)
@@ -166,8 +173,8 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findSystemAdminByUsername method, of class UserManagementService, finding
-     * a SystemAdmin by his correct username.
+     * Test of findSystemAdminByUsername method, of class UserManagementService,
+     * finding a SystemAdmin by his correct username.
      */
     @Test
     public void testFindSystemAdminByUsername() throws Exception {
@@ -180,8 +187,8 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findSystemAdminByUsername method, of class UserManagementService, finding
-     * a SystemAdmin by an username that doesn't exist.
+     * Test of findSystemAdminByUsername method, of class UserManagementService,
+     * finding a SystemAdmin by an username that doesn't exist.
      */
     @Test(expected = UsernotFoundException.class)
     public void testFindSystemAdminByUsername1() throws Exception {
@@ -194,8 +201,8 @@ public class UserManagementTestFind {
     }
 
     /**
-     * Test of findSystemAdminByUsername method, of class UserManagementService, finding
-     * a SystemAdmin by an username that belongs to another user with a
+     * Test of findSystemAdminByUsername method, of class UserManagementService,
+     * finding a SystemAdmin by an username that belongs to another user with a
      * different role.
      */
     @Test(expected = UsernotFoundException.class)

@@ -6,6 +6,10 @@
 package controller.Services.Material;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import controller.Services.MaterialService;
 import java.util.List;
 import model.Material.Material;
@@ -22,6 +26,7 @@ public class MaterialServiceTestGet {
 
     private MaterialService ms;
     private ConnectionForTest cft;
+    private DBProduct dbProduct;
 
     public MaterialServiceTestGet() {
     }
@@ -29,7 +34,12 @@ public class MaterialServiceTestGet {
     @Before
     public void setUp() {
         ms = MaterialService.getMaterialService();
+        DBAbstractFactory dbFactory = new DBFactoryContext();
         cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
+        cft.rollbackConnection();
     }
 
     @After
@@ -39,7 +49,7 @@ public class MaterialServiceTestGet {
 
     /**
      * Test of getAllMaterials method, of class MaterialService, getting all
-     * materials..
+     * materials.
      */
     @Test
     public void testGetAllMaterials() throws Exception {

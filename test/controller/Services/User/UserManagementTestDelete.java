@@ -2,10 +2,14 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
+ */ 
 package controller.Services.User;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import controller.Services.UserManagementService;
 import java.sql.SQLException;
 import org.junit.After;
@@ -17,33 +21,34 @@ import static org.junit.Assert.*;
  *
  * @author Group9
  */
-
 public class UserManagementTestDelete {
 
     private UserManagementService ums;
     private ConnectionForTest cft;
-    
-   
+    private DBProduct dbProduct;
+
     public UserManagementTestDelete() {
     }
 
     @Before
     public void setUp() {
-
         ums = UserManagementService.getUserManagementService();
+        DBAbstractFactory dbFactory = new DBFactoryContext();
         cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
+        cft.rollbackConnection();
     }
 
-       
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
-    
-    
+
     /**
-     * Test of deleteUser method, of class UserManagementService, deleting an user
-     * serached by his username.
+     * Test of deleteUser method, of class UserManagementService, deleting an
+     * user serached by his username.
      */
     @Test
     public void testDeleteUser() throws Exception {
@@ -56,8 +61,8 @@ public class UserManagementTestDelete {
     }
 
     /**
-     * Test of deleteUser method, of class UserManagementService, deleting an user
-     * serached by an username that doesn't exist.
+     * Test of deleteUser method, of class UserManagementService, deleting an
+     * user serached by an username that doesn't exist.
      */
     @Test
     public void testDeleteUser1() throws Exception {
@@ -70,8 +75,8 @@ public class UserManagementTestDelete {
     }
 
     /**
-     * Test of deleteUser method, of class UserManagementService, deleting an user
-     * without passing an username.
+     * Test of deleteUser method, of class UserManagementService, deleting an
+     * user without passing an username.
      */
     @Test
     public void testDeleteUser2() throws Exception {

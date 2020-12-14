@@ -6,6 +6,7 @@
 package view;
 
 import configuration.Exceptions.ActivityNotFoundException;
+import configuration.Exceptions.InvalidParameterObjectException;
 import controller.Services.ActivityService;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -252,6 +253,8 @@ public class SelectActivity extends javax.swing.JFrame {
             Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ActivityNotFoundException ex) {
             Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameterObjectException ex) {
+            Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         this.showActivities(activityList);
@@ -316,6 +319,8 @@ public class SelectActivity extends javax.swing.JFrame {
             aActivity = new AssignmentActivity(ID, area, type, time, week);
 
         } catch (SQLException ex) {
+            Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameterObjectException ex) {
             Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
         aActivity.setVisible(true);

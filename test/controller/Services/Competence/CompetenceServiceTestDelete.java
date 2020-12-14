@@ -6,6 +6,10 @@
 package controller.Services.Competence;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
@@ -19,33 +23,39 @@ import static org.junit.Assert.*;
  *
  * @author Group9
  */
-
 public class CompetenceServiceTestDelete {
-    
+
     private CompetenceService cps;
     private ConnectionForTest cft;
-    
-    
+    private DBProduct dbProduct;
+
+    public CompetenceServiceTestDelete() {
+    }
+
     @Before
     public void setUp() {
         cps = CompetenceService.getCompetenceService();
-        cft = ConnectionForTest.init(); 
+        DBAbstractFactory dbFactory = new DBFactoryContext();
+        cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
+        cft.rollbackConnection();
     }
-    
+
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
-    
-    
+
     /**
-     * Test of deleteCompetence method of class CompetenceService, deleting
-     * a Competence passing its ID.
+     * Test of deleteCompetence method of class CompetenceService, deleting a
+     * Competence passing its ID.
      */
     @Test
     public void testDeleteCompetence() throws Exception {
         System.out.println("deleteCompetence");
-        Integer id = 2; 
+        Integer id = 2;
         int ExpResult = 1;
         int result = cps.deleteCompetence(id);
         assertEquals(result, ExpResult);
@@ -58,12 +68,12 @@ public class CompetenceServiceTestDelete {
     @Test
     public void testDeleteCompetence1() throws Exception {
         System.out.println("deleteCompetence");
-        Integer id = 150; 
+        Integer id = 150;
         Integer expResult = 0;
         Integer result = cps.deleteCompetence(id);
-        assertEquals(result, expResult);       
-    } 
-    
+        assertEquals(result, expResult);
+    }
+
     /**
      * Test of deleteCompetence method of class CompetenceService, deleting
      * Competence with an unexisting ID (empty).
@@ -71,10 +81,10 @@ public class CompetenceServiceTestDelete {
     @Test
     public void testDeleteCompetence2() throws Exception {
         System.out.println("deleteCompetence");
-        Integer id = null; 
+        Integer id = null;
         Integer expResult = 0;
         Integer result = cps.deleteCompetence(id);
-        assertEquals(result, expResult);       
-    } 
-    
+        assertEquals(result, expResult);
+    }
+
 }

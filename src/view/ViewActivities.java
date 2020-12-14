@@ -7,6 +7,7 @@
 package view;
 
 import configuration.Exceptions.ActivityNotFoundException;
+import configuration.Exceptions.InvalidParameterObjectException;
 import controller.Services.ActivityService;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -235,6 +236,8 @@ public class ViewActivities extends javax.swing.JFrame {
             Logger.getLogger(ViewActivities.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ActivityNotFoundException ex) {
             Logger.getLogger(ViewActivities.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameterObjectException ex) {
+            Logger.getLogger(ViewActivities.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         this.showActivities(activityList);
@@ -300,7 +303,7 @@ public class ViewActivities extends javax.swing.JFrame {
             }
         });
     }
-
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonList;
     private javax.swing.JLabel jLabelBack;
