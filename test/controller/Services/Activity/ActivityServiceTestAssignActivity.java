@@ -6,6 +6,12 @@
 package controller.Services.Activity;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
+import configuration.Exceptions.ActivityAlreadyAssignedException;
+import configuration.Exceptions.TimeExpiredException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import java.sql.SQLException;
@@ -25,6 +31,7 @@ public class ActivityServiceTestAssignActivity {
 
     private ActivityService as;
     private ConnectionForTest cft;
+    private DBProduct dbProduct;
 
     public ActivityServiceTestAssignActivity() {
     }
@@ -32,7 +39,11 @@ public class ActivityServiceTestAssignActivity {
     @Before
     public void setUp() {
         as = ActivityService.getActivityService();
+        DBAbstractFactory dbFactory = new DBFactoryContext();
         cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
     }
 
     @After
@@ -44,17 +55,20 @@ public class ActivityServiceTestAssignActivity {
      * Test of assignActivity method, of class ActivityService, assigning a
      * valid MaintenanceActivity to a valid Maintainer.
      */
-    /*
+    
     @Test
     public void testAssignActivity() throws Exception {
         System.out.println("assignActivity");
         String usernameMain = "mrossi";
-        Integer activityId = 9;
+        Integer activityId = 2;
         int NotExpectedResult = 0;
-        int result = as.assignActivity(usernameMain, activityId, listId, 12.0);
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(1);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 100.0);
          
         assertNotEquals(result,NotExpectedResult);
     }
+    
     /*
     
      */
@@ -62,14 +76,16 @@ public class ActivityServiceTestAssignActivity {
      * Test of assignActivity method, of class ActivityService, assigning an
      * invalid MaintenanceActivity to a valid Maintainer.
      */
-    /*
-    @Test
+    
+    @Test(expected=SQLException.class)
     public void testAssignActivity1() throws Exception {
         System.out.println("assignActivity");
         String usernameMain = "mrossi";
         Integer activityId = 69;
         int ExpectedResult = 0;
-        int result = as.assignActivity(usernameMain, activityId, listId, 12.0);
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(1);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 180.0);
          
         assertEquals(result,ExpectedResult);
     }
@@ -79,29 +95,74 @@ public class ActivityServiceTestAssignActivity {
     /**
      * Test of assignActivity method, of class ActivityService, assigning a
      * MaintenanceActivity to an invalid User.
-     *
-     * @Test(expected=UsernotFoundException.class) public void
-     * testAssignActivity2() throws Exception {
-     * System.out.println("assignActivity"); String usernameMain = "giulioc";
-     * Integer activityId = 9; int ExpectedResult = 0; int result =
-     * as.assignActivity(usernameMain, activityId, listId);
-     *
-     * assertEquals(result,ExpectedResult); }
-     *
-     * /**
+     */
+      @Test(expected=UsernotFoundException.class) 
+      public void testAssignActivity2() throws Exception {
+        System.out.println("assignActivity"); 
+        String usernameMain = "giulioc";
+        Integer activityId = 2; 
+        int ExpectedResult = 0;
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(1);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 100.0);
+     
+        assertEquals(result,ExpectedResult); 
+      }
+     
+     /**
      * Test of assignActivity method, of class ActivityService, assigning a
      * MaintenanceActivity to a valid Maintainer who already has it.
      */
-    /* @Test(expected=SQLException.class)
+    @Test(expected=ActivityAlreadyAssignedException.class)
     public void testAssignActivity3() throws Exception {
         System.out.println("assignActivity3");
         String usernameMain = "mrossi";
         Integer activityId = 1;
         int ExpectedResult = 0;
-        int result = as.assignActivity(usernameMain, activityId, listId);
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(2);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 120.0);
         
         assertEquals(result,ExpectedResult);
-    }*/
+    }
+    
+    /**
+     * Test of assignActivity method, of class ActivityService, assigning a
+     * MaintenanceActivity to a valid Maintainer, but this activity is already 
+     * assigned to another Maintainer.
+     */
+    @Test(expected=ActivityAlreadyAssignedException.class)
+    public void testAssignActivity4() throws Exception {
+        System.out.println("assignActivity4");
+        String usernameMain = "fcerruti";
+        Integer activityId = 1;
+        int ExpectedResult = 0;
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(2);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 120.0);
+        
+        assertEquals(result,ExpectedResult);
+    }
+    
+    /**
+     * Test of assignActivity method, of class ActivityService, assigning a
+     * MaintenanceActivity to a valid Maintainer, but the time of activity is
+     * greater than his time availability.
+     */
+    @Test(expected=TimeExpiredException.class)
+    public void testAssignActivity5() throws Exception {
+        System.out.println("assignActivity5");
+        String usernameMain = "mrossi";
+        Integer activityId = 2;
+        int ExpectedResult = 0;
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(1);
+        // mrossi already used 120 minutes of time availability on monday
+        int result = as.assignActivity(usernameMain, activityId, listDay, 400.0);
+        
+        assertEquals(result,ExpectedResult);
+    }
+    
     /**
      * Test of unassignActivity method, of class ActivityService, unassigning a
      * valid MaintenanceActivity.

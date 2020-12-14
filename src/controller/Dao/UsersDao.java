@@ -170,7 +170,7 @@ public class UsersDao {
         cft.setConn(con);
 
         String query =   "UPDATE Users SET "
-                       + "Username = coalesce(?,Username), PW = coalesce(?, PW)"
+                       + "Username = coalesce(?,Username), PW = coalesce(?, PW), "
                        + "Email = coalesce(?,Email), PhoneNumber = coalesce(?,PhoneNumber)" 
                        + "WHERE Username = ?";
 

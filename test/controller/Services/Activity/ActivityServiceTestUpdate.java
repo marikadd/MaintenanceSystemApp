@@ -192,4 +192,24 @@ public class ActivityServiceTestUpdate {
         assertEquals(result, ExpectedResult);
 
     }
+    
+    /**
+     * Test of updateActivity method, of class ActivityService, updating a valid
+     * MaintenanceActivity, but with the week num set to null.
+     */
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testUpdateActivity9() throws Exception {
+        System.out.println("updateActivity");
+        Integer id = 1;
+        String type = "Mechanical";
+        String description = "Change oil";
+        int timeActivity = 22;
+        Integer week_num= null;
+        Department department= new Department("Nusco - Carpentry");
+        int notExpectedResult = 0;
+        int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
+        assertNotEquals(result, notExpectedResult);
+
+    }
+    
 }

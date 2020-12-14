@@ -235,6 +235,10 @@ public class ActivityDao {
 
         String query = "DELETE FROM MaintenanceActivity WHERE ID = ?";
 
+        if(id == null) {
+            id = -1;
+        }
+        
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, id);
 
@@ -617,6 +621,10 @@ String query = "select ma.* from MaintenanceActivity ma "
             }
         } else {
             throw new InvalidParameterObjectException("Field time must be not null");
+        }
+        
+        if(week_num == null) {
+            throw new InvalidParameterObjectException("Field week number must be not null");
         }
 
     }

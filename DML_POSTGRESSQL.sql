@@ -37,6 +37,8 @@ insert into Activity_Competences(Competence_ID, Activity_ID) values (1,1);
 
 insert into Activity_Maintainers(Username_Maintainer, Activity_Maintainer_Id) values ('mrossi',1);
 
+INSERT INTO MaintainerActivityDay(username, ma_id, week_day) VALUES('mrossi', 1, 1);
+
 insert into Material(Type_Material) values ('Iron');
 insert into Material(Type_Material) values ('Wood');
 insert into Material(Type_Material) values ('Marble');

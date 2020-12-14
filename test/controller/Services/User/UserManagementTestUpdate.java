@@ -65,7 +65,7 @@ public class UserManagementTestUpdate {
      * Test of updateSystemAdmin method, of class UserManagementService, updating 
      * name and surname of a SystemAdmin (it is not possible).
      */
-    @Test(expected = UnsuccessfulUpdateException.class)
+    @Test
     public void testUpdateSystemAdmin() throws Exception {
         System.out.println("updateSystemAdmin");
         String oldUsername = "gcoppola";
@@ -76,14 +76,14 @@ public class UserManagementTestUpdate {
         String email = null;
         String phone = null;
         int result = ums.updateSystemAdmin(oldUsername, username, password, name, surname, email, phone);
-        int ExpectedResult = 0;
+        int ExpectedResult = 1;
         assertEquals(result, ExpectedResult);
     }
 
     /**
      * Test of updateMaintainer method, of class UserManagementService, updating
-     * username,password,email, phone number of a Maintainer by inserting old name
-     * and surname.
+     * username,password,email, phone number of a Maintainer by inserting old
+     * username
      */
     @Test
     public void testUpdateMaintainer() throws Exception {

@@ -77,5 +77,18 @@ public class ActivityServiceTestDelete {
         assertEquals(result, expResult);
     }
     
+    /**
+     * Test of deleteActivity method, of class ActivityService deleting an
+     * Activity by an uncorrect ID (it must be not null).
+     */
+    @Test
+    public void testDeleteActivity3() throws Exception {
+        System.out.println("deleteActivity");
+        Integer activityId = null ;
+        int expResult = 0;
+        int result = as.deleteActivity(activityId);
+        assertEquals(result, expResult);
+    }
+    
     //caso delete con null
 }

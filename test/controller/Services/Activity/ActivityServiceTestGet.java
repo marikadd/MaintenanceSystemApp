@@ -6,6 +6,10 @@
 package controller.Services.Activity;
 
 import configuration.Database.ConnectionForTest;
+import configuration.Database.DBAbstractFactory;
+import configuration.Database.DBFactoryContext;
+import configuration.Database.DBManager;
+import configuration.Database.DBProduct;
 import configuration.Exceptions.ActivityNotFoundException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.ActivityService;
@@ -18,6 +22,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import model.Activity.ActivityInterface;
 import org.junit.After;
+import java.sql.Connection;
 
 /**
  *
@@ -28,7 +33,7 @@ public class ActivityServiceTestGet {
 
     private ActivityService as;
     private ConnectionForTest cft;
-    
+    private DBProduct dbProduct;
 
     public ActivityServiceTestGet() {
     }
@@ -36,7 +41,12 @@ public class ActivityServiceTestGet {
     @Before
     public void setUp() {
         as = ActivityService.getActivityService();
+        DBAbstractFactory dbFactory = new DBFactoryContext();
         cft = ConnectionForTest.init();
+        dbProduct = dbFactory.getInstance(DBManager.instanceType);
+        cft.setConn(dbProduct.connectToDB());
+        setAfter();
+        
     }
     
     @After
@@ -138,7 +148,7 @@ public class ActivityServiceTestGet {
         String username = "mrossi";
         int day = 1;
         double time = 12.0;
-        int expResult = 100;
+        int expResult = 71; //Ricorda che mrossi svolge un attività di 120min--> ((420-120)/420) *100
         int result = as.getDailyAvailability(username, day, time);
         assertEquals(expResult, result);
     }
@@ -169,6 +179,7 @@ public class ActivityServiceTestGet {
         int result = as.getAssignedActivities().size();
         assertEquals(expResult, result);
     }
+    
     
 
 }
