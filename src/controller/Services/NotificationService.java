@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller.Services;
 
 import controller.Dao.NotificationDao;
@@ -11,27 +7,47 @@ import java.util.List;
 
 /**
  *
- * @author Group9
+ * @author Group 9
+ * 
+ * The public methods of this class encapsulate the methods of the DAO classes. 
+ * For this reason the comments relating to the parameters and exceptions 
+ * have not been written because they are already in the DAOs.
+ *  
  */
 public class NotificationService {
 
     private static NotificationService notService;
     private NotificationDao notDao;
 
-    public static NotificationService init() {
+    /**
+     * Pattern Singleton.
+     */
+    private NotificationService() {
+    }
 
+    /**
+     * Creates a singleton for the current class. In order to avoid conflicts
+     * between threads, the method uses the synchronized construct.
+     * @return an instance of the current class.
+     */
+    public static NotificationService init() {
+        
         if (notService == null) {
-            synchronized(NotificationService.class) {
-                if(notService == null) {
+            synchronized (NotificationService.class) {
+                if (notService == null) {
                     notService = new NotificationService();
                     notService.notDao = NotificationDao.init();
                 }
             }
         }
         return notService;
-
     }
 
+    /** 
+     * This method keeps track of notifications that have not yet been read.
+     * @return a list of notifications that have not yet been read.
+     * @throws SQLException 
+     */
     public List<String> readNotifications() throws SQLException {
 
         List<String> notifications = notDao.getAllMessagesNotRead();
