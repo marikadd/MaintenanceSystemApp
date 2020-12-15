@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 package view;
+
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,10 +26,10 @@ import model.Users.UserModel;
  *
  * @author Group9
  */
-
 public class DeleteUser extends javax.swing.JFrame {
 
     private List<UserModel> userList = new LinkedList<UserModel>();
+
     /**
      * Creates new form DeleteUser
      */
@@ -34,9 +38,15 @@ public class DeleteUser extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(560,460);
+        setSize(560, 448);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -177,7 +187,7 @@ public class DeleteUser extends javax.swing.JFrame {
                 .addComponent(jButtonList)
                 .addGap(26, 26, 26)
                 .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
@@ -220,41 +230,38 @@ public class DeleteUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 /**/
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-        
+
         UserManagementService user = UserManagementService.getUserManagementService();
         try {
             userList = user.getAllUsers();
         } catch (SQLException | UsernotFoundException ex) {
             Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         this.showUsers(userList);
         userList = null;
     }//GEN-LAST:event_jButtonListActionPerformed
 
     private void jLabelDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDeleteMouseClicked
-        
-        if (jTableUsers.getSelectionModel().isSelectionEmpty()){
+
+        // Avoid empty selections
+        if (jTableUsers.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a user first");
             return;
         }
         int row = jTableUsers.getSelectedRow();
         String username = jTableUsers.getModel().getValueAt(row, 0).toString();
-        UserManagementService user= UserManagementService.getUserManagementService();
-        
+        UserManagementService user = UserManagementService.getUserManagementService();
+
         try {
-            int result=user.deleteUser(username);
-            if(result!=0){
+            int result = user.deleteUser(username);
+            if (result != 0) {
                 JOptionPane.showMessageDialog(null, "User deleted successfully!");
             } else {
                 JOptionPane.showMessageDialog(null, "This user cannot be delete!");
             }
-        } catch (InvalidParameterObjectException ex) {
+        } catch (InvalidParameterObjectException | SQLException | UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot delete this user");
         }
     }//GEN-LAST:event_jLabelDeleteMouseClicked
 
@@ -269,28 +276,37 @@ public class DeleteUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(DeleteUser.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
-    public void showUsers(List<UserModel> list){
-        
+    /**
+     * Fill a table with the users contained in the list.
+     *
+     * @param list: a list containing all the users
+     */
+    public void showUsers(List<UserModel> list) {
+
         DefaultTableModel users = (DefaultTableModel) jTableUsers.getModel();
         int length = users.getRowCount();
-        
-        if(length !=0 ){
-            for(int i=0;i<length;i++){
+
+        // Clean the table in case of multiple list
+        if (length != 0) {
+            for (int i = 0; i < length; i++) {
                 users.removeRow(0);
             }
         }
-        for(int i=0;i<list.size();i++){
-            Object column[] =new Object[4];
+
+        // Fill the table
+        for (int i = 0; i < list.size(); i++) {
+            Object column[] = new Object[4];
             column[0] = list.get(i).getUsername();
             column[1] = list.get(i).getName();
             column[2] = list.get(i).getSurname();
             column[3] = list.get(i).getRole();
             users.addRow(column);
-        }      
+        }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -319,10 +335,8 @@ public class DeleteUser extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DeleteUser().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new DeleteUser().setVisible(true);
         });
     }
 

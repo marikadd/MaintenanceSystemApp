@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package view;
+
 import controller.Services.CompetenceService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,10 +22,11 @@ import model.Competences.Competence;
  *
  * @author Group9
  */
-
 public class ViewCompetences extends javax.swing.JFrame {
 
     private List<Competence> compList = new LinkedList<>();
+    private CompetenceService comp = CompetenceService.getCompetenceService();
+
     /**
      * Creates new form ViewCompetences
      */
@@ -30,9 +35,15 @@ public class ViewCompetences extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(750,400);
+        setSize(734, 330);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -136,11 +147,11 @@ public class ViewCompetences extends javax.swing.JFrame {
                         .addComponent(jLabelTitle)
                         .addGap(183, 183, 183))))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
+                .addGap(85, 85, 85)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 99, Short.MAX_VALUE))
+                .addGap(0, 85, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,8 +190,8 @@ public class ViewCompetences extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabelIcon)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,8 +219,7 @@ public class ViewCompetences extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
-        CompetenceService comp= CompetenceService.getCompetenceService();
-        
+
         try {
             compList = comp.getAllCompetences();
         } catch (SQLException ex) {
@@ -219,9 +229,9 @@ public class ViewCompetences extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonListMouseClicked
 
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-       
+
     }//GEN-LAST:event_jButtonListActionPerformed
-   
+
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
@@ -233,28 +243,36 @@ public class ViewCompetences extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(ViewCompetences.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
-    public void showCompetences(List<Competence> list){
-        
+    /**
+     * Fill a table with the competences (skills) in the list.
+     *
+     * @param list: a list containing all competences
+     */
+    private void showCompetences(List<Competence> list) {
+
         DefaultTableModel competences = (DefaultTableModel) jTableCompetences.getModel();
-        
+
         int length = competences.getRowCount();
-        
-        if(length != 0){
-            for(int i = 0; i < length; i++) {
+
+        // Clean the table in case of multiple list actions
+        if (length != 0) {
+            for (int i = 0; i < length; i++) {
                 competences.removeRow(0);
             }
         }
-        for(int i=0;i<list.size();i++){
-            Object column[] =new Object[2];
+
+        // Fill the table
+        for (int i = 0; i < list.size(); i++) {
+            Object column[] = new Object[2];
             column[0] = list.get(i).getId();
             column[1] = list.get(i).getDescription();
             competences.addRow(column);
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -283,10 +301,8 @@ public class ViewCompetences extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ViewCompetences().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ViewCompetences().setVisible(true);
         });
     }
 

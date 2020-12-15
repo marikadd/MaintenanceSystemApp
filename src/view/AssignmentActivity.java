@@ -16,6 +16,9 @@ import controller.Services.CompetenceService;
 import controller.Services.UserManagementService;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +35,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import model.Activity.ActivityInterface;
 import model.Competences.Competence;
 import model.Users.UserModel;
 
@@ -48,7 +50,6 @@ public class AssignmentActivity extends javax.swing.JFrame {
     private final String area;
     private final String type;
 
-    private List<ActivityInterface> list = new ArrayList<>();
     private List<UserModel> listMaintainers = new LinkedList<>();
     private CompetenceService competence = CompetenceService.getCompetenceService();
     private UserManagementService user = UserManagementService.getUserManagementService();
@@ -58,6 +59,12 @@ public class AssignmentActivity extends javax.swing.JFrame {
 
     /**
      * Creates new form AssignmentActivity
+     *
+     * @param ID
+     * @param area
+     * @param type
+     * @param time
+     * @param week
      */
     public AssignmentActivity(int ID, String area, String type, double time, int week) throws SQLException, InvalidParameterObjectException {
         initComponents();
@@ -66,6 +73,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         this.area = area;
         this.type = type;
         this.time = time;
+        // Set activity info
         jLabelInfo.setText(this.showInfo());
         jLabelWeek.setText(String.valueOf(week));
         jLabelCurrentWeek.setText(this.getCurrentWeek());
@@ -75,81 +83,28 @@ public class AssignmentActivity extends javax.swing.JFrame {
         setSize(1180, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+               @Override
+                public void componentResized(ComponentEvent e) {
+                    setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+                }
+            });
         showSkillsNeeded();
         getMaintainers();
         initMapIdDays();
-        
-        jTableMaintainersAvail.setDefaultRenderer(Object.class, new MyTableCellRenderer());        
-        for(int i=2;i<jTableMaintainersAvail.getColumnCount();i++){
+        // Set cell colours for each column
+        jTableMaintainersAvail.setDefaultRenderer(Object.class, new MyTableCellRenderer());
+        for (int i = 2; i < jTableMaintainersAvail.getColumnCount(); i++) {
             this.changeTable(jTableMaintainersAvail, i);
         }
-        
+
     }
-    
-    private void changeTable(JTable table, int column) {
-        table.getColumnModel().getColumn(column).setCellRenderer(new DefaultTableCellRenderer() {
 
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                int st_val = Integer.parseInt(table.getValueAt(row, column).toString());
-                
-                if (st_val < 40) {
-                    c.setBackground(Color.RED);
-                    setText(String.valueOf(st_val)+"%");
-                } else if (st_val >= 40 && st_val <= 70) {
-                    c.setBackground(Color.YELLOW);
-                    setText(String.valueOf(st_val)+"%");
-                } else {
-                    c.setBackground(Color.GREEN);
-                    setText(String.valueOf(st_val)+"%");
-                }
-
-                return c;
-            }
-        });
-    }
-    
     class MyTableCellRenderer extends DefaultTableCellRenderer {
 
         @Override
         public Color getBackground() {
             return super.getBackground();
-        }
-    }
-
-    private String getCurrentWeek() {
-        Calendar calendar = new GregorianCalendar();
-        Date trialTime = new Date();
-        calendar.setTime(trialTime);
-        return String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
-    }
-
-    private void initMapIdDays() {
-
-        for (UserModel user : listMaintainers) {
-            mapIdDays.put(user.getUsername(), new ArrayList<Integer>());
-        }
-
-    }
-
-    private String showInfo() {
-
-        return ID + "-" + area + "-" + type + "-" + time;
-    }
-
-    private void getMaintainers() {
-
-        try {
-            listMaintainers = user.getAllMaintainers();
-            this.showUsers(listMaintainers);
-        } catch (SQLException ex) {
-            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UsernotFoundException ex) {
-            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DayNotValidException ex) {
-            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -629,66 +584,13 @@ public class AssignmentActivity extends javax.swing.JFrame {
         sActivity.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
 
-    private void showSkillsNeeded() throws InvalidParameterObjectException {
-
-        try {
-            skills = competence.getAllSkills(ID);
-        } catch (SQLException ex) {
-            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        this.showActivitySkills(skills);
-    }
-
-    private void showActivitySkills(List<Competence> list) {
-
-        DefaultTableModel skills = (DefaultTableModel) jTableSkills.getModel();
-
-        for (int i = 0; i < list.size(); i++) {
-            Object column[] = new Object[1];
-            column[0] = list.get(i).getDescription();
-            skills.addRow(column);
-        }
-    }
-
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
 
-    private void showUsers(List<UserModel> list) throws SQLException, UsernotFoundException, DayNotValidException {
-
-        DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
-        Object column[] = new Object[9];
-
-        for (int i = 0; i < list.size(); i++) {
-            column[0] = list.get(i).getUsername();
-            column[1] = competence.getCommonSkills(skills, list.get(i).getUsername());
-            column[2] = activityService.getDailyAvailability(list.get(i).getUsername(), 1);
-            column[3] = activityService.getDailyAvailability(list.get(i).getUsername(), 2);
-            column[4] = activityService.getDailyAvailability(list.get(i).getUsername(), 3);
-            column[5] = activityService.getDailyAvailability(list.get(i).getUsername(), 4);
-            column[6] = activityService.getDailyAvailability(list.get(i).getUsername(), 5);
-            column[7] = activityService.getDailyAvailability(list.get(i).getUsername(), 6);
-            column[8] = activityService.getDailyAvailability(list.get(i).getUsername(), 7);
-
-            users.addRow(column);
-        }
-    }
-
-    private void leftFromUserTable() {
-
-        DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
-
-        int length = users.getRowCount();
-
-        for (int i = 0; i < length; i++) {
-            users.removeRow(0);
-        }
-
-    }
-
     private void jButtonAssignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAssignMouseClicked
 
+        // Avoid empty selections
         if (jTableMaintainersAvail.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a Maintainer first");
             return;
@@ -704,13 +606,15 @@ public class AssignmentActivity extends javax.swing.JFrame {
         }
 
         try {
+            // Get the selected maintainer
             int selectedIndex = jTableMaintainersAvail.getSelectedRow();
             DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
 
             String username = users.getValueAt(selectedIndex, 0).toString();
 
-            List<Integer> listDays = new ArrayList<Integer>();
+            List<Integer> listDays = new ArrayList<>();
 
+            // Checking which day was selected
             if (jCheckBoxMon.isSelected()) {
                 listDays.add(1);
             }
@@ -743,24 +647,13 @@ public class AssignmentActivity extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "No activity assigned!");
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UsernotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "User not found");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot assign activity to Maintainer");
-        } catch (InvalidParameterObjectException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (TimeExpiredException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (ActivityAlreadyAssignedException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (DayNotValidException ex) {
+        } catch (SQLException | UsernotFoundException | UnsuccessfulUpdateException | InvalidParameterObjectException | TimeExpiredException | ActivityAlreadyAssignedException | DayNotValidException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
     }//GEN-LAST:event_jButtonAssignMouseClicked
 
+    /*
     private void checkUncheckDay(int day, boolean value) {
 
         switch (day) {
@@ -796,33 +689,10 @@ public class AssignmentActivity extends javax.swing.JFrame {
         }
 
     }
-
-    private void uncheckWeekDays(int day) {
-        if (day != 1) {
-            jCheckBoxMon.setSelected(false);
-        }
-        if (day != 2) {
-            jCheckBoxTue.setSelected(false);
-        }
-        if (day != 3) {
-            jCheckBoxWed.setSelected(false);
-        }
-        if (day != 4) {
-            jCheckBoxThu.setSelected(false);
-        }
-        if (day != 5) {
-            jCheckBoxFri.setSelected(false);
-        }
-        if (day != 6) {
-            jCheckBoxSat.setSelected(false);
-        }
-        if (day != 7) {
-            jCheckBoxSun.setSelected(false);
-        }
-    }
+     */
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(AssignmentActivity.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     private void jCheckBoxMonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxMonStateChanged
@@ -864,6 +734,189 @@ public class AssignmentActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAssignedMouseClicked
 
     /**
+     * This method takes all the skills required by the maintenance activity to
+     * show them in the appropriate table.
+     */
+    private void showSkillsNeeded() throws InvalidParameterObjectException {
+
+        try {
+            skills = competence.getAllSkills(ID);
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        this.showActivitySkills(skills);
+    }
+
+    /**
+     * Fills the required skill table for the activity to be assigned.
+     *
+     * @param list: a list containing all the skills of an activity
+     */
+    private void showActivitySkills(List<Competence> list) {
+
+        DefaultTableModel skills = (DefaultTableModel) jTableSkills.getModel();
+
+        for (int i = 0; i < list.size(); i++) {
+            Object column[] = new Object[1];
+            column[0] = list.get(i).getDescription();
+            skills.addRow(column);
+        }
+    }
+
+    /**
+     * The table cell renderer allows the coloring of the cells of the input
+     * table based on their value; the coloring emphasizes the availability of
+     * each maintainer.
+     *
+     * @param table: a JTable whose cells must be colored
+     * @param column: the column of the table where the values must be checked
+     */
+    private void changeTable(JTable table, int column) {
+        table.getColumnModel().getColumn(column).setCellRenderer(new DefaultTableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                int st_val = Integer.parseInt(table.getValueAt(row, column).toString());
+
+                if (st_val < 40) {
+                    c.setBackground(Color.RED);
+                    setText(String.valueOf(st_val) + "%");
+                } else if (st_val >= 40 && st_val <= 70) {
+                    c.setBackground(Color.YELLOW);
+                    setText(String.valueOf(st_val) + "%");
+                } else {
+                    c.setBackground(Color.GREEN);
+                    setText(String.valueOf(st_val) + "%");
+                }
+
+                return c;
+            }
+        });
+    }
+
+    /**
+     * Fill a table with the maintainers contained in the list.
+     *
+     * @param list: a list containing all the maintainers
+     */
+    private void showUsers(List<UserModel> list) throws SQLException, UsernotFoundException, DayNotValidException {
+
+        DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
+        Object column[] = new Object[9];
+
+        for (int i = 0; i < list.size(); i++) {
+            column[0] = list.get(i).getUsername();
+            // Count the common skills shared between Maintainers and the activity
+            // to be assigned
+            column[1] = competence.getCommonSkills(skills, list.get(i).getUsername());
+            // Insert the daily avaiabilities for each maintainer
+            column[2] = activityService.getDailyAvailability(list.get(i).getUsername(), 1);
+            column[3] = activityService.getDailyAvailability(list.get(i).getUsername(), 2);
+            column[4] = activityService.getDailyAvailability(list.get(i).getUsername(), 3);
+            column[5] = activityService.getDailyAvailability(list.get(i).getUsername(), 4);
+            column[6] = activityService.getDailyAvailability(list.get(i).getUsername(), 5);
+            column[7] = activityService.getDailyAvailability(list.get(i).getUsername(), 6);
+            column[8] = activityService.getDailyAvailability(list.get(i).getUsername(), 7);
+
+            users.addRow(column);
+        }
+    }
+
+    /**
+     * Remove all maintainers from the table; this method is useful for
+     * refreshing the table after an activity assignment.
+     */
+    private void leftFromUserTable() {
+
+        DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
+
+        int length = users.getRowCount();
+
+        for (int i = 0; i < length; i++) {
+            users.removeRow(0);
+        }
+
+    }
+
+    /**
+     * Get current week number in order to fill in the appropriate label.
+     */
+    private String getCurrentWeek() {
+        Calendar calendar = new GregorianCalendar();
+        Date trialTime = new Date();
+        calendar.setTime(trialTime);
+        return String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
+    }
+
+    /**
+     * This method inserts the maintainers' availabilities, for each day of the
+     * week, in the input hashmap.
+     */
+    private void initMapIdDays() {
+
+        for (UserModel user : listMaintainers) {
+            mapIdDays.put(user.getUsername(), new ArrayList<>());
+        }
+    }
+
+    /**
+     * Useful method to quickly fill the label that saves the information of the
+     * MaintenanceActivity to be assigned. This method is called from within the
+     * constructor tprivate String showInfo() to initialize the form.
+     */
+    private String showInfo() {
+
+        return ID + "-" + area + "-" + type + "-" + time;
+    }
+
+    /**
+     * This method extracts all the maintainers from the DB and inserts them in
+     * the listMaintainers; the list will then be passed to the showUsers
+     * method.
+     */
+    private void getMaintainers() {
+
+        try {
+            listMaintainers = user.getAllMaintainers();
+            this.showUsers(listMaintainers);
+        } catch (SQLException | UsernotFoundException | DayNotValidException ex) {
+            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Unheck the box for the selected day of the week.
+     *
+     * @param day: an integer who represents the day of the week (1-7)
+     */
+    private void uncheckWeekDays(int day) {
+        if (day != 1) {
+            jCheckBoxMon.setSelected(false);
+        }
+        if (day != 2) {
+            jCheckBoxTue.setSelected(false);
+        }
+        if (day != 3) {
+            jCheckBoxWed.setSelected(false);
+        }
+        if (day != 4) {
+            jCheckBoxThu.setSelected(false);
+        }
+        if (day != 5) {
+            jCheckBoxFri.setSelected(false);
+        }
+        if (day != 6) {
+            jCheckBoxSat.setSelected(false);
+        }
+        if (day != 7) {
+            jCheckBoxSun.setSelected(false);
+        }
+    }
+
+    /**
      * @param args the command line arguments
      */
     public void main(String args[]) {
@@ -891,15 +944,11 @@ public class AssignmentActivity extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new AssignmentActivity(ID, area, type, time, week).setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InvalidParameterObjectException ex) {
-                    Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new AssignmentActivity(ID, area, type, time, week).setVisible(true);
+            } catch (SQLException | InvalidParameterObjectException ex) {
+                Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 package view;
+
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,10 +24,11 @@ import model.Users.UserModel;
  * @author Group9
  *
  */
-
 public class ViewUser extends javax.swing.JFrame {
 
     private List<UserModel> userList = new LinkedList<UserModel>();
+    private UserManagementService user = UserManagementService.getUserManagementService();
+
     /**
      * Creates new form ViewUser
      */
@@ -32,9 +37,15 @@ public class ViewUser extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(781,470);
+        setSize(785, 362);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -154,7 +165,7 @@ public class ViewUser extends javax.swing.JFrame {
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
-                .addContainerGap())
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         jLabelBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back_button.png"))); // NOI18N
@@ -170,26 +181,26 @@ public class ViewUser extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabelBack, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(38, Short.MAX_VALUE)
                         .addComponent(jLabelIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)))
+                        .addGap(35, 35, 35)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabelBack, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(92, 92, 92)
                 .addComponent(jLabelIcon)
-                .addGap(58, 58, 58))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -209,7 +220,7 @@ public class ViewUser extends javax.swing.JFrame {
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
 
     }//GEN-LAST:event_jButtonListActionPerformed
-    
+
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
@@ -221,9 +232,7 @@ public class ViewUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
-       
-        UserManagementService user = UserManagementService.getUserManagementService();
-        
+
         try {
             userList = user.getAllUsers();
         } catch (SQLException | UsernotFoundException ex) {
@@ -235,23 +244,30 @@ public class ViewUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonListMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(ViewUser.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
-    public void showUsers(List<UserModel> list){
-        
+    /**
+     * Fill a table with the users contained in the list.
+     *
+     * @param list: a list containing all the users
+     */
+    private void showUsers(List<UserModel> list) {
+
         DefaultTableModel users = (DefaultTableModel) jTableUsers.getModel();
-        Object column[] =new Object[6];
-        
+        Object column[] = new Object[6];
+
         int length = users.getRowCount();
-        
-        if(length !=0){
-            for(int i=0;i<length;i++){
+
+        // Clean the table in case of multiple list actions
+        if (length != 0) {
+            for (int i = 0; i < length; i++) {
                 users.removeRow(0);
             }
         }
-        
-        for(int i=0;i<list.size();i++){
+
+        // Fill the table
+        for (int i = 0; i < list.size(); i++) {
             column[0] = list.get(i).getUsername();
             column[1] = list.get(i).getName();
             column[2] = list.get(i).getSurname();
@@ -259,9 +275,9 @@ public class ViewUser extends javax.swing.JFrame {
             column[4] = list.get(i).getEmail();
             column[5] = list.get(i).getPhone();
             users.addRow(column);
-        }      
+        }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -290,10 +306,8 @@ public class ViewUser extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ViewUser().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ViewUser().setVisible(true);
         });
     }
 

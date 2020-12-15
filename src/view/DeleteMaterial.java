@@ -7,6 +7,9 @@ package view;
 
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.MaterialService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +27,7 @@ public class DeleteMaterial extends javax.swing.JFrame {
 
     private List<Material> matList = new LinkedList<>();
     private MaterialService mat = MaterialService.getMaterialService();
+
     /**
      * Creates new form DeleteMaterial
      */
@@ -32,9 +36,15 @@ public class DeleteMaterial extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(582, 500);
+        setSize(543, 464);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -83,7 +93,7 @@ public class DeleteMaterial extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelBack)
-                .addContainerGap(480, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
@@ -162,27 +172,25 @@ public class DeleteMaterial extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(310, Short.MAX_VALUE)
+                .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(80, 80, 80)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(129, 129, 129)
-                            .addComponent(jLabelTitle))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(84, 84, 84)
-                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 85, Short.MAX_VALUE))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(177, 177, 177))))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(161, 161, 161))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(jLabelTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,9 +204,9 @@ public class DeleteMaterial extends javax.swing.JFrame {
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonList)
-                .addGap(57, 57, 57)
+                .addGap(39, 39, 39)
                 .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -212,8 +220,8 @@ public class DeleteMaterial extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -236,7 +244,7 @@ public class DeleteMaterial extends javax.swing.JFrame {
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(DeleteMaterial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-     
+
         this.showMaterials(matList);
         matList = null;
     }//GEN-LAST:event_jButtonListMouseClicked
@@ -247,45 +255,50 @@ public class DeleteMaterial extends javax.swing.JFrame {
 
     private void jLabelDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDeleteMouseClicked
 
-        if (jTableMaterials.getSelectionModel().isSelectionEmpty()){
+        // Avoid empty selections
+        if (jTableMaterials.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a material first");
             return;
         }
         int row = jTableMaterials.getSelectedRow();
         String type = jTableMaterials.getModel().getValueAt(row, 0).toString();
-        
+
         try {
             int result = mat.deleteMaterial(type);
-          
+
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Material deleted successfully!");
             } else {
                 JOptionPane.showMessageDialog(null, "No material deleted!");
             }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Database internal error");
-            } catch (UnsuccessfulUpdateException ex) {
-                JOptionPane.showMessageDialog(null, "Cannot delete this material");
-            }   
+        } catch (SQLException | UnsuccessfulUpdateException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }//GEN-LAST:event_jLabelDeleteMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(DeleteMaterial.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
+    /**
+     * Fill a table with the materials contained in the list.
+     *
+     * @param list: a list containing all the materials
+     */
     public void showMaterials(List<Material> list) {
 
         DefaultTableModel materials = (DefaultTableModel) jTableMaterials.getModel();
-        
 
         int length = materials.getRowCount();
-        
+
+        // Clean the table in case of multiple list actions
         if (length != 0) {
             for (int i = 0; i < length; i++) {
                 materials.removeRow(0);
             }
         }
 
+        // Fill the table
         for (int i = 0; i < list.size(); i++) {
             Object column[] = new Object[1];
             column[0] = list.get(i).getType();
@@ -321,10 +334,8 @@ public class DeleteMaterial extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DeleteMaterial().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new DeleteMaterial().setVisible(true);
         });
     }
 

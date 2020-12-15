@@ -9,9 +9,10 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.DepartmentService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -22,8 +23,8 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  */
 public class CreateDepartment extends javax.swing.JFrame {
 
-    DepartmentService dep = DepartmentService.getDepartmentService();
-    
+    private DepartmentService dep = DepartmentService.getDepartmentService();
+
     /**
      * Creates new form CreateDepartment
      */
@@ -35,6 +36,12 @@ public class CreateDepartment extends javax.swing.JFrame {
         setSize(500, 350);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -204,25 +211,18 @@ public class CreateDepartment extends javax.swing.JFrame {
     private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
 
         String area = jTextArea.getText();
-        int result = 0;
 
         try {
-            result = dep.insertDepartment(area);
+            int result = dep.insertDepartment(area);
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Department created successfully!");
             } else {
                 JOptionPane.showMessageDialog(null, "No area inserted!");
             }
-        } catch (InvalidPermissionException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid permission"); 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Department already exists");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot create this department");
-        } catch (InvalidParameterObjectException ex) {
+        } catch (InvalidPermissionException | SQLException | UnsuccessfulUpdateException | InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
- 
+
     }//GEN-LAST:event_jLabelCreateMouseClicked
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
@@ -230,7 +230,7 @@ public class CreateDepartment extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(CreateDepartment.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
@@ -261,10 +261,8 @@ public class CreateDepartment extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CreateDepartment().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CreateDepartment().setVisible(true);
         });
     }
 

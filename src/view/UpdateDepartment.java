@@ -8,6 +8,9 @@ package view;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.DepartmentService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,6 +42,12 @@ public class UpdateDepartment extends javax.swing.JFrame {
         setSize(600, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -212,13 +221,13 @@ public class UpdateDepartment extends javax.swing.JFrame {
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonList)
-                .addGap(52, 52, 52)
+                .addGap(43, 43, 43)
                 .addComponent(jLabelNewArea, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextNewArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,7 +245,6 @@ public class UpdateDepartment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextNewAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNewAreaActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextNewAreaActionPerformed
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
@@ -245,7 +253,8 @@ public class UpdateDepartment extends javax.swing.JFrame {
 
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
 
-        if (jTableDepartments.getSelectionModel().isSelectionEmpty()){
+        // Avoid empty selections
+        if (jTableDepartments.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a department first");
             return;
         }
@@ -261,11 +270,7 @@ public class UpdateDepartment extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "No department updated!");
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot update this department");
-        } catch (InvalidParameterObjectException ex) {
+        } catch (SQLException | UnsuccessfulUpdateException | InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jLabelUpdateMouseClicked
@@ -289,19 +294,26 @@ public class UpdateDepartment extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(UpdateDepartment.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
-    public void showDepartments(List<Department> list) {
+    /**
+     * Fill a table with the departments contained in the list.
+     *
+     * @param list: a list containing all the departments
+     */
+    private void showDepartments(List<Department> list) {
 
         DefaultTableModel departments = (DefaultTableModel) jTableDepartments.getModel();
 
+        // Clean the table in case of multiple list actions
         if (departments.getRowCount() != 0) {
             for (int i = 0; i < list.size(); i++) {
                 departments.removeRow(0);
             }
         }
 
+        // Fill the table
         for (int i = 0; i < list.size(); i++) {
             Object column[] = new Object[1];
             column[0] = list.get(i).getArea();
@@ -338,10 +350,8 @@ public class UpdateDepartment extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpdateDepartment().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new UpdateDepartment().setVisible(true);
         });
     }
 

@@ -8,6 +8,9 @@ package view;
 import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,11 +23,11 @@ import model.Competences.Competence;
  *
  * @author Group9
  */
-
 public class DeleteCompetence extends javax.swing.JFrame {
 
     private List<Competence> compList = new LinkedList<Competence>();
     private CompetenceService competence = CompetenceService.getCompetenceService();
+
     /**
      * Creates new form DeleteCompetence
      */
@@ -33,9 +36,15 @@ public class DeleteCompetence extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(585,480);
+        setSize(584, 453);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -195,7 +204,7 @@ public class DeleteCompetence extends javax.swing.JFrame {
                 .addComponent(jButtonList)
                 .addGap(35, 35, 35)
                 .addComponent(jLabelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -215,39 +224,36 @@ public class DeleteCompetence extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-       
+
     }//GEN-LAST:event_jButtonListActionPerformed
- 
+
     private void jLabelDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDeleteMouseClicked
-                
-        if (jTableCompetences.getSelectionModel().isSelectionEmpty()){
+
+        // Avoid empty selections
+        if (jTableCompetences.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a competence first");
             return;
-        }        
+        }
         int row = jTableCompetences.getSelectedRow();
         int ID = Integer.parseInt(jTableCompetences.getModel().getValueAt(row, 0).toString());
-        
+
         try {
             int result = competence.deleteCompetence(ID);
-            if(result > 0) {
+            if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Competence deleted successfully!");
             } else {
                 JOptionPane.showMessageDialog(null, "No competence deleted!");
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot delete this competence");
-        } catch (InvalidPermissionException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid Permission");
-        }  
-        
+        } catch (SQLException | UnsuccessfulUpdateException | InvalidPermissionException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
     }//GEN-LAST:event_jLabelDeleteMouseClicked
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         ManagementCompetenceArea dUser = new ManagementCompetenceArea();
-        dUser.setVisible(true); 
+        dUser.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
@@ -266,26 +272,35 @@ public class DeleteCompetence extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonListMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(DeleteCompetence.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
-    public void showCompetences(List<Competence> list){
-        
+    /**
+     * Fill a table with the competences contained in the list.
+     *
+     * @param list: a list containing all the competences
+     */
+    public void showCompetences(List<Competence> list) {
+
         DefaultTableModel model = (DefaultTableModel) jTableCompetences.getModel();
         int length = model.getRowCount();
-        if(model.getRowCount()!=0){
-            for(int i=0;i<length;i++){
+
+        // Clean the table in case of multiple list actions
+        if (model.getRowCount() != 0) {
+            for (int i = 0; i < length; i++) {
                 model.removeRow(0);
             }
         }
-        for(int i=0;i<list.size();i++){
-            Object column[] =new Object[2];
+
+        // Fill the table
+        for (int i = 0; i < list.size(); i++) {
+            Object column[] = new Object[2];
             column[0] = list.get(i).getId();
             column[1] = list.get(i).getDescription();
             model.addRow(column);
-        }      
+        }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -314,10 +329,8 @@ public class DeleteCompetence extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DeleteCompetence().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new DeleteCompetence().setVisible(true);
         });
     }
 

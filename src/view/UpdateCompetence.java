@@ -9,6 +9,9 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,11 +24,11 @@ import model.Competences.Competence;
  *
  * @author Group9
  */
-
 public class UpdateCompetence extends javax.swing.JFrame {
 
     private List<Competence> compList = new LinkedList<Competence>();
     private CompetenceService competence = CompetenceService.getCompetenceService();
+
     /**
      * Creates new form UpdateCompetence
      */
@@ -34,9 +37,15 @@ public class UpdateCompetence extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(585,520);
+        setSize(585, 520);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -235,7 +244,6 @@ public class UpdateCompetence extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-
     }//GEN-LAST:event_jButtonListActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
@@ -249,7 +257,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
-        
+
         try {
             compList = competence.getAllCompetences();
         } catch (SQLException ex) {
@@ -261,57 +269,63 @@ public class UpdateCompetence extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonListMouseClicked
 
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
-                
-        if (jTableCompetences.getSelectionModel().isSelectionEmpty()){
+
+        // Avoid empty selections
+        if (jTableCompetences.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a competence first");
             return;
         }
         int row = jTableCompetences.getSelectedRow();
         int id = Integer.parseInt(jTableCompetences.getModel().getValueAt(row, 0).toString());
-        String newDescription = jTextNewDescription.getText();        
-      
+        String newDescription = jTextNewDescription.getText();
+
         try {
             int result = competence.updateCompetence(id, newDescription);
-            
-            if(result > 0) JOptionPane.showMessageDialog(null, "Competence updated successfully!");
-            else JOptionPane.showMessageDialog(null, "No competence updated!");
-            
-        } catch (InvalidPermissionException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid permission");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot update this competance");
-        } catch (InvalidParameterObjectException ex) {
+
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "Competence updated successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No competence updated!");
+            }
+
+        } catch (InvalidPermissionException | SQLException | UnsuccessfulUpdateException | InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        } 
+        }
 
     }//GEN-LAST:event_jLabelUpdateMouseClicked
 
     private void jTextNewDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNewDescriptionActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextNewDescriptionActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(UpdateCompetence.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
-    public void showCompetences(List<Competence> list){
-        
+    /**
+     * Fill a table with the maintenance activities contained in the list.
+     *
+     * @param list: a list containing all the competences
+     */
+    private void showCompetences(List<Competence> list) {
+
         DefaultTableModel model = (DefaultTableModel) jTableCompetences.getModel();
-        Object column[] =new Object[4];
-        if(model.getRowCount()!=0){
-            for(int i=0;i<list.size();i++){
+        Object column[] = new Object[4];
+
+        // Clean the table in case of multiple list actions
+        if (model.getRowCount() != 0) {
+            for (int i = 0; i < list.size(); i++) {
                 model.removeRow(0);
             }
         }
-        for(int i=0;i<list.size();i++){
+
+        // Fill the table
+        for (int i = 0; i < list.size(); i++) {
             column[0] = list.get(i).getId();
             column[1] = list.get(i).getDescription();
             model.addRow(column);
-        }      
+        }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -340,10 +354,8 @@ public class UpdateCompetence extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpdateCompetence().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new UpdateCompetence().setVisible(true);
         });
     }
 

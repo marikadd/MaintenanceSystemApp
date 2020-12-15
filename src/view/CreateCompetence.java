@@ -9,6 +9,9 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.CompetenceService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -18,11 +21,10 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  *
  * @author Group9
  */
-
 public class CreateCompetence extends javax.swing.JFrame {
-    
+
     private CompetenceService comp = CompetenceService.getCompetenceService();
-    
+
     /**
      * Creates new form CreateCompetence
      */
@@ -31,9 +33,15 @@ public class CreateCompetence extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(500,400);
+        setSize(500, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -188,25 +196,19 @@ public class CreateCompetence extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
-           
+
         String description = jTextDescription.getText();
-        
+
         try {
             int result = comp.insertCompetence(description);
-            if(result > 0) {
+            if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Competence created successfully!");
             } else {
-                JOptionPane.showMessageDialog(null, "No competence insert!");
+                JOptionPane.showMessageDialog(null, "No competence inserted!");
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot create this competence");
-        } catch (InvalidPermissionException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid Permission"); 
-        } catch (InvalidParameterObjectException ex) {
+        } catch (SQLException | UnsuccessfulUpdateException | InvalidPermissionException | InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        }  
+        }
     }//GEN-LAST:event_jLabelCreateMouseClicked
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
@@ -224,7 +226,7 @@ public class CreateCompetence extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(CreateCompetence.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
@@ -255,10 +257,8 @@ public class CreateCompetence extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CreateCompetence().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CreateCompetence().setVisible(true);
         });
     }
 

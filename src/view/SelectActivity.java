@@ -8,6 +8,9 @@ package view;
 import configuration.Exceptions.ActivityNotFoundException;
 import configuration.Exceptions.InvalidParameterObjectException;
 import controller.Services.ActivityService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -37,9 +40,15 @@ public class SelectActivity extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(742, 444);
+        setSize(732, 444);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -197,7 +206,7 @@ public class SelectActivity extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonList))
                                 .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(110, 110, 110))
+                        .addGap(100, 100, 100))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(186, 186, 186))))
@@ -246,37 +255,12 @@ public class SelectActivity extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No activity assigned!");
                 this.showActivities(new ArrayList<>());
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ActivityNotFoundException ex) {
-            Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidParameterObjectException ex) {
+        } catch (SQLException | ActivityNotFoundException | InvalidParameterObjectException ex) {
             Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         this.showActivities(activityList);
     }//GEN-LAST:event_jButtonListMouseClicked
-
-    public void showActivities(List<MaintenanceActivity> list) {
-
-        DefaultTableModel model = (DefaultTableModel) jTableActivities.getModel();
-        Object column[] = new Object[4];
-
-        int length = model.getRowCount();
-        if (model.getRowCount() != 0) {
-            for (int i = 0; i < length; i++) {
-                model.removeRow(0);
-            }
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            column[0] = list.get(i).getID();
-            column[1] = list.get(i).getDepartment().getArea();
-            column[2] = list.get(i).getType();
-            column[3] = list.get(i).getTime();
-            model.addRow(column);
-        }
-    }
 
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
 
@@ -287,7 +271,7 @@ public class SelectActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(SelectActivity.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
@@ -316,17 +300,43 @@ public class SelectActivity extends javax.swing.JFrame {
         try {
             aActivity = new AssignmentActivity(ID, area, type, time, week);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidParameterObjectException ex) {
+        } catch (SQLException | InvalidParameterObjectException ex) {
             Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
         aActivity.setVisible(true);
     }//GEN-LAST:event_jButtonSelectMouseClicked
 
     private void jButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonSelectActionPerformed
+
+    /**
+     * Fill a table with the maintenance activities contained in the list.
+     *
+     * @param list: a list containing all the maintenance activities
+     */
+    private void showActivities(List<MaintenanceActivity> list) {
+
+        DefaultTableModel model = (DefaultTableModel) jTableActivities.getModel();
+        Object column[] = new Object[4];
+
+        int length = model.getRowCount();
+        // Clean the table in case of multiple list actions
+        if (model.getRowCount() != 0) {
+            for (int i = 0; i < length; i++) {
+                model.removeRow(0);
+            }
+        }
+
+        // Fill the table
+        for (int i = 0; i < list.size(); i++) {
+            column[0] = list.get(i).getID();
+            column[1] = list.get(i).getDepartment().getArea();
+            column[2] = list.get(i).getType();
+            column[3] = list.get(i).getTime();
+            model.addRow(column);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -356,10 +366,8 @@ public class SelectActivity extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SelectActivity().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new SelectActivity().setVisible(true);
         });
     }
 

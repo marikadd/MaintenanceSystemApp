@@ -9,8 +9,11 @@ import configuration.Exceptions.ActivityNotFoundException;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
-import java.util.Map; 
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +43,14 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         setSize(862, 449);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
+        // ID column is hidden because it is not useful for display purposes,
+        // but is used for unassignment operations
         jTableActivities.getColumnModel().getColumn(4).setMinWidth(0);
         jTableActivities.getColumnModel().getColumn(4).setMaxWidth(0);
         jTableActivities.getColumnModel().getColumn(4).setWidth(0);
@@ -255,11 +266,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
 
         try {
             this.showRecap(activityMap);
-        } catch (SQLException ex) {
-            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ActivityNotFoundException ex) {
-            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidParameterObjectException ex) {
+        } catch (SQLException | ActivityNotFoundException | InvalidParameterObjectException ex) {
             Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonListMouseClicked
@@ -279,7 +286,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(ViewAssignedActivities.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     private void jTableActivitiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableActivitiesMouseClicked
@@ -288,6 +295,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
 
     private void jButtonUnassignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUnassignMouseClicked
 
+        // Avoid empty selections
         if (jTableActivities.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select an activity first");
             return;
@@ -297,24 +305,28 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         int ID = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 4).toString());
 
         try {
+            // Unassign the selected activity and update maintainer's availability
             int result = activity.unassignActivity(ID);
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Activity unassigned successfully!");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsuccessfulUpdateException ex) {
-            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidParameterObjectException ex) {
+        } catch (SQLException | UnsuccessfulUpdateException | InvalidParameterObjectException ex) {
             Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButtonUnassignMouseClicked
 
     private void jButtonUnassignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUnassignActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonUnassignActionPerformed
 
+    /**
+     * Fill a table with all the activities assigned with the relative
+     * maintainers.
+     *
+     * @param map: a map containing all the (activityID, maintainer username)
+     * couples
+     */
     private void showRecap(TreeMap<Integer, String> map) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         DefaultTableModel users = (DefaultTableModel) jTableActivities.getModel();
@@ -372,10 +384,8 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ViewAssignedActivities().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ViewAssignedActivities().setVisible(true);
         });
     }
 

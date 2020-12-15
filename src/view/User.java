@@ -5,6 +5,13 @@
  */
 package view;
 
+import java.awt.Desktop;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
 
 /**
@@ -21,11 +28,20 @@ public class User extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
-        setSize(600,500);
-        setLocationRelativeTo(null); // Centers the window on the screen
-        setDefaultCloseOperation(EXIT_ON_CLOSE); // Closes the window if we click on the Close button of the titlebar
-       
-        }
+        setSize(600, 500);
+        // Centers the window on the screen
+        setLocationRelativeTo(null);
+        // Closes the window if we click on the Close button of the titlebar
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        // Set rounded corners
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,6 +59,7 @@ public class User extends javax.swing.JFrame {
         jLabelTitle = new javax.swing.JLabel();
         jLabelExit = new javax.swing.JLabel();
         jLabelMinimize = new javax.swing.JLabel();
+        jLabelGit = new javax.swing.JLabel();
         jLabelIcon = new javax.swing.JLabel();
         jLabelInfo = new javax.swing.JLabel();
 
@@ -99,6 +116,17 @@ public class User extends javax.swing.JFrame {
             }
         });
 
+        jLabelGit.setBackground(new java.awt.Color(0, 0, 0));
+        jLabelGit.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelGit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelGit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/github.png"))); // NOI18N
+        jLabelGit.setText("Support Us");
+        jLabelGit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelGitMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -113,13 +141,16 @@ public class User extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelExit)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100))))
+                        .addComponent(jLabelGit, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +164,9 @@ public class User extends javax.swing.JFrame {
                 .addComponent(jButtonSystemAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(jButtonPlanner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(jLabelGit)
+                .addContainerGap())
         );
 
         jLabelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/login.png"))); // NOI18N
@@ -193,21 +226,31 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jButtonSystemAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSystemAdminMouseClicked
+        // Go to the system admin area
         setVisible(false);
         SystemAdminArea admin = new SystemAdminArea();
         admin.setVisible(true);
     }//GEN-LAST:event_jButtonSystemAdminMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(User.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
-    private void jButtonPlannerMouseClicked(java.awt.event.MouseEvent evt) {                                                
+    private void jLabelGitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelGitMouseClicked
+        // Redirects the user to the GitHub repository
+        try {
+            Desktop.getDesktop().browse(new URI("https://github.com/marikadd/MaintenanceSystemApp"));
+        } catch (IOException | URISyntaxException e1) {
+        }
+    }//GEN-LAST:event_jLabelGitMouseClicked
+
+    private void jButtonPlannerMouseClicked(java.awt.event.MouseEvent evt) {
+        // Go to the planner area
         setVisible(false);
         ManagementActivityArea aArea = new ManagementActivityArea();
         aArea.setVisible(true);
-    }  
-    
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -237,10 +280,8 @@ public class User extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new User().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new User().setVisible(true);
         });
     }
 
@@ -248,6 +289,7 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JButton jButtonPlanner;
     private javax.swing.JButton jButtonSystemAdmin;
     private javax.swing.JLabel jLabelExit;
+    private javax.swing.JLabel jLabelGit;
     private javax.swing.JLabel jLabelIcon;
     private javax.swing.JLabel jLabelInfo;
     private javax.swing.JLabel jLabelMinimize;

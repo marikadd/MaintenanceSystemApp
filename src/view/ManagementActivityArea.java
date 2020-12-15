@@ -6,6 +6,9 @@
 package view;
 
 import controller.Services.NotificationService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,17 +36,13 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         setSize(740, 614);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
         initNotification();
-    }
-
-    private void initNotification() {
-
-        try {
-            messages = notService.readNotifications();
-        } catch (SQLException ex) {
-            Logger.getLogger(ManagementActivityArea.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
     /**
@@ -119,9 +118,9 @@ public class ManagementActivityArea extends javax.swing.JFrame {
                             .add(jLabelIconUpdate)
                             .add(jLabelIconDelete)
                             .add(jLabelIconCreate))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .add(0, 34, Short.MAX_VALUE)
+                .add(0, 43, Short.MAX_VALUE)
                 .add(jLabelIconAssign)
                 .add(29, 29, 29))
         );
@@ -244,7 +243,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .add(131, 131, 131)
+                .add(120, 120, 120)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jButtonView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jButtonCreate, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -254,7 +253,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jButtonSelect, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jButtonViewAssigned, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .add(37, 37, 37))
+                .add(50, 50, 50))
             .add(jPanel2Layout.createSequentialGroup()
                 .add(16, 16, 16)
                 .add(jLabelNotification, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -280,17 +279,17 @@ public class ManagementActivityArea extends javax.swing.JFrame {
                         .add(6, 6, 6)))
                 .add(11, 11, 11)
                 .add(jLabelTitle)
-                .add(35, 35, 35)
+                .add(50, 50, 50)
                 .add(jButtonView, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(31, 31, 31)
+                .add(29, 29, 29)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButtonCreate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButtonViewAssigned, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(31, 31, 31)
+                .add(29, 29, 29)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButtonUpdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButtonSelect, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(31, 31, 31)
+                .add(29, 29, 29)
                 .add(jButtonDelete, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -307,7 +306,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -366,7 +365,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSelectMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(ManagementActivityArea.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     private void jButtonViewAssignedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonViewAssignedMouseClicked
@@ -376,7 +375,6 @@ public class ManagementActivityArea extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonViewAssignedMouseClicked
 
     private void jButtonViewAssignedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewAssignedActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonViewAssignedActionPerformed
 
     private void jLabelNotificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelNotificationMouseClicked
@@ -386,6 +384,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
             notificationDistribution += message + "\n";
         }
 
+        // Show Planner's notifications, if they are present
         if (!messages.isEmpty()) {
             JOptionPane.showMessageDialog(null, notificationDistribution, "Messages",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -394,6 +393,19 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jLabelNotificationMouseClicked
+
+    /**
+     * Initialize notification system.
+     */
+    private void initNotification() {
+
+        try {
+            messages = notService.readNotifications();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagementActivityArea.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     /**
      * @param args the command line arguments
@@ -423,10 +435,8 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManagementActivityArea().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ManagementActivityArea().setVisible(true);
         });
     }
 

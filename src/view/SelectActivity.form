@@ -68,7 +68,7 @@
                                   <Component id="jScrollPane" alignment="0" min="-2" pref="390" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabelTitle" min="-2" pref="221" max="-2" attributes="0"/>

@@ -60,7 +60,7 @@
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jScrollPane" min="-2" pref="518" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
-                                          <Component id="jButtonUnassign" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButtonComplete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="jButtonList" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -93,7 +93,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonList" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonUnassign" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonComplete" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -231,7 +231,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelMinimizeMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonUnassign">
+        <Component class="javax.swing.JButton" name="jButtonComplete">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="1"/>
@@ -239,8 +239,8 @@
             <Property name="text" type="java.lang.String" value="Completed"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonUnassignMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonUnassignActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonCompleteMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCompleteActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

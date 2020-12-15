@@ -6,6 +6,9 @@
 package view;
 
 import controller.Services.DepartmentService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,6 +39,12 @@ public class ViewDepartments extends javax.swing.JFrame {
         setSize(639, 367);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -225,26 +234,6 @@ public class ViewDepartments extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonListActionPerformed
 
-    public void showDepartments(List<Department> list) {
-
-        DefaultTableModel departments = (DefaultTableModel) jTableDepartments.getModel();
-
-        int length = departments.getRowCount();
-
-        if (length != 0) {
-            for (int i = 0; i < length; i++) {
-                departments.removeRow(0);
-            }
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            Object column[] = new Object[1];
-            column[0] = list.get(i).getArea();
-
-            departments.addRow(column);
-        }
-    }
-
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
@@ -256,8 +245,35 @@ public class ViewDepartments extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(ViewDepartments.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
+
+    /**
+     * Fill a table with the departments contained in the list.
+     *
+     * @param list: a list containing all the departments
+     */
+    private void showDepartments(List<Department> list) {
+
+        DefaultTableModel departments = (DefaultTableModel) jTableDepartments.getModel();
+
+        int length = departments.getRowCount();
+
+        // Clean the table in case of multiple list actions
+        if (length != 0) {
+            for (int i = 0; i < length; i++) {
+                departments.removeRow(0);
+            }
+        }
+
+        // Fill the table
+        for (int i = 0; i < list.size(); i++) {
+            Object column[] = new Object[1];
+            column[0] = list.get(i).getArea();
+
+            departments.addRow(column);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -287,10 +303,8 @@ public class ViewDepartments extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ViewDepartments().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ViewDepartments().setVisible(true);
         });
     }
 

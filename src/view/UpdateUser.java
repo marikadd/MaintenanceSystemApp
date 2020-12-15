@@ -9,9 +9,11 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
 import controller.Services.UserManagementService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,10 +32,10 @@ import model.Users.UserModel;
  *
  * @author Group9
  */
-
 public class UpdateUser extends javax.swing.JFrame {
 
     private List<UserModel> userList = new LinkedList<UserModel>();
+    private UserManagementService user = UserManagementService.getUserManagementService();
 
     /**
      * Creates new form UpdateUser
@@ -46,6 +48,12 @@ public class UpdateUser extends javax.swing.JFrame {
         setSize(650, 650);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -311,14 +319,10 @@ public class UpdateUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelBackMouseClicked
 
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
-        
-        UserManagementService user = UserManagementService.getUserManagementService();
 
         try {
             userList = user.getAllUsers();
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateUser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UsernotFoundException ex) {
+        } catch (SQLException | UsernotFoundException ex) {
             Logger.getLogger(UpdateUser.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -327,41 +331,37 @@ public class UpdateUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonListMouseClicked
 
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
-        
-        if (jTableUsers.getSelectionModel().isSelectionEmpty()){
+
+        // Avoid empty selections
+        if (jTableUsers.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a user first");
             return;
         }
         int row = jTableUsers.getSelectedRow();
         String oldUsername = jTableUsers.getModel().getValueAt(row, 0).toString();
-        
+
         // Checking is used for searching an empty update
         ArrayList<String> checking = new ArrayList<>();
-        
+
         String newUsername = check(jTextNewUsername.getText());
         checking.add(newUsername);
-        
+
         String password = check(String.valueOf(jPasswordField.getPassword()));
         checking.add(password);
-        
+
         String email = check(jTextEmail.getText());
         checking.add(email);
-        
+
         String phone = check(jTextPhone.getText());
         checking.add(phone);
-        
+
+        // Count is used to monitor empty update values
         int count = 0;
-
-        for (String s : checking) {
-            if (s == null) {
-                count++;
-            }
-        }
-
-        UserManagementService ums = UserManagementService.getUserManagementService();
+        // Increment count for every null String in cheching List
+        count = checking.stream().filter(s -> (s == null)).map(_item -> 1).reduce(count, Integer::sum);
 
         try {
-            String role = ums.getRoleByUsername(oldUsername);
+            String role = user.getRoleByUsername(oldUsername);
             int result = this.updateUser(oldUsername, newUsername, password, email, phone, role);
             if (result > 0) {
                 System.out.println(count);
@@ -371,46 +371,38 @@ public class UpdateUser extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "No user updated!");
                 }
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UsernotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "User not found");
-        } catch (InvalidParameterObjectException ex) {
+        } catch (SQLException | UsernotFoundException | InvalidParameterObjectException | UnsuccessfulUpdateException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot update this user");
         }
 
     }//GEN-LAST:event_jLabelUpdateMouseClicked
-
-    public String check(String s) {
-        if (s.isBlank()) {
-            s = null;
-        }
-        return s;
-    }
 
     private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
 
     }//GEN-LAST:event_jPasswordFieldActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(UpdateUser.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
-    public void showUsers(List<UserModel> list) {
+    /**
+     * Fill a table with the users in the list.
+     *
+     * @param list: a list containing all the users
+     */
+    private void showUsers(List<UserModel> list) {
 
         DefaultTableModel users = (DefaultTableModel) jTableUsers.getModel();
         Object column[] = new Object[4];
-        
+
         int length = users.getRowCount();
-        
+
         if (length != 0) {
             for (int i = 0; i < length; i++) {
                 users.removeRow(0);
             }
         }
-        
+
         for (int i = 0; i < list.size(); i++) {
             column[0] = list.get(i).getUsername();
             column[1] = list.get(i).getName();
@@ -420,11 +412,20 @@ public class UpdateUser extends javax.swing.JFrame {
         }
     }
 
-    public int updateUser(String oldUsername, String newUsername, String password, String email, String phone, String role)
+    /**
+     * Calls the correct update function based on the user's role.
+     *
+     * @param oldUsername: user's username to be updated
+     * @param newUsername: new username
+     * @param password: new password
+     * @param email: new email
+     * @param phone: new phone
+     * @param role: user's role to be updated
+     */
+    private int updateUser(String oldUsername, String newUsername, String password, String email, String phone, String role)
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException, UsernotFoundException {
 
         int result = 0;
-        UserManagementService user = UserManagementService.getUserManagementService();
 
         switch (role) {
             case "MAINTAINER": {
@@ -449,6 +450,20 @@ public class UpdateUser extends javax.swing.JFrame {
             }
         }
         return result;
+    }
+
+    /**
+     * Check if a string is blank (empty or composed only by spaces)
+     *
+     * @param string: a String to check
+     *
+     * @return the same string given in input if it is not blank
+     */
+    private String check(String s) {
+        if (s.isBlank()) {
+            s = null;
+        }
+        return s;
     }
 
     /**
@@ -479,10 +494,8 @@ public class UpdateUser extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpdateUser().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new UpdateUser().setVisible(true);
         });
     }
 

@@ -5,6 +5,9 @@
  */
 package view;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,7 +19,6 @@ public class ManagementUserArea extends javax.swing.JFrame {
     /**
      * Creates new form ManagementUserArea
      */
-    
     public ManagementUserArea() {
         initComponents();
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
@@ -25,6 +27,12 @@ public class ManagementUserArea extends javax.swing.JFrame {
         setSize(509, 486);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -276,7 +284,6 @@ public class ManagementUserArea extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeleteMouseClicked
 
     private void jButtonViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonViewMouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonViewMouseClicked
 
     private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
@@ -286,7 +293,7 @@ public class ManagementUserArea extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonViewActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(ManagementUserArea.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
@@ -317,10 +324,8 @@ public class ManagementUserArea extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManagementUserArea().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ManagementUserArea().setVisible(true);
         });
     }
 

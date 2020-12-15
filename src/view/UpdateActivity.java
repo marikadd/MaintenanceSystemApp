@@ -10,6 +10,9 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import controller.Services.DepartmentService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -44,6 +47,12 @@ public class UpdateActivity extends javax.swing.JFrame {
         setSize(890, 590);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
     }
 
     /**
@@ -369,11 +378,7 @@ public class UpdateActivity extends javax.swing.JFrame {
 
         try {
             activityList = activity.getAllActivities();
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateActivity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ActivityNotFoundException ex) {
-            Logger.getLogger(UpdateActivity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidParameterObjectException ex) {
+        } catch (SQLException | ActivityNotFoundException | InvalidParameterObjectException ex) {
             Logger.getLogger(UpdateActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -383,6 +388,7 @@ public class UpdateActivity extends javax.swing.JFrame {
 
     private void jLabelUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelUpdateMouseClicked
 
+        // Avoid empty selections
         if (jTableActivities.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select an activity first");
             return;
@@ -408,9 +414,8 @@ public class UpdateActivity extends javax.swing.JFrame {
         } else {
             try {
                 time = Integer.parseInt(time_interv);
-            } catch(NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Numerical value expetced "
-                        + "in field time");
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
                 return;
             }
         }
@@ -434,13 +439,10 @@ public class UpdateActivity extends javax.swing.JFrame {
 
         Department department = new Department(area);
 
+        // Count is used to monitor empty update values
         int count = 0;
-
-        for (String s : checking) {
-            if (s == null) {
-                count++;
-            }
-        }
+        // Increment count for every null String in cheching list
+        count = checking.stream().filter(s -> (s == null)).map(_item -> 1).reduce(count, Integer::sum);
 
         try {
             int result = activity.updateActivity(ID, type, description, time, week_num, department);
@@ -451,24 +453,13 @@ public class UpdateActivity extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "No activity updated!");
                 }
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot update this activity");
-        } catch (InvalidParameterObjectException ex) {
+        } catch (SQLException | UnsuccessfulUpdateException | InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jLabelUpdateMouseClicked
 
-    public String check(String s) {
-        if (s.isBlank()) {
-            s = null;
-        }
-        return s;
-    }
-
     private void jTextFieldTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTypeActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextFieldTypeActionPerformed
 
     private void jButtonViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonViewMouseClicked
@@ -483,34 +474,19 @@ public class UpdateActivity extends javax.swing.JFrame {
         depList = null;
     }//GEN-LAST:event_jButtonViewMouseClicked
 
-    public void showDepartments(List<Department> list) {
-
-        DefaultTableModel departments = (DefaultTableModel) jTableDepartment.getModel();
-
-        int length = departments.getRowCount();
-
-        if (length != 0) {
-            for (int i = 0; i < length; i++) {
-                departments.removeRow(0);
-            }
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            Object column[] = new Object[1];
-            column[0] = list.get(i).getArea();
-
-            departments.addRow(column);
-        }
-    }
-
     private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonViewActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(UpdateActivity.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
+    /**
+     * Fill a table with the maintenance activities contained in the list.
+     *
+     * @param list: a list containing all the maintenance activities
+     */
     public void showActivities(List<MaintenanceActivity> list) {
 
         DefaultTableModel model = (DefaultTableModel) jTableActivities.getModel();
@@ -531,6 +507,44 @@ public class UpdateActivity extends javax.swing.JFrame {
             column[5] = list.get(i).getWeekNum();
             model.addRow(column);
         }
+    }
+
+    /**
+     * Fill a table with the departments contained in the list.
+     *
+     * @param list: a list containing all the departments
+     */
+    public void showDepartments(List<Department> list) {
+
+        DefaultTableModel departments = (DefaultTableModel) jTableDepartment.getModel();
+
+        int length = departments.getRowCount();
+
+        if (length != 0) {
+            for (int i = 0; i < length; i++) {
+                departments.removeRow(0);
+            }
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            Object column[] = new Object[1];
+            column[0] = list.get(i).getArea();
+
+            departments.addRow(column);
+        }
+    }
+
+    /**
+     * Check if a string is blank (empty or composed only by spaces)
+     *
+     * @param string: a String to check
+     * @return the same string given in input if it is not blank
+     */
+    private String check(String s) {
+        if (s.isBlank()) {
+            s = null;
+        }
+        return s;
     }
 
     /**
@@ -561,12 +575,10 @@ public class UpdateActivity extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpdateActivity().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new UpdateActivity().setVisible(true);
         });
-    } 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonList;

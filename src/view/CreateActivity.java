@@ -12,6 +12,9 @@ import controller.Services.ActivityService;
 import controller.Services.CompetenceService;
 import controller.Services.DepartmentService;
 import controller.Services.MaterialService;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -34,6 +37,10 @@ public class CreateActivity extends javax.swing.JFrame {
     private List<Department> depList = new LinkedList<>();
     private List<Material> materials = new LinkedList<>();
     private DepartmentService dep = DepartmentService.getDepartmentService();
+    private ActivityService act = ActivityService.getActivityService();
+    private CompetenceService compService = CompetenceService.getCompetenceService();
+    private MaterialService matService = MaterialService.getMaterialService();
+
     /**
      * Creates new form CreateActivity
      */
@@ -45,6 +52,12 @@ public class CreateActivity extends javax.swing.JFrame {
         setSize(1172, 630);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
+            }
+        });
         getAllSkills();
         getDepartments();
         getAllMaterials();
@@ -551,8 +564,6 @@ public class CreateActivity extends javax.swing.JFrame {
 
     private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
 
-        ActivityService act = ActivityService.getActivityService();
-
         String type = jTextFieldType.getText();
         String description = jTextFieldDescription.getText();
 
@@ -566,28 +577,29 @@ public class CreateActivity extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Field Time must be numeric");
             return;
         }
-        */
-        
+         */
         Integer time;
         try {
             time = Integer.parseInt(jTextFieldTime.getText());
-        } catch(NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Numerical value expetced "
-                        + "in field time");
-                return;
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
         }
         Integer week_num = Integer.parseInt(jComboWeek.getSelectedItem().toString());
-        
-        if (jTableDepartment.getSelectionModel().isSelectionEmpty()){
+
+        // Avoid empty selections
+        if (jTableDepartment.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select a department first");
             return;
         }
         int row = jTableDepartment.getSelectedRow();
         Department department = new Department(jTableDepartment.getModel().getValueAt(row, 0).toString());
-        
-        ArrayList<Competence> skills = new ArrayList<Competence>();
+
+        ArrayList<Competence> skills = new ArrayList<>();
         DefaultTableModel modelC = (DefaultTableModel) jTableAssociated.getModel();
 
+        // Add all the selected skills in the List, in order to use them for 
+        // the MaintenanceActivity creation
         for (int i = 0; i < modelC.getRowCount(); i++) {
             Integer id = Integer.parseInt(modelC.getValueAt(i, 0).toString());
             String descriptionSkill = modelC.getValueAt(i, 1).toString();
@@ -595,15 +607,18 @@ public class CreateActivity extends javax.swing.JFrame {
             Competence c = new Competence(id, descriptionSkill);
             skills.add(c);
         }
-        
-        if(skills.size() == 0){
+
+        if (skills.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select almost a skill to assign");
             return;
         }
-            
-        ArrayList<Material> material = new ArrayList<Material>();
+
+        ArrayList<Material> material = new ArrayList<>();
         DefaultTableModel modelM = (DefaultTableModel) jTableMaterialsAssociated.getModel();
 
+        // Add all the selected materials in the List, in order to use them for 
+        // the MaintenanceActivity creation. It is possible to create a MaintenanceActivity
+        // without any material
         for (int i = 0; i < modelM.getRowCount(); i++) {
             String typeMaterial = modelM.getValueAt(i, 0).toString();
 
@@ -614,13 +629,7 @@ public class CreateActivity extends javax.swing.JFrame {
         try {
             act.insertActivity(type, description, time, skills, material, week_num, department);
             JOptionPane.showMessageDialog(null, "Activity created successfully!");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database internal error");
-        } catch (UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "Cannot create this activity");
-        } catch (InvalidPermissionException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid Permission");
-        } catch (InvalidParameterObjectException ex) {
+        } catch (SQLException | UnsuccessfulUpdateException | InvalidPermissionException | InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jLabelCreateMouseClicked
@@ -635,14 +644,15 @@ public class CreateActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddMouseClicked
-        
-        if (jTableToAssociate.getSelectionModel().isSelectionEmpty()){
+
+        // Avoid empty selections
+        if (jTableToAssociate.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Select a skill first!");
             return;
         }
-        
-        int posToAssociate = jTableToAssociate.getSelectedRow();
 
+        int posToAssociate = jTableToAssociate.getSelectedRow();
+        // Transfer the selected skill in the Associated table
         if (posToAssociate >= 0) {
 
             Integer id = Integer.parseInt(jTableToAssociate.getModel().getValueAt(posToAssociate, 0).toString());
@@ -657,19 +667,21 @@ public class CreateActivity extends javax.swing.JFrame {
             model.addRow(column);
 
             DefaultTableModel modelToAssociate = (DefaultTableModel) jTableToAssociate.getModel();
+            // Update the ToAssociate table
             modelToAssociate.removeRow(posToAssociate);
         }
     }//GEN-LAST:event_jButtonAddMouseClicked
 
     private void jButtonRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemoveMouseClicked
-        
-        if (jTableAssociated.getSelectionModel().isSelectionEmpty()){
+
+        // Avoid empty selections
+        if (jTableAssociated.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Select a skill first!");
             return;
         }
-        
-        int posAssociated = jTableAssociated.getSelectedRow();
 
+        int posAssociated = jTableAssociated.getSelectedRow();
+        // Transfer the selected skill in the ToAssociate table
         if (posAssociated >= 0) {
 
             Integer id = Integer.parseInt(jTableAssociated.getModel().getValueAt(posAssociated, 0).toString());
@@ -688,48 +700,17 @@ public class CreateActivity extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonRemoveMouseClicked
 
-    private void getDepartments(){
-        try {
-            depList = dep.getAllDepartments();
-        } catch (SQLException ex) {
-            Logger.getLogger(DeleteDepartment.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        this.showDepartments(depList);
-        depList = null;
-    }
-    
-    public void showDepartments(List<Department> list){
-        
-        DefaultTableModel departments = (DefaultTableModel) jTableDepartment.getModel();
-        
-        int length = departments.getRowCount();
-        
-        if(length != 0){
-            for(int i = 0; i < length; i++) {
-                departments.removeRow(0);
-            }
-        }
-        
-        for(int i=0;i<list.size();i++){
-            Object column[] =new Object[1];
-            column[0] = list.get(i).getArea();
-            
-            departments.addRow(column);
-        }
-    }
-    
     private void jLabelMinimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimize1MouseClicked
-        this.setExtendedState(this.ICONIFIED);
+        this.setExtendedState(CreateActivity.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimize1MouseClicked
 
     private void jButtonAdd1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAdd1MouseClicked
-        
-        if (jTableMaterialsToAssociate.getSelectionModel().isSelectionEmpty()){
+
+        if (jTableMaterialsToAssociate.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Select a material first!");
             return;
         }
-        
+
         int posToAssociate = jTableMaterialsToAssociate.getSelectedRow();
 
         if (posToAssociate >= 0) {
@@ -738,7 +719,7 @@ public class CreateActivity extends javax.swing.JFrame {
 
             DefaultTableModel model = (DefaultTableModel) jTableMaterialsAssociated.getModel();
             Object column[] = new Object[1];
-            
+
             column[0] = type;
 
             model.addRow(column);
@@ -749,16 +730,17 @@ public class CreateActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAdd1MouseClicked
 
     private void jButtonAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdd1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonAdd1ActionPerformed
 
     private void jButtonRemove1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemove1MouseClicked
-        
-        if (jTableMaterialsAssociated.getSelectionModel().isSelectionEmpty()){
+
+        // Avoid empty selections
+        if (jTableMaterialsAssociated.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Select a material first!");
             return;
         }
-        
+
         int posAssociated = jTableMaterialsAssociated.getSelectedRow();
 
         if (posAssociated >= 0) {
@@ -778,12 +760,53 @@ public class CreateActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRemove1MouseClicked
 
     private void jButtonRemove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemove1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonRemove1ActionPerformed
 
-    private void getAllSkills() {
+    /**
+     * This method extracts all the departments from the DB and inserts them in
+     * the depList; the list will then be passed to the showDepartments method.
+     */
+    private void getDepartments() {
+        try {
+            depList = dep.getAllDepartments();
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteDepartment.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        CompetenceService compService = CompetenceService.getCompetenceService();
+        this.showDepartments(depList);
+        depList = null;
+    }
+
+    /**
+     * Fill a table with the departments contained in the list.
+     */
+    private void showDepartments(List<Department> list) {
+
+        DefaultTableModel departments = (DefaultTableModel) jTableDepartment.getModel();
+
+        int length = departments.getRowCount();
+
+        if (length != 0) {
+            for (int i = 0; i < length; i++) {
+                departments.removeRow(0);
+            }
+        }
+
+        // Fill the table
+        for (int i = 0; i < list.size(); i++) {
+            Object column[] = new Object[1];
+            column[0] = list.get(i).getArea();
+
+            departments.addRow(column);
+        }
+    }
+
+    /**
+     * This method extracts all the competences from the DB and inserts them in
+     * a list; the list will be used to fill a table.
+     */
+    private void getAllSkills() {
 
         try {
             List<Competence> competences = compService.getAllCompetences();
@@ -803,27 +826,30 @@ public class CreateActivity extends javax.swing.JFrame {
         }
 
     }
-    
-    private void getAllMaterials(){
-        
-        MaterialService matService = MaterialService.getMaterialService();       
-        
+
+    /**
+     * This method extracts all the materials from the DB and inserts them in a
+     * list; the list will be used to fill a table.
+     */
+    private void getAllMaterials() {
+
         try {
-            
+
             materials = matService.getAllMaterials();
             DefaultTableModel model = (DefaultTableModel) jTableMaterialsToAssociate.getModel();
-                    
-            for (Material m : materials){
-            
+
+            for (Material m : materials) {
+
                 Object[] column = new Object[1];
                 column[0] = m.getType();
-            
+
                 model.addRow(column);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error in database");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -852,10 +878,8 @@ public class CreateActivity extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CreateActivity().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CreateActivity().setVisible(true);
         });
     }
 
