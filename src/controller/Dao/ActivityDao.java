@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Dao;
 
 import configuration.Database.ConnectionForTest;
@@ -39,10 +34,18 @@ public class ActivityDao {
     private DBProduct dbProduct;
     private ConnectionForTest cft;
 
-    //Singleton
+    /**
+     * Pattern Singleton
+     */
     private ActivityDao() {
     }
 
+    /**
+     * Creates a singleton for the current class. In order to avoid conflicts
+     * between threads, the method uses the synchronized construct.
+     *
+     * @return an instance of the current class
+     */
     public static ActivityDao init() {
 
         if (activityDao == null) {
@@ -60,8 +63,25 @@ public class ActivityDao {
         return activityDao;
     }
 
+    /**
+     * Inserts inside the table MaintenanceActivity an activity whose
+     * type,description,time activity week number, department and the number of
+     * the activity is passed as an input
+     *
+     * @param type a string representing the type of the activity
+     * @param description a string describing the activity
+     * @param time_activity an integer representing the duration of the activity
+     * @param week_num an integer representing the number of the current week
+     * @param dep the department associated with the activity
+     * @param actNumRecord is an object that represents the number di righe
+     * inserite all'interno della tabella
+     * @return the ID of the activity that has been inserted
+     * @throws SQLException if the new row has not been inserted
+     * @throws InvalidParameterObjectException if the activity attributes are
+     * null or don't respect the constraints defined inside the database
+     */
     public int insertActivity(String type, String description, Integer time_activity, Integer week_num, Department dep, ActivityNumRecord actNumRecord)
-            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+            throws SQLException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -80,7 +100,7 @@ public class ActivityDao {
         ps.setBoolean(6, false);
 
         int affectedRow = ps.executeUpdate();
-        
+
         actNumRecord.setNumRecord(affectedRow);
 
         if (affectedRow > 0) {
@@ -103,6 +123,16 @@ public class ActivityDao {
 
     }
 
+    /**
+     * Associates a competence to an activity by executing an insert inside the
+     * table Activity_Competences
+     *
+     * @param activityId an int representing the activity id
+     * @param competences a list of competences to associate to an activity
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws SQLException if a database access error occurs
+     */
     public int insertCompentecesInActivity(int activityId, List<Competence> competences) throws SQLException {
 
         Connection con = dbProduct.connectToDB();
@@ -124,6 +154,16 @@ public class ActivityDao {
         return result;
     }
 
+    /**
+     * Associates a material to an activity by executing an insert inside the
+     * table Activity_Materials
+     *
+     * @param activityId an int representing the activity id
+     * @param materials a list of materials to associate to an activity
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws SQLException if a database access error occurs
+     */
     public int insertMaterialsInActivity(int activityId, List<Material> materials) throws SQLException {
 
         Connection con = dbProduct.connectToDB();
@@ -145,6 +185,25 @@ public class ActivityDao {
         return result;
     }
 
+    /**
+     * Updates the activity type, department,description, time and week number
+     * inside the table MaintenanceActivity. It is not necessary that every
+     * field has to be modified.
+     *
+     * @param id an integer representing the activity id
+     * @param type a string representing the type of the activity
+     * @param description a string representing a description of the activity
+     * @param time_activity an integer representing the duration of the activity
+     * @param week_num an integer representing the number of the current week
+     * @param dep the department associated with the activity
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws SQLException if a database access error occurs
+     * @throws UnsuccessfulUpdateException if no row has been updated inside the
+     * table
+     * @throws InvalidParameterObjectException if the activity attributes are
+     * null or don't respect the constraints defined inside the database
+     */
     public int updateActivity(Integer id, String type, String description, Integer time_activity, Integer week_num, Department dep)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
@@ -174,8 +233,14 @@ public class ActivityDao {
         return result;
     }
 
+    /**
+     * Changes the state of an activity, setting it as assigned.
+     *
+     * @param id an integer representing the activity id
+     * @throws SQLException if a database access error occurs
+     */
     public void assignmentActivity(Integer id)
-            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+            throws SQLException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -189,8 +254,14 @@ public class ActivityDao {
         boolean result = ps.execute();
     }
 
+    /**
+     * Changes the state of an activity, setting it as unassigned.
+     *
+     * @param id an integer representing the activity id
+     * @throws SQLException if a database access error occurs
+     */
     public void unassignmentActivity(Integer id)
-            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+            throws SQLException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -204,6 +275,14 @@ public class ActivityDao {
         boolean result = ps.execute();
     }
 
+    /**
+     * Checks if an activity has been assigned
+     *
+     * @param activityId an int representing the activity id
+     * @return the username of the maintainer to which the activity is
+     * associated
+     * @throws SQLException if a database access error occurs
+     */
     public UsernameResultActivity checkActivityAssigned(int activityId) throws SQLException {
 
         Connection con = dbProduct.connectToDB();
@@ -231,7 +310,15 @@ public class ActivityDao {
 
     }
 
-    public int deleteActivity(Integer id) throws SQLException, UnsuccessfulUpdateException {
+    /**
+     * Deletes an activity from the table MaintenanceActivity
+     *
+     * @param id an integer representing the activity id
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws SQLException if a database access error occurs
+     */
+    public int deleteActivity(Integer id) throws SQLException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -251,6 +338,17 @@ public class ActivityDao {
 
     }
 
+    /**
+     * Executes a query searching for an activity starting from its id.
+     *
+     * @param ID an integer representing
+     * @return a MaintenanceActivity
+     * @throws SQLException if a database access error occurs
+     * @throws ActivityNotFoundException if the activity with the id passed as
+     * an input doesn't exist
+     * @throws InvalidParameterObjectException if the activity attributes are
+     * null or don't respect the constraints defined inside the database
+     */
     public MaintenanceActivity findActivityByID(Integer ID) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
@@ -258,10 +356,10 @@ public class ActivityDao {
 
         String query = "select * from MaintenanceActivity " + "where ID = ?";
 
-        if(ID == null) {
+        if (ID == null) {
             ID = -1;
         }
-        
+
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, ID);
 
@@ -278,19 +376,33 @@ public class ActivityDao {
         return activity;
     }
 
-    public List<MaintenanceActivity> findActivitiesByWeekNum(Integer week_num) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
+    /**
+     * Executes a query searching for the activities of a specific week number,
+     * that have not been assigned yet
+     *
+     * @param week_num an integer representing the number of the current week
+     * @return an ArrayList of MaintenanceActivity representing the activities
+     * of the specified week.
+     * @throws SQLException if a database access error occurs
+     * @throws ActivityNotFoundException if the week number passed as an input
+     * is null.
+     * @throws InvalidParameterObjectException if the week number passed as an
+     * input has a value that is not in the range [1,52].
+     */
+    public List<MaintenanceActivity> findActivitiesByWeekNum(Integer week_num)
+            throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
-        if(week_num == null) {
+        if (week_num == null) {
             throw new ActivityNotFoundException("Week Num must be not null");
         }
-        
-        if(week_num < 1 || week_num > 52) {
+
+        if (week_num < 1 || week_num > 52) {
             throw new InvalidParameterObjectException("Week num must be in range [1,52]");
         }
-        
+
         String query = "select * from MaintenanceActivity " + "where Week_Number = ? AND Assigned=false";
 
         PreparedStatement ps = con.prepareStatement(query);
@@ -307,7 +419,15 @@ public class ActivityDao {
         return activities;
     }
 
-    public List<MaintenanceActivity> findAllActivities() throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
+    /**
+     * Gets all the activities inside the table MaintenanceActivity.
+     *
+     * @return an ArrayList of MaintenanceActivity
+     * @throws SQLException if a database access error occurs
+     * @throws InvalidParameterObjectException if the competence associated to
+     * the activity is not valid
+     */
+    public List<MaintenanceActivity> findAllActivities() throws SQLException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -325,8 +445,19 @@ public class ActivityDao {
         return activities;
     }
 
-    // non dovrebbe esserci una lista di attività dato che ne assrgno sempre
-    // una alla volta
+    /**
+     * Associates an activity to a maintainer, executing an insert inside the
+     * table Activity_Maintainers
+     *
+     * @param maintainer represents the maintainer to whom associate the
+     * activity
+     * @param listId a list of the maintainers id
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws SQLException if a database access error occurs
+     * @throws UnsuccessfulUpdateException if the insert can't be performed due
+     * to database errors
+     */
     public int assignActivityToMaintainer(Maintainer maintainer, List<Integer> listId)
             throws SQLException, UnsuccessfulUpdateException {
 
@@ -353,8 +484,20 @@ public class ActivityDao {
         return result;
     }
 
+    /**
+     * Deassociates the activity from a maintainer by performing a delete on the
+     * table Activity_Maintainers.
+     *
+     * @param id an integer representing the id of the activity associated to a
+     * maintainer
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws SQLException if a database access error occurs
+     * @throws UnsuccessfulUpdateException if the delete can't be performed due
+     * to database errors
+     */
     public int deassignActivity(Integer id)
-            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+            throws SQLException, UnsuccessfulUpdateException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -376,9 +519,21 @@ public class ActivityDao {
 
         return result;
     }
-    
+
+    /**
+     * Deassociates an activity of a specific day from a maintainer by
+     * performing a delete on the table MaintainerActivityDay.
+     *
+     * @param id representing the id of the activity associated to a maintainer
+     * in a specific day
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws SQLException if a database access error occurs
+     * @throws UnsuccessfulUpdateException if the delete can't be performed due
+     * to database errors
+     */
     public int deassignDayActivity(Integer id)
-            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+            throws SQLException, UnsuccessfulUpdateException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -392,25 +547,20 @@ public class ActivityDao {
         ps.setInt(1, id);
         result = ps.executeUpdate();
 
+        if (result == 0) {
+            throw new UnsuccessfulUpdateException("Cannot deaassign activity #" + id);
+        }
+
         return result;
     }
 
-    /*
-    public int deassignActivityMaintainer(String username) throws SQLException {
-
-        Connection con = dbProduct.connectToDB();
-        cft.setConn(con);
-
-        String query = "UPDATE MaintenanceActivity SET Assigned = false WHERE ID IN ("
-                + "SELECT Activity_Maintainer_ID FROM Activity_Maintainers WHERE "
-                + "username_maintainer = ?)";
-
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, username);
-
-        return ps.executeUpdate();
-
-    }
+    /**
+     * Executes a query searching for the maintainer associated to a specific
+     * activity.
+     *
+     * @param activityId an integer representing the activity ID.
+     * @return a string representing the maintainer's username.
+     * @throws SQLException if a database access error occurs
      */
     public String findMaintainerByActivityId(Integer activityId) throws SQLException {
 
@@ -433,6 +583,16 @@ public class ActivityDao {
 
     }
 
+    /**
+     * Executes a query searching an activity associated to a maintainer, based
+     * on the username
+     *
+     * @param username a string representing the username of the maintainer
+     * @return an ArrayList of MaintenanceActivity
+     * @throws SQLException if a database access error occurs
+     * @throws InvalidParameterObjectException if the competence associated to
+     * the activity is not valid
+     */
     public List<MaintenanceActivity> findActivityByMaintainer(String username) throws SQLException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
@@ -456,6 +616,14 @@ public class ActivityDao {
 
     }
 
+    /**
+     * Creates a TreeMap whose keys are the ID of the table Activity_Maintainers
+     * and its values are the maintainers' username
+     *
+     * @return a TreeMap whose keys are integer representing the ID and values
+     * are string reppresenting the maintainers username
+     * @throws SQLException if a database access error occurs
+     */
     public TreeMap<Integer, String> findAssignedActivities() throws SQLException {
 
         Connection con = dbProduct.connectToDB();
@@ -475,55 +643,14 @@ public class ActivityDao {
         return result;
     }
 
-    /*
-    public List<MaintenanceActivity> findActivitiesInMaintainer(String username) throws SQLException {
-
-        Connection con = dbProduct.connectToDB();
-        cft.setConn(con);
-
-        String query = "select ma.* from MaintenanceActivity ma "
-                + "where ma.ID IN "
-                + "(select am.Activity_Maintainer_ID "
-                + "from Activity_Maintainers am where am.Username_Maintainer = ?) "
-                + "group by ma.ID";
-
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, username);
-
-        ResultSet rs = ps.executeQuery();
-        List<MaintenanceActivity> activities = new ArrayList<>();
-
-        while (rs.next()) {
-            activities.add(getMaintenanceActivity(rs));
-        }
-
-        return activities;
-    }
-
-
-    public List<MaintenanceActivity> findActivitiesNotInMaintainer(String username) throws SQLException {
-
-        Connection con = dbProduct.connectToDB();
-        cft.setConn(con);
-
-String query = "select ma.* from MaintenanceActivity ma "
-                + "where ma.ID NOT IN "
-                + "(select am.Activity_Maintainer_ID "
-                + "from Activity_Maintainers am where am.Username_Maintainer = ?) "
-                + "group by ma.ID";
-
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, username);
-
-        ResultSet rs = ps.executeQuery();
-        List<MaintenanceActivity> activities = new ArrayList<>();
-
-        while (rs.next()) {
-            activities.add(getMaintenanceActivity(rs));
-        }
-
-        return activities;
-    }
+    /**
+     * Creates a MaintenanceActivity starting from the result of a query.
+     *
+     * @param rs is the ResultSet obtained from the execution of a query
+     * @return an instance of the class MaintenanceActivity
+     * @throws SQLException if a database access error occurs
+     * @throws InvalidParameterObjectException if the competence associated to
+     * the activity is not valid
      */
     private MaintenanceActivity getMaintenanceActivity(ResultSet rs) throws SQLException, InvalidParameterObjectException {
 
@@ -540,6 +667,17 @@ String query = "select ma.* from MaintenanceActivity ma "
         return activity;
     }
 
+    /**
+     * Sets the day on which a maintainer must do an activity by executing an
+     * insert inside the table MaintainerActivityDay
+     *
+     * @param username a string representing the maintainer's username
+     * @param maId an integer representing the maintainer's id
+     * @param days a list of integer representing the days of the week
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws SQLException if a database access error occurs
+     */
     public int setMaintainerActivityDays(String username, Integer maId, List<Integer> days) throws SQLException {
 
         Connection con = dbProduct.connectToDB();
@@ -562,6 +700,17 @@ String query = "select ma.* from MaintenanceActivity ma "
 
     }
 
+    /**
+     * Sums the time required to perform a certain activity (by the maintainer)
+     * on a specific day of the week.
+     *
+     * @param username a string representing the maintainer's username
+     * @param day an integer representing a day of the week (e.g. 1 for Monday,
+     * 2 for Tuesday ecc).
+     * @return a double representing the sum of the minutes required for a
+     * specific activity
+     * @throws SQLException if a database access error occurs
+     */
     public double getSumActivityDay(String username, int day) throws SQLException {
 
         Connection con = dbProduct.connectToDB();
@@ -585,7 +734,20 @@ String query = "select ma.* from MaintenanceActivity ma "
 
     }
 
-    private void validateActivity(String type, String description, Integer time, Department dep, Integer weekNum) throws InvalidParameterObjectException {
+    /**
+     * Checks if the activity attributes taken in input are valid and respect
+     * the constraints defined in the database tables.
+     *
+     * @param type a string representing the type of the activity
+     * @param description a string representing the description of the activity
+     * @param time an integer representing the time requested for the activity
+     * @param dep the department associated to an activity
+     * @param weekNum an integer representing the number of the week
+     * @throws InvalidParameterObjectException if any of the attributes don't
+     * respect the constraints
+     */
+    private void validateActivity(String type, String description, Integer time, Department dep, Integer weekNum)
+            throws InvalidParameterObjectException {
 
         if (dep == null) {
             throw new InvalidParameterObjectException("Department must be inserted");
@@ -614,6 +776,9 @@ String query = "select ma.* from MaintenanceActivity ma "
         if (time <= 0) {
             throw new InvalidParameterObjectException("Activity time must be a positive integer");
         }
+        if (time > 420) {
+            throw new InvalidParameterObjectException("Activity time must be a number less than or equal to 420");
+        }
 
         if (!time.toString().matches("[0-9]+")) {
             throw new InvalidParameterObjectException("Field Time must be numeric");
@@ -631,6 +796,19 @@ String query = "select ma.* from MaintenanceActivity ma "
 
     }
 
+    /**
+     * Checks if the activity attributes taken in input are valid and respect
+     * the constraints defined in the database tables.
+     *
+     * @param id an integer representing the activity id
+     * @param type a string representing the type of the activity
+     * @param description a string representing the description of the activity
+     * @param time an integer representing the time requested for the activity
+     * @param week_num an integer representing the number of the week
+     * @param dep the department associated to an activity
+     * @throws InvalidParameterObjectException if any of the attributes don't
+     * respect the constraints
+     */
     private void validateUpdate(Integer id, String type, String description, Integer time, Integer week_num, Department dep) throws InvalidParameterObjectException {
 
         if (id == null) {
@@ -652,6 +830,10 @@ String query = "select ma.* from MaintenanceActivity ma "
         if (time != null) {
             if (time <= 0) {
                 throw new InvalidParameterObjectException("Activity time must be a positive integer");
+            }
+
+            if (time > 420) {
+                throw new InvalidParameterObjectException("Activity time must be a number less than or equal to 420");
             }
 
             if (!time.toString().matches("[0-9]+")) {

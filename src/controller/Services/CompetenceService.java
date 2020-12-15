@@ -21,7 +21,7 @@ import model.Competences.CompetenceInterface;
 
 /**
  *
- * @author Group 9
+ * @author Group9
  * 
  * The public methods of this class encapsulate the methods of the DAO classes. 
  * For this reason the comments relating to the parameters and exceptions 

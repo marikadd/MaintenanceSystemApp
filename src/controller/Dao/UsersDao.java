@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Dao;
 
 import configuration.Database.ConnectionForTest;
@@ -30,7 +25,6 @@ import model.Users.UserModel;
  *
  * @author Group9
  */
-
 public class UsersDao {
 
     private static UsersDao usersDao;
@@ -43,10 +37,16 @@ public class UsersDao {
     private UsersDao() {
     }
 
+    /**
+     * Creates a singleton for the current class. In order to avoid conflicts
+     * between threads, the method uses the synchronized construct.
+     *
+     * @return an instance of the current class
+     */
     public static UsersDao init() {
         if (usersDao == null) {
-            synchronized(UsersDao.class) {
-                if(usersDao == null) {
+            synchronized (UsersDao.class) {
+                if (usersDao == null) {
                     usersDao = new UsersDao();
                     usersDao.cft = ConnectionForTest.init();
                     DBAbstractFactory dbFactory = new DBFactoryContext();
@@ -57,33 +57,159 @@ public class UsersDao {
         return usersDao;
     }
 
-    public String findRoleByUsername(String username) throws SQLException, UsernotFoundException {
+    /**
+     * Inserts the UserModel passed in input inside the table Users
+     *
+     * @param userModel represents the user to insert inside the table Users
+     * @param role represents the user's role
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws InvalidParameterObjectException if the UserModel taken as an
+     * input is null or its attributes don't respect the constraints specified
+     * in the database.
+     * @throws SQLException if a database access error occurs
+     */
+    public int insertUserModel(UserModel userModel, Role role)
+            throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
-        
+
+        validateUserModel(userModel);
+
+        String query = "insert into Users values(?,?,?,?,?,?,?)";
+
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, userModel.getName());
+        ps.setString(2, userModel.getSurname());
+        ps.setString(3, userModel.getUsername());
+        ps.setString(4, userModel.getPassword());
+        ps.setString(5, userModel.getEmail());
+        ps.setString(6, userModel.getPhone());
+        ps.setString(7, role.toString());
+
+        int result = ps.executeUpdate();
+
+        return result;
+    }
+
+    /**
+     * Updates the user's username, password,email or phoneNumber inside the
+     * table Users. It is not necessary that every field has to be modified.
+     *
+     * @param oldUsername represents the user's old username
+     * @param userModel represents the user to insert inside the table Users
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws InvalidParameterObjectException if the UserModel taken as an
+     * input is null or its attributes don't respect the constraints specified
+     * in the database.
+     * @throws SQLException if a database access error occurs
+     * @throws UnsuccessfulUpdateException if no row has been updated
+     */
+    public int updateUserModel(String oldUsername, UserModel userModel)
+            throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
+
+        validateUpdate(userModel);
+
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+
+        String query = "update Users set "
+                + "Username = coalesce(?,Username), PW = coalesce(?, PW), "
+                + "Email = coalesce(?,Email), PhoneNumber = coalesce(?,PhoneNumber)"
+                + "where Username = ?";
+
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, userModel.getUsername());
+        ps.setString(2, userModel.getPassword());
+        ps.setString(3, userModel.getEmail());
+        ps.setString(4, userModel.getPhone());
+        ps.setString(5, oldUsername);
+        int result = ps.executeUpdate();
+
+        if (result == 0) {
+            throw new UnsuccessfulUpdateException("No row update!");
+        }
+
+        return result;
+    }
+
+    /**
+     * Deletes the user specified as an input from the table Users
+     *
+     * @param username represents the user's username
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws SQLException if a database access error occurs
+     */
+    public int deleteUserModel(String username) throws SQLException, UnsuccessfulUpdateException {
+
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+
+        String query = "DELETE FROM Users WHERE Username = ?";
+
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, username);
+
+        int result = ps.executeUpdate();
+
+        return result;
+    }
+
+    /**
+     * Executes a query on the database table Users that, given the user's
+     * username, finds his/her role.
+     *
+     * @param username represents the user's username
+     * @return role is a string representing the user's role
+     * @throws SQLException if a database access error occurs or this method is
+     * called on a closed connection
+     * @throws UsernotFoundException if the specified user doesn't exist in the
+     * table Users
+     */
+    public String findRoleByUsername(String username)
+            throws SQLException, UsernotFoundException {
+
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+
         String query = "select Role_User " + "from Users " + "where Username= ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
         ResultSet rs = ps.executeQuery();
-        
+
         String role = null;
         if (rs.next()) {
             role = rs.getString("Role_User");
         } else {
             throw new UsernotFoundException("User " + username + " not found");
         }
-        
+
         return role;
     }
 
-    public UserModel findUserByUsername(String username, Role role) 
+    /**
+     * Creates a specific user model executing a query on the database table
+     * Users that, given the user's username and his/her role, returns all of
+     * his/her informations.
+     *
+     * @param username represents the user's username
+     * @param role represents the user's role
+     * @return a specific instance of the interface UserModel
+     * @throws SQLException if the columnLabel is not valid, or if a database
+     * access error occurs, or if this method is called on a closed result set
+     * @throws UsernotFoundException if the user with the specified role doesn't
+     * exist
+     */
+    public UserModel findUserByUsername(String username, Role role)
             throws SQLException, UsernotFoundException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
-        String query = "select * from Users u " + "where u.Role_User = ? AND " + "u.Username = ?";
+        String query = "select * from Users u " + "where u.Role_User = ? and " + "u.Username = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, role.toString());
         ps.setString(2, username);
@@ -95,10 +221,82 @@ public class UsersDao {
         } else {
             throw new UsernotFoundException("User " + username + " not found");
         }
-        
+
         return userModel;
     }
 
+    /**
+     * Creates a list of UserModel containing all of the users, inside the
+     * database table Users, that have the role specified in input.
+     *
+     * @param role represents the role of the users that the method has to find
+     * @return a LinkedList of UserModel that have the same role
+     * @throws SQLException if the columnLabel passed to the method getString is
+     * not valid, or if a database access error occurs, or if this method is
+     * called on a closed result set
+     * @throws UsernotFoundException if the user with the specified role doesn't
+     * exist
+     */
+    public List<UserModel> findUsersByRole(Role role) throws SQLException, UsernotFoundException {
+
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+
+        String query = "select * from Users u " + "where u.Role_User = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, role.toString());
+        ResultSet rs = ps.executeQuery();
+
+        List<UserModel> users = new LinkedList<UserModel>();
+        while (rs.next()) {
+            UserModel userModel = getSingleUserModel(rs, role);
+            users.add(userModel);
+        }
+
+        return users;
+    }
+    
+    /**
+     * Checks if an user is a maintainer.
+     *
+     * @param username represents the user's username
+     * @throws SQLException if the columnLabel is not valid, or if a database
+     * access error occurs, or if this method is called on a closed result set
+     * @throws UsernotFoundException if the user with the username taken as an
+     * input is not found, or if the user is not a maintainer
+     */
+    public void checkuserMaintainer(String username) throws SQLException, UsernotFoundException {
+
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+
+        String query = "select * from Users u " + "where u.Username = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
+
+        UserModel userModel = null;
+        if (rs.next()) {
+            String role = rs.getString("role_user");
+            if (!Role.MAINTAINER.toString().equals(role)) {
+                throw new UsernotFoundException(String.format("The user %s is not a maintainer", username));
+            }
+        } else {
+            throw new UsernotFoundException(String.format("The user with username %s not found", username));
+        }
+    }
+
+    /**
+     * Creates a list of UserModel containing all of the users inside the
+     * database table Users.
+     *
+     * @return a LinkedList of UserModel
+     * @throws SQLException if the columnLabel passed to the method getString is
+     * not valid, or if a database access error occurs, or if this method is
+     * called on a closed result set
+     * @throws UsernotFoundException if the user with the specified role doesn't
+     * exist
+     */
     public List<UserModel> getAllUsers() throws SQLException, UsernotFoundException {
 
         Connection con = dbProduct.connectToDB();
@@ -118,115 +316,20 @@ public class UsersDao {
         return users;
     }
 
-    public List<UserModel> findUsersByRole(Role role) throws SQLException, UsernotFoundException {
-
-        Connection con = dbProduct.connectToDB();
-        cft.setConn(con);
-
-        String query = "SELECT * FROM Users u " + "WHERE u.Role_User = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, role.toString());
-        ResultSet rs = ps.executeQuery();
-        
-        List<UserModel> users = new LinkedList<UserModel>();
-        while (rs.next()) {
-            UserModel userModel = getSingleUserModel(rs, role);
-            users.add(userModel);
-        }
-
-        return users;
-    }
-
-    public int insertUserModel(UserModel userModel, Role role)
-            throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
-
-        Connection con = dbProduct.connectToDB();
-        cft.setConn(con);
-        
-        validateUserModel(userModel);
-
-        String query = "INSERT INTO Users VALUES(?,?,?,?,?,?,?)";
-
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, userModel.getName());
-        ps.setString(2, userModel.getSurname());
-        ps.setString(3, userModel.getUsername());
-        ps.setString(4, userModel.getPassword());
-        ps.setString(5, userModel.getEmail());
-        ps.setString(6, userModel.getPhone());
-        ps.setString(7, role.toString());
-
-        int result = ps.executeUpdate();
-
-        return result;
-    }
-
-    public int updateUserModel(String oldUsername, UserModel userModel)
-            throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
-
-        validateUpdate(userModel);
-
-        Connection con = dbProduct.connectToDB();
-        cft.setConn(con);
-
-        String query =   "UPDATE Users SET "
-                       + "Username = coalesce(?,Username), PW = coalesce(?, PW), "
-                       + "Email = coalesce(?,Email), PhoneNumber = coalesce(?,PhoneNumber)" 
-                       + "WHERE Username = ?";
-
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, userModel.getUsername());
-        ps.setString(2, userModel.getPassword());
-        ps.setString(3, userModel.getEmail());
-        ps.setString(4, userModel.getPhone());
-        ps.setString(5, oldUsername);
-        int result = ps.executeUpdate();
-
-        if (result == 0) {
-            throw new UnsuccessfulUpdateException("No row update!");
-        }
-
-        return result;
-    }
-    
-    public void checkuserMaintainer(String username) throws SQLException, UsernotFoundException {
-        
-        Connection con = dbProduct.connectToDB();
-        cft.setConn(con);
-
-        String query = "select * from Users u " + "where u.Username = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, username);
-        ResultSet rs = ps.executeQuery();
-
-        UserModel userModel = null;
-        if (rs.next()) {
-            String role = rs.getString("role_user");
-            if(!Role.MAINTAINER.toString().equals(role)) {
-                throw new UsernotFoundException(String.format("The user %s is not a maintainer", username));
-            }
-        } else {
-             throw new UsernotFoundException(String.format("The user with username %s not found", username));
-        }
-        
-    }
-
-    public int deleteUserModel(String username) throws SQLException, UnsuccessfulUpdateException {
-
-        Connection con = dbProduct.connectToDB();
-        cft.setConn(con);
-
-        String query = "DELETE FROM Users WHERE Username = ?";
-
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, username);
-
-        int result = ps.executeUpdate();
-
-        return result;
-    }
-
-    private UserModel getSingleUserModel(ResultSet rs, Role role) throws SQLException, UsernotFoundException {
+    /**
+     * Creates a specific UserModel from the result of a query.
+     *
+     * @param rs is the ResultSet obtained from the execution of a query
+     * @param role is the role of the user
+     * @return a specific instance of the interface UserModel
+     * @throws SQLException if the columnLabel passed to the method getString is
+     * not valid, or if a database access error occurs, or if this method is
+     * called on a closed result set
+     * @throws UsernotFoundException if the user with the specified role doesn't
+     * exist
+     */
+    private UserModel getSingleUserModel(ResultSet rs, Role role)
+            throws SQLException, UsernotFoundException {
 
         UserModel userModel = null;
 
@@ -265,7 +368,20 @@ public class UsersDao {
         return userModel;
     }
 
-    private UserModel getAllUserModel(ResultSet rs, String role) throws SQLException, UsernotFoundException {
+    /**
+     * Creates a specific UserModel from the result of a query.
+     *
+     * @param rs is the ResultSet obtained from the execution of a query
+     * @param role is a string representing the role of the user
+     * @return a specific instance of the interface UserModel
+     * @throws SQLException if the columnLabel passed to the method getString is
+     * not valid, or if a database access error occurs, or if this method is
+     * called on a closed result set
+     * @throws UsernotFoundException if the user with the specified role doesn't
+     * exist
+     */
+    private UserModel getAllUserModel(ResultSet rs, String role)
+            throws SQLException, UsernotFoundException {
 
         UserModel userModel = null;
 
@@ -300,6 +416,15 @@ public class UsersDao {
         return userModel;
     }
 
+    /**
+     * Checks if the UserModel taken in input is null, if its attributes are
+     * null or if the attributes don't respect the constraints defined in the
+     * database tables.
+     *
+     * @param userModel represents the user
+     * @throws InvalidParameterObjectException if the user's attributes are null
+     * or don't respect the constraints
+     */
     private void validateUserModel(UserModel userModel) throws InvalidParameterObjectException {
 
         if (userModel == null) {
@@ -349,7 +474,6 @@ public class UsersDao {
         }
 
         if (!userModel.getPhone().matches("[0-9]+")) {
-            /*^\\d{10}$*/
             throw new InvalidParameterObjectException("User's phone number must be numeric");
         }
 
@@ -367,6 +491,15 @@ public class UsersDao {
         }
     }
 
+    /**
+     * Checks if the UserModel taken in input is null, if its attributes are
+     * null or if the attributes don't respect the constraints defined in the
+     * database tables.
+     *
+     * @param userModel represents the user
+     * @throws InvalidParameterObjectException if the user's attributes are null
+     * or don't respect the constraints
+     */
     private void validateUpdate(UserModel userModel) throws InvalidParameterObjectException {
 
         if (userModel == null) {
@@ -384,7 +517,7 @@ public class UsersDao {
                 throw new InvalidParameterObjectException("User's name must be at most 20 characters");
             }
         }
-        
+
         if (userModel.getSurname() != null) {
             if (userModel.getSurname().length() > 20) {
                 throw new InvalidParameterObjectException("User's surname must be at most 20 characters");

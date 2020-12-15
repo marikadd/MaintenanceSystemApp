@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package configuration.Database;
 
 /**
  *
- * @author Group9
+ * @author Group9 
+ * This enum contains the names of the DBMS that the user is
+ * actually using.
  */
 public enum DBInstanceType {
-    
     POSTGRESS;
-    
 }

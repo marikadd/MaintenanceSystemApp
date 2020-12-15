@@ -7,7 +7,7 @@ package model.Activity;
 
 /**
  *
- * @author marika
+ * @author Group9
  */
 public class ActivityNumRecord {
     
