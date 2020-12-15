@@ -7,6 +7,8 @@ DELETE FROM Department;
 DELETE FROM Material;
 DELETE FROM Users;
 DELETE FROM Competence;
+DELETE FROM Notification_Planner;
+
 
 SELECT setval('competence_id_seq', 1, false);
 SELECT setval('maintaineractivityday_id_seq', 1, false);
@@ -35,12 +37,14 @@ insert into Users_Competences (Username, ID_Competences) values ('mrossi',1);
 
 insert into Activity_Competences(Competence_ID, Activity_ID) values (1,1);
 
-insert into Activity_Maintainers(Username_Maintainer, Activity_Maintainer_Id) values ('mrossi',1);
-
-INSERT INTO MaintainerActivityDay(username, ma_id, week_day) VALUES('mrossi', 1, 1);
+insert into MaintainerActivityDay(username, ma_id, week_day) values ('mrossi', 1, 1);
 
 insert into Material(Type_Material) values ('Iron');
 insert into Material(Type_Material) values ('Wood');
 insert into Material(Type_Material) values ('Marble');
+
+insert into Notification_Planner values ('Not Read 1', false);
+insert into Notification_Planner values ('Not Read 2', false);
+insert into Notification_Planner values ('Read', true);
 
 

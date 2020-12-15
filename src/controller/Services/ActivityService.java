@@ -7,6 +7,7 @@ package controller.Services;
 
 import configuration.Exceptions.ActivityAlreadyAssignedException;
 import configuration.Exceptions.ActivityNotFoundException;
+import configuration.Exceptions.DayNotValidException;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.InvalidPermissionException;
 import configuration.Exceptions.TimeExpiredException;
@@ -20,6 +21,7 @@ import controller.Utility.UtilityUser;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
@@ -31,6 +33,7 @@ import model.Competences.Competence;
 import model.Department.Department;
 import model.Users.UserModel;
 import model.Activity.ActivityInterface;
+import model.Activity.ActivityNumRecord;
 import model.Activity.UsernameResultActivity;
 import model.Material.Material;
 
@@ -68,20 +71,31 @@ public class ActivityService {
 
     public int insertActivity(String type, String description, Integer time, ArrayList<Competence> skill, ArrayList<Material> materials, Integer week_num, Department dep)
             throws InvalidPermissionException, SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
-
+ 
+        if(skill == null || skill.isEmpty()) {
+            throw new UnsuccessfulUpdateException("The activity must have at least one skill");
+        }
+        
         MaintenanceActivity activity = new MaintenanceActivity();
         activity.setType(type);
         activity.setDescription(description);
         activity.setTime(time);
         activity.setAssigned(false);
-        int activityId = activityDao.insertActivity(type, description, time, week_num, dep);
+        
+        ActivityNumRecord numRecord = new ActivityNumRecord();
+        
+        int activityId = activityDao.insertActivity(type, description, time, week_num, dep, numRecord);
         int competenceId = activityDao.insertCompentecesInActivity(activityId, skill);
-        return activityDao.insertMaterialsInActivity(activityId, materials);
+        int resultMaterial = activityDao.insertMaterialsInActivity(activityId, materials);
+        
+        return numRecord.getNumRecord();
+        
     }
 
     public int assignActivity(String usernameMain, Integer activityId, List<Integer> listIdDay, double time)
-            throws SQLException, UsernotFoundException, UnsuccessfulUpdateException, InvalidParameterObjectException, TimeExpiredException, ActivityAlreadyAssignedException {
+            throws SQLException, UsernotFoundException, UnsuccessfulUpdateException, InvalidParameterObjectException, TimeExpiredException, ActivityAlreadyAssignedException, DayNotValidException {
 
+        validateNumberDay(listIdDay);
         checkActivityAlreadyAssigned(activityId, usernameMain);
         checkTimeInDay(usernameMain, listIdDay.get(0), time);
 
@@ -103,6 +117,8 @@ public class ActivityService {
 
     public int unassignActivity(Integer activityId) throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
+        notifyActivityDelete(activityId);
+        activityDao.deassignDayActivity(activityId);
         int result = activityDao.deassignActivity(activityId);
 
         return result;
@@ -116,11 +132,14 @@ public class ActivityService {
 
     public int deleteActivity(Integer activityId) throws SQLException, UnsuccessfulUpdateException {
 
+        notifyActivityDelete(activityId);
         return activityDao.deleteActivity(activityId);
     }
 
     private void notifyActivityDelete(Integer activityId) throws SQLException {
 
+        if(activityId == null) return;
+        
         String username = activityDao.findMaintainerByActivityId(activityId);
 
         if (username != null) {
@@ -180,8 +199,10 @@ public class ActivityService {
         return targets;
     }
 
-    public int getDailyAvailability(String username, int day, double time) throws SQLException, UsernotFoundException {
+    public int getDailyAvailability(String username, int day) throws SQLException, UsernotFoundException, DayNotValidException {
 
+        validateNumberDay(new ArrayList<Integer>(Arrays.asList(day)));
+        
         validateMaintainer(username);
         double sumNumDay = activityDao.getSumActivityDay(username, day);
 
@@ -243,4 +264,15 @@ public class ActivityService {
 
         UserModel um = usersDao.findUserByUsername(username, Role.MAINTAINER);
     }
+    
+    private void validateNumberDay(List<Integer> listDay) throws DayNotValidException {
+        
+        for(Integer day: listDay) {
+            if(day < 1 || day > 7) {
+                throw new DayNotValidException(String.format("Day %d is invalid", day));
+            }
+        }
+        
+    }
+    
 }

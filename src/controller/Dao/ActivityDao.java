@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import model.Activity.ActivityNumRecord;
 import model.Activity.MaintenanceActivity;
 import model.Activity.UsernameResultActivity;
 import model.Competences.Competence;
@@ -59,7 +60,7 @@ public class ActivityDao {
         return activityDao;
     }
 
-    public int insertActivity(String type, String description, Integer time_activity, Integer week_num, Department dep)
+    public int insertActivity(String type, String description, Integer time_activity, Integer week_num, Department dep, ActivityNumRecord actNumRecord)
             throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
@@ -79,6 +80,8 @@ public class ActivityDao {
         ps.setBoolean(6, false);
 
         int affectedRow = ps.executeUpdate();
+        
+        actNumRecord.setNumRecord(affectedRow);
 
         if (affectedRow > 0) {
             String sqlquery = "SELECT id From MaintenanceActivity "
@@ -158,9 +161,9 @@ public class ActivityDao {
         ps.setString(1, type);
         ps.setString(2, dep.getArea());
         ps.setString(3, description);
-        ps.setInt(4, time_activity);
-        ps.setInt(5, week_num);
-        ps.setInt(6, id);
+        ps.setObject(4, time_activity);
+        ps.setObject(5, week_num);
+        ps.setObject(6, id);
 
         int result = ps.executeUpdate();
 
@@ -248,13 +251,17 @@ public class ActivityDao {
 
     }
 
-    public MaintenanceActivity findActivityByID(int ID) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
+    public MaintenanceActivity findActivityByID(Integer ID) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
         String query = "select * from MaintenanceActivity " + "where ID = ?";
 
+        if(ID == null) {
+            ID = -1;
+        }
+        
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, ID);
 
@@ -276,6 +283,14 @@ public class ActivityDao {
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
+        if(week_num == null) {
+            throw new ActivityNotFoundException("Week Num must be not null");
+        }
+        
+        if(week_num < 1 || week_num > 52) {
+            throw new InvalidParameterObjectException("Week num must be in range [1,52]");
+        }
+        
         String query = "select * from MaintenanceActivity " + "where Week_Number = ? AND Assigned=false";
 
         PreparedStatement ps = con.prepareStatement(query);
@@ -358,6 +373,24 @@ public class ActivityDao {
         }
 
         unassignmentActivity(id);
+
+        return result;
+    }
+    
+    public int deassignDayActivity(Integer id)
+            throws SQLException, UnsuccessfulUpdateException, InvalidParameterObjectException {
+
+        Connection con = dbProduct.connectToDB();
+        cft.setConn(con);
+
+        String query = "DELETE FROM MaintainerActivityDay WHERE ma_id = ?";
+
+        PreparedStatement ps = con.prepareStatement(query);
+
+        int result = 0;
+
+        ps.setInt(1, id);
+        result = ps.executeUpdate();
 
         return result;
     }
@@ -592,7 +625,7 @@ String query = "select ma.* from MaintenanceActivity ma "
 
         }
 
-        if (weekNum < 1 && weekNum > 52) {
+        if (weekNum < 1 || weekNum > 52) {
             throw new InvalidParameterObjectException("Week Num must be between 1 and 52");
         }
 
@@ -608,16 +641,12 @@ String query = "select ma.* from MaintenanceActivity ma "
             if (type.length() > 20) {
                 throw new InvalidParameterObjectException("Activity type must be length at most 20 characters");
             }
-        } else {
-            throw new InvalidParameterObjectException("Activity type must be not null");
         }
 
         if (description != null) {
             if (description.length() > 30) {
                 throw new InvalidParameterObjectException("Activity description must be length at most 30 characters");
             }
-        } else {
-            throw new InvalidParameterObjectException("Activity description must be not null");
         }
 
         if (time != null) {
@@ -628,12 +657,10 @@ String query = "select ma.* from MaintenanceActivity ma "
             if (!time.toString().matches("[0-9]+")) {
                 throw new InvalidParameterObjectException("Field Time must be numeric");
             }
-        } else {
-            throw new InvalidParameterObjectException("Field time must be not null");
         }
 
         if (week_num != null) {
-            if (week_num < 1 && week_num > 52) {
+            if (week_num < 1 || week_num > 52) {
                 throw new InvalidParameterObjectException("Week Num must be between 1 and 52");
             }
         }

@@ -9,6 +9,7 @@ import configuration.Exceptions.ActivityNotFoundException;
 import configuration.Exceptions.InvalidParameterObjectException;
 import controller.Services.ActivityService;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -243,11 +244,7 @@ public class SelectActivity extends javax.swing.JFrame {
             activityList = activity.getAllActivitiesInWeek(week_num);
             if (activityList.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No activity assigned!");
-                DefaultTableModel model = (DefaultTableModel) jTableActivities.getModel();
-                for (int i = 0; i < model.getRowCount(); i++) {
-                    model.removeRow(0);
-                }
-                return;
+                this.showActivities(new ArrayList<>());
             }
         } catch (SQLException ex) {
             Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
@@ -265,8 +262,9 @@ public class SelectActivity extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTableActivities.getModel();
         Object column[] = new Object[4];
 
+        int length = model.getRowCount();
         if (model.getRowCount() != 0) {
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 0; i < length; i++) {
                 model.removeRow(0);
             }
         }

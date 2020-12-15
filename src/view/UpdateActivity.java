@@ -406,7 +406,13 @@ public class UpdateActivity extends javax.swing.JFrame {
         if (time_interv == null) {
             time = Integer.parseInt(jTableActivities.getModel().getValueAt(row, 0).toString());
         } else {
-            time = Integer.parseInt(time_interv);
+            try {
+                time = Integer.parseInt(time_interv);
+            } catch(NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Numerical value expetced "
+                        + "in field time");
+                return;
+            }
         }
 
         String week = jComboWeek.getSelectedItem().toString();
@@ -451,7 +457,6 @@ public class UpdateActivity extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cannot update this activity");
         } catch (InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-
         }
     }//GEN-LAST:event_jLabelUpdateMouseClicked
 

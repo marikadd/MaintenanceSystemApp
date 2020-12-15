@@ -109,9 +109,10 @@ public class UserManagementService {
     }
 
     public int updateProdManager(String oldUsername, String username, String password, String name, String surname, String email,
-            String phone) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
+            String phone) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException, UsernotFoundException {
 
         UserModel userModel = new ProdManager(username, password, name, surname, email, phone);
+        validateNameAndSurname(oldUsername, name, surname, Role.PROD_MANAGER);
         return usersDao.updateUserModel(oldUsername, userModel);
 
     }
@@ -129,14 +130,16 @@ public class UserManagementService {
     public int insertSystemAdmin(String username, String password, String name, String surname, String email,
             String phone) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
 
+        
         UserModel sysAdmin = new SystemAdmin(username, password, name, surname, email, phone);
         return usersDao.insertUserModel(sysAdmin, Role.SYSTEM_ADMIN);
 
     }
 
     public int updateSystemAdmin(String oldUsername, String username, String password, String name, String surname, String email,
-            String phone) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
+            String phone) throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException, UsernotFoundException {
 
+        validateNameAndSurname(oldUsername, name, surname, Role.SYSTEM_ADMIN);
         UserModel userModel = new SystemAdmin(username, password, name, surname, email, phone);
         return usersDao.updateUserModel(oldUsername, userModel);
 
@@ -159,8 +162,9 @@ public class UserManagementService {
     }
 
     public int updatePlanner(String oldUsername, String username, String password, String name, String surname, String email, String phone) 
-                              throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
+                              throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException, UsernotFoundException {
 
+        validateNameAndSurname(oldUsername, name, surname, Role.PLANNER);
         UserModel userModel = new Planner(username, password, name, surname, email, phone);
         return usersDao.updateUserModel(oldUsername, userModel);
     }
@@ -182,10 +186,26 @@ public class UserManagementService {
     }
 
     public int updateMaintainer(String oldUsername, String username, String password, String name, String surname, String email, String phone) 
-                              throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {
+                              throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException, UsernotFoundException {
 
+        validateNameAndSurname(oldUsername, name, surname, Role.MAINTAINER);
         UserModel userModel = new Maintainer(username, password, name, surname, email, phone);
         return usersDao.updateUserModel(oldUsername, userModel);
+    }
+    
+    private void validateNameAndSurname(String oldUsername, String name, String surname, Role role) throws SQLException, UsernotFoundException, UnsuccessfulUpdateException {
+        
+        if(name == null || surname == null) return;
+        
+        UserModel user = usersDao.findUserByUsername(oldUsername, role);
+        
+        if(!user.getName().equals(name) || !user.getSurname().equals(surname)) {
+            
+            throw new UnsuccessfulUpdateException("The name or "
+                    + "surname inserted don't match with those in database");
+            
+        }
+        
     }
     
 }

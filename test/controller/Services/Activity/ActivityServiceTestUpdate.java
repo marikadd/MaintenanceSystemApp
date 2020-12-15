@@ -132,7 +132,7 @@ public class ActivityServiceTestUpdate {
      * Test of updateActivity method, of class ActivityService, updating a
      * valid MaintenanceActivity with an invalid timeActivity (empty).
      */
-    @Test(expected = InvalidParameterObjectException.class)
+    @Test
     public void testUpdateActivity4() throws Exception {
         System.out.println("updateActivity");
         Integer id = 1;
@@ -143,7 +143,7 @@ public class ActivityServiceTestUpdate {
         Department department= new Department("Nusco - Carpentry");
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity,week_num, department);
-        assertEquals(result, ExpectedResult);
+        assertNotEquals(result, ExpectedResult);
 
     }
 
@@ -151,7 +151,7 @@ public class ActivityServiceTestUpdate {
      * Test of updateActivity method, of class ActivityService, updating a
      * valid MaintenanceActivity with an invalid Type (empty).
      */
-    @Test(expected = InvalidParameterObjectException.class)
+    @Test
     public void testUpdateActivity5() throws Exception {
         System.out.println("updateActivity");
         Integer id = 2;
@@ -162,7 +162,7 @@ public class ActivityServiceTestUpdate {
         Department department= new Department("Nusco - Carpentry");
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num, department);
-        assertEquals(result, ExpectedResult);
+        assertNotEquals(result, ExpectedResult);
 
     }
 
@@ -188,7 +188,7 @@ public class ActivityServiceTestUpdate {
      * Test of updateActivity method, of class ActivityService, updating a
      * valid MaintenanceActivity with an invalid Description (empty).
      */
-    @Test(expected = InvalidParameterObjectException.class)
+    @Test
     public void testUpdateActivity7() throws Exception {
         System.out.println("updateActivity");
         Integer id = 2;
@@ -199,7 +199,7 @@ public class ActivityServiceTestUpdate {
         Department department= new Department("Nusco - Carpentry");
         int ExpectedResult = 0;
         int result = as.updateActivity(id, type, description, timeActivity, week_num ,department);
-        assertEquals(result, ExpectedResult);
+        assertNotEquals(result, ExpectedResult);
 
     }
     
@@ -225,7 +225,7 @@ public class ActivityServiceTestUpdate {
      * Test of updateActivity method, of class ActivityService, updating a
      * valid MaintenanceActivity with an invalid week number (it must be between 1 and 52).
      */
-    @Test(expected = SQLException.class)
+    @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateActivity9() throws Exception {
         System.out.println("updateActivity");
         Integer id = 2;
@@ -244,7 +244,7 @@ public class ActivityServiceTestUpdate {
      * Test of updateActivity method, of class ActivityService, updating a
      * valid MaintenanceActivity with an invalid week number(it must be between 1 and 52).
      */
-    @Test(expected = SQLException.class)
+    @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateActivity10() throws Exception {
         System.out.println("updateActivity");
         Integer id = 1;
@@ -281,7 +281,7 @@ public class ActivityServiceTestUpdate {
      * Test of updateActivity method, of class ActivityService, updating a valid
      * MaintenanceActivity with an invalid week number (empty).
      */
-    @Test(expected = InvalidParameterObjectException.class)
+    @Test
     public void testUpdateActivity12() throws Exception { 
         System.out.println("updateActivity");
         Integer id = 1;

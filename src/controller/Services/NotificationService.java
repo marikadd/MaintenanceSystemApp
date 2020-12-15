@@ -21,8 +21,12 @@ public class NotificationService {
     public static NotificationService init() {
 
         if (notService == null) {
-            notService = new NotificationService();
-            notService.notDao = NotificationDao.init();
+            synchronized(NotificationService.class) {
+                if(notService == null) {
+                    notService = new NotificationService();
+                    notService.notDao = NotificationDao.init();
+                }
+            }
         }
         return notService;
 

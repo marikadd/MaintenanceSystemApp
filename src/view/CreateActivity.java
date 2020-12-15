@@ -568,7 +568,14 @@ public class CreateActivity extends javax.swing.JFrame {
         }
         */
         
-        Integer time = Integer.parseInt(jTextFieldTime.getText());
+        Integer time;
+        try {
+            time = Integer.parseInt(jTextFieldTime.getText());
+        } catch(NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Numerical value expetced "
+                        + "in field time");
+                return;
+        }
         Integer week_num = Integer.parseInt(jComboWeek.getSelectedItem().toString());
         
         if (jTableDepartment.getSelectionModel().isSelectionEmpty()){

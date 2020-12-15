@@ -12,6 +12,7 @@ import configuration.Database.DBFactoryContext;
 import configuration.Database.DBManager;
 import configuration.Database.DBProduct;
 import configuration.Exceptions.InvalidParameterObjectException;
+import configuration.Exceptions.UnsuccessfulUpdateException;
 import controller.Services.ActivityService;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -194,9 +195,9 @@ public class ActivityServiceTestInsert {
 
     /**
      * Test of insertActivity method, of class ActivityService inserting a new
-     * Activity without competences.//la deve creare lo stesso
+     * Activity without competences.
      */
-    @Test
+    @Test(expected = UnsuccessfulUpdateException.class)
     public void testInsertActivity6() throws Exception {
         System.out.println("insertActivity");
         String type = "Electrical";
@@ -286,7 +287,7 @@ public class ActivityServiceTestInsert {
      * Test of insertActivity method, of class ActivityService inserting a new
      * Activity with invalid week number (it must be between 1 and 52 ).
      */
-    @Test(expected = SQLException.class)
+    @Test(expected = InvalidParameterObjectException.class)
     public void testInsertActivity10() throws Exception {
         System.out.println("insertActivity");
         String type = "Mechanics";
@@ -309,7 +310,7 @@ public class ActivityServiceTestInsert {
      * Test of insertActivity method, of class ActivityService inserting a new
      * Activity with invalid week number (it must be between 1 and 52).
      */
-    @Test(expected = SQLException.class)
+    @Test(expected = InvalidParameterObjectException.class)
     public void testInsertActivity11() throws Exception {
         System.out.println("insertActivity");
         String type = "Mechanics";

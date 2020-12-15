@@ -6,6 +6,7 @@
 package view;
 
 import configuration.Exceptions.ActivityAlreadyAssignedException;
+import configuration.Exceptions.DayNotValidException;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.TimeExpiredException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
@@ -58,7 +59,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
     /**
      * Creates new form AssignmentActivity
      */
-    public AssignmentActivity(int ID, String area, String type, double time, int week) throws SQLException {
+    public AssignmentActivity(int ID, String area, String type, double time, int week) throws SQLException, InvalidParameterObjectException {
         initComponents();
         this.ID = ID;
         this.week = week;
@@ -146,6 +147,8 @@ public class AssignmentActivity extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UsernotFoundException ex) {
+            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DayNotValidException ex) {
             Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -626,7 +629,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         sActivity.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
 
-    private void showSkillsNeeded() {
+    private void showSkillsNeeded() throws InvalidParameterObjectException {
 
         try {
             skills = competence.getAllSkills(ID);
@@ -652,7 +655,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
 
-    private void showUsers(List<UserModel> list) throws SQLException, UsernotFoundException {
+    private void showUsers(List<UserModel> list) throws SQLException, UsernotFoundException, DayNotValidException {
 
         DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
         Object column[] = new Object[9];
@@ -660,13 +663,13 @@ public class AssignmentActivity extends javax.swing.JFrame {
         for (int i = 0; i < list.size(); i++) {
             column[0] = list.get(i).getUsername();
             column[1] = competence.getCommonSkills(skills, list.get(i).getUsername());
-            column[2] = activityService.getDailyAvailability(list.get(i).getUsername(), 1, time);
-            column[3] = activityService.getDailyAvailability(list.get(i).getUsername(), 2, time);
-            column[4] = activityService.getDailyAvailability(list.get(i).getUsername(), 3, time);
-            column[5] = activityService.getDailyAvailability(list.get(i).getUsername(), 4, time);
-            column[6] = activityService.getDailyAvailability(list.get(i).getUsername(), 5, time);
-            column[7] = activityService.getDailyAvailability(list.get(i).getUsername(), 6, time);
-            column[8] = activityService.getDailyAvailability(list.get(i).getUsername(), 7, time);
+            column[2] = activityService.getDailyAvailability(list.get(i).getUsername(), 1);
+            column[3] = activityService.getDailyAvailability(list.get(i).getUsername(), 2);
+            column[4] = activityService.getDailyAvailability(list.get(i).getUsername(), 3);
+            column[5] = activityService.getDailyAvailability(list.get(i).getUsername(), 4);
+            column[6] = activityService.getDailyAvailability(list.get(i).getUsername(), 5);
+            column[7] = activityService.getDailyAvailability(list.get(i).getUsername(), 6);
+            column[8] = activityService.getDailyAvailability(list.get(i).getUsername(), 7);
 
             users.addRow(column);
         }
@@ -751,6 +754,8 @@ public class AssignmentActivity extends javax.swing.JFrame {
         } catch (TimeExpiredException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (ActivityAlreadyAssignedException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } catch (DayNotValidException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
@@ -891,6 +896,8 @@ public class AssignmentActivity extends javax.swing.JFrame {
                 try {
                     new AssignmentActivity(ID, area, type, time, week).setVisible(true);
                 } catch (SQLException ex) {
+                    Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidParameterObjectException ex) {
                     Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

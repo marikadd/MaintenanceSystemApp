@@ -12,6 +12,7 @@ import configuration.Database.DBManager;
 import configuration.Database.DBProduct;
 import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
+import configuration.Exceptions.UsernotFoundException;
 import controller.Services.UserManagementService;
 import org.junit.After;
 import org.junit.Before;
@@ -51,16 +52,17 @@ public class UserManagementTestUpdate {
      * Test of updateProdManager method, of class UserManagementService,
      * updating username, password, email, phone number of a ProdManager; The
      * operation of update is equal for all roles, for this reason test cases
-     * are distributed among the various roles in a random way. (N.B: name and
-     * surname are null because it is not possible to modify them however, in
-     * UserManagmentServicethe the method UpdateProdManager takes as input name
-     * and surname also. This due to the fact that inside the method, it is
-     * created an object UserModel according to specific role. ..........
+     * are distributed among the various roles in a random way.
+     * (N.B: Name and surname are null because it is not possible to modify them
+     * inside updateProdManager method. However, in UserManagmentServicethe 
+     * the method updateProdManager takes as input name and surname because the
+     * incapsulated DAO method needs an istance of UserModel
+     * (in this case ProdManager).
      */
     @Test
     public void testUpdateProdManager() throws Exception {
         System.out.println("updateProdManager");
-        String oldUsername = "lbianchi";
+        String oldUsername = "lfermi";
         String username = "tcaio";
         String password = "Ciaone!78@";
         String name = null;
@@ -88,7 +90,7 @@ public class UserManagementTestUpdate {
         String surname = "Rossi";
         String email = "martinodd@gmail.com";
         String phone = "3334567111";
-        int result = ums.updatePlanner(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int ExpectedResult = 1;
         assertEquals(result, ExpectedResult);
     }
@@ -99,7 +101,7 @@ public class UserManagementTestUpdate {
      * by inserting old username (new name and surname are not equal to the
      * previous ones, but this is not possible).
      */
-    @Test//eccezione
+    @Test(expected = UnsuccessfulUpdateException.class)
     public void testUpdateMaintainer1() throws Exception {
         System.out.println("updateMaintainer");
         String oldUsername = "mrossi";
@@ -109,7 +111,7 @@ public class UserManagementTestUpdate {
         String surname = "Delle Donne";
         String email = "martinodd@gmail.com";;
         String phone = "3334567111";
-        int result = ums.updatePlanner(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
@@ -128,7 +130,7 @@ public class UserManagementTestUpdate {
         String surname = null;
         String email = "gmancone@gmail.com";;
         String phone = "3324567111";
-        int result = ums.updatePlanner(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int ExpectedResult = 0;
         assertEquals(result, ExpectedResult);
     }
@@ -148,7 +150,7 @@ public class UserManagementTestUpdate {
         String surname = null;
         String email = null;
         String phone = null;
-        int result = ums.updatePlanner(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int ExpectedResult = 1;
         assertEquals(result, ExpectedResult);
     }
@@ -168,7 +170,7 @@ public class UserManagementTestUpdate {
         String surname = null;
         String email = "semp@outlook.com";
         String phone = "3392175666";
-        int result = ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
@@ -188,7 +190,7 @@ public class UserManagementTestUpdate {
         String surname = null;
         String email = "semp@outlook.com";
         String phone = "3392175666";
-        int result = ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
@@ -208,7 +210,7 @@ public class UserManagementTestUpdate {
         String surname = null;
         String email = "semp@outlook.com";
         String phone = "3392175666";
-        int result = ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
@@ -228,7 +230,7 @@ public class UserManagementTestUpdate {
         String surname = "Esposito Chiacchiararelli";
         String email = "semp@outlook.com";
         String phone = "3392175666";
-        int result = ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
@@ -248,7 +250,7 @@ public class UserManagementTestUpdate {
         String surname = null;
         String email = "Saretta_Chiacchiarerelli_1998@outlook.com";
         String phone = "3392175666";
-        int result = ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
@@ -268,7 +270,7 @@ public class UserManagementTestUpdate {
         String surname = null;
         String email = "sara98gmail.com";
         String phone = "3392175666";
-        int result = ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
@@ -288,7 +290,7 @@ public class UserManagementTestUpdate {
         String surname = null;
         String email = "sara98@gmail.com";
         String phone = "012345678";
-        int result = ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
@@ -308,7 +310,7 @@ public class UserManagementTestUpdate {
         String surname = null;
         String email = "sara98@gmail.com";
         String phone = "0123456789110";
-        int result = ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
@@ -328,7 +330,7 @@ public class UserManagementTestUpdate {
         String surname = null;
         String email = "sara98@gmail.com";
         String phone = "ciao";
-        int result = ums.updateProdManager(oldUsername, username, password, name, surname, email, phone);
+        int result = ums.updateMaintainer(oldUsername, username, password, name, surname, email, phone);
         int notExpectedResult = 0;
         assertNotEquals(result, notExpectedResult);
     }
