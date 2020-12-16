@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Services.Activity;
 
 import configuration.Database.ConnectionForTest;
@@ -21,17 +16,15 @@ import static org.junit.Assert.*;
  * @author Group9
  */
 public class ActivityServiceTestDelete {
-    
+
     private ActivityService as;
     private ConnectionForTest cft;
     private DBProduct dbProduct;
-    
-    
+
     public ActivityServiceTestDelete() {
     }
-    
-   
-     @Before
+
+    @Before
     public void setUp() {
         as = ActivityService.getActivityService();
         DBAbstractFactory dbFactory = new DBFactoryContext();
@@ -40,13 +33,12 @@ public class ActivityServiceTestDelete {
         cft.setConn(dbProduct.connectToDB());
         setAfter();
     }
-    
+
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
-    
-    
+
     /**
      * Test of deleteActivity method, of class ActivityService deleting an
      * Activity by its ID.
@@ -59,7 +51,7 @@ public class ActivityServiceTestDelete {
         int result = as.deleteActivity(activityId);
         assertEquals(expResult, result);
     }
-    
+
     /**
      * Test of deleteActivity method, of class ActivityService deleting an
      * Activity by an inexistent ID.
@@ -67,12 +59,12 @@ public class ActivityServiceTestDelete {
     @Test
     public void testDeleteActivity1() throws Exception {
         System.out.println("deleteActivity");
-        Integer activityId = 10; 
+        Integer activityId = 10;
         int expResult = 0;
         int result = as.deleteActivity(activityId);
         assertEquals(result, expResult);
     }
-    
+
     /**
      * Test of deleteActivity method, of class ActivityService deleting an
      * Activity by an uncorrect ID (it must be positive).
@@ -80,12 +72,12 @@ public class ActivityServiceTestDelete {
     @Test
     public void testDeleteActivity2() throws Exception {
         System.out.println("deleteActivity");
-        Integer activityId = -1 ;
+        Integer activityId = -1;
         int expResult = 0;
         int result = as.deleteActivity(activityId);
         assertEquals(result, expResult);
     }
-    
+
     /**
      * Test of deleteActivity method, of class ActivityService deleting an
      * Activity by an uncorrect ID (it must be not null).
@@ -93,10 +85,10 @@ public class ActivityServiceTestDelete {
     @Test
     public void testDeleteActivity3() throws Exception {
         System.out.println("deleteActivity");
-        Integer activityId = null ;
+        Integer activityId = null;
         int expResult = 0;
         int result = as.deleteActivity(activityId);
         assertEquals(result, expResult);
     }
-    
+
 }

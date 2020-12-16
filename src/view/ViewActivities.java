@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.ActivityNotFoundException;
@@ -17,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Activity.MaintenanceActivity;
 
@@ -29,16 +25,18 @@ public class ViewActivities extends javax.swing.JFrame {
     List<MaintenanceActivity> activityList = new LinkedList<>();
 
     /**
-     * Creates new form ViewActivities
+     * Creates new form ViewActivities.
      */
     public ViewActivities() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(810, 439);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -118,11 +116,6 @@ public class ViewActivities extends javax.swing.JFrame {
         jButtonList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonListMouseClicked(evt);
-            }
-        });
-        jButtonList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonListActionPerformed(evt);
             }
         });
 
@@ -222,10 +215,6 @@ public class ViewActivities extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-
-    }//GEN-LAST:event_jButtonListActionPerformed
-
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         ManagementActivityArea activityArea = new ManagementActivityArea();
@@ -242,7 +231,7 @@ public class ViewActivities extends javax.swing.JFrame {
         try {
             activityList = activity.getAllActivities();
         } catch (SQLException | ActivityNotFoundException | InvalidParameterObjectException ex) {
-            Logger.getLogger(ViewActivities.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         this.showActivities(activityList);

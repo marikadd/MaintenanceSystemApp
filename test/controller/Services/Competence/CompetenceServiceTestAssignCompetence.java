@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Services.Competence;
 
 import configuration.Database.ConnectionForTest;
@@ -25,7 +20,7 @@ import static org.junit.Assert.*;
  * @author Group9
  */
 public class CompetenceServiceTestAssignCompetence {
-    
+
     private CompetenceService cps;
     private ConnectionForTest cft;
     private DBProduct dbProduct;
@@ -43,16 +38,15 @@ public class CompetenceServiceTestAssignCompetence {
         setAfter();
         cft.rollbackConnection();
     }
-    
+
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
-    
-    
+
     /**
-     * Test of assignCompetence method, of class CompetenceService, assigning
-     * an existing Competence to a valid Maintainer.
+     * Test of assignCompetence method, of class CompetenceService, assigning an
+     * existing Competence to a valid Maintainer.
      */
     @Test
     public void testAssignCompetence() throws Exception {
@@ -62,14 +56,14 @@ public class CompetenceServiceTestAssignCompetence {
         listId.add(3);
         int notExpResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
-        assertNotEquals(result, notExpResult);       
+        assertNotEquals(result, notExpResult);
     }
-    
+
     /**
-     * Test of assignCompetence method, of class CompetenceService, assigning 
-     * an existing Competence to an invalid Maintainer.
+     * Test of assignCompetence method, of class CompetenceService, assigning an
+     * existing Competence to an invalid Maintainer.
      */
-    @Test(expected=UsernotFoundException.class)
+    @Test(expected = UsernotFoundException.class)
     public void testAssignCompetence1() throws Exception {
         System.out.println("assignCompetence");
         String usernameMain = "giulio";
@@ -77,14 +71,14 @@ public class CompetenceServiceTestAssignCompetence {
         listId.add(1);
         int expResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
-        assertEquals(result, expResult);       
+        assertEquals(result, expResult);
     }
-    
+
     /**
-     * Test of assignCompetence method, of class CompetenceService, assigning 
-     * an existing Competence to an invalid User(not a Maintainer).
+     * Test of assignCompetence method, of class CompetenceService, assigning an
+     * existing Competence to an invalid User(not a Maintainer).
      */
-    @Test(expected=UsernotFoundException.class)
+    @Test(expected = UsernotFoundException.class)
     public void testAssignCompetence2() throws Exception {
         System.out.println("assignCompetence");
         String usernameMain = "lbianchi";
@@ -92,29 +86,30 @@ public class CompetenceServiceTestAssignCompetence {
         listId.add(1);
         int expResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
-        assertEquals(result, expResult);       
+        assertEquals(result, expResult);
     }
-    
+
     /**
-     * Test of assignCompetence method, of class CompetenceService, assigning 
-     * an invalid Competence to a valid Maintainer.
+     * Test of assignCompetence method, of class CompetenceService, assigning an
+     * invalid Competence to a valid Maintainer.
      */
-    @Test(expected=SQLException.class)
+    @Test(expected = SQLException.class)
     public void testAssignCompetence3() throws Exception {
         System.out.println("assignCompetence");
         String usernameMain = "mrossi";
         List<Integer> listId = new LinkedList<>();
-        listId.add(15); 
+        listId.add(15);
         int expResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
-        assertEquals(result, expResult);       
+        assertEquals(result, expResult);
     }
 
     /**
-     * Test of assignCompetence method, of class CompetenceService, assigning 
-     * an existing Competence to a valid Maintainer, who already has that Competence.
+     * Test of assignCompetence method, of class CompetenceService, assigning an
+     * existing Competence to a valid Maintainer, who already has that
+     * Competence.
      */
-    @Test(expected=SQLException.class)
+    @Test(expected = SQLException.class)
     public void testAssignCompetence4() throws Exception {
         System.out.println("assignCompetence");
         String usernameMain = "mrossi";
@@ -122,14 +117,14 @@ public class CompetenceServiceTestAssignCompetence {
         listId.add(1);
         int ExpResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
-        assertEquals(result, ExpResult);       
+        assertEquals(result, ExpResult);
     }
-    
-     /**
-     * Test of assignCompetence method, of class CompetenceService, assigning 
-     * an existing Competence without passing username.
+
+    /**
+     * Test of assignCompetence method, of class CompetenceService, assigning an
+     * existing Competence without passing username.
      */
-    @Test(expected=UsernotFoundException.class)
+    @Test(expected = UsernotFoundException.class)
     public void testAssignCompetence5() throws Exception {
         System.out.println("assignCompetence");
         String usernameMain = null;
@@ -137,29 +132,29 @@ public class CompetenceServiceTestAssignCompetence {
         listId.add(1);
         int ExpResult = 0;
         int result = cps.assignCompetence(usernameMain, listId);
-        assertEquals(result, ExpResult);       
+        assertEquals(result, ExpResult);
     }
-    
+
     /**
-     * Test of DeassignCompetence method, of class CompetenceService, deassigning 
-     * to a valid maintainer an existing Competence.
+     * Test of DeassignCompetence method, of class CompetenceService,
+     * deassigning to a valid maintainer an existing Competence.
      */
     @Test
     public void testDeassignCompetence() throws Exception {
         System.out.println("deassignCompetence");
         String usernameMain = "mrossi";
-        List<Integer> listId = new LinkedList<>(); 
+        List<Integer> listId = new LinkedList<>();
         listId.add(1);
         int ExpResult = 1;
         int result = cps.deassignCompetence(usernameMain, listId);
-        assertEquals(result, ExpResult);       
+        assertEquals(result, ExpResult);
     }
-    
+
     /**
-     * Test of DeassignCompetence method, of class CompetenceService, deassigning 
-     * to an invalid Maintainer an existing Competence.
+     * Test of DeassignCompetence method, of class CompetenceService,
+     * deassigning to an invalid Maintainer an existing Competence.
      */
-    @Test(expected=UsernotFoundException.class)
+    @Test(expected = UsernotFoundException.class)
     public void testDeassignCompetence1() throws Exception {
         System.out.println("deassignCompetence");
         String usernameMain = "giulio";
@@ -167,14 +162,14 @@ public class CompetenceServiceTestAssignCompetence {
         listId.add(1);
         int expResult = 0;
         int result = cps.deassignCompetence(usernameMain, listId);
-        assertEquals(result, expResult);       
+        assertEquals(result, expResult);
     }
-    
+
     /**
-     * Test of DeassignCompetence method, of class CompetenceService, deassigning 
-     * to an invalid User (not a Maintainer) an existing Competence.
+     * Test of DeassignCompetence method, of class CompetenceService,
+     * deassigning to an invalid User (not a Maintainer) an existing Competence.
      */
-    @Test(expected=UsernotFoundException.class)
+    @Test(expected = UsernotFoundException.class)
     public void testDeassignCompetence2() throws Exception {
         System.out.println("deassignCompetence");
         String usernameMain = "lbianchi";
@@ -182,27 +177,28 @@ public class CompetenceServiceTestAssignCompetence {
         listId.add(1);
         int expResult = 0;
         int result = cps.deassignCompetence(usernameMain, listId);
-        assertEquals(result, expResult);       
+        assertEquals(result, expResult);
     }
-    
+
     /**
-     * Test of DeassignCompetence method, of class CompetenceService, deassigning 
-     * to a valid Maintainer an invalid Competence.
+     * Test of DeassignCompetence method, of class CompetenceService,
+     * deassigning to a valid Maintainer an invalid Competence.
      */
     @Test
     public void testDeassignCompetence3() throws Exception {
         System.out.println("deassignCompetence");
         String usernameMain = "mrossi";
         List<Integer> listId = new LinkedList<>();
-        listId.add(15); 
+        listId.add(15);
         int expResult = 0;
         int result = cps.deassignCompetence(usernameMain, listId);
-        assertEquals(result, expResult);       
+        assertEquals(result, expResult);
     }
 
     /**
-     * Test of DeassignCompetence method, of class CompetenceService, deassigning 
-     * an existing Competence to a valid Maintainer, who has not that competence.
+     * Test of DeassignCompetence method, of class CompetenceService,
+     * deassigning an existing Competence to a valid Maintainer, who has not
+     * that competence.
      */
     @Test
     public void testDeassignCompetence4() throws Exception {
@@ -212,14 +208,14 @@ public class CompetenceServiceTestAssignCompetence {
         listId.add(2);
         int ExpResult = 0;
         int result = cps.deassignCompetence(usernameMain, listId);
-        assertEquals(result, ExpResult);       
+        assertEquals(result, ExpResult);
     }
-    
-     /**
-     * Test of DeassignCompetence method, of class CompetenceService, deassigning 
-     * an existing competence without passing maintainer's username.
+
+    /**
+     * Test of DeassignCompetence method, of class CompetenceService,
+     * deassigning an existing competence without passing maintainer's username.
      */
-    @Test(expected=UsernotFoundException.class)
+    @Test(expected = UsernotFoundException.class)
     public void testDeassignCompetence5() throws Exception {
         System.out.println("deassignCompetence");
         String usernameMain = null;
@@ -227,7 +223,7 @@ public class CompetenceServiceTestAssignCompetence {
         listId.add(1);
         int ExpResult = 0;
         int result = cps.deassignCompetence(usernameMain, listId);
-        assertEquals(result, ExpResult);       
+        assertEquals(result, ExpResult);
     }
-    
+
 }

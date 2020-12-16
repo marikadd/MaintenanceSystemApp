@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.InvalidParameterObjectException;
@@ -38,16 +33,18 @@ public class UpdateUser extends javax.swing.JFrame {
     private UserManagementService user = UserManagementService.getUserManagementService();
 
     /**
-     * Creates new form UpdateUser
+     * Creates new form UpdateUser.
      */
     public UpdateUser() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(650, 650);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+       
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -130,11 +127,6 @@ public class UpdateUser extends javax.swing.JFrame {
                 jButtonListMouseClicked(evt);
             }
         });
-        jButtonList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonListActionPerformed(evt);
-            }
-        });
 
         jLabelNewUsername.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabelNewUsername.setForeground(new java.awt.Color(255, 255, 255));
@@ -170,12 +162,6 @@ public class UpdateUser extends javax.swing.JFrame {
         jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelExitMouseClicked(evt);
-            }
-        });
-
-        jPasswordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordFieldActionPerformed(evt);
             }
         });
 
@@ -304,10 +290,6 @@ public class UpdateUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-
-    }//GEN-LAST:event_jButtonListActionPerformed
-
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
@@ -323,7 +305,7 @@ public class UpdateUser extends javax.swing.JFrame {
         try {
             userList = user.getAllUsers();
         } catch (SQLException | UsernotFoundException ex) {
-            Logger.getLogger(UpdateUser.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         this.showUsers(userList);
@@ -358,7 +340,10 @@ public class UpdateUser extends javax.swing.JFrame {
         // Count is used to monitor empty update values
         int count = 0;
         // Increment count for every null String in cheching List
-        count = checking.stream().filter(s -> (s == null)).map(_item -> 1).reduce(count, Integer::sum);
+        for(String s: checking){
+            if(s == null)
+                count++;
+        }
 
         try {
             String role = user.getRoleByUsername(oldUsername);
@@ -376,10 +361,6 @@ public class UpdateUser extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jLabelUpdateMouseClicked
-
-    private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
-
-    }//GEN-LAST:event_jPasswordFieldActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(UpdateUser.ICONIFIED);
@@ -421,6 +402,12 @@ public class UpdateUser extends javax.swing.JFrame {
      * @param email: new email
      * @param phone: new phone
      * @param role: user's role to be updated
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * * @throws InvalidParameterObjectException
+     * @throws SQLException
+     * @throws UnsuccessfulUpdateException
+     * @throws UsernotFoundException 
      */
     private int updateUser(String oldUsername, String newUsername, String password, String email, String phone, String role)
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException, UsernotFoundException {
@@ -456,7 +443,6 @@ public class UpdateUser extends javax.swing.JFrame {
      * Check if a string is blank (empty or composed only by spaces)
      *
      * @param string: a String to check
-     *
      * @return the same string given in input if it is not blank
      */
     private String check(String s) {

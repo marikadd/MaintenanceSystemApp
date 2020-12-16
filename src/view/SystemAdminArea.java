@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.event.ComponentAdapter;
@@ -21,12 +16,14 @@ public class SystemAdminArea extends javax.swing.JFrame {
      */
     public SystemAdminArea() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(556, 551);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -71,11 +68,6 @@ public class SystemAdminArea extends javax.swing.JFrame {
                 jButtonManagementMouseClicked(evt);
             }
         });
-        jButtonManagement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonManagementActionPerformed(evt);
-            }
-        });
 
         jButtonCompetence.setBackground(new java.awt.Color(255, 255, 255));
         jButtonCompetence.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
@@ -83,11 +75,6 @@ public class SystemAdminArea extends javax.swing.JFrame {
         jButtonCompetence.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonCompetenceMouseClicked(evt);
-            }
-        });
-        jButtonCompetence.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCompetenceActionPerformed(evt);
             }
         });
 
@@ -110,11 +97,6 @@ public class SystemAdminArea extends javax.swing.JFrame {
                 jButtonMaterialMouseClicked(evt);
             }
         });
-        jButtonMaterial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMaterialActionPerformed(evt);
-            }
-        });
 
         jButtonDepartment.setBackground(new java.awt.Color(255, 255, 255));
         jButtonDepartment.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
@@ -122,11 +104,6 @@ public class SystemAdminArea extends javax.swing.JFrame {
         jButtonDepartment.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonDepartmentMouseClicked(evt);
-            }
-        });
-        jButtonDepartment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDepartmentActionPerformed(evt);
             }
         });
 
@@ -235,14 +212,6 @@ public class SystemAdminArea extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCompetenceActionPerformed
-
-    }//GEN-LAST:event_jButtonCompetenceActionPerformed
-
-    private void jButtonManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManagementActionPerformed
-
-    }//GEN-LAST:event_jButtonManagementActionPerformed
-
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         User sysAdmin = new User();
@@ -265,27 +234,21 @@ public class SystemAdminArea extends javax.swing.JFrame {
         cArea.setVisible(true);
     }//GEN-LAST:event_jButtonCompetenceMouseClicked
 
-    private void jButtonMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMaterialMouseClicked
-    }//GEN-LAST:event_jButtonMaterialMouseClicked
-
-    private void jButtonMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMaterialActionPerformed
-        setVisible(false);
-        ManagementMaterialArea mArea = new ManagementMaterialArea();
-        mArea.setVisible(true);
-    }//GEN-LAST:event_jButtonMaterialActionPerformed
-
     private void jButtonDepartmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDepartmentMouseClicked
         setVisible(false);
         ManagementDepartmentArea dArea = new ManagementDepartmentArea();
         dArea.setVisible(true);
     }//GEN-LAST:event_jButtonDepartmentMouseClicked
 
-    private void jButtonDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDepartmentActionPerformed
-    }//GEN-LAST:event_jButtonDepartmentActionPerformed
-
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(SystemAdminArea.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
+
+    private void jButtonMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMaterialMouseClicked
+        setVisible(false);
+        ManagementMaterialArea mArea = new ManagementMaterialArea ();
+        mArea.setVisible(true);
+    }//GEN-LAST:event_jButtonMaterialMouseClicked
 
     /**
      * @param args the command line arguments

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.InvalidParameterObjectException;
@@ -31,16 +26,18 @@ public class DeleteUser extends javax.swing.JFrame {
     private List<UserModel> userList = new LinkedList<UserModel>();
 
     /**
-     * Creates new form DeleteUser
+     * Creates new form DeleteUser.
      */
     public DeleteUser() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(560, 448);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -228,14 +225,14 @@ public class DeleteUser extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-/**/
+
     private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
 
         UserManagementService user = UserManagementService.getUserManagementService();
         try {
             userList = user.getAllUsers();
         } catch (SQLException | UsernotFoundException ex) {
-            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         this.showUsers(userList);

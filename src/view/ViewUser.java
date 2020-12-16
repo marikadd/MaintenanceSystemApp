@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.UsernotFoundException;
@@ -16,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Users.UserModel;
 
@@ -30,16 +26,18 @@ public class ViewUser extends javax.swing.JFrame {
     private UserManagementService user = UserManagementService.getUserManagementService();
 
     /**
-     * Creates new form ViewUser
+     * Creates new form ViewUser.
      */
     public ViewUser() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(785, 362);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -80,11 +78,6 @@ public class ViewUser extends javax.swing.JFrame {
         jButtonList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonListMouseClicked(evt);
-            }
-        });
-        jButtonList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonListActionPerformed(evt);
             }
         });
 
@@ -217,10 +210,6 @@ public class ViewUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-
-    }//GEN-LAST:event_jButtonListActionPerformed
-
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
@@ -236,7 +225,7 @@ public class ViewUser extends javax.swing.JFrame {
         try {
             userList = user.getAllUsers();
         } catch (SQLException | UsernotFoundException ex) {
-            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         this.showUsers(userList);

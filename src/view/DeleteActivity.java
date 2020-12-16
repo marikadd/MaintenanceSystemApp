@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.ActivityNotFoundException;
@@ -36,12 +31,14 @@ public class DeleteActivity extends javax.swing.JFrame {
      */
     public DeleteActivity() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(617, 480);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -244,7 +241,7 @@ public class DeleteActivity extends javax.swing.JFrame {
         try {
             activityList = activity.getAllActivities();
         } catch (SQLException | ActivityNotFoundException | InvalidParameterObjectException ex) {
-            Logger.getLogger(DeleteActivity.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         this.showActivities(activityList);

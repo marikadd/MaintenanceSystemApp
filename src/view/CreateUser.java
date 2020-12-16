@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.InvalidParameterObjectException;
@@ -24,16 +19,18 @@ public class CreateUser extends javax.swing.JFrame {
     private UserManagementService user = UserManagementService.getUserManagementService();
 
     /**
-     * Creates new form CreateUser
+     * Creates new form CreateUser.
      */
     public CreateUser() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(490, 608);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -86,30 +83,7 @@ public class CreateUser extends javax.swing.JFrame {
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitle.setText("CREATE USER");
 
-        jTextSurname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextSurnameActionPerformed(evt);
-            }
-        });
-
         jComboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MAINTAINER", "PLANNER", "SYSTEM_ADMIN", " ", " ", " ", " " }));
-        jComboRole.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboRoleActionPerformed(evt);
-            }
-        });
-
-        jPasswordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordFieldActionPerformed(evt);
-            }
-        });
-
-        jTextEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextEmailActionPerformed(evt);
-            }
-        });
 
         jLabelCreate.setBackground(new java.awt.Color(255, 255, 255));
         jLabelCreate.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -299,14 +273,6 @@ public class CreateUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
-
-    }//GEN-LAST:event_jPasswordFieldActionPerformed
-
-    private void jTextEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextEmailActionPerformed
-
-    }//GEN-LAST:event_jTextEmailActionPerformed
-
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         ManagementUserArea cUser = new ManagementUserArea();
@@ -337,15 +303,9 @@ public class CreateUser extends javax.swing.JFrame {
         } catch (InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (SQLException | UnsuccessfulUpdateException ex) {
-            JOptionPane.showMessageDialog(null, "User already exists");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jLabelCreateMouseClicked
-
-    private void jTextSurnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSurnameActionPerformed
-    }//GEN-LAST:event_jTextSurnameActionPerformed
-
-    private void jComboRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboRoleActionPerformed
-    }//GEN-LAST:event_jComboRoleActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(CreateUser.ICONIFIED);
@@ -362,6 +322,11 @@ public class CreateUser extends javax.swing.JFrame {
      * @param email: email addres of the new user
      * @param phone: phone number of the new user
      * @param role: role of the new user
+     * @return either the row count for SQL Data Manipulation Language (DML)
+     * statements or 0 for SQL statements that return nothing
+     * @throws InvalidParameterObjectException
+     * @throws SQLException
+     * @throws UnsuccessfulUpdateException 
      */
     private int createUser(String username, String password, String name, String surname, String email, String phone, String role)
             throws InvalidParameterObjectException, SQLException, UnsuccessfulUpdateException {

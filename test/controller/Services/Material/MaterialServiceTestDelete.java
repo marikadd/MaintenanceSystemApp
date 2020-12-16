@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Services.Material;
 
 import configuration.Database.ConnectionForTest;
@@ -24,15 +19,14 @@ import static org.junit.Assert.*;
  * @author Group9
  */
 public class MaterialServiceTestDelete {
-    
+
     private MaterialService ms;
     private ConnectionForTest cft;
     private DBProduct dbProduct;
-    
-    
+
     public MaterialServiceTestDelete() {
     }
-   
+
     @Before
     public void setUp() {
         ms = MaterialService.getMaterialService();
@@ -43,30 +37,30 @@ public class MaterialServiceTestDelete {
         setAfter();
         cft.rollbackConnection();
     }
-    
+
     @After
     public void setAfter() {
         cft.rollbackConnection();
     }
 
-    
     /**
-     * Test of deleteMaterial method, of class MaterialService, deleting an existing material.
+     * Test of deleteMaterial method, of class MaterialService, deleting an
+     * existing material.
      */
     @Test
     public void testDeleteMaterial() throws Exception {
-        System.out.println("deleteMaterial"); 
+        System.out.println("deleteMaterial");
         String type = "Marble";
         int expResult = 1;
         int result = ms.deleteMaterial(type);
         assertEquals(expResult, result);
     }
-    
+
     /**
-     * Test of deleteMaterial method, of class MaterialService, deleting a material with
-     * an unexisting type.
+     * Test of deleteMaterial method, of class MaterialService, deleting a
+     * material with an unexisting type.
      */
-    @Test(expected=UnsuccessfulUpdateException.class)
+    @Test(expected = UnsuccessfulUpdateException.class)
     public void testDeleteMaterial1() throws Exception {
         System.out.println("deleteMaterial");
         String type = "Steel";
@@ -74,12 +68,12 @@ public class MaterialServiceTestDelete {
         int result = ms.deleteMaterial(type);
         assertEquals(expResult, result);
     }
-    
+
     /**
-     * Test of deleteMaterial method, of class MaterialService, deleting a material with
-     * an unexisting type (empty).
+     * Test of deleteMaterial method, of class MaterialService, deleting a
+     * material with an unexisting type (empty).
      */
-    @Test(expected=UnsuccessfulUpdateException.class)
+    @Test(expected = UnsuccessfulUpdateException.class)
     public void testDeleteMaterial2() throws Exception {
         System.out.println("deleteMaterial");
         String type = null;
@@ -87,6 +81,5 @@ public class MaterialServiceTestDelete {
         int result = ms.deleteMaterial(type);
         assertEquals(expResult, result);
     }
-    
-    
+
 }

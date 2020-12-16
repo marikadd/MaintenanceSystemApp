@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.UnsuccessfulUpdateException;
@@ -29,16 +24,18 @@ public class DeleteMaterial extends javax.swing.JFrame {
     private MaterialService mat = MaterialService.getMaterialService();
 
     /**
-     * Creates new form DeleteMaterial
+     * Creates new form DeleteMaterial.
      */
     public DeleteMaterial() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(543, 464);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+       
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -141,11 +138,6 @@ public class DeleteMaterial extends javax.swing.JFrame {
                 jButtonListMouseClicked(evt);
             }
         });
-        jButtonList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonListActionPerformed(evt);
-            }
-        });
 
         jLabelDelete.setBackground(new java.awt.Color(255, 255, 255));
         jLabelDelete.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -242,16 +234,12 @@ public class DeleteMaterial extends javax.swing.JFrame {
         try {
             matList = mat.getAllMaterials();
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(DeleteMaterial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         this.showMaterials(matList);
         matList = null;
     }//GEN-LAST:event_jButtonListMouseClicked
-
-    private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-
-    }//GEN-LAST:event_jButtonListActionPerformed
 
     private void jLabelDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDeleteMouseClicked
 

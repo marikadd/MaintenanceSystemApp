@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Services.Department;
 
 import configuration.Database.ConnectionForTest;
@@ -50,8 +45,8 @@ public class DepartmentServiceTestGet {
     }
 
     /**
-     * Test of getAllDepartments method, of class DepartmentService getting
-     * all departments.
+     * Test of getAllDepartments method, of class DepartmentService getting all
+     * departments.
      */
     @Test
     public void testGetAllDepartments() throws Exception {
@@ -87,9 +82,9 @@ public class DepartmentServiceTestGet {
         String department = ds.getDepartment(area).getArea();
         assertEquals(department, area);
 
-    } 
-    
-     /**
+    }
+
+    /**
      * Test of getDepartment method, of class DepartmentService, getting the
      * area from an invalid Department (empty).
      */

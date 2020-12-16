@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.InvalidParameterObjectException;
@@ -30,12 +25,14 @@ public class CreateDepartment extends javax.swing.JFrame {
      */
     public CreateDepartment() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(500, 350);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -96,12 +93,6 @@ public class CreateDepartment extends javax.swing.JFrame {
         jLabelTitle.setFont(new java.awt.Font("Impact", 0, 30)); // NOI18N
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitle.setText("CREATE DEPARTMENT");
-
-        jTextArea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextAreaActionPerformed(evt);
-            }
-        });
 
         jLabelCreate.setBackground(new java.awt.Color(255, 255, 255));
         jLabelCreate.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -203,10 +194,6 @@ public class CreateDepartment extends javax.swing.JFrame {
         ManagementDepartmentArea dArea = new ManagementDepartmentArea();
         dArea.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
-
-    private void jTextAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextAreaActionPerformed
-
-    }//GEN-LAST:event_jTextAreaActionPerformed
 
     private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
 

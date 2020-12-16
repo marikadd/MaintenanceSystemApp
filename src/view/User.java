@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.Desktop;
@@ -25,15 +20,14 @@ public class User extends javax.swing.JFrame {
      */
     public User() {
         initComponents();
+       
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(600, 500);
-        // Centers the window on the screen
         setLocationRelativeTo(null);
-        // Closes the window if we click on the Close button of the titlebar
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        // Set rounded corners
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -78,11 +72,6 @@ public class User extends javax.swing.JFrame {
                 jButtonSystemAdminMouseClicked(evt);
             }
         });
-        jButtonSystemAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSystemAdminActionPerformed(evt);
-            }
-        });
 
         jButtonPlanner.setBackground(new java.awt.Color(255, 255, 255));
         jButtonPlanner.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
@@ -90,11 +79,6 @@ public class User extends javax.swing.JFrame {
         jButtonPlanner.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonPlannerMouseClicked(evt);
-            }
-        });
-        jButtonPlanner.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPlannerActionPerformed(evt);
             }
         });
 
@@ -213,20 +197,11 @@ public class User extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSystemAdminActionPerformed
-
-    }//GEN-LAST:event_jButtonSystemAdminActionPerformed
-
-    private void jButtonPlannerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlannerActionPerformed
-
-    }//GEN-LAST:event_jButtonPlannerActionPerformed
-
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void jButtonSystemAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSystemAdminMouseClicked
-        // Go to the system admin area
         setVisible(false);
         SystemAdminArea admin = new SystemAdminArea();
         admin.setVisible(true);
@@ -245,7 +220,6 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelGitMouseClicked
 
     private void jButtonPlannerMouseClicked(java.awt.event.MouseEvent evt) {
-        // Go to the planner area
         setVisible(false);
         ManagementActivityArea aArea = new ManagementActivityArea();
         aArea.setVisible(true);

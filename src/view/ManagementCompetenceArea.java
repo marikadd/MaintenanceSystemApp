@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.event.ComponentAdapter;
@@ -12,6 +7,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 /**
@@ -21,16 +17,18 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class ManagementCompetenceArea extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManagementCompetenceArea
+     * Creates new form ManagementCompetenceArea.
      */
     public ManagementCompetenceArea() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(525, 490);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -77,11 +75,6 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
                 jButtonInsertMouseClicked(evt);
             }
         });
-        jButtonInsert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonInsertActionPerformed(evt);
-            }
-        });
 
         jButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
         jButtonDelete.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
@@ -91,11 +84,6 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
                 jButtonDeleteMouseClicked(evt);
             }
         });
-        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeleteActionPerformed(evt);
-            }
-        });
 
         jButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
         jButtonUpdate.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
@@ -103,11 +91,6 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
         jButtonUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonUpdateMouseClicked(evt);
-            }
-        });
-        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonUpdateActionPerformed(evt);
             }
         });
 
@@ -124,11 +107,6 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
                 jButtonAssignmentMouseClicked(evt);
             }
         });
-        jButtonAssignment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAssignmentActionPerformed(evt);
-            }
-        });
 
         jLabelExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
         jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,11 +121,6 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
         jButtonView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonViewMouseClicked(evt);
-            }
-        });
-        jButtonView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonViewActionPerformed(evt);
             }
         });
 
@@ -253,27 +226,11 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
-
-    }//GEN-LAST:event_jButtonInsertActionPerformed
-
-    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-
-    }//GEN-LAST:event_jButtonDeleteActionPerformed
-
-    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-
-    }//GEN-LAST:event_jButtonUpdateActionPerformed
-
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         SystemAdminArea user = new SystemAdminArea();
         user.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
-
-    private void jButtonAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignmentActionPerformed
-
-    }//GEN-LAST:event_jButtonAssignmentActionPerformed
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
@@ -304,20 +261,16 @@ public class ManagementCompetenceArea extends javax.swing.JFrame {
             AssignmentCompetence assignmentArea = new AssignmentCompetence();
             assignmentArea.setVisible(true);
         } catch (SQLException ex) {
-            Logger.getLogger(ManagementCompetenceArea.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
     }//GEN-LAST:event_jButtonAssignmentMouseClicked
 
     private void jButtonViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonViewMouseClicked
-
-    }//GEN-LAST:event_jButtonViewMouseClicked
-
-    private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
         setVisible(false);
         ViewCompetences viewArea = new ViewCompetences();
         viewArea.setVisible(true);
-    }//GEN-LAST:event_jButtonViewActionPerformed
+    }//GEN-LAST:event_jButtonViewMouseClicked
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(ManagementCompetenceArea.ICONIFIED);

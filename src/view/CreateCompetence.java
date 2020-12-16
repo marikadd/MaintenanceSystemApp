@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.InvalidParameterObjectException;
@@ -30,12 +25,14 @@ public class CreateCompetence extends javax.swing.JFrame {
      */
     public CreateCompetence() {
         initComponents();
+       
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(500, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -96,12 +93,6 @@ public class CreateCompetence extends javax.swing.JFrame {
         jLabelTitle.setFont(new java.awt.Font("Impact", 0, 30)); // NOI18N
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitle.setText("CREATE COMPETENCE");
-
-        jTextDescription.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextDescriptionActionPerformed(evt);
-            }
-        });
 
         jLabelCreate.setBackground(new java.awt.Color(255, 255, 255));
         jLabelCreate.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -216,10 +207,6 @@ public class CreateCompetence extends javax.swing.JFrame {
         ManagementCompetenceArea cUser = new ManagementCompetenceArea();
         cUser.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
-
-    private void jTextDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDescriptionActionPerformed
-
-    }//GEN-LAST:event_jTextDescriptionActionPerformed
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);

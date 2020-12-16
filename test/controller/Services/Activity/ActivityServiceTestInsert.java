@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Services.Activity;
 
 import com.sun.jdi.connect.spi.Connection;
@@ -180,7 +175,7 @@ public class ActivityServiceTestInsert {
         String type = "Electrical";
         String description = "Change engine";
         Integer time = 100;
-        Integer week_num = 43; 
+        Integer week_num = 43;
         Department department = new Department("");
         Competence c = new Competence(1, "PAV - Certification");
         ArrayList<Competence> skill = new ArrayList<>();
@@ -285,10 +280,34 @@ public class ActivityServiceTestInsert {
 
     /**
      * Test of insertActivity method, of class ActivityService inserting a new
-     * Activity with invalid week number (it must be between 1 and 52 ).
+     * Activity with invalid time (time must be a number less than or equal to
+     * 420).
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testInsertActivity10() throws Exception {
+        System.out.println("insertActivity");
+        String type = "Mechanics";
+        String description = "Change tube";
+        Integer time = 500;
+        Integer week_num = 2;
+        Department department = new Department("Fisciano - Molding");
+        Competence c = new Competence(1, "PAV - Certification");
+        ArrayList<Competence> skill = new ArrayList<>();
+        skill.add(c);
+        Material material = new Material("Marble");
+        ArrayList<Material> materials = new ArrayList<>();
+        materials.add(material);
+        int result = as.insertActivity(type, description, time, skill, materials, week_num, department);
+        int ExpectedResult = 0;
+        assertEquals(result, ExpectedResult);
+    }
+
+    /**
+     * Test of insertActivity method, of class ActivityService inserting a new
+     * Activity with invalid week number (it must be between 1 and 52 ).
+     */
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testInsertActivity11() throws Exception {
         System.out.println("insertActivity");
         String type = "Mechanics";
         String description = "Change tube";
@@ -311,7 +330,7 @@ public class ActivityServiceTestInsert {
      * Activity with invalid week number (it must be between 1 and 52).
      */
     @Test(expected = InvalidParameterObjectException.class)
-    public void testInsertActivity11() throws Exception {
+    public void testInsertActivity12() throws Exception {
         System.out.println("insertActivity");
         String type = "Mechanics";
         String description = "Change tube";
@@ -334,7 +353,7 @@ public class ActivityServiceTestInsert {
      * Activity with valid week number (borderline case: week_num = 1).
      */
     @Test
-    public void testInsertActivity12() throws Exception {
+    public void testInsertActivity13() throws Exception {
         System.out.println("insertActivity");
         String type = "Mechanics";
         String description = "Change tube";
@@ -357,7 +376,7 @@ public class ActivityServiceTestInsert {
      * Activity with valid week number (borderline case: week_num = 52).
      */
     @Test
-    public void testInsertActivity13() throws Exception {
+    public void testInsertActivity14() throws Exception {
         System.out.println("insertActivity");
         String type = "Mechanics";
         String description = "Change tube";
@@ -380,7 +399,7 @@ public class ActivityServiceTestInsert {
      * Activity with a Department which doesn't exist.
      */
     @Test(expected = SQLException.class)
-    public void testInsertActivity14() throws Exception {
+    public void testInsertActivity15() throws Exception {
         System.out.println("insertActivity");
         String type = "Mechanics";
         String description = "Change tube";
@@ -400,10 +419,11 @@ public class ActivityServiceTestInsert {
 
     /**
      * Test of insertActivity method, of class ActivityService inserting a new
-     * Activity with an invalid material(empty).(The activity must be created anyway).
+     * Activity with an invalid material(empty).(The activity must be created
+     * anyway).
      */
     @Test
-    public void testInsertActivity15() throws Exception {
+    public void testInsertActivity16() throws Exception {
         System.out.println("insertActivity");
         String type = "Mechanics";
         String description = "Change tube";
@@ -425,7 +445,7 @@ public class ActivityServiceTestInsert {
      * bought by the company).
      */
     @Test(expected = SQLException.class)
-    public void testInsertActivity16() throws Exception {
+    public void testInsertActivity17() throws Exception {
         System.out.println("insertActivity");
         String type = "Mechanics";
         String description = "Change tube";

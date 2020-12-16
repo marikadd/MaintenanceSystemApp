@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Services.User;
 
 import configuration.Database.ConnectionForTest;
@@ -46,7 +41,7 @@ public class UserManagementTestGet {
     @After
     public void setAfter() {
         cft.rollbackConnection();
-    } 
+    }
 
     /**
      * Test of getRoleByUsername method, of class UserManagementService, getting
@@ -86,7 +81,7 @@ public class UserManagementTestGet {
         int ExpectedResult = 5;
         assertEquals(result, ExpectedResult);
     }
-    
+
     /**
      * Test of getAllMaintainers method, of class UserManagementService getting
      * a list of all maintainers.

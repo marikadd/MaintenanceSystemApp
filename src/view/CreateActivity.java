@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.InvalidParameterObjectException;
@@ -42,22 +37,25 @@ public class CreateActivity extends javax.swing.JFrame {
     private MaterialService matService = MaterialService.getMaterialService();
 
     /**
-     * Creates new form CreateActivity
+     * Creates new form CreateActivity.
      */
     public CreateActivity() {
         initComponents();
+
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(1172, 630);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
             }
         });
+
         getAllSkills();
         getDepartments();
         getAllMaterials();
@@ -97,7 +95,7 @@ public class CreateActivity extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableDepartment = new javax.swing.JTable();
         jLabelTitleSkillsAssigned = new javax.swing.JLabel();
-        jLabelMinimize1 = new javax.swing.JLabel();
+        jLabelMinimize = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableMaterialsToAssociate = new javax.swing.JTable();
         jLabelTitleMaterialsToAssign = new javax.swing.JLabel();
@@ -134,18 +132,6 @@ public class CreateActivity extends javax.swing.JFrame {
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitle.setText("CREATE ACTIVITY");
-
-        jTextFieldType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTypeActionPerformed(evt);
-            }
-        });
-
-        jTextFieldTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTimeActionPerformed(evt);
-            }
-        });
 
         jLabelType.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelType.setForeground(new java.awt.Color(255, 255, 255));
@@ -190,27 +176,19 @@ public class CreateActivity extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableToAssociate);
 
+        jButtonAdd.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButtonAdd.setText("Add");
         jButtonAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonAddMouseClicked(evt);
             }
         });
-        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAddActionPerformed(evt);
-            }
-        });
 
+        jButtonRemove.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButtonRemove.setText("Remove");
         jButtonRemove.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonRemoveMouseClicked(evt);
-            }
-        });
-        jButtonRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemoveActionPerformed(evt);
             }
         });
 
@@ -275,10 +253,10 @@ public class CreateActivity extends javax.swing.JFrame {
         jLabelTitleSkillsAssigned.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitleSkillsAssigned.setText("Skills Assigned");
 
-        jLabelMinimize1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
-        jLabelMinimize1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
+        jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelMinimize1MouseClicked(evt);
+                jLabelMinimizeMouseClicked(evt);
             }
         });
 
@@ -340,27 +318,19 @@ public class CreateActivity extends javax.swing.JFrame {
         jLabelMaterialsAssigned.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMaterialsAssigned.setText("Materials Assigned ");
 
+        jButtonAdd1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButtonAdd1.setText("Add");
         jButtonAdd1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonAdd1MouseClicked(evt);
             }
         });
-        jButtonAdd1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAdd1ActionPerformed(evt);
-            }
-        });
 
+        jButtonRemove1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jButtonRemove1.setText("Remove");
         jButtonRemove1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonRemove1MouseClicked(evt);
-            }
-        });
-        jButtonRemove1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemove1ActionPerformed(evt);
             }
         });
 
@@ -378,13 +348,10 @@ public class CreateActivity extends javax.swing.JFrame {
                         .add(35, 35, 35)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabelTitleSkillsAssigned)
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jButtonRemove)
-                                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(227, 227, 227)
-                                .add(jButtonRemove1)))
-                        .add(0, 0, Short.MAX_VALUE))
+                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(jButtonRemove)
+                                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(0, 736, Short.MAX_VALUE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel2Layout.createSequentialGroup()
@@ -411,17 +378,22 @@ public class CreateActivity extends javax.swing.JFrame {
                                             .add(jComboWeek, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 231, Short.MAX_VALUE))
                                     .add(jPanel2Layout.createSequentialGroup()
-                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonAdd))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(jLabelMaterialsAssigned)
-                                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                                .add(jButtonAdd1)
-                                                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                            .add(jLabelTitleMaterialsToAssign))
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(jPanel2Layout.createSequentialGroup()
+                                                .add(0, 0, Short.MAX_VALUE)
+                                                .add(jButtonRemove1))
+                                            .add(jPanel2Layout.createSequentialGroup()
+                                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonAdd))
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                                    .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                    .add(jLabelMaterialsAssigned)
+                                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                                        .add(jButtonAdd1)
+                                                        .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                                    .add(jLabelTitleMaterialsToAssign))))
                                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(56, 56, 56)
@@ -434,7 +406,7 @@ public class CreateActivity extends javax.swing.JFrame {
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(jLabelMinimize1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jLabelMinimize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
                         .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 63, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -444,7 +416,7 @@ public class CreateActivity extends javax.swing.JFrame {
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabelExit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabelMinimize1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jLabelMinimize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -543,14 +515,6 @@ public class CreateActivity extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTypeActionPerformed
-
-    }//GEN-LAST:event_jTextFieldTypeActionPerformed
-
-    private void jTextFieldTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTimeActionPerformed
-
-    }//GEN-LAST:event_jTextFieldTimeActionPerformed
-
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         ManagementActivityArea activityArea = new ManagementActivityArea();
@@ -561,23 +525,11 @@ public class CreateActivity extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
 
-
     private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
 
         String type = jTextFieldType.getText();
         String description = jTextFieldDescription.getText();
 
-        /*
-        if ("".equals(jTextFieldTime.getText())) {
-            JOptionPane.showMessageDialog(null, "Field Time must be filled");
-            return;
-        }
-
-        if (!jTextFieldTime.getText().matches("[0-9]+")) {
-            JOptionPane.showMessageDialog(null, "Field Time must be numeric");
-            return;
-        }
-         */
         Integer time;
         try {
             time = Integer.parseInt(jTextFieldTime.getText());
@@ -598,8 +550,10 @@ public class CreateActivity extends javax.swing.JFrame {
         ArrayList<Competence> skills = new ArrayList<>();
         DefaultTableModel modelC = (DefaultTableModel) jTableAssociated.getModel();
 
-        // Add all the selected skills in the List, in order to use them for 
-        // the MaintenanceActivity creation
+        /*
+        * Add all the selected skills in the List, in order to use them for 
+        * the MaintenanceActivity creation
+         */
         for (int i = 0; i < modelC.getRowCount(); i++) {
             Integer id = Integer.parseInt(modelC.getValueAt(i, 0).toString());
             String descriptionSkill = modelC.getValueAt(i, 1).toString();
@@ -616,9 +570,11 @@ public class CreateActivity extends javax.swing.JFrame {
         ArrayList<Material> material = new ArrayList<>();
         DefaultTableModel modelM = (DefaultTableModel) jTableMaterialsAssociated.getModel();
 
-        // Add all the selected materials in the List, in order to use them for 
-        // the MaintenanceActivity creation. It is possible to create a MaintenanceActivity
-        // without any material
+        /*
+        * Add all the selected materials in the List, in order to use them for 
+        * the MaintenanceActivity creation. It is possible to create a 
+        * MaintenanceActivity without any material
+         */
         for (int i = 0; i < modelM.getRowCount(); i++) {
             String typeMaterial = modelM.getValueAt(i, 0).toString();
 
@@ -643,9 +599,46 @@ public class CreateActivity extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonAddActionPerformed
 
-    private void jButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddMouseClicked
+    private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
+        this.setExtendedState(CreateActivity.ICONIFIED);
+    }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
+    private void jButtonAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdd1ActionPerformed
+
+    }//GEN-LAST:event_jButtonAdd1ActionPerformed
+
+    private void jButtonRemove1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemove1MouseClicked
         // Avoid empty selections
+        if (jTableMaterialsAssociated.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Select a material first!");
+            return;
+        }
+
+        int posAssociated = jTableMaterialsAssociated.getSelectedRow();
+
+        if (posAssociated >= 0) {
+
+            String type = jTableMaterialsAssociated.getModel().getValueAt(posAssociated, 0).toString();
+
+            DefaultTableModel model = (DefaultTableModel) jTableMaterialsToAssociate.getModel();
+            Object column[] = new Object[1];
+
+            column[0] = type;
+
+            model.addRow(column);
+
+            DefaultTableModel modelAssociated = (DefaultTableModel) jTableMaterialsAssociated.getModel();
+            modelAssociated.removeRow(posAssociated);
+        }
+        
+    }//GEN-LAST:event_jButtonRemove1MouseClicked
+
+    private void jButtonRemove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemove1ActionPerformed
+
+    }//GEN-LAST:event_jButtonRemove1ActionPerformed
+
+    private void jButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddMouseClicked
+         // Avoid empty selections
         if (jTableToAssociate.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Select a skill first!");
             return;
@@ -670,42 +663,11 @@ public class CreateActivity extends javax.swing.JFrame {
             // Update the ToAssociate table
             modelToAssociate.removeRow(posToAssociate);
         }
+        
     }//GEN-LAST:event_jButtonAddMouseClicked
 
-    private void jButtonRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemoveMouseClicked
-
-        // Avoid empty selections
-        if (jTableAssociated.getSelectionModel().isSelectionEmpty()) {
-            JOptionPane.showMessageDialog(null, "Select a skill first!");
-            return;
-        }
-
-        int posAssociated = jTableAssociated.getSelectedRow();
-        // Transfer the selected skill in the ToAssociate table
-        if (posAssociated >= 0) {
-
-            Integer id = Integer.parseInt(jTableAssociated.getModel().getValueAt(posAssociated, 0).toString());
-            String description = jTableAssociated.getModel().getValueAt(posAssociated, 1).toString();
-
-            DefaultTableModel model = (DefaultTableModel) jTableToAssociate.getModel();
-            Object column[] = new Object[2];
-
-            column[0] = id;
-            column[1] = description;
-
-            model.addRow(column);
-
-            DefaultTableModel modelAssociated = (DefaultTableModel) jTableAssociated.getModel();
-            modelAssociated.removeRow(posAssociated);
-        }
-    }//GEN-LAST:event_jButtonRemoveMouseClicked
-
-    private void jLabelMinimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimize1MouseClicked
-        this.setExtendedState(CreateActivity.ICONIFIED);
-    }//GEN-LAST:event_jLabelMinimize1MouseClicked
-
     private void jButtonAdd1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAdd1MouseClicked
-
+        
         if (jTableMaterialsToAssociate.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Select a material first!");
             return;
@@ -729,39 +691,34 @@ public class CreateActivity extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAdd1MouseClicked
 
-    private void jButtonAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdd1ActionPerformed
-
-    }//GEN-LAST:event_jButtonAdd1ActionPerformed
-
-    private void jButtonRemove1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemove1MouseClicked
-
-        // Avoid empty selections
-        if (jTableMaterialsAssociated.getSelectionModel().isSelectionEmpty()) {
-            JOptionPane.showMessageDialog(null, "Select a material first!");
+    private void jButtonRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemoveMouseClicked
+        
+// Avoid empty selections
+        if (jTableAssociated.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Select a skill first!");
             return;
         }
 
-        int posAssociated = jTableMaterialsAssociated.getSelectedRow();
-
+        int posAssociated = jTableAssociated.getSelectedRow();
+        // Transfer the selected skill in the ToAssociate table
         if (posAssociated >= 0) {
 
-            String type = jTableMaterialsAssociated.getModel().getValueAt(posAssociated, 0).toString();
+            Integer id = Integer.parseInt(jTableAssociated.getModel().getValueAt(posAssociated, 0).toString());
+            String description = jTableAssociated.getModel().getValueAt(posAssociated, 1).toString();
 
-            DefaultTableModel model = (DefaultTableModel) jTableMaterialsToAssociate.getModel();
-            Object column[] = new Object[1];
+            DefaultTableModel model = (DefaultTableModel) jTableToAssociate.getModel();
+            Object column[] = new Object[2];
 
-            column[0] = type;
+            column[0] = id;
+            column[1] = description;
 
             model.addRow(column);
 
-            DefaultTableModel modelAssociated = (DefaultTableModel) jTableMaterialsAssociated.getModel();
+            DefaultTableModel modelAssociated = (DefaultTableModel) jTableAssociated.getModel();
             modelAssociated.removeRow(posAssociated);
         }
-    }//GEN-LAST:event_jButtonRemove1MouseClicked
-
-    private void jButtonRemove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemove1ActionPerformed
-
-    }//GEN-LAST:event_jButtonRemove1ActionPerformed
+        
+    }//GEN-LAST:event_jButtonRemoveMouseClicked
 
     /**
      * This method extracts all the departments from the DB and inserts them in
@@ -771,7 +728,7 @@ public class CreateActivity extends javax.swing.JFrame {
         try {
             depList = dep.getAllDepartments();
         } catch (SQLException ex) {
-            Logger.getLogger(DeleteDepartment.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         this.showDepartments(depList);
@@ -780,6 +737,8 @@ public class CreateActivity extends javax.swing.JFrame {
 
     /**
      * Fill a table with the departments contained in the list.
+     *
+     * @param list: a list of Department
      */
     private void showDepartments(List<Department> list) {
 
@@ -821,8 +780,8 @@ public class CreateActivity extends javax.swing.JFrame {
                 model.addRow(column);
 
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error in database");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
     }
@@ -894,7 +853,7 @@ public class CreateActivity extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDescription;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelMaterialsAssigned;
-    private javax.swing.JLabel jLabelMinimize1;
+    private javax.swing.JLabel jLabelMinimize;
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelTitleDep;

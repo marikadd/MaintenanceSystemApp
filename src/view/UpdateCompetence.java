@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.InvalidParameterObjectException;
@@ -30,16 +25,18 @@ public class UpdateCompetence extends javax.swing.JFrame {
     private CompetenceService competence = CompetenceService.getCompetenceService();
 
     /**
-     * Creates new form UpdateCompetence
+     * Creates new form UpdateCompetence.
      */
     public UpdateCompetence() {
         initComponents();
+       
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(585, 520);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -128,17 +125,6 @@ public class UpdateCompetence extends javax.swing.JFrame {
         jButtonList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonListMouseClicked(evt);
-            }
-        });
-        jButtonList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonListActionPerformed(evt);
-            }
-        });
-
-        jTextNewDescription.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextNewDescriptionActionPerformed(evt);
             }
         });
 
@@ -243,9 +229,6 @@ public class UpdateCompetence extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-    }//GEN-LAST:event_jButtonListActionPerformed
-
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         ManagementCompetenceArea uCompetence = new ManagementCompetenceArea();
@@ -261,7 +244,7 @@ public class UpdateCompetence extends javax.swing.JFrame {
         try {
             compList = competence.getAllCompetences();
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(DeleteCompetence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         this.showCompetences(compList);
@@ -293,9 +276,6 @@ public class UpdateCompetence extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jLabelUpdateMouseClicked
-
-    private void jTextNewDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNewDescriptionActionPerformed
-    }//GEN-LAST:event_jTextNewDescriptionActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(UpdateCompetence.ICONIFIED);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.ActivityNotFoundException;
@@ -33,16 +28,18 @@ public class SelectActivity extends javax.swing.JFrame {
     private ActivityService activity = ActivityService.getActivityService();
 
     /**
-     * Creates new form SelectActivity
+     * Creates new form SelectActivity.
      */
     public SelectActivity() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(732, 444);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -88,11 +85,6 @@ public class SelectActivity extends javax.swing.JFrame {
         jButtonList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonListMouseClicked(evt);
-            }
-        });
-        jButtonList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonListActionPerformed(evt);
             }
         });
 
@@ -176,11 +168,6 @@ public class SelectActivity extends javax.swing.JFrame {
                 jButtonSelectMouseClicked(evt);
             }
         });
-        jButtonSelect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSelectActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -249,6 +236,7 @@ public class SelectActivity extends javax.swing.JFrame {
     private void jButtonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonListMouseClicked
 
         Integer week_num = Integer.parseInt(jComboWeek.getSelectedItem().toString());
+        
         try {
             activityList = activity.getAllActivitiesInWeek(week_num);
             if (activityList.isEmpty()) {
@@ -256,15 +244,11 @@ public class SelectActivity extends javax.swing.JFrame {
                 this.showActivities(new ArrayList<>());
             }
         } catch (SQLException | ActivityNotFoundException | InvalidParameterObjectException ex) {
-            Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         this.showActivities(activityList);
     }//GEN-LAST:event_jButtonListMouseClicked
-
-    private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-
-    }//GEN-LAST:event_jButtonListActionPerformed
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
@@ -301,14 +285,10 @@ public class SelectActivity extends javax.swing.JFrame {
             aActivity = new AssignmentActivity(ID, area, type, time, week);
 
         } catch (SQLException | InvalidParameterObjectException ex) {
-            Logger.getLogger(SelectActivity.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         aActivity.setVisible(true);
     }//GEN-LAST:event_jButtonSelectMouseClicked
-
-    private void jButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectActionPerformed
-
-    }//GEN-LAST:event_jButtonSelectActionPerformed
 
     /**
      * Fill a table with the maintenance activities contained in the list.

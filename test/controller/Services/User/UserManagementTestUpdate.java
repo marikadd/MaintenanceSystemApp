@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Services.User;
 
 import configuration.Database.ConnectionForTest;
@@ -52,12 +47,12 @@ public class UserManagementTestUpdate {
      * Test of updateProdManager method, of class UserManagementService,
      * updating username, password, email, phone number of a ProdManager; The
      * operation of update is equal for all roles, for this reason test cases
-     * are distributed among the various roles in a random way.
-     * (N.B: Name and surname are null because it is not possible to modify them
-     * inside updateProdManager method. However, in UserManagmentServicethe 
-     * the method updateProdManager takes as input name and surname because the
-     * incapsulated DAO method needs an istance of UserModel
-     * (in this case ProdManager).
+     * are distributed among the various roles in a random way. (N.B: Name and
+     * surname are null because it is not possible to modify them inside
+     * updateProdManager method. However, in UserManagmentServicethe the method
+     * updateProdManager takes as input name and surname because the
+     * incapsulated DAO method needs an istance of UserModel (in this case
+     * ProdManager).
      */
     @Test
     public void testUpdateProdManager() throws Exception {
@@ -157,7 +152,7 @@ public class UserManagementTestUpdate {
 
     /**
      * Test of updateMaintainer method, of class UserManagementService, updating
-     * username, password, email, phone number of a Maintainer (Username doesn't
+     * username, password, email, phone number of a Maintainer (username doesn't
      * respect the length).
      */
     @Test(expected = InvalidParameterObjectException.class)
@@ -177,7 +172,7 @@ public class UserManagementTestUpdate {
 
     /**
      * Test of updateMaintainer method, of class UserManagementService, updating
-     * username, password, email, phone number of a Maintainer (Password doesn't
+     * username, password, email, phone number of a Maintainer (password doesn't
      * respect the format).
      */
     @Test(expected = InvalidParameterObjectException.class)
@@ -197,7 +192,7 @@ public class UserManagementTestUpdate {
 
     /**
      * Test of updateMaintainer method, of class UserManagementService, updating
-     * username, password, email, phone number of a Maintainer (Name doesn't
+     * username, password, email, phone number of a Maintainer (name doesn't
      * respect the length).
      */
     @Test(expected = InvalidParameterObjectException.class)
@@ -217,7 +212,7 @@ public class UserManagementTestUpdate {
 
     /**
      * Test of updateMaintainer method, of class UserManagementService, updating
-     * username, password, email, phone number of a Maintainer (Surname doesn't
+     * username, password, email, phone number of a Maintainer (surname doesn't
      * respect the length).
      */
     @Test(expected = InvalidParameterObjectException.class)
@@ -237,7 +232,7 @@ public class UserManagementTestUpdate {
 
     /**
      * Test of updateMaintainer method, of class UserManagementService, updating
-     * username, password, email, phone number of a Maintainer (Email doesn't
+     * username, password, email, phone number of a Maintainer (email doesn't
      * respect the length).
      */
     @Test(expected = InvalidParameterObjectException.class)
@@ -257,7 +252,7 @@ public class UserManagementTestUpdate {
 
     /**
      * Test of updateMaintainer method, of class UserManagementService, updating
-     * username, password, email, phone number of a Maintainer (Email doesn't
+     * username, password, email, phone number of a Maintainer (email doesn't
      * respect the format).
      */
     @Test(expected = InvalidParameterObjectException.class)
@@ -277,7 +272,7 @@ public class UserManagementTestUpdate {
 
     /**
      * Test of updateMaintainer method, of class UserManagementService, updating
-     * username, password, email, phone number of a Maintainer (Phone number
+     * username, password, email, phone number of a Maintainer (phone number
      * doesn't respect the length beacuse is less than 10).
      */
     @Test(expected = InvalidParameterObjectException.class)
@@ -297,7 +292,7 @@ public class UserManagementTestUpdate {
 
     /**
      * Test of updateMaintainer method, of class UserManagementService, updating
-     * username, password, email, phone number of a Maintainer (Phone number
+     * username, password, email, phone number of a Maintainer (phone number
      * doesn't respect the length beacuse is more than 10).
      */
     @Test(expected = InvalidParameterObjectException.class)
@@ -317,7 +312,7 @@ public class UserManagementTestUpdate {
 
     /**
      * Test of updateMaintainer method, of class UserManagementService, updating
-     * username, password, email, phone number of a Maintainer (Phone number
+     * username, password, email, phone number of a Maintainer (phone number
      * doesn't respect the format).
      */
     @Test(expected = InvalidParameterObjectException.class)
@@ -335,4 +330,3 @@ public class UserManagementTestUpdate {
         assertNotEquals(result, notExpectedResult);
     }
 }
- 

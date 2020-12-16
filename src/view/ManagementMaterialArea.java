@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.event.ComponentAdapter;
@@ -18,16 +13,18 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class ManagementMaterialArea extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManagementeMaterialArea
+     * Creates new form ManagementeMaterialArea.
      */
     public ManagementMaterialArea() {
         initComponents();
+       
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(542, 474);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -109,11 +106,6 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
                 jButtonViewMouseClicked(evt);
             }
         });
-        jButtonView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonViewActionPerformed(evt);
-            }
-        });
 
         jButtonCreate.setBackground(new java.awt.Color(255, 255, 255));
         jButtonCreate.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
@@ -121,11 +113,6 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
         jButtonCreate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonCreateMouseClicked(evt);
-            }
-        });
-        jButtonCreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCreateActionPerformed(evt);
             }
         });
 
@@ -137,11 +124,6 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
                 jButtonUpdateMouseClicked(evt);
             }
         });
-        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonUpdateActionPerformed(evt);
-            }
-        });
 
         jButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
         jButtonDelete.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
@@ -149,11 +131,6 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
         jButtonDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonDeleteMouseClicked(evt);
-            }
-        });
-        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeleteActionPerformed(evt);
             }
         });
 
@@ -232,24 +209,11 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonViewMouseClicked
-    }//GEN-LAST:event_jButtonViewMouseClicked
-
-    private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
-        setVisible(false);
-        ViewMaterials vm = new ViewMaterials();
-        vm.setVisible(true);
-    }//GEN-LAST:event_jButtonViewActionPerformed
-
     private void jButtonCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateMouseClicked
         setVisible(false);
         CreateMaterial cm = new CreateMaterial();
         cm.setVisible(true);
     }//GEN-LAST:event_jButtonCreateMouseClicked
-
-    private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
-
-    }//GEN-LAST:event_jButtonCreateActionPerformed
 
     private void jButtonUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpdateMouseClicked
         setVisible(false);
@@ -257,18 +221,11 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
         um.setVisible(true);
     }//GEN-LAST:event_jButtonUpdateMouseClicked
 
-    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-    }//GEN-LAST:event_jButtonUpdateActionPerformed
-
     private void jButtonDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeleteMouseClicked
         setVisible(false);
         DeleteMaterial dm = new DeleteMaterial();
         dm.setVisible(true);
     }//GEN-LAST:event_jButtonDeleteMouseClicked
-
-    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-
-    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
@@ -283,6 +240,12 @@ public class ManagementMaterialArea extends javax.swing.JFrame {
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(ManagementMaterialArea.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
+
+    private void jButtonViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonViewMouseClicked
+        setVisible(false);
+        ViewMaterials vm = new ViewMaterials();
+        vm.setVisible(true);
+    }//GEN-LAST:event_jButtonViewMouseClicked
 
     /**
      * @param args the command line arguments

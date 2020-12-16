@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.ActivityNotFoundException;
@@ -37,16 +32,18 @@ public class UpdateActivity extends javax.swing.JFrame {
     private DepartmentService dep = DepartmentService.getDepartmentService();
 
     /**
-     * Creates new form UpdateActivity
+     * Creates new form UpdateActivity.
      */
     public UpdateActivity() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(890, 590);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -162,24 +159,6 @@ public class UpdateActivity extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldDescription.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDescriptionActionPerformed(evt);
-            }
-        });
-
-        jTextFieldType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTypeActionPerformed(evt);
-            }
-        });
-
-        jTextFieldTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTimeActionPerformed(evt);
-            }
-        });
-
         jLabelDescription.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelDescription.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDescription.setText("Description");
@@ -240,11 +219,6 @@ public class UpdateActivity extends javax.swing.JFrame {
         jButtonView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonViewMouseClicked(evt);
-            }
-        });
-        jButtonView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonViewActionPerformed(evt);
             }
         });
 
@@ -356,14 +330,6 @@ public class UpdateActivity extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescriptionActionPerformed
-
-    }//GEN-LAST:event_jTextFieldDescriptionActionPerformed
-
-    private void jTextFieldTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTimeActionPerformed
-
-    }//GEN-LAST:event_jTextFieldTimeActionPerformed
-
     private void jLabelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMouseClicked
         setVisible(false);
         ManagementActivityArea activityArea = new ManagementActivityArea();
@@ -429,7 +395,6 @@ public class UpdateActivity extends javax.swing.JFrame {
             week_num = Integer.parseInt(week);
         }
 
-        // Site update checking
         String area = null;
         if (!jTableDepartment.getSelectionModel().isSelectionEmpty()) {
             checking.add(area);
@@ -442,8 +407,11 @@ public class UpdateActivity extends javax.swing.JFrame {
         // Count is used to monitor empty update values
         int count = 0;
         // Increment count for every null String in cheching list
-        count = checking.stream().filter(s -> (s == null)).map(_item -> 1).reduce(count, Integer::sum);
-
+        for(String s: checking){
+            if(s == null)
+                count++;
+        }
+ 
         try {
             int result = activity.updateActivity(ID, type, description, time, week_num, department);
             if (result > 0) {
@@ -458,25 +426,17 @@ public class UpdateActivity extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabelUpdateMouseClicked
 
-    private void jTextFieldTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTypeActionPerformed
-
-    }//GEN-LAST:event_jTextFieldTypeActionPerformed
-
     private void jButtonViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonViewMouseClicked
 
         try {
             depList = dep.getAllDepartments();
         } catch (SQLException ex) {
-            Logger.getLogger(DeleteDepartment.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         this.showDepartments(depList);
         depList = null;
     }//GEN-LAST:event_jButtonViewMouseClicked
-
-    private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
-
-    }//GEN-LAST:event_jButtonViewActionPerformed
 
     private void jLabelMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelMinimizeMouseClicked
         this.setExtendedState(UpdateActivity.ICONIFIED);

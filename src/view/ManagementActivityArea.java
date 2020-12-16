@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import controller.Services.NotificationService;
@@ -26,22 +21,25 @@ public class ManagementActivityArea extends javax.swing.JFrame {
     private List<String> messages;
 
     /**
-     * Creates new form ManagementActivityArea
+     * Creates new form ManagementActivityArea.
      */
     public ManagementActivityArea() {
         initComponents();
+
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(740, 614);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
             }
         });
+
         initNotification();
     }
 
@@ -54,10 +52,6 @@ public class ManagementActivityArea extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabelBack = new javax.swing.JLabel();
         jLabelIconCreate = new javax.swing.JLabel();
@@ -75,12 +69,6 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         jLabelMinimize = new javax.swing.JLabel();
         jButtonViewAssigned = new javax.swing.JButton();
         jLabelNotification = new javax.swing.JLabel();
-
-        jMenuItem1.setText("jMenuItem1");
-
-        jMenu1.setText("jMenu1");
-
-        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -162,11 +150,6 @@ public class ManagementActivityArea extends javax.swing.JFrame {
                 jButtonViewMouseClicked(evt);
             }
         });
-        jButtonView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonViewActionPerformed(evt);
-            }
-        });
 
         jButtonCreate.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonCreate.setText("Create Activity");
@@ -191,22 +174,12 @@ public class ManagementActivityArea extends javax.swing.JFrame {
                 jButtonDeleteMouseClicked(evt);
             }
         });
-        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeleteActionPerformed(evt);
-            }
-        });
 
         jButtonSelect.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jButtonSelect.setText("Select Activity");
         jButtonSelect.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonSelectMouseClicked(evt);
-            }
-        });
-        jButtonSelect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSelectActionPerformed(evt);
             }
         });
 
@@ -222,11 +195,6 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         jButtonViewAssigned.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonViewAssignedMouseClicked(evt);
-            }
-        });
-        jButtonViewAssigned.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonViewAssignedActionPerformed(evt);
             }
         });
 
@@ -312,18 +280,6 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
-
-    }//GEN-LAST:event_jButtonViewActionPerformed
-
-    private void jButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectActionPerformed
-
-    }//GEN-LAST:event_jButtonSelectActionPerformed
-
-    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-
-    }//GEN-LAST:event_jButtonDeleteActionPerformed
-
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
@@ -374,9 +330,6 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         vActivity.setVisible(true);
     }//GEN-LAST:event_jButtonViewAssignedMouseClicked
 
-    private void jButtonViewAssignedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewAssignedActionPerformed
-    }//GEN-LAST:event_jButtonViewAssignedActionPerformed
-
     private void jLabelNotificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelNotificationMouseClicked
 
         String notificationDistribution = "";
@@ -402,7 +355,7 @@ public class ManagementActivityArea extends javax.swing.JFrame {
         try {
             messages = notService.readNotifications();
         } catch (SQLException ex) {
-            Logger.getLogger(ManagementActivityArea.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
     }
@@ -456,12 +409,8 @@ public class ManagementActivityArea extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelMinimize;
     private javax.swing.JLabel jLabelNotification;
     private javax.swing.JLabel jLabelTitle;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPopupMenu jPopupMenu1;
     // End of variables declaration//GEN-END:variables
 
 }

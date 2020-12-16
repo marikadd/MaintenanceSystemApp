@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.ActivityNotFoundException;
@@ -33,24 +28,28 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
     private TreeMap<Integer, String> activityMap = new TreeMap<>();
 
     /**
-     * Creates new form ViewAssignedActivies
+     * Creates new form ViewAssignedActivies.
      */
     public ViewAssignedActivities() {
         initComponents();
+
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(862, 449);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 50, 50));
             }
         });
-        // ID column is hidden because it is not useful for display purposes,
-        // but is used for unassignment operations
+        /* 
+        * ID column is hidden because it is not useful for display purposes,
+        * but is used for unassignment operations
+         */
         jTableActivities.getColumnModel().getColumn(4).setMinWidth(0);
         jTableActivities.getColumnModel().getColumn(4).setMaxWidth(0);
         jTableActivities.getColumnModel().getColumn(4).setWidth(0);
@@ -75,7 +74,7 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         jLabelBack = new javax.swing.JLabel();
         jLabelIcon = new javax.swing.JLabel();
         jLabelMinimize = new javax.swing.JLabel();
-        jButtonUnassign = new javax.swing.JButton();
+        jButtonCompleted = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -92,11 +91,6 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         jButtonList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonListMouseClicked(evt);
-            }
-        });
-        jButtonList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonListActionPerformed(evt);
             }
         });
 
@@ -131,11 +125,6 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableActivities.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableActivitiesMouseClicked(evt);
-            }
-        });
         jScrollPane.setViewportView(jTableActivities);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 0));
@@ -161,16 +150,16 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelIcon)
-                .addGap(20, 20, 20))
+                .addGap(19, 19, 19))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelBack)
-                .addGap(190, 190, 190)
+                .addGap(134, 134, 134)
                 .addComponent(jLabelIcon)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
@@ -180,16 +169,11 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
             }
         });
 
-        jButtonUnassign.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButtonUnassign.setText("Completed");
-        jButtonUnassign.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonCompleted.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jButtonCompleted.setText("Completed");
+        jButtonCompleted.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonUnassignMouseClicked(evt);
-            }
-        });
-        jButtonUnassign.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonUnassignActionPerformed(evt);
+                jButtonCompletedMouseClicked(evt);
             }
         });
 
@@ -211,8 +195,8 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jButtonUnassign)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jButtonCompleted)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jButtonList)))
                                 .addGap(73, 73, 73))))
@@ -233,10 +217,10 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonList)
-                    .addComponent(jButtonUnassign))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonCompleted, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,19 +245,15 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No activity assigned!");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         try {
             this.showRecap(activityMap);
         } catch (SQLException | ActivityNotFoundException | InvalidParameterObjectException ex) {
-            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jButtonListMouseClicked
-
-    private void jButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListActionPerformed
-
-    }//GEN-LAST:event_jButtonListActionPerformed
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
@@ -289,12 +269,16 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
         this.setExtendedState(ViewAssignedActivities.ICONIFIED);
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
-    private void jTableActivitiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableActivitiesMouseClicked
-
-    }//GEN-LAST:event_jTableActivitiesMouseClicked
-
     private void jButtonUnassignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUnassignMouseClicked
 
+
+    }//GEN-LAST:event_jButtonUnassignMouseClicked
+
+    private void jButtonUnassignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUnassignActionPerformed
+
+    }//GEN-LAST:event_jButtonUnassignActionPerformed
+
+    private void jButtonCompletedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCompletedMouseClicked
         // Avoid empty selections
         if (jTableActivities.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please, select an activity first");
@@ -311,14 +295,10 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Activity unassigned successfully!");
             }
         } catch (SQLException | UnsuccessfulUpdateException | InvalidParameterObjectException ex) {
-            Logger.getLogger(ViewAssignedActivities.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
-    }//GEN-LAST:event_jButtonUnassignMouseClicked
-
-    private void jButtonUnassignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUnassignActionPerformed
-
-    }//GEN-LAST:event_jButtonUnassignActionPerformed
+    }//GEN-LAST:event_jButtonCompletedMouseClicked
 
     /**
      * Fill a table with all the activities assigned with the relative
@@ -326,6 +306,9 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
      *
      * @param map: a map containing all the (activityID, maintainer username)
      * couples
+     * @throws SQLException
+     * @throws ActivityNotFoundException
+     * @throws InvalidParameterObjectException
      */
     private void showRecap(TreeMap<Integer, String> map) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
@@ -390,8 +373,8 @@ public class ViewAssignedActivities extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCompleted;
     private javax.swing.JButton jButtonList;
-    private javax.swing.JButton jButtonUnassign;
     private javax.swing.JLabel jLabelBack;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelIcon;

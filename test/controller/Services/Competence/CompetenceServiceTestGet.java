@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Services.Competence;
 
 import configuration.Database.ConnectionForTest;
@@ -34,7 +29,7 @@ public class CompetenceServiceTestGet {
     private DBProduct dbProduct;
 
     public CompetenceServiceTestGet() {
-    } 
+    }
 
     @Before
     public void setUp() {
@@ -204,8 +199,8 @@ public class CompetenceServiceTestGet {
         int expResult = 0;
         assertEquals(expResult, result);
     }
-    
-     /**
+
+    /**
      * Test of getAllSkills method, of class CompetenceService, getting all
      * skills associated to an unexisting activity taken as an input (ID empty).
      */
@@ -217,7 +212,7 @@ public class CompetenceServiceTestGet {
         int result = list.size();
         int expResult = 0;
         assertEquals(expResult, result);
-    } 
+    }
 
     private int getResultNumberFor(List<CompetenceInterface> list, boolean type) {
 

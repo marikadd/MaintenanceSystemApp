@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.InvalidParameterObjectException;
@@ -32,16 +27,18 @@ public class UpdateDepartment extends javax.swing.JFrame {
     private DepartmentService dep = DepartmentService.getDepartmentService();
 
     /**
-     * Creates new form UpdateDepartment
+     * Creates new form UpdateDepartment.
      */
     public UpdateDepartment() {
         initComponents();
+
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(600, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -164,12 +161,6 @@ public class UpdateDepartment extends javax.swing.JFrame {
             }
         });
 
-        jTextNewArea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextNewAreaActionPerformed(evt);
-            }
-        });
-
         jLabelMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
         jLabelMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -244,9 +235,6 @@ public class UpdateDepartment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextNewAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNewAreaActionPerformed
-    }//GEN-LAST:event_jTextNewAreaActionPerformed
-
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabelExitMouseClicked
@@ -258,6 +246,7 @@ public class UpdateDepartment extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please, select a department first");
             return;
         }
+
         int row = jTableDepartments.getSelectedRow();
         String oldArea = jTableDepartments.getModel().getValueAt(row, 0).toString();
         String newArea = jTextNewArea.getText();
@@ -280,7 +269,7 @@ public class UpdateDepartment extends javax.swing.JFrame {
         try {
             depList = dep.getAllDepartments();
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateDepartment.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         showDepartments(depList);

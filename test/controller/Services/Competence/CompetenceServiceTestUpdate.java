@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Services.Competence;
 
 import configuration.Database.ConnectionForTest;
@@ -27,7 +22,7 @@ public class CompetenceServiceTestUpdate {
     private CompetenceService cps;
     private ConnectionForTest cft;
     private DBProduct dbProduct;
-    
+
     public CompetenceServiceTestUpdate() {
     }
 
@@ -103,11 +98,11 @@ public class CompetenceServiceTestUpdate {
         assertEquals(result, expResult);
     }
 
-     /**
+    /**
      * Test of updateCompetence method, of class CompetenceService, updating an
      * invalid Competence (id empty) with an valid description.
      */
-    @Test( expected = InvalidParameterObjectException.class)
+    @Test(expected = InvalidParameterObjectException.class)
     public void testUpdateCompetence5() throws Exception {
         System.out.println("updateCompetence");
         Integer id = null;
@@ -116,5 +111,5 @@ public class CompetenceServiceTestUpdate {
         int result = cps.updateCompetence(id, newDescription);
         assertEquals(result, expResult);
     }
- 
+
 }

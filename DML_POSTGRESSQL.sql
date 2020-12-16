@@ -1,20 +1,17 @@
+delete from Users_Competences;
+delete from Activity_Competences;
+delete from Activity_Maintainers;
+delete from MaintenanceActivity;
+delete from Department;
+delete from Material;
+delete from Users;
+delete from Competence;
+delete from Notification_Planner;
 
-DELETE FROM Users_Competences;
-DELETE FROM Activity_Competences;
-DELETE FROM Activity_Maintainers;
-DELETE FROM MaintenanceActivity;
-DELETE FROM Department;
-DELETE FROM Material;
-DELETE FROM Users;
-DELETE FROM Competence;
-DELETE FROM Notification_Planner;
-
-
-SELECT setval('competence_id_seq', 1, false);
-SELECT setval('maintaineractivityday_id_seq', 1, false);
-SELECT setval('maintenanceactivity_id_seq', 1, false);
-SELECT setval('material_id_seq', 1, false);
-
+select setval('competence_id_seq', 1, false);
+select setval('maintaineractivityday_id_seq', 1, false);
+select setval('maintenanceactivity_id_seq', 1, false);
+select setval('material_id_seq', 1, false);
 
 insert into Users values ('Mario','Rossi', 'mrossi', 'MRossi98', 'mariorossi@gmail.it', '3339546046', 'MAINTAINER');
 insert into Users values ('Luca','Bianchi', 'lbianchi', 'LBianchi*', 'lbianchi@gmail.it', '3349646278', 'PLANNER');
@@ -36,6 +33,8 @@ insert into MaintenanceActivity(Type_Activity, Site, Description, Time_Activity,
 insert into Users_Competences (Username, ID_Competences) values ('mrossi',1);
 
 insert into Activity_Competences(Competence_ID, Activity_ID) values (1,1);
+
+insert into Activity_Maintainers(Username_Maintainer, Activity_Maintainer_ID) values ('mrossi', 1);
 
 insert into MaintainerActivityDay(username, ma_id, week_day) values ('mrossi', 1, 1);
 

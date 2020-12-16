@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import configuration.Exceptions.InvalidParameterObjectException;
@@ -26,16 +21,18 @@ public class CreateMaterial extends javax.swing.JFrame {
     MaterialService mat = MaterialService.getMaterialService();
 
     /**
-     * Creates new form CreateMaterial
+     * Creates new form CreateMaterial.
      */
     public CreateMaterial() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon("src/icons/app_icon.png");
         setIconImage(icon.getImage());
         setTitle("Maintenance System App");
         setSize(505, 337);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -79,12 +76,6 @@ public class CreateMaterial extends javax.swing.JFrame {
         jLabelExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelExitMouseClicked(evt);
-            }
-        });
-
-        jTextType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextTypeActionPerformed(evt);
             }
         });
 
@@ -202,10 +193,6 @@ public class CreateMaterial extends javax.swing.JFrame {
         ManagementMaterialArea mArea = new ManagementMaterialArea();
         mArea.setVisible(true);
     }//GEN-LAST:event_jLabelBackMouseClicked
-
-    private void jTextTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTypeActionPerformed
-
-    }//GEN-LAST:event_jTextTypeActionPerformed
 
     private void jLabelCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCreateMouseClicked
 

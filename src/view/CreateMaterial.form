@@ -148,9 +148,6 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextType">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextTypeActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelCreate">
               <Properties>
