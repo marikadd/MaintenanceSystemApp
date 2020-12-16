@@ -14,8 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -84,7 +82,7 @@ public class CreateActivity extends javax.swing.JFrame {
         jLabelCreate = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableToAssociate = new javax.swing.JTable();
-        jButtonAdd = new javax.swing.JButton();
+        jButtonAddSkill = new javax.swing.JButton();
         jButtonRemove = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableAssociated = new javax.swing.JTable();
@@ -102,7 +100,7 @@ public class CreateActivity extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableMaterialsAssociated = new javax.swing.JTable();
         jLabelMaterialsAssigned = new javax.swing.JLabel();
-        jButtonAdd1 = new javax.swing.JButton();
+        jButtonAddMAterial = new javax.swing.JButton();
         jButtonRemove1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -176,11 +174,11 @@ public class CreateActivity extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableToAssociate);
 
-        jButtonAdd.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButtonAdd.setText("Add");
-        jButtonAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonAddSkill.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jButtonAddSkill.setText("Add");
+        jButtonAddSkill.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonAddMouseClicked(evt);
+                jButtonAddSkillMouseClicked(evt);
             }
         });
 
@@ -318,11 +316,11 @@ public class CreateActivity extends javax.swing.JFrame {
         jLabelMaterialsAssigned.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMaterialsAssigned.setText("Materials Assigned ");
 
-        jButtonAdd1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButtonAdd1.setText("Add");
-        jButtonAdd1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonAddMAterial.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jButtonAddMAterial.setText("Add");
+        jButtonAddMAterial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonAdd1MouseClicked(evt);
+                jButtonAddMAterialMouseClicked(evt);
             }
         });
 
@@ -385,13 +383,13 @@ public class CreateActivity extends javax.swing.JFrame {
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                                     .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonAdd))
+                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonAddSkill))
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                                     .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                     .add(jLabelMaterialsAssigned)
                                                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                                        .add(jButtonAdd1)
+                                                        .add(jButtonAddMAterial)
                                                         .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                                     .add(jLabelTitleMaterialsToAssign))))
                                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -453,8 +451,8 @@ public class CreateActivity extends javax.swing.JFrame {
                                     .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jButtonAdd)
-                                    .add(jButtonAdd1))
+                                    .add(jButtonAddSkill)
+                                    .add(jButtonAddMAterial))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                                     .add(jLabelTitleSkillsAssigned)
@@ -637,7 +635,7 @@ public class CreateActivity extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonRemove1ActionPerformed
 
-    private void jButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddMouseClicked
+    private void jButtonAddSkillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddSkillMouseClicked
          // Avoid empty selections
         if (jTableToAssociate.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Select a skill first!");
@@ -664,9 +662,9 @@ public class CreateActivity extends javax.swing.JFrame {
             modelToAssociate.removeRow(posToAssociate);
         }
         
-    }//GEN-LAST:event_jButtonAddMouseClicked
+    }//GEN-LAST:event_jButtonAddSkillMouseClicked
 
-    private void jButtonAdd1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAdd1MouseClicked
+    private void jButtonAddMAterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddMAterialMouseClicked
         
         if (jTableMaterialsToAssociate.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Select a material first!");
@@ -674,7 +672,7 @@ public class CreateActivity extends javax.swing.JFrame {
         }
 
         int posToAssociate = jTableMaterialsToAssociate.getSelectedRow();
-
+        // Transfer the selected material in the Associated table
         if (posToAssociate >= 0) {
 
             String type = jTableMaterialsToAssociate.getModel().getValueAt(posToAssociate, 0).toString();
@@ -687,13 +685,14 @@ public class CreateActivity extends javax.swing.JFrame {
             model.addRow(column);
 
             DefaultTableModel modelToAssociate = (DefaultTableModel) jTableMaterialsToAssociate.getModel();
+           // Update the ToAssociate table
             modelToAssociate.removeRow(posToAssociate);
         }
-    }//GEN-LAST:event_jButtonAdd1MouseClicked
+    }//GEN-LAST:event_jButtonAddMAterialMouseClicked
 
     private void jButtonRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemoveMouseClicked
         
-// Avoid empty selections
+        // Avoid empty selections
         if (jTableAssociated.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Select a skill first!");
             return;
@@ -736,7 +735,7 @@ public class CreateActivity extends javax.swing.JFrame {
     }
 
     /**
-     * Fill a table with the departments contained in the list.
+     * Fills the Jtable with the department contained inside the list passed as an input
      *
      * @param list: a list of Department
      */
@@ -843,8 +842,8 @@ public class CreateActivity extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAdd;
-    private javax.swing.JButton jButtonAdd1;
+    private javax.swing.JButton jButtonAddMAterial;
+    private javax.swing.JButton jButtonAddSkill;
     private javax.swing.JButton jButtonRemove;
     private javax.swing.JButton jButtonRemove1;
     private javax.swing.JComboBox<String> jComboWeek;

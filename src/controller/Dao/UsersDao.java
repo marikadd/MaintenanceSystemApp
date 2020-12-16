@@ -89,7 +89,9 @@ public class UsersDao {
         ps.setString(7, role.toString());
 
         int result = ps.executeUpdate();
-
+        
+        con.close();
+        
         return result;
     }
 
@@ -131,7 +133,7 @@ public class UsersDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("No row update!");
         }
-
+        con.close();
         return result;
     }
 
@@ -143,7 +145,7 @@ public class UsersDao {
      * statements or 0 for SQL statements that return nothing
      * @throws SQLException if a database access error occurs
      */
-    public int deleteUserModel(String username) throws SQLException, UnsuccessfulUpdateException {
+    public int deleteUserModel(String username) throws SQLException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -154,7 +156,7 @@ public class UsersDao {
         ps.setString(1, username);
 
         int result = ps.executeUpdate();
-
+        con.close();
         return result;
     }
 
@@ -186,7 +188,7 @@ public class UsersDao {
         } else {
             throw new UsernotFoundException("User " + username + " not found");
         }
-
+        con.close();
         return role;
     }
 
@@ -209,7 +211,10 @@ public class UsersDao {
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
-        String query = "select * from Users u " + "where u.Role_User = ? and " + "u.Username = ?";
+        String query = "select * from Users u " 
+                        + "where u.Role_User = ? and " 
+                        + "u.Username = ?";
+                        
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, role.toString());
         ps.setString(2, username);
@@ -221,7 +226,9 @@ public class UsersDao {
         } else {
             throw new UsernotFoundException("User " + username + " not found");
         }
-
+        
+        con.close();
+        
         return userModel;
     }
 
@@ -252,7 +259,9 @@ public class UsersDao {
             UserModel userModel = getSingleUserModel(rs, role);
             users.add(userModel);
         }
-
+        
+        con.close();
+        
         return users;
     }
     
@@ -284,6 +293,7 @@ public class UsersDao {
         } else {
             throw new UsernotFoundException(String.format("The user with username %s not found", username));
         }
+        con.close();
     }
 
     /**
@@ -312,7 +322,9 @@ public class UsersDao {
             UserModel userModel = getAllUserModel(rs, rs.getString("Role_User"));
             users.add(userModel);
         }
-
+        
+        con.close();
+        
         return users;
     }
 

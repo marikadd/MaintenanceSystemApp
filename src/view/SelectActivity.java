@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -291,7 +289,8 @@ public class SelectActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSelectMouseClicked
 
     /**
-     * Fill a table with the maintenance activities contained in the list.
+     * Fills the Jtable with the maintenance activities 
+     * contained inside the list passed as an input
      *
      * @param list: a list containing all the maintenance activities
      */

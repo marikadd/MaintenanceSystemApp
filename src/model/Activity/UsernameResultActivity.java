@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model.Activity;
 
 /**
- *
+ *This class has been create to handle the result of a query without 
+ * changing....
  * @author Group9
  */
 public class UsernameResultActivity {

@@ -79,7 +79,7 @@ public class CompetencesDao {
             result += ps.executeUpdate();
 
         }
-
+        con.close();
         return result;
     }
 
@@ -111,7 +111,7 @@ public class CompetencesDao {
             result += ps.executeUpdate();
 
         }
-
+        con.close();
         return result;
     }
 
@@ -137,7 +137,7 @@ public class CompetencesDao {
         while (rs.next()) {
             competences.add(getCompetence(rs));
         }
-
+        con.close();
         return competences;
     }
 
@@ -169,7 +169,7 @@ public class CompetencesDao {
         while (rs.next()) {
             competences.add(getCompetence(rs));
         }
-
+        con.close();
         return competences;
     }
 
@@ -201,7 +201,7 @@ public class CompetencesDao {
         while (rs.next()) {
             competences.add(getCompetence(rs));
         }
-
+        con.close();
         return competences;
     }
 
@@ -232,7 +232,7 @@ public class CompetencesDao {
         ps.setString(1, description);
 
         int result = ps.executeUpdate();
-
+        con.close();
         return result;
     }
 
@@ -269,7 +269,7 @@ public class CompetencesDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("No rows update");
         }
-
+        con.close();
         return result;
     }
 
@@ -302,7 +302,7 @@ public class CompetencesDao {
         ps.setInt(1, id);
 
         int result = ps.executeUpdate();
-
+        con.close();
         return result;
     }
 
@@ -340,7 +340,7 @@ public class CompetencesDao {
             competences.add(getCompetence(rs));
 
         }
-
+        con.close();
         return competences;
 
     }

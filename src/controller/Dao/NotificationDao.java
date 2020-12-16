@@ -63,7 +63,7 @@ public class NotificationDao {
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, message);
-
+        con.close();
         return ps.executeUpdate();
 
     }
@@ -77,13 +77,18 @@ public class NotificationDao {
      * @throws SQLException if a database access error occurs
      */
     public int readAllMessage() throws SQLException {
-
+        
+        /*This method doesn't close the connection since it will be
+        called inside the constructor of the view ManagementActivityArea.
+        The choice of not closing a connection is not wrong, since the connection
+        will close automatically after a timeout*/
+        
         Connection con = dbProduct.connectToDB();
 
         String query = "UPDATE Notification_Planner SET read = true";
 
         PreparedStatement ps = con.prepareStatement(query);
-
+        
         return ps.executeUpdate();
 
     }
@@ -112,7 +117,7 @@ public class NotificationDao {
             messages.add(rs.getString("message"));
 
         }
-
+        con.close();
         return messages;
 
     }

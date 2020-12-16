@@ -83,7 +83,7 @@ public class DepartmentDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot insert this department");
         }
-
+        con.close();
         return result;
     }
 
@@ -109,7 +109,7 @@ public class DepartmentDao {
         while (rs.next()) {
             depList.add(getDepartment(rs));
         }
-
+        con.close();
         return depList;
     }
 
@@ -142,7 +142,7 @@ public class DepartmentDao {
         } else {
             throw new DepartmentnotFoundException("Department " + area + " not found");
         }
-
+        con.close();
         return dep;
     }
 
@@ -177,7 +177,7 @@ public class DepartmentDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot update this department");
         }
-
+        con.close();
         return result;
     }
 
@@ -206,7 +206,7 @@ public class DepartmentDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot delete this department");
         }
-
+        con.close();
         return result;
     }
 

@@ -237,7 +237,7 @@ public class ViewUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
-     * Fill a table with the users contained in the list.
+     * Fills the Jtable with the users contained inside the list passed as an input
      *
      * @param list: a list containing all the users
      */

@@ -322,7 +322,7 @@ public class UpdateUser extends javax.swing.JFrame {
         int row = jTableUsers.getSelectedRow();
         String oldUsername = jTableUsers.getModel().getValueAt(row, 0).toString();
 
-        // Checking is used for searching an empty update
+        // This list is used for searching an empty update
         ArrayList<String> checking = new ArrayList<>();
 
         String newUsername = check(jTextNewUsername.getText());
@@ -367,7 +367,7 @@ public class UpdateUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
-     * Fill a table with the users in the list.
+     * Fills the Jtable with the users contained inside the list passed as an input
      *
      * @param list: a list containing all the users
      */
@@ -377,13 +377,13 @@ public class UpdateUser extends javax.swing.JFrame {
         Object column[] = new Object[4];
 
         int length = users.getRowCount();
-
+        // Clean the table in case of multiple list actions
         if (length != 0) {
             for (int i = 0; i < length; i++) {
                 users.removeRow(0);
             }
         }
-
+        // Fill the table
         for (int i = 0; i < list.size(); i++) {
             column[0] = list.get(i).getUsername();
             column[1] = list.get(i).getName();
@@ -404,7 +404,7 @@ public class UpdateUser extends javax.swing.JFrame {
      * @param role: user's role to be updated
      * @return either the row count for SQL Data Manipulation Language (DML)
      * statements or 0 for SQL statements that return nothing
-     * * @throws InvalidParameterObjectException
+     * @throws InvalidParameterObjectException
      * @throws SQLException
      * @throws UnsuccessfulUpdateException
      * @throws UsernotFoundException 

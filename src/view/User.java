@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 public class User extends javax.swing.JFrame {
 
     /**
-     * Creates new form user1
+     * Creates new form user
      */
     public User() {
         initComponents();

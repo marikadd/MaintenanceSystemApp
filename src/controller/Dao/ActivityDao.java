@@ -89,7 +89,7 @@ public class ActivityDao {
         validateActivity(type, description, time_activity, dep, week_num);
 
         String query = "INSERT INTO MaintenanceActivity(Type_Activity, Site, Description, Time_Activity, Week_Number, Assigned) "
-                + "VALUES(?,?,?,?,?,?)";
+                        + "VALUES(?,?,?,?,?,?)";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
@@ -105,19 +105,22 @@ public class ActivityDao {
 
         if (affectedRow > 0) {
             String sqlquery = "SELECT id From MaintenanceActivity "
-                    + "where id = (SELECT max(id) FROM MaintenanceActivity)";
+                              + "where id = (SELECT max(id) FROM MaintenanceActivity)";
 
             PreparedStatement psSql = con.prepareStatement(sqlquery);
 
             ResultSet rsSql = psSql.executeQuery();
 
             if (rsSql.next()) {
+                con.close();
                 return rsSql.getInt("id");
             } else {
+                con.close();
                 throw new SQLException("Row not insert");
             }
-
-        } else {
+        } 
+        else {
+            con.close();
             throw new SQLException("Row not insert");
         }
 
@@ -150,7 +153,7 @@ public class ActivityDao {
 
             result = ps.executeUpdate();
         }
-
+        con.close();
         return result;
     }
 
@@ -181,7 +184,7 @@ public class ActivityDao {
 
             result = ps.executeUpdate();
         }
-
+        con.close();
         return result;
     }
 
@@ -229,7 +232,7 @@ public class ActivityDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("No rows update");
         }
-
+        con.close();
         return result;
     }
 
@@ -252,6 +255,7 @@ public class ActivityDao {
         ps.setInt(1, id);
 
         boolean result = ps.execute();
+        con.close();
     }
 
     /**
@@ -273,6 +277,7 @@ public class ActivityDao {
         ps.setInt(1, id);
 
         boolean result = ps.execute();
+        con.close();
     }
 
     /**
@@ -289,10 +294,10 @@ public class ActivityDao {
         cft.setConn(con);
 
         String query = "SELECT am.Username_Maintainer as username "
-                + "FROM MaintenanceActivity ma JOIN Activity_Maintainers am "
-                + "ON (ma.ID = am.Activity_Maintainer_ID) "
-                + "WHERE ID = ? AND "
-                + "Assigned = true";
+                        + "FROM MaintenanceActivity ma JOIN Activity_Maintainers am "
+                        + "ON (ma.ID = am.Activity_Maintainer_ID) "
+                        + "WHERE ID = ? AND "
+                        + "Assigned = true";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, activityId);
@@ -305,7 +310,7 @@ public class ActivityDao {
         if (ura.isResult()) {
             ura.setUsername(rs.getString("username"));
         }
-
+        con.close();
         return ura;
 
     }
@@ -333,7 +338,7 @@ public class ActivityDao {
         ps.setInt(1, id);
 
         int result = ps.executeUpdate();
-
+        con.close();
         return result;
 
     }
@@ -372,7 +377,7 @@ public class ActivityDao {
         } else {
             throw new ActivityNotFoundException("Activity " + ID + " not found");
         }
-
+        con.close();
         return activity;
     }
 
@@ -403,7 +408,8 @@ public class ActivityDao {
             throw new InvalidParameterObjectException("Week num must be in range [1,52]");
         }
 
-        String query = "select * from MaintenanceActivity " + "where Week_Number = ? AND Assigned=false";
+        String query = "select * from MaintenanceActivity " 
+                       + "where Week_Number = ? AND Assigned=false";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, week_num);
@@ -415,7 +421,7 @@ public class ActivityDao {
         while (rs.next()) {
             activities.add(getMaintenanceActivity(rs));
         }
-
+        con.close();
         return activities;
     }
 
@@ -441,7 +447,7 @@ public class ActivityDao {
         while (rs.next()) {
             activities.add(getMaintenanceActivity(rs));
         }
-
+        con.close();
         return activities;
     }
 
@@ -480,7 +486,7 @@ public class ActivityDao {
                 throw new UnsuccessfulUpdateException("Cannot assign activity #" + id + " to user " + maintainer.getUsername());
             }
         }
-
+        con.close();
         return result;
     }
 
@@ -516,7 +522,9 @@ public class ActivityDao {
         }
 
         unassignmentActivity(id);
-
+        
+        con.close();
+        
         return result;
     }
 
@@ -550,7 +558,8 @@ public class ActivityDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot deaassign activity #" + id);
         }
-
+        con.close();
+        
         return result;
     }
 
@@ -568,7 +577,7 @@ public class ActivityDao {
         cft.setConn(con);
 
         String query = "SELECT Username_Maintainer as username FROM Activity_Maintainers "
-                + "WHERE Activity_Maintainer_ID = ?";
+                        + "WHERE Activity_Maintainer_ID = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, activityId);
@@ -576,8 +585,15 @@ public class ActivityDao {
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
+            
+            con.close();
+            
             return rs.getString("username");
+            
         } else {
+            
+            con.close();
+            
             return null;
         }
 
@@ -599,8 +615,8 @@ public class ActivityDao {
         cft.setConn(con);
 
         String query = "SELECT * FROM MaintenanceActivity WHERE ID IN ("
-                + "SELECT Activity_Maintainer_ID FROM Activity_Maintainers WHERE "
-                + "username_maintainer = ?)";
+                       + "SELECT Activity_Maintainer_ID FROM Activity_Maintainers WHERE "
+                       + "username_maintainer = ?)";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
@@ -611,7 +627,7 @@ public class ActivityDao {
         while (rs.next()) {
             activities.add(getMaintenanceActivity(rs));
         }
-
+        con.close();
         return activities;
 
     }
@@ -639,7 +655,8 @@ public class ActivityDao {
         while (rs.next()) {
             result.put(rs.getInt(2), rs.getString(1));
         }
-
+        con.close();
+        
         return result;
     }
 
@@ -695,7 +712,7 @@ public class ActivityDao {
             result += ps.executeUpdate();
 
         }
-
+        con.close();
         return result;
 
     }
@@ -727,8 +744,10 @@ public class ActivityDao {
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
+            con.close();
             return rs.getDouble("result");
         } else {
+            con.close();
             return 0;
         }
 

@@ -443,7 +443,8 @@ public class UpdateActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
-     * Fill a table with the maintenance activities contained in the list.
+     * Fills the Jtable with the maintenance activities contained inside the 
+     * list passed as an input
      *
      * @param list: a list containing all the maintenance activities
      */
@@ -470,7 +471,7 @@ public class UpdateActivity extends javax.swing.JFrame {
     }
 
     /**
-     * Fill a table with the departments contained in the list.
+     * Fills the Jtable with the departments contained inside the list passed as an input
      *
      * @param list: a list containing all the departments
      */

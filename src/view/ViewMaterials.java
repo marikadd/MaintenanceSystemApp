@@ -7,8 +7,6 @@ import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -240,7 +238,7 @@ public class ViewMaterials extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
-     * Fill a table with the materials in the list.
+     * Fills the Jtable with the users contained inside the list passed as an input
      *
      * @param list: a list containing all materials
      */

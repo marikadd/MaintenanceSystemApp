@@ -80,7 +80,7 @@ public class MaterialDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot insert this material");
         }
-
+        con.close();
         return result;
     }
 
@@ -120,7 +120,7 @@ public class MaterialDao {
         while (rs.next()) {
             matList.add(getMaterial(rs));
         }
-
+        con.close();
         return matList;
     }
 
@@ -155,7 +155,7 @@ public class MaterialDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot update this material");
         }
-
+        con.close();
         return result;
     }
 
@@ -184,7 +184,7 @@ public class MaterialDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot delete this material");
         }
-
+        con.close();
         return result;
     }
 

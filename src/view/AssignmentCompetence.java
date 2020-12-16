@@ -455,8 +455,9 @@ public class AssignmentCompetence extends javax.swing.JFrame {
     }
 
     /**
-     * This method extracts all the Maintainers from the DB and inserts them in
-     * the listMaintainers; the list is used to fill the table.
+     * This method extracts all the competences associated to a maintainer from 
+     * the DB and inserts them into the list list.
+     * The list is used to fill the Jtables of the interface.
      */
     private void initTableCompetences() {
 
@@ -478,14 +479,15 @@ public class AssignmentCompetence extends javax.swing.JFrame {
     }
 
     /**
-     * This method shows all the skills possessed/not possessed by the
-     * maintainer in the correct table: they will be inserted in the
-     * InMaintainer table, and may eventually be deassociated otherwise it will
-     * be inserted in the NotInMaintainer table, and it will eventually be
-     * possible to associate it with the maintainer.
+     * This method shows all the competences possessed/not possessed by the
+     * maintainer in the correct table: they will be inserted inside the
+     * InMaintainer Jtable if a maintainer owns that competence (in this case,
+     * eventually,the user can choose to remove a competence from the maintainer), 
+     * otherwise it will be inserted in the JTable notInMaintainer (in that case 
+     * it's possible to associate a competence to a maintainer)
      *
      * @param list: a list containing the associated/not associated maintainer's
-     * activities
+     * competences
      */
     private void showCompetences(List<CompetenceInterface> list) {
 

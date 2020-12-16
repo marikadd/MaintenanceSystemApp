@@ -312,8 +312,7 @@ public class CreateUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelMinimizeMouseClicked
 
     /**
-     * Calls the correct insert function based on the role selected by the user
-     * in the panel.
+     * Calls the correct insert function based on the role selected in the panel.
      *
      * @param username: username of the new user
      * @param password: password of the new user
@@ -324,7 +323,7 @@ public class CreateUser extends javax.swing.JFrame {
      * @param role: role of the new user
      * @return either the row count for SQL Data Manipulation Language (DML)
      * statements or 0 for SQL statements that return nothing
-     * @throws InvalidParameterObjectException
+     * @throws InvalidParameterObjectException 
      * @throws SQLException
      * @throws UnsuccessfulUpdateException 
      */

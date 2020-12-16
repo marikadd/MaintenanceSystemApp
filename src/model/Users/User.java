@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.Users;
 
 /**
+ * This abstract class has the purpose of representing the features (methods and
+ * attributes) that are in common between the various types of users. Each user
+ * has an username and a pssword that have to be initialized.
  *
  * @author Group9
  */
@@ -23,18 +21,36 @@ public abstract class User {
         this.password = password;
     }
 
+    /**
+     *
+     * @return a string representing the user's username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * sets the user's username
+     *
+     * @param username a string representing the user's username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     *
+     * @return a string representing the user's password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * sets the user's password
+     *
+     * @param password a string representing the user's password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
