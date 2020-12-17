@@ -288,11 +288,6 @@ public class AssignmentActivity extends javax.swing.JFrame {
                 jCheckBoxWedStateChanged(evt);
             }
         });
-        jCheckBoxWed.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxWedActionPerformed(evt);
-            }
-        });
 
         jCheckBoxThu.setText("jCheckBox4");
         jCheckBoxThu.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -319,11 +314,6 @@ public class AssignmentActivity extends javax.swing.JFrame {
         jCheckBoxSun.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jCheckBoxSunStateChanged(evt);
-            }
-        });
-        jCheckBoxSun.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxSunActionPerformed(evt);
             }
         });
 
@@ -708,14 +698,6 @@ public class AssignmentActivity extends javax.swing.JFrame {
         ViewAssignedActivities assignedActivities = new ViewAssignedActivities();
         assignedActivities.setVisible(true);
     }//GEN-LAST:event_jButtonAssignedMouseClicked
-
-    private void jCheckBoxSunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxSunActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxSunActionPerformed
-
-    private void jCheckBoxWedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxWedActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxWedActionPerformed
 
     /**
      * This method takes all the skills required by the maintenance activity to

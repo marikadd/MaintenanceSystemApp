@@ -89,27 +89,23 @@
                       <EmptySpace pref="34" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabelMinimize" min="-2" pref="40" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jLabelExit" min="-2" pref="64" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jButtonView" alignment="1" min="-2" pref="159" max="-2" attributes="0"/>
-                                          <Component id="jButtonUpdate" alignment="1" min="-2" pref="159" max="-2" attributes="0"/>
-                                          <Component id="jButtonDelete" alignment="1" min="-2" pref="159" max="-2" attributes="0"/>
-                                          <Component id="jButtonCreate" min="-2" pref="159" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="jLabelMinimize" min="-2" pref="40" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jLabelExit" min="-2" pref="64" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabelTitle" min="-2" pref="333" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jButtonCreate" alignment="1" min="-2" pref="167" max="-2" attributes="0"/>
+                                  <Component id="jButtonUpdate" min="-2" pref="167" max="-2" attributes="0"/>
+                                  <Component id="jButtonDelete" alignment="1" min="-2" pref="167" max="-2" attributes="0"/>
+                                  <Component id="jButtonView" alignment="1" min="-2" pref="167" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -124,9 +120,9 @@
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jLabelTitle" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jButtonView" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jButtonCreate" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="jButtonUpdate" min="-2" pref="50" max="-2" attributes="0"/>

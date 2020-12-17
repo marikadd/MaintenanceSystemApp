@@ -67,7 +67,7 @@ public class ConnectionForTest {
                 }
 
                 PreparedStatement ps = conn.prepareStatement(line);
-                if (line.startsWith("SELECT")) {
+                if (line.toUpperCase().startsWith("SELECT")) {
                     ps.executeQuery();
                 } else {
                     ps.executeUpdate();

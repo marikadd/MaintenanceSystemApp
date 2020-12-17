@@ -271,9 +271,9 @@ public class UpdateMaterial extends javax.swing.JFrame {
             int result = mat.updateMaterial(oldType, newType);
 
             if (result > 0) {
-                JOptionPane.showMessageDialog(null, "Department updated successfully!");
+                JOptionPane.showMessageDialog(null, "Material updated successfully!");
             } else {
-                JOptionPane.showMessageDialog(null, "No department updated!");
+                JOptionPane.showMessageDialog(null, "No material updated!");
             }
         } catch (SQLException | UnsuccessfulUpdateException | InvalidParameterObjectException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());

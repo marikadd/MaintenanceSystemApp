@@ -2,8 +2,7 @@
 package model.Activity;
 
 /**
- *This class has been create to handle the result of a query without 
- * changing....
+ *
  * @author Group9
  */
 public class UsernameResultActivity {
