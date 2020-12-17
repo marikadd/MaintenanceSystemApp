@@ -28,6 +28,7 @@ insert into Department (Area) values ('Fisciano - Molding');
 insert into Department (Area) values ('Nusco - Carpentry');
 
 insert into MaintenanceActivity(Type_Activity, Site, Description, Time_Activity, Week_Number, Assigned) values ('Eletric','Fisciano - Molding','change tube',120, '12', 'true');
+insert into MaintenanceActivity(Type_Activity, Site, Description, Time_Activity, Week_Number, Assigned) values ('Hydraulic','Fisciano - Molding','Change tube', 100, '1', 'false');
 insert into MaintenanceActivity(Type_Activity, Site, Description, Time_Activity, Week_Number, Assigned) values ('Hydraulic','Nusco - Carpentry','change sink',100, '9', 'false');
 
 insert into Users_Competences (Username, ID_Competences) values ('mrossi',1);
@@ -36,7 +37,7 @@ insert into Activity_Competences(Competence_ID, Activity_ID) values (1,1);
 
 insert into Activity_Maintainers(Username_Maintainer, Activity_Maintainer_ID) values ('mrossi', 1);
 
-insert into MaintainerActivityDay(username, ma_id, week_day) values ('mrossi', 1, 1);
+insert into MaintainerActivityDay(username, ma_id, week_day, week_num) values ('mrossi', 1, 1, 1);
 
 insert into Material(Type_Material) values ('Iron');
 insert into Material(Type_Material) values ('Wood');

@@ -641,7 +641,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
                 listDays.add(7);
             }
 
-            int result = activityService.assignActivity(username, ID, listDays, time);
+            int result = activityService.assignActivity(username, ID, listDays, time, week);
 
             leftFromUserTable();
             showUsers(listMaintainers);
@@ -776,7 +776,7 @@ public class AssignmentActivity extends javax.swing.JFrame {
      * @throws DayNotValidException 
      */
     private void showUsers(List<UserModel> list) 
-            throws SQLException, UsernotFoundException, DayNotValidException {
+            throws SQLException, UsernotFoundException, DayNotValidException, InvalidParameterObjectException {
 
         DefaultTableModel users = (DefaultTableModel) jTableMaintainersAvail.getModel();
         Object column[] = new Object[9];
@@ -787,13 +787,13 @@ public class AssignmentActivity extends javax.swing.JFrame {
             // to be assigned
             column[1] = competence.getCommonSkills(skills, list.get(i).getUsername());
             // Insert the daily avaiabilities for each maintainer
-            column[2] = activityService.getDailyAvailability(list.get(i).getUsername(), 1);
-            column[3] = activityService.getDailyAvailability(list.get(i).getUsername(), 2);
-            column[4] = activityService.getDailyAvailability(list.get(i).getUsername(), 3);
-            column[5] = activityService.getDailyAvailability(list.get(i).getUsername(), 4);
-            column[6] = activityService.getDailyAvailability(list.get(i).getUsername(), 5);
-            column[7] = activityService.getDailyAvailability(list.get(i).getUsername(), 6);
-            column[8] = activityService.getDailyAvailability(list.get(i).getUsername(), 7);
+            column[2] = activityService.getDailyAvailability(list.get(i).getUsername(), 1, week);
+            column[3] = activityService.getDailyAvailability(list.get(i).getUsername(), 2, week);
+            column[4] = activityService.getDailyAvailability(list.get(i).getUsername(), 3, week);
+            column[5] = activityService.getDailyAvailability(list.get(i).getUsername(), 4, week);
+            column[6] = activityService.getDailyAvailability(list.get(i).getUsername(), 5, week);
+            column[7] = activityService.getDailyAvailability(list.get(i).getUsername(), 6, week);
+            column[8] = activityService.getDailyAvailability(list.get(i).getUsername(), 7, week);
 
             users.addRow(column);
         }
@@ -861,6 +861,8 @@ public class AssignmentActivity extends javax.swing.JFrame {
             listMaintainers = user.getAllMaintainers();
             this.showUsers(listMaintainers);
         } catch (SQLException | UsernotFoundException | DayNotValidException ex) {
+            Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameterObjectException ex) {
             Logger.getLogger(AssignmentActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

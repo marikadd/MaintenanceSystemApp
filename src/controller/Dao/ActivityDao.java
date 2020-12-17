@@ -73,8 +73,7 @@ public class ActivityDao {
      * @param time_activity an integer representing the duration of the activity
      * @param week_num an integer representing the number of the current week
      * @param dep the department associated with the activity
-     * @param actNumRecord is an object that represents the number di righe
-     * inserite all'interno della tabella
+     * @param actNumRecord is an object that represents the row's number inside the table 
      * @return the ID of the activity that has been inserted
      * @throws SQLException if the new row has not been inserted
      * @throws InvalidParameterObjectException if the activity attributes are
@@ -558,6 +557,7 @@ public class ActivityDao {
         if (result == 0) {
             throw new UnsuccessfulUpdateException("Cannot deaassign activity #" + id);
         }
+        
         con.close();
         
         return result;
@@ -695,12 +695,12 @@ public class ActivityDao {
      * statements or 0 for SQL statements that return nothing
      * @throws SQLException if a database access error occurs
      */
-    public int setMaintainerActivityDays(String username, Integer maId, List<Integer> days) throws SQLException {
+    public int setMaintainerActivityDays(String username, Integer maId, List<Integer> days, Integer weekNum) throws SQLException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
-        String query = "Insert into MaintainerActivityDay(username, ma_id, week_day) VALUES(?, ?, ?)";
+        String query = "Insert into MaintainerActivityDay(username, ma_id, week_day, week_num) VALUES(?, ?, ?, ?)";
 
         int result = 0;
         for (Integer day : days) {
@@ -708,6 +708,7 @@ public class ActivityDao {
             ps.setString(1, username);
             ps.setInt(2, maId);
             ps.setInt(3, day);
+            ps.setInt(4, weekNum);
 
             result += ps.executeUpdate();
 
@@ -728,18 +729,19 @@ public class ActivityDao {
      * specific activity
      * @throws SQLException if a database access error occurs
      */
-    public double getSumActivityDay(String username, int day) throws SQLException {
+    public double getSumActivityDay(String username, int day, int weekNum) throws SQLException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
 
         String query = "SELECT sum(Time_Activity) as result FROM MaintenanceActivity WHERE "
                 + "id in (SELECT ma_id FROM MaintainerActivityDay WHERE username = ? "
-                + " AND week_day = ?)";
+                + " AND week_day = ? AND week_num = ?)";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
         ps.setInt(2, day);
+        ps.setInt(3, weekNum);
 
         ResultSet rs = ps.executeQuery();
 
@@ -867,4 +869,29 @@ public class ActivityDao {
         }
 
     }
+    
+    public void checkCorrectWeekNumInActivity(Integer activityId, Integer weekNum) throws SQLException, InvalidParameterObjectException {
+        
+        Connection conn = dbProduct.connectToDB();
+        cft.setConn(conn);
+        
+        String query = "SELECT * FROM MaintenanceActivity WHERE ID = ? "
+                + "AND Week_Number = ?";
+        
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setInt(1, activityId);
+        ps.setInt(2, weekNum);
+        
+        ResultSet rs = ps.executeQuery();
+        boolean result = rs.next();
+        
+        conn.close();
+        
+        if(!result) {
+            throw new InvalidParameterObjectException("The week number inserted "
+                    + "doesn't match the week number of activity");
+        }
+        
+    }
+    
 }

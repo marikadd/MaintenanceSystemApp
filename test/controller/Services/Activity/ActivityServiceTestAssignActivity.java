@@ -7,6 +7,7 @@ import configuration.Database.DBManager;
 import configuration.Database.DBProduct;
 import configuration.Exceptions.ActivityAlreadyAssignedException;
 import configuration.Exceptions.DayNotValidException;
+import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.TimeExpiredException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
@@ -59,7 +60,7 @@ public class ActivityServiceTestAssignActivity {
         int NotExpectedResult = 0;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(1);
-        int result = as.assignActivity(usernameMain, activityId, listDay, 100.0);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 100.0, 1);
         assertNotEquals(result, NotExpectedResult);
     }
 
@@ -67,7 +68,7 @@ public class ActivityServiceTestAssignActivity {
      * Test of assignActivity method, of class ActivityService, assigning an
      * invalid MaintenanceActivity to a valid Maintainer.
      */
-    @Test(expected = SQLException.class)
+    @Test(expected = InvalidParameterObjectException.class)
     public void testAssignActivity1() throws Exception {
         System.out.println("assignActivity");
         String usernameMain = "mrossi";
@@ -75,7 +76,7 @@ public class ActivityServiceTestAssignActivity {
         int ExpectedResult = 0;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(1);
-        int result = as.assignActivity(usernameMain, activityId, listDay, 180.0);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 180.0, 1);
         assertEquals(result, ExpectedResult);
     }
 
@@ -91,7 +92,7 @@ public class ActivityServiceTestAssignActivity {
         int ExpectedResult = 0;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(1);
-        int result = as.assignActivity(usernameMain, activityId, listDay, 100.0);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 100.0, 1);
         assertEquals(result, ExpectedResult);
     }
 
@@ -107,7 +108,7 @@ public class ActivityServiceTestAssignActivity {
         int ExpectedResult = 0;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(2);
-        int result = as.assignActivity(usernameMain, activityId, listDay, 120.0);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 120.0, 1);
         assertEquals(result, ExpectedResult);
     }
 
@@ -124,7 +125,7 @@ public class ActivityServiceTestAssignActivity {
         int ExpectedResult = 0;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(2);
-        int result = as.assignActivity(usernameMain, activityId, listDay, 120.0);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 120.0, 1);
         assertEquals(result, ExpectedResult);
     }
 
@@ -142,7 +143,7 @@ public class ActivityServiceTestAssignActivity {
         List<Integer> listDay = new ArrayList<>();
         listDay.add(1);
         // mrossi already used 120 minutes of time availability on monday
-        int result = as.assignActivity(usernameMain, activityId, listDay, 400.0);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 400.0, 1);
         assertEquals(result, ExpectedResult);
     }
 
@@ -158,7 +159,7 @@ public class ActivityServiceTestAssignActivity {
         int ExpectedResult = 0;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(8);
-        int result = as.assignActivity(usernameMain, activityId, listDay, 50.0);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 50.0, 1);
         assertEquals(result, ExpectedResult);
     }
 
@@ -174,7 +175,7 @@ public class ActivityServiceTestAssignActivity {
         int ExpectedResult = 0;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(0);
-        int result = as.assignActivity(usernameMain, activityId, listDay, 50.0);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 50.0, 1);
         assertEquals(result, ExpectedResult);
     }
 
@@ -190,7 +191,7 @@ public class ActivityServiceTestAssignActivity {
         int ExpectedResult = 1;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(1);
-        int result = as.assignActivity(usernameMain, activityId, listDay, 50.0);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 50.0, 1);
         assertEquals(result, ExpectedResult);
     }
 
@@ -206,8 +207,60 @@ public class ActivityServiceTestAssignActivity {
         int ExpectedResult = 1;
         List<Integer> listDay = new ArrayList<>();
         listDay.add(7);
-        int result = as.assignActivity(usernameMain, activityId, listDay, 50.0);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 50.0, 1);
         assertEquals(result, ExpectedResult);
+    }
+    
+    // Test week num must be not 52
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testAssignActivity10() throws Exception {
+        System.out.println("assignActivity");
+        String usernameMain = "mrossi";
+        Integer activityId = 2;
+        int NotExpectedResult = 0;
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(1);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 100.0, 52);
+        assertNotEquals(result, NotExpectedResult);
+    }
+    
+    // Test week num must be not 53
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testAssignActivity11() throws Exception {
+        System.out.println("assignActivity");
+        String usernameMain = "mrossi";
+        Integer activityId = 2;
+        int NotExpectedResult = 0;
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(1);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 100.0, 53);
+        assertNotEquals(result, NotExpectedResult);
+    }
+    
+    // Test week num must be not 0
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testAssignActivity12() throws Exception {
+        System.out.println("assignActivity");
+        String usernameMain = "mrossi";
+        Integer activityId = 2;
+        int NotExpectedResult = 0;
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(1);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 100.0, 0);
+        assertNotEquals(result, NotExpectedResult);
+    }
+    
+    // Test week num must be not null
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testAssignActivity13() throws Exception {
+        System.out.println("assignActivity");
+        String usernameMain = "mrossi";
+        Integer activityId = 2;
+        int NotExpectedResult = 0;
+        List<Integer> listDay = new ArrayList<>();
+        listDay.add(1);
+        int result = as.assignActivity(usernameMain, activityId, listDay, 100.0, null);
+        assertNotEquals(result, NotExpectedResult);
     }
 
     /**
@@ -248,5 +301,5 @@ public class ActivityServiceTestAssignActivity {
         int result = as.unassignActivity(activityId);
         assertEquals(ExpectedResult, result);
     }
-
+   
 }

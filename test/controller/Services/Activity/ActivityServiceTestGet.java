@@ -65,7 +65,7 @@ public class ActivityServiceTestGet {
         List<MaintenanceActivity> list = new ArrayList<>();
         list = as.getAllActivities();
         int result = list.size();
-        int ExpectedResult = 2;
+        int ExpectedResult = 3;
         assertEquals(result, ExpectedResult);
 
     }
@@ -134,7 +134,7 @@ public class ActivityServiceTestGet {
     @Test
     public void testGetAllActivitiesInWeek1() throws Exception {
         System.out.println("getAllActivitiesInWeek1");
-        Integer week_num = 1;
+        Integer week_num = 40;
         int expResult = 0;
         int result = as.getAllActivitiesInWeek(week_num).size();
         assertEquals(expResult, result);
@@ -189,7 +189,7 @@ public class ActivityServiceTestGet {
         String username = "mrossi";
         Integer day = 1;
         int expResult = 71; //An activity of 120 min is assigned to mrossi so --> ((420-120)/420)*100) = 71%
-        int result = as.getDailyAvailability(username, day);
+        int result = as.getDailyAvailability(username, day, 1);
         assertEquals(expResult, result);
     }
     
@@ -203,7 +203,7 @@ public class ActivityServiceTestGet {
         String username = "mrossi";
         Integer day = 0;
         int expResult = 71; //An activity of 120 min is assigned to mrossi so --> ((420-120)/420)*100) = 71%
-        int result = as.getDailyAvailability(username, day);
+        int result = as.getDailyAvailability(username, day, 1);
         assertEquals(expResult, result);
     }
     
@@ -217,7 +217,7 @@ public class ActivityServiceTestGet {
         String username = "mrossi";
         Integer day = 8;
         int expResult = 71; //An activity of 120 min is assigned to mrossi so --> ((420-120)/420)*100) = 71%
-        int result = as.getDailyAvailability(username, day);
+        int result = as.getDailyAvailability(username, day, 1);
         assertEquals(expResult, result);
     }
     
@@ -233,7 +233,51 @@ public class ActivityServiceTestGet {
         String username = "giulioc";
         Integer day = 1;
         int expResult = 0;
-        int result = as.getDailyAvailability(username, day);
+        int result = as.getDailyAvailability(username, day, 1);
+        assertEquals(expResult, result);
+    }
+    
+    //mrossi doesn't work in this week number
+    @Test
+    public void testGetDailyAvailability4() throws Exception {
+        System.out.println("getDailyAvailability");
+        String username = "mrossi";
+        Integer day = 1;
+        int expResult = 100; //An activity of 0 min is assigned to mrossi so --> ((420-0)/420)*100) = 100%
+        int result = as.getDailyAvailability(username, day, 52);
+        assertEquals(expResult, result);
+    }
+    
+    //week number = 0 is not in range [1, 52]
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testGetDailyAvailability5() throws Exception {
+        System.out.println("getDailyAvailability");
+        String username = "mrossi";
+        Integer day = 1;
+        int expResult = 100; //An activity of 0 min is assigned to mrossi so --> ((420-0)/420)*100) = 100%
+        int result = as.getDailyAvailability(username, day, 0);
+        assertEquals(expResult, result);
+    }
+    
+    //week number = 53 is not in range [1, 52]
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testGetDailyAvailability6() throws Exception {
+        System.out.println("getDailyAvailability");
+        String username = "mrossi";
+        Integer day = 1;
+        int expResult = 100; //An activity of 0 min is assigned to mrossi so --> ((420-0)/420)*100) = 100%
+        int result = as.getDailyAvailability(username, day, 53);
+        assertEquals(expResult, result);
+    }
+    
+    //week num must not be null
+    @Test(expected = InvalidParameterObjectException.class)
+    public void testGetDailyAvailability7() throws Exception {
+        System.out.println("getDailyAvailability");
+        String username = "mrossi";
+        Integer day = 1;
+        int expResult = 100; //An activity of 0 min is assigned to mrossi so --> ((420-0)/420)*100) = 100%
+        int result = as.getDailyAvailability(username, day, null);
         assertEquals(expResult, result);
     }
 

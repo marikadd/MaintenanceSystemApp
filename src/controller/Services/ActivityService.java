@@ -135,12 +135,14 @@ public class ActivityService {
      * @throws ActivityAlreadyAssignedException
      * @throws DayNotValidException
      */
-    public int assignActivity(String usernameMain, Integer activityId, List<Integer> listIdDay, double time)
+    public int assignActivity(String usernameMain, Integer activityId, List<Integer> listIdDay, double time, Integer weekNum)
             throws SQLException, UsernotFoundException, UnsuccessfulUpdateException, InvalidParameterObjectException, TimeExpiredException, ActivityAlreadyAssignedException, DayNotValidException {
 
         validateNumberDay(listIdDay);
+        validateWeekNumber(weekNum);
         checkActivityAlreadyAssigned(activityId, usernameMain);
-        checkTimeInDay(usernameMain, listIdDay.get(0), time);
+        checkTimeInDay(usernameMain, listIdDay.get(0), time, weekNum);
+        activityDao.checkCorrectWeekNumInActivity(activityId, weekNum);
 
         UtilityUser<Maintainer> utilityUser = new UtilityUser<>();
         Maintainer maintainer = new Maintainer();
@@ -152,7 +154,7 @@ public class ActivityService {
         int result = activityDao.assignActivityToMaintainer(maintainer, activitiesId);
 
         activityDao.assignmentActivity(activityId);
-        activityDao.setMaintainerActivityDays(usernameMain, activityId, listIdDay);
+        activityDao.setMaintainerActivityDays(usernameMain, activityId, listIdDay, weekNum);
 
         return result;
     }
@@ -264,12 +266,13 @@ public class ActivityService {
      * @throws UsernotFoundException
      * @throws DayNotValidException
      */
-    public int getDailyAvailability(String username, int day) throws SQLException, UsernotFoundException, DayNotValidException {
+    public int getDailyAvailability(String username, int day, Integer weekNum) throws SQLException, UsernotFoundException, DayNotValidException, InvalidParameterObjectException {
 
         validateNumberDay(new ArrayList<Integer>(Arrays.asList(day)));
+        validateWeekNumber(weekNum);
 
         validateMaintainer(username);
-        double sumNumDay = activityDao.getSumActivityDay(username, day);
+        double sumNumDay = activityDao.getSumActivityDay(username, day, weekNum);
 
         if (sumNumDay == 0.0) {
             return 100;
@@ -333,9 +336,9 @@ public class ActivityService {
      * @throws TimeExpiredException if the activity time is greater than the
      * the maintainer's availability in a specific day.
      */
-    private void checkTimeInDay(String username, int day, double time) throws SQLException, TimeExpiredException {
+    private void checkTimeInDay(String username, int day, double time, Integer weekNum) throws SQLException, TimeExpiredException {
 
-        double sumNumDay = activityDao.getSumActivityDay(username, day);
+        double sumNumDay = activityDao.getSumActivityDay(username, day, weekNum);
 
         if ((sumNumDay + time) > this.maxInDay) {    
             throw new TimeExpiredException(String.format("Cannot assign to %s %.0f minutes in day %d.\nShow others maintainer's availability in the selected day.", username, time, day));
@@ -390,6 +393,19 @@ public class ActivityService {
                 throw new DayNotValidException(String.format("Day %d is invalid", day));
             }
         }
+    }
+    
+    private void validateWeekNumber(Integer weekNumber) throws InvalidParameterObjectException {
+
+        
+        if(weekNumber == null) {
+            throw new InvalidParameterObjectException("Week Number must not be null");
+        }
+        
+        if(weekNumber < 1 || weekNumber > 52) {
+            throw new InvalidParameterObjectException("Week Number must be in range [1, 52]");
+        }
+        
     }
 
 }
