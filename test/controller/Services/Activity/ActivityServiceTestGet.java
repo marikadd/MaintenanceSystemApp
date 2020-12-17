@@ -192,7 +192,7 @@ public class ActivityServiceTestGet {
     
     /**
      * Test of getDailyAvailability method, of class ActivityService, getting
-     * avaiability from a valid Maintainer in an unvalid day (day = 0).
+     * avaiability from a valid Maintainer in an invalid day (day = 0).
      */
     @Test(expected = DayNotValidException.class)
     public void testGetDailyAvailability1() throws Exception {
@@ -206,7 +206,7 @@ public class ActivityServiceTestGet {
     
     /**
      * Test of getDailyAvailability method, of class ActivityService, getting
-     * avaiability from a valid Maintainer in an unvalid day (day = 8).
+     * avaiability from a valid Maintainer in an invalid day (day = 8).
      */
     @Test(expected = DayNotValidException.class)
     public void testGetDailyAvailability2() throws Exception {
@@ -249,7 +249,7 @@ public class ActivityServiceTestGet {
     
      /**
      * Test of getDailyAvailability method, of class ActivityService, getting
-     * avaiability from a valid Maintainer in an unvalid week num (week num = 0).
+     * avaiability from a valid Maintainer in an invalid week num (week num = 0).
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testGetDailyAvailability5() throws Exception {
@@ -263,7 +263,7 @@ public class ActivityServiceTestGet {
     
      /**
      * Test of getDailyAvailability method, of class ActivityService, getting
-     * avaiability from a valid Maintainer in an unvalid week num (week num = 53).
+     * avaiability from a valid Maintainer in an invalid week num (week num = 53).
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testGetDailyAvailability6() throws Exception {
@@ -278,7 +278,7 @@ public class ActivityServiceTestGet {
     
      /**
      * Test of getDailyAvailability method, of class ActivityService, getting
-     * avaiability from a valid Maintainer in an unvalid week num (empty).
+     * avaiability from a valid Maintainer in an invalid week num (empty).
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testGetDailyAvailability7() throws Exception {

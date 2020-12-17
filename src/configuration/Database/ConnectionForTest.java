@@ -15,7 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * The purpose of this class is to create a separate connection to the database
+ * which is used only for tests.
  * @author Group9
  */
 public class ConnectionForTest {

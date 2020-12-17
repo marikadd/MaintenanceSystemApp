@@ -229,7 +229,7 @@ public class ActivityServiceTestAssignActivity {
     
     /**
      * Test of assignActivity method, of class ActivityService, assigning a
-     * MaintenanceActivity to a valid Maintainer, in a valid day, but in an unvalid week num (week num = 53).
+     * MaintenanceActivity to a valid Maintainer, in a valid day, but in an invalid week num (week num = 53).
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testAssignActivity11() throws Exception {
@@ -245,7 +245,7 @@ public class ActivityServiceTestAssignActivity {
     
      /**
      * Test of assignActivity method, of class ActivityService, assigning a
-     * MaintenanceActivity to a valid Maintainer, in a valid day, but in an unvalid week num (week num = 0).
+     * MaintenanceActivity to a valid Maintainer, in a valid day, but in an invalid week num (week num = 0).
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testAssignActivity12() throws Exception {

@@ -21,14 +21,12 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
-import model.Activity.ActivityLinked;
 import model.Users.Maintainer;
 import model.Users.Role;
 import model.Activity.MaintenanceActivity;
 import model.Competences.Competence;
 import model.Department.Department;
 import model.Users.UserModel;
-import model.Activity.ActivityInterface;
 import model.Activity.ActivityNumRecord;
 import model.Activity.UsernameResultActivity;
 import model.Material.Material;
@@ -125,6 +123,7 @@ public class ActivityService {
      * @param activityId
      * @param listIdDay
      * @param time
+     * @param weekNum
      * @return either the row count for SQL Data Manipulation Language (DML)
      * statements or 0 for SQL statements that return nothing.
      * @throws SQLException
@@ -261,10 +260,12 @@ public class ActivityService {
      * This method calculates the availability of a specific maintainer on a specific day.
      * @param username
      * @param day
+     * @param weekNum
      * @return the percentage of availability of a specific maintainer on a specific day.
      * @throws SQLException
      * @throws UsernotFoundException
      * @throws DayNotValidException
+     * @throws InvalidParameterObjectException
      */
     public int getDailyAvailability(String username, int day, Integer weekNum) throws SQLException, UsernotFoundException, DayNotValidException, InvalidParameterObjectException {
 
@@ -394,7 +395,13 @@ public class ActivityService {
             }
         }
     }
-    
+    /**
+     * Checks if the week number passed as an input is null or is not in the
+     * range [1,52]
+     * @param weekNumber an integer representing the number of the assigned week
+     * @throws InvalidParameterObjectException if the week number passed as an input
+     * is null or not in the range [1,52]
+     */
     private void validateWeekNumber(Integer weekNumber) throws InvalidParameterObjectException {
 
         

@@ -71,7 +71,7 @@ public class ActivityDao {
      * @param type a string representing the type of the activity
      * @param description a string describing the activity
      * @param time_activity an integer representing the duration of the activity
-     * @param week_num an integer representing the number of the current week
+     * @param week_num an integer representing the number of the assigned week
      * @param dep the department associated with the activity
      * @param actNumRecord is an object that represents the row's number inside the table 
      * @return the ID of the activity that has been inserted
@@ -135,7 +135,8 @@ public class ActivityDao {
      * statements or 0 for SQL statements that return nothing
      * @throws SQLException if a database access error occurs
      */
-    public int insertCompentecesInActivity(int activityId, List<Competence> competences) throws SQLException {
+    public int insertCompentecesInActivity(int activityId, List<Competence> competences) 
+            throws SQLException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -196,7 +197,7 @@ public class ActivityDao {
      * @param type a string representing the type of the activity
      * @param description a string representing a description of the activity
      * @param time_activity an integer representing the duration of the activity
-     * @param week_num an integer representing the number of the current week
+     * @param week_num an integer representing the number of the assigned week
      * @param dep the department associated with the activity
      * @return either the row count for SQL Data Manipulation Language (DML)
      * statements or 0 for SQL statements that return nothing
@@ -215,8 +216,8 @@ public class ActivityDao {
         validateUpdate(id, type, description, time_activity, week_num, dep);
 
         String query = "UPDATE MaintenanceActivity SET Type_Activity = coalesce(?,Type_Activity), Site = coalesce(?, Site),"
-                + " Description = coalesce(?,Description), Time_Activity = coalesce(?,Time_Activity), Week_Number = coalesce(?,Week_number)"
-                + " WHERE ID = ?";
+                         + " Description = coalesce(?,Description), Time_Activity = coalesce(?,Time_Activity), Week_Number = coalesce(?,Week_number)"
+                         + " WHERE ID = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type);
@@ -353,7 +354,8 @@ public class ActivityDao {
      * @throws InvalidParameterObjectException if the activity attributes are
      * null or don't respect the constraints defined inside the database
      */
-    public MaintenanceActivity findActivityByID(Integer ID) throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
+    public MaintenanceActivity findActivityByID(Integer ID) 
+            throws SQLException, ActivityNotFoundException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -384,7 +386,7 @@ public class ActivityDao {
      * Executes a query searching for the activities of a specific week number,
      * that have not been assigned yet
      *
-     * @param week_num an integer representing the number of the current week
+     * @param week_num an integer representing the number of the assigned week
      * @return an ArrayList of MaintenanceActivity representing the activities
      * of the specified week.
      * @throws SQLException if a database access error occurs
@@ -432,7 +434,8 @@ public class ActivityDao {
      * @throws InvalidParameterObjectException if the competence associated to
      * the activity is not valid
      */
-    public List<MaintenanceActivity> findAllActivities() throws SQLException, InvalidParameterObjectException {
+    public List<MaintenanceActivity> findAllActivities() 
+            throws SQLException, InvalidParameterObjectException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -691,11 +694,13 @@ public class ActivityDao {
      * @param username a string representing the maintainer's username
      * @param maId an integer representing the maintainer's id
      * @param days a list of integer representing the days of the week
+     * @param weekNum  an integer representing the number of the assigned week
      * @return either the row count for SQL Data Manipulation Language (DML)
      * statements or 0 for SQL statements that return nothing
      * @throws SQLException if a database access error occurs
      */
-    public int setMaintainerActivityDays(String username, Integer maId, List<Integer> days, Integer weekNum) throws SQLException {
+    public int setMaintainerActivityDays(String username, Integer maId, List<Integer> days, Integer weekNum) 
+            throws SQLException {
 
         Connection con = dbProduct.connectToDB();
         cft.setConn(con);
@@ -725,6 +730,7 @@ public class ActivityDao {
      * @param username a string representing the maintainer's username
      * @param day an integer representing a day of the week (e.g. 1 for Monday,
      * 2 for Tuesday ecc).
+     * @param weekNum  an integer representing the number of the assigned week
      * @return a double representing the sum of the minutes required for a
      * specific activity
      * @throws SQLException if a database access error occurs
@@ -735,8 +741,8 @@ public class ActivityDao {
         cft.setConn(con);
 
         String query = "SELECT sum(Time_Activity) as result FROM MaintenanceActivity WHERE "
-                + "id in (SELECT ma_id FROM MaintainerActivityDay WHERE username = ? "
-                + " AND week_day = ? AND week_num = ?)";
+                       + "id in (SELECT ma_id FROM MaintainerActivityDay WHERE username = ? "
+                       + " AND week_day = ? AND week_num = ?)";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, username);
@@ -763,7 +769,7 @@ public class ActivityDao {
      * @param description a string representing the description of the activity
      * @param time an integer representing the time requested for the activity
      * @param dep the department associated to an activity
-     * @param weekNum an integer representing the number of the week
+     * @param weekNum  an integer representing the number of the assigned week
      * @throws InvalidParameterObjectException if any of the attributes don't
      * respect the constraints
      */
@@ -825,7 +831,7 @@ public class ActivityDao {
      * @param type a string representing the type of the activity
      * @param description a string representing the description of the activity
      * @param time an integer representing the time requested for the activity
-     * @param week_num an integer representing the number of the week
+     * @param week_num  an integer representing the number of the assigned week
      * @param dep the department associated to an activity
      * @throws InvalidParameterObjectException if any of the attributes don't
      * respect the constraints
@@ -869,8 +875,16 @@ public class ActivityDao {
         }
 
     }
-    
-    public void checkCorrectWeekNumInActivity(Integer activityId, Integer weekNum) throws SQLException, InvalidParameterObjectException {
+    /**
+     * Checks if the assigned week number is the same of the activity
+     * @param activityId an int representing the activity id
+     * @param weekNum an integer representing the number of the assigned week
+     * @throws SQLException if a database access error occurs
+     * @throws InvalidParameterObjectException if the assigned week number doesn't match
+     * the week number of the activity
+     */
+    public void checkCorrectWeekNumInActivity(Integer activityId, Integer weekNum) 
+            throws SQLException, InvalidParameterObjectException {
         
         Connection conn = dbProduct.connectToDB();
         cft.setConn(conn);
@@ -889,7 +903,7 @@ public class ActivityDao {
         
         if(!result) {
             throw new InvalidParameterObjectException("The week number inserted "
-                    + "doesn't match the week number of activity");
+                                                    + "doesn't match the week number of activity");
         }
         
     }
