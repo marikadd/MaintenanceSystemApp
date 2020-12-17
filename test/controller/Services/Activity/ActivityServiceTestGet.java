@@ -17,14 +17,11 @@ import configuration.Exceptions.UsernotFoundException;
 import controller.Services.ActivityService;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 import model.Activity.MaintenanceActivity;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import model.Activity.ActivityInterface;
 import org.junit.After;
-import java.sql.Connection;
 
 /**
  *
@@ -142,7 +139,7 @@ public class ActivityServiceTestGet {
 
     /**
      * Test of getAllActivitiesInWeek method, of class ActivityService, getting
-     * all MaintenanceActivity in an invalid week (>52).
+     * all MaintenanceActivity in an invalid week num (week num = 53).
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testGetAllActivitiesInWeek2() throws Exception {
@@ -155,7 +152,7 @@ public class ActivityServiceTestGet {
     
     /**
      * Test of getAllActivitiesInWeek method, of class ActivityService, getting
-     * all MaintenanceActivity in an invalid week (<1).
+     * all MaintenanceActivity in an invalid week num (week num = 0).
      */
     @Test(expected = InvalidParameterObjectException.class)
     public void testGetAllActivitiesInWeek3() throws Exception {
@@ -168,7 +165,7 @@ public class ActivityServiceTestGet {
    
     /**
      * Test of getAllActivitiesInWeek method, of class ActivityService, getting
-     * all MaintenanceActivity in an invalid week (empty).
+     * all MaintenanceActivity in an invalid week num (empty).
      */
     @Test(expected = ActivityNotFoundException.class)
     public void testGetAllActivitiesInWeek4() throws Exception {
@@ -195,34 +192,32 @@ public class ActivityServiceTestGet {
     
     /**
      * Test of getDailyAvailability method, of class ActivityService, getting
-     * avaiability from a valid Maintainer in a unvalid day.
+     * avaiability from a valid Maintainer in an unvalid day (day = 0).
      */
     @Test(expected = DayNotValidException.class)
     public void testGetDailyAvailability1() throws Exception {
         System.out.println("getDailyAvailability");
         String username = "mrossi";
         Integer day = 0;
-        int expResult = 71; //An activity of 120 min is assigned to mrossi so --> ((420-120)/420)*100) = 71%
+        int expResult = 71; 
         int result = as.getDailyAvailability(username, day, 1);
         assertEquals(expResult, result);
     }
     
     /**
      * Test of getDailyAvailability method, of class ActivityService, getting
-     * avaiability from a valid Maintainer in an unvalid day.
+     * avaiability from a valid Maintainer in an unvalid day (day = 8).
      */
     @Test(expected = DayNotValidException.class)
     public void testGetDailyAvailability2() throws Exception {
         System.out.println("getDailyAvailability");
         String username = "mrossi";
         Integer day = 8;
-        int expResult = 71; //An activity of 120 min is assigned to mrossi so --> ((420-120)/420)*100) = 71%
+        int expResult = 71; 
         int result = as.getDailyAvailability(username, day, 1);
         assertEquals(expResult, result);
     }
     
-
- 
     /**
      * Test of getDailyAvailability method, of class ActivityService, getting
      * avaiability from a invalid Maintainer in a valid day. 
@@ -236,8 +231,12 @@ public class ActivityServiceTestGet {
         int result = as.getDailyAvailability(username, day, 1);
         assertEquals(expResult, result);
     }
-    
-    //mrossi doesn't work in this week number
+     
+    /**
+     * Test of getDailyAvailability method, of class ActivityService, getting
+     * avaiability from a valid Maintainer in a valid day of a week when 
+     * he doesn't work.
+     */
     @Test
     public void testGetDailyAvailability4() throws Exception {
         System.out.println("getDailyAvailability");
@@ -248,35 +247,45 @@ public class ActivityServiceTestGet {
         assertEquals(expResult, result);
     }
     
-    //week number = 0 is not in range [1, 52]
+     /**
+     * Test of getDailyAvailability method, of class ActivityService, getting
+     * avaiability from a valid Maintainer in an unvalid week num (week num = 0).
+     */
     @Test(expected = InvalidParameterObjectException.class)
     public void testGetDailyAvailability5() throws Exception {
         System.out.println("getDailyAvailability");
         String username = "mrossi";
         Integer day = 1;
-        int expResult = 100; //An activity of 0 min is assigned to mrossi so --> ((420-0)/420)*100) = 100%
+        int expResult = 100; 
         int result = as.getDailyAvailability(username, day, 0);
         assertEquals(expResult, result);
     }
     
-    //week number = 53 is not in range [1, 52]
+     /**
+     * Test of getDailyAvailability method, of class ActivityService, getting
+     * avaiability from a valid Maintainer in an unvalid week num (week num = 53).
+     */
     @Test(expected = InvalidParameterObjectException.class)
     public void testGetDailyAvailability6() throws Exception {
         System.out.println("getDailyAvailability");
         String username = "mrossi";
         Integer day = 1;
-        int expResult = 100; //An activity of 0 min is assigned to mrossi so --> ((420-0)/420)*100) = 100%
+        int expResult = 100;
         int result = as.getDailyAvailability(username, day, 53);
         assertEquals(expResult, result);
     }
     
-    //week num must not be null
+    
+     /**
+     * Test of getDailyAvailability method, of class ActivityService, getting
+     * avaiability from a valid Maintainer in an unvalid week num (empty).
+     */
     @Test(expected = InvalidParameterObjectException.class)
     public void testGetDailyAvailability7() throws Exception {
         System.out.println("getDailyAvailability");
         String username = "mrossi";
         Integer day = 1;
-        int expResult = 100; //An activity of 0 min is assigned to mrossi so --> ((420-0)/420)*100) = 100%
+        int expResult = 100; 
         int result = as.getDailyAvailability(username, day, null);
         assertEquals(expResult, result);
     }
@@ -294,3 +303,4 @@ public class ActivityServiceTestGet {
     }
 
 }
+ 

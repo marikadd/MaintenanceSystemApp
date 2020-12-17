@@ -11,7 +11,6 @@ import configuration.Exceptions.InvalidParameterObjectException;
 import configuration.Exceptions.TimeExpiredException;
 import configuration.Exceptions.UnsuccessfulUpdateException;
 import configuration.Exceptions.UsernotFoundException;
-import java.sql.SQLException;
 import controller.Services.ActivityService;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +49,7 @@ public class ActivityServiceTestAssignActivity {
 
     /**
      * Test of assignActivity method, of class ActivityService, assigning a
-     * valid MaintenanceActivity to a valid Maintainer.
+     * valid MaintenanceActivity to a valid Maintainer, in a valid day and week.
      */
     @Test
     public void testAssignActivity() throws Exception {
@@ -97,8 +96,8 @@ public class ActivityServiceTestAssignActivity {
     }
 
     /**
-     * Test of assignActivity method, of class ActivityService, assigning a
-     * MaintenanceActivity to a valid Maintainer who already has it.
+     * Test of assignActivity method, of class ActivityService, assigning, in a valid day and week, 
+     * a MaintenanceActivity to a valid Maintainer who already has it.
      */
     @Test(expected = ActivityAlreadyAssignedException.class)
     public void testAssignActivity3() throws Exception {
@@ -113,9 +112,9 @@ public class ActivityServiceTestAssignActivity {
     }
 
     /**
-     * Test of assignActivity method, of class ActivityService, assigning a
-     * MaintenanceActivity to a valid Maintainer, but this activity is already
-     * assigned to another Maintainer.
+     * Test of assignActivity method, of class ActivityService, assigning, in a valid day and week,
+     * a MaintenanceActivity to a valid Maintainer, but this activity 
+     * is already assigned to another Maintainer.
      */
     @Test(expected = ActivityAlreadyAssignedException.class)
     public void testAssignActivity4() throws Exception {
@@ -130,9 +129,9 @@ public class ActivityServiceTestAssignActivity {
     }
 
     /**
-     * Test of assignActivity method, of class ActivityService, assigning a
-     * MaintenanceActivity to a valid Maintainer, but the time of activity is
-     * greater than his time availability.
+     * Test of assignActivity method, of class ActivityService, assigning, in a valid day and week
+     * a MaintenanceActivity to a valid Maintainer, but the time of activity is
+     * greater than his availability.
      */
     @Test(expected = TimeExpiredException.class)
     public void testAssignActivity5() throws Exception {
@@ -149,7 +148,7 @@ public class ActivityServiceTestAssignActivity {
 
     /**
      * Test of assignActivity method, of class ActivityService, assigning a
-     * MaintenanceActivity to a valid Maintainer, but the day doesn't exist.
+     * MaintenanceActivity to a valid Maintainer, in a valid week, but the day is invalid (day = 8).
      */
     @Test(expected = DayNotValidException.class)
     public void testAssignActivity6() throws Exception {
@@ -165,7 +164,7 @@ public class ActivityServiceTestAssignActivity {
 
     /**
      * Test of assignActivity method, of class ActivityService, assigning a
-     * MaintenanceActivity to a valid Maintainer, but the day doesn't exist.
+     * MaintenanceActivity to a valid Maintainer, in a valid week, but the day is invalid (day = 0).
      */
     @Test(expected = DayNotValidException.class)
     public void testAssignActivity7() throws Exception {
@@ -178,10 +177,10 @@ public class ActivityServiceTestAssignActivity {
         int result = as.assignActivity(usernameMain, activityId, listDay, 50.0, 1);
         assertEquals(result, ExpectedResult);
     }
-
+     
     /**
      * Test of assignActivity method, of class ActivityService, assigning a
-     * MaintenanceActivity to a valid Maintainer (borderline case day = 1).
+     * MaintenanceActivity to a valid Maintainer, in a valid week and day (borderline case: day = 1).
      */
     @Test
     public void testAssignActivity8() throws Exception {
@@ -197,7 +196,7 @@ public class ActivityServiceTestAssignActivity {
 
     /**
      * Test of assignActivity method, of class ActivityService, assigning a
-     * MaintenanceActivity to a valid Maintainer (borderline case day = 7).
+     * MaintenanceActivity to a valid Maintainer, in a valid week and day (borderline case day = 7).
      */
     @Test
     public void testAssignActivity9() throws Exception {
@@ -211,7 +210,11 @@ public class ActivityServiceTestAssignActivity {
         assertEquals(result, ExpectedResult);
     }
     
-    // Test week num must be not 52
+    /**
+     * Test of assignActivity method, of class ActivityService, assigning a
+     * MaintenanceActivity to a valid Maintainer, in a valid day, but the week num inserted 
+     * doesn't match the week num of activity.(Moreover it's a borderline case: week num = 52).
+     */
     @Test(expected = InvalidParameterObjectException.class)
     public void testAssignActivity10() throws Exception {
         System.out.println("assignActivity");
@@ -224,7 +227,10 @@ public class ActivityServiceTestAssignActivity {
         assertNotEquals(result, NotExpectedResult);
     }
     
-    // Test week num must be not 53
+    /**
+     * Test of assignActivity method, of class ActivityService, assigning a
+     * MaintenanceActivity to a valid Maintainer, in a valid day, but in an unvalid week num (week num = 53).
+     */
     @Test(expected = InvalidParameterObjectException.class)
     public void testAssignActivity11() throws Exception {
         System.out.println("assignActivity");
@@ -237,7 +243,10 @@ public class ActivityServiceTestAssignActivity {
         assertNotEquals(result, NotExpectedResult);
     }
     
-    // Test week num must be not 0
+     /**
+     * Test of assignActivity method, of class ActivityService, assigning a
+     * MaintenanceActivity to a valid Maintainer, in a valid day, but in an unvalid week num (week num = 0).
+     */
     @Test(expected = InvalidParameterObjectException.class)
     public void testAssignActivity12() throws Exception {
         System.out.println("assignActivity");
@@ -250,7 +259,10 @@ public class ActivityServiceTestAssignActivity {
         assertNotEquals(result, NotExpectedResult);
     }
     
-    // Test week num must be not null
+     /**
+     * Test of assignActivity method, of class ActivityService, assigning a
+     * MaintenanceActivity to a valid Maintainer, in a valid day, but week num is invalid (empty).
+     */
     @Test(expected = InvalidParameterObjectException.class)
     public void testAssignActivity13() throws Exception {
         System.out.println("assignActivity");
@@ -292,7 +304,7 @@ public class ActivityServiceTestAssignActivity {
     /**
      * Test of unassignActivity method, of class ActivityService, unassigning a
      * valid MaintenanceActivity that is not assigned.
-     */
+     */ 
     @Test(expected = UnsuccessfulUpdateException.class)
     public void testUnassignActivity2() throws Exception {
         System.out.println("unassignActivity");
@@ -303,3 +315,4 @@ public class ActivityServiceTestAssignActivity {
     }
    
 }
+ 
